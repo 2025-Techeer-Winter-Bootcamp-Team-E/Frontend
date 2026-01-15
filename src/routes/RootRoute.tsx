@@ -1,4 +1,5 @@
 import GlobalLayout from '@/components/layout/GlobalLayout';
+import MyReviewList from '@/components/myPage/reviews/MyReviewList';
 import WishlistList from '@/components/myPage/WishlistList';
 import LoginPage from '@/pages/LoginPage';
 import MainPage from '@/pages/MainPage';
@@ -16,6 +17,7 @@ const RootRoute = () => {
         <Route path={PATH.SIGNUP} element={<SignupPage />} />
         <Route path={PATH.MY_PAGE} element={<MyPage />}>
           <Route path={PATH.WISHLIST} element={<WishlistList />} />
+          <Route path={PATH.MYREVIEW} element={<MyReviewList />} />
         </Route>
       </Route>
     </Routes>

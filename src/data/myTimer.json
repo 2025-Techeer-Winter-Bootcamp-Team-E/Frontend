@@ -1,0 +1,142 @@
+[
+  {
+    "id": 1,
+    "badge": "타이머 특가",
+    "badgeColor": "teal",
+    "title": "트윈테일즈 물티슈 유용한 노트북 M3 Pro",
+    "price": 2150000,
+    "originalPrice": 2500000,
+    "discount": 12,
+    "status": "available",
+    "statusText": "🕐 마감임 임박 중",
+    "progressPercent": 75
+  },
+  {
+    "id": 2,
+    "badge": "특가",
+    "badgeColor": "orange",
+    "title": "무선 노이즈 캔슬링 블루투스 헤드폰",
+    "price": 450000,
+    "originalPrice": 550000,
+    "discount": 18,
+    "status": "soldout",
+    "statusText": "⏰ 판매 마감 예정",
+    "progressPercent": 100
+  },
+  {
+    "id": 3,
+    "badge": "타이머 특가",
+    "badgeColor": "teal",
+    "title": "게이밍 14인치 고사양 고성능 워크스테이션 데스크탑",
+    "price": 592000,
+    "originalPrice": 790000,
+    "discount": 25,
+    "status": "available",
+    "statusText": "🕐 타이머 판매 중",
+    "progressPercent": 45
+  },
+  {
+    "id": 4,
+    "badge": "특가",
+    "badgeColor": "orange",
+    "title": "4K UHD HDR 스마트 게이밍 모니터 32인치",
+    "price": 890000,
+    "originalPrice": 1200000,
+    "discount": 26,
+    "status": "expired",
+    "statusText": "⏰ 타이머 종료, 구매 불가능",
+    "progressPercent": 0
+  },
+  {
+    "id": 5,
+    "badge": "Best Deal",
+    "badgeColor": "teal",
+    "title": "RGB 기계식 게이밍 키보드 (체리축)",
+    "price": 128000,
+    "originalPrice": 180000,
+    "discount": 29,
+    "status": "available",
+    "statusText": "⏰ 한정 수량 판매",
+    "progressPercent": 90
+  },
+  {
+    "id": 6,
+    "badge": "특가",
+    "badgeColor": "orange",
+    "title": "RTX 4070 Ti Super 16GB 그래픽카드",
+    "price": 1340000,
+    "originalPrice": 1650000,
+    "discount": 19,
+    "status": "expired",
+    "statusText": "⏰ 판매 기간 종료",
+    "progressPercent": 0
+  },
+  {
+    "id": 7,
+    "title": "무선 충전 가능 블루투스 마우스",
+    "price": 65000,
+    "originalPrice": 89000,
+    "discount": 27,
+    "status": "available",
+    "statusText": "🕐 타이머 판매 중",
+    "progressPercent": 35
+  },
+  {
+    "id": 8,
+    "badge": "타이머 특가",
+    "badgeColor": "teal",
+    "title": "프리미엄 게이밍 의자 (인체공학 설계)",
+    "price": 385000,
+    "originalPrice": 550000,
+    "discount": 30,
+    "status": "available",
+    "statusText": "🕐 마감임 임박 중",
+    "progressPercent": 80
+  },
+  {
+    "id": 9,
+    "badge": "Best Deal",
+    "badgeColor": "teal",
+    "title": "USB-C 멀티포트 허브 11 in 1 (4K 지원)",
+    "price": 58000,
+    "originalPrice": 85000,
+    "discount": 32,
+    "status": "available",
+    "statusText": "🕐 타이머 판매 중",
+    "progressPercent": 60
+  },
+  {
+    "id": 10,
+    "title": "2TB NVMe M.2 고속 SSD (Gen4)",
+    "price": 215000,
+    "originalPrice": 290000,
+    "discount": 26,
+    "status": "soldout",
+    "statusText": "⏰ 조기 품절",
+    "progressPercent": 100
+  },
+  {
+    "id": 11,
+    "badge": "특가",
+    "badgeColor": "orange",
+    "title": "34인치 울트라와이드 커브드 모니터",
+    "price": 720000,
+    "originalPrice": 950000,
+    "discount": 24,
+    "status": "available",
+    "statusText": "🕐 타이머 판매 중",
+    "progressPercent": 50
+  },
+  {
+    "id": 12,
+    "badge": "타이머 특가",
+    "badgeColor": "teal",
+    "title": "전문가용 스튜디오 모니터링 헤드폰",
+    "price": 185000,
+    "originalPrice": 250000,
+    "discount": 26,
+    "status": "available",
+    "statusText": "🕐 타이머 판매 중",
+    "progressPercent": 40
+  }
+]

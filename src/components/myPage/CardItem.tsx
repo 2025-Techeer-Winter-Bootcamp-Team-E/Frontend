@@ -11,9 +11,9 @@ interface ItemProps {
   onRemove: (id: string) => void;
 }
 
-const WishlistItem = ({ item, onRemove }: ItemProps) => {
+const CardItem = ({ item, onRemove }: ItemProps) => {
   return (
-    <div className="group flex items-center gap-4 rounded-xl border border-gray-100 p-4 transition-all hover:border-cyan-100 hover:shadow-md">
+    <div className="group flex items-center gap-4 rounded-xl border border-gray-100 border-gray-200 p-4 transition-all hover:border-cyan-100 hover:shadow-md">
       {/* 제품 이미지 아이콘 (Lucide 또는 이미지 태그) */}
       <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-lg bg-gray-50 text-gray-400 group-hover:bg-cyan-50 group-hover:text-cyan-500">
         {/* 실제 이미지 경로가 있다면 <img src={item.img} /> 사용 */}
@@ -40,4 +40,4 @@ const WishlistItem = ({ item, onRemove }: ItemProps) => {
   );
 };
 
-export default WishlistItem;
+export default CardItem;

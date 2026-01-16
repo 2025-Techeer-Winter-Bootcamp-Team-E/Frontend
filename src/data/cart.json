@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "brand": "INTEL",
+    "name": "Intel Core i9-13900K Raptor Lake",
+    "image": "https://www.figma.com/api/mcp/asset/f68c80b5-a67c-4070-8f5c-6e4956f8ce8a",
+    "reward": "무료배송 (토큰 결제 전용 배송)",
+    "price": 748000,
+    "originalPrice": null,
+    "quantity": 1
+  },
+  {
+    "id": 2,
+    "brand": "ASUS",
+    "name": "ASUS TUF Gaming GeForce RTX 4070 Ti",
+    "image": "https://www.figma.com/api/mcp/asset/8cc21093-3ded-41a7-bdf5-7b615f1c9767",
+    "reward": "3,000 TK (토큰 결제 전용 배송)",
+    "price": 1187500,
+    "originalPrice": null,
+    "quantity": 1
+  },
+  {
+    "id": 3,
+    "brand": "SAMSUNG",
+    "name": "Samsung DDR5-5600 (16GB) PC5-44800",
+    "image": "https://www.figma.com/api/mcp/asset/205dbcae-e788-4145-910c-a2e775ee2946",
+    "reward": "무료배송 (토큰 결제 전용 배송)",
+    "price": 117000,
+    "originalPrice": 130000,
+    "quantity": 2
+  },
+  {
+    "id": 4,
+    "brand": "AMD",
+    "name": "AMD Ryzen 9 7950X3D",
+    "image": "https://www.figma.com/api/mcp/asset/f68c80b5-a67c-4070-8f5c-6e4956f8ce8a",
+    "reward": "무료배송 (토큰 결제 전용 배송)",
+    "price": 895000,
+    "originalPrice": 950000,
+    "quantity": 1
+  },
+  {
+    "id": 5,
+    "brand": "NVIDIA",
+    "name": "NVIDIA GeForce RTX 4090 24GB",
+    "image": "https://www.figma.com/api/mcp/asset/8cc21093-3ded-41a7-bdf5-7b615f1c9767",
+    "reward": "5,000 TK (토큰 결제 전용 배송)",
+    "price": 2450000,
+    "originalPrice": null,
+    "quantity": 1
+  },
+  {
+    "id": 6,
+    "brand": "CORSAIR",
+    "name": "Corsair Vengeance DDR5-6000 (32GB) 16GBx2",
+    "image": "https://www.figma.com/api/mcp/asset/205dbcae-e788-4145-910c-a2e775ee2946",
+    "reward": "무료배송 (토큰 결제 전용 배송)",
+    "price": 189000,
+    "originalPrice": 210000,
+    "quantity": 2
+  },
+  {
+    "id": 7,
+    "brand": "SAMSUNG",
+    "name": "Samsung 990 PRO NVMe SSD 2TB",
+    "image": "https://www.figma.com/api/mcp/asset/f68c80b5-a67c-4070-8f5c-6e4956f8ce8a",
+    "reward": "무료배송 (토큰 결제 전용 배송)",
+    "price": 289000,
+    "originalPrice": 320000,
+    "quantity": 1
+  },
+  {
+    "id": 8,
+    "brand": "ASUS",
+    "name": "ASUS ROG STRIX Z790-E GAMING WIFI",
+    "image": "https://www.figma.com/api/mcp/asset/8cc21093-3ded-41a7-bdf5-7b615f1c9767",
+    "reward": "무료배송 (토큰 결제 전용 배송)",
+    "price": 589000,
+    "originalPrice": null,
+    "quantity": 1
+  },
+  {
+    "id": 9,
+    "brand": "COOLER MASTER",
+    "name": "Cooler Master MasterLiquid ML360 ARGB",
+    "image": "https://www.figma.com/api/mcp/asset/205dbcae-e788-4145-910c-a2e775ee2946",
+    "reward": "2,000 TK (토큰 결제 전용 배송)",
+    "price": 159000,
+    "originalPrice": 180000,
+    "quantity": 1
+  },
+  {
+    "id": 10,
+    "brand": "SEASONIC",
+    "name": "Seasonic PRIME TX-1000 80PLUS Titanium",
+    "image": "https://www.figma.com/api/mcp/asset/f68c80b5-a67c-4070-8f5c-6e4956f8ce8a",
+    "reward": "무료배송 (토큰 결제 전용 배송)",
+    "price": 389000,
+    "originalPrice": 420000,
+    "quantity": 1
+  },
+  {
+    "id": 11,
+    "brand": "LG",
+    "name": "LG 울트라기어 27GP950 4K 게이밍 모니터",
+    "image": "https://www.figma.com/api/mcp/asset/8cc21093-3ded-41a7-bdf5-7b615f1c9767",
+    "reward": "무료배송 (토큰 결제 전용 배송)",
+    "price": 789000,
+    "originalPrice": 850000,
+    "quantity": 1
+  },
+  {
+    "id": 12,
+    "brand": "LOGITECH",
+    "name": "Logitech G PRO X SUPERLIGHT 2",
+    "image": "https://www.figma.com/api/mcp/asset/205dbcae-e788-4145-910c-a2e775ee2946",
+    "reward": "무료배송 (토큰 결제 전용 배송)",
+    "price": 189000,
+    "originalPrice": null,
+    "quantity": 1
+  }
+]

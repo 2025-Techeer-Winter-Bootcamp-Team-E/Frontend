@@ -4,6 +4,8 @@ import LoginPage from '@/pages/LoginPage';
 import MainPage from '@/pages/MainPage';
 import MyPage from '@/pages/MyPage';
 import SignupPage from '@/pages/SignupPage';
+import ShoppingCartPage from '@/pages/ShoppingCartPage';
+import CheckoutPage from '@/pages/CheckoutPage';
 import { PATH } from '@/routes/path';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import CardItemList from '@/components/myPage/CardItemList';
@@ -19,6 +21,8 @@ const RootRoute = () => {
         <Route path={PATH.ROOT} element={<MainPage />} />
         <Route path={PATH.LOGIN} element={<LoginPage />} />
         <Route path={PATH.SIGNUP} element={<SignupPage />} />
+        <Route path={PATH.CART} element={<ShoppingCartPage />} />
+        <Route path={PATH.CHECKOUT} element={<CheckoutPage />} />
         <Route path={PATH.MY_PAGE} element={<MyPage />}>
           <Route index element={<Navigate to={PATH.WISHLIST} replace />} />
           <Route path={PATH.WISHLIST} element={<CardItemList />} />

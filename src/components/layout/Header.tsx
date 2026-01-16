@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ChevronDown, ClockArrowDown, Menu, Search, ShoppingCart, User } from 'lucide-react';
 import { PATH } from '@/routes/path';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Category, { CATEGORY_ITEMS } from '@/components/layout/Category';
 
 const Header: React.FC = () => {
@@ -11,6 +11,7 @@ const Header: React.FC = () => {
     '통합 검색' | 'LLM 검색' | '쇼핑 리서치'
   >('통합 검색');
   const location = useLocation();
+  const navigate = useNavigate();
   const isMainPage = location.pathname === PATH.ROOT;
 
   return (
@@ -85,7 +86,11 @@ const Header: React.FC = () => {
             <button className="rounded-full p-2 hover:bg-gray-100">
               <ClockArrowDown className="h-5 w-5 text-gray-600" />
             </button>
-            <button className="rounded-full p-2 hover:bg-gray-100">
+            <button 
+              className="rounded-full p-2 hover:bg-gray-100"
+              onClick={() => navigate(PATH.CART)}
+              aria-label="장바구니"
+            >
               <ShoppingCart className="h-5 w-5 text-gray-600" />
             </button>
             <button className="rounded-full p-2 hover:bg-gray-100">

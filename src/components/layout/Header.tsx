@@ -50,6 +50,7 @@ const Header: React.FC = () => {
                     <input
                       type="text"
                       placeholder="상품, 카테고리, 브랜드 등을 검색해 보세요"
+                      autoComplete="off"
                       className="flex-1 bg-transparent py-2 text-sm text-gray-900 outline-none placeholder:text-gray-400"
                     />
                   </div>
@@ -127,6 +128,7 @@ const Header: React.FC = () => {
                   <input
                     type="text"
                     placeholder="검색어를 입력해 주세요"
+                    autoComplete="off"
                     className="flex-1 bg-transparent py-2 text-sm text-gray-900 outline-none placeholder:text-gray-400"
                   />
                 </div>

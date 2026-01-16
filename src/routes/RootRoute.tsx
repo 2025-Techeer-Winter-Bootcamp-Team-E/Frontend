@@ -7,6 +7,7 @@ import SignupPage from '@/pages/SignupPage';
 import ShoppingCartPage from '@/pages/ShoppingCartPage';
 import CheckoutPage from '@/pages/CheckoutPage';
 import ProductListPage from '@/pages/ProductListPage';
+import ProductDetailPage from '@/pages/ProductDetailPage';
 import { PATH } from '@/routes/path';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import CardItemList from '@/components/myPage/CardItemList';
@@ -25,6 +26,7 @@ const RootRoute = () => {
         <Route path={PATH.CART} element={<ShoppingCartPage />} />
         <Route path={PATH.CHECKOUT} element={<CheckoutPage />} />
         <Route path={PATH.PRODUCT_LIST} element={<ProductListPage />} />
+        <Route path={PATH.PRODUCT_DETAIL} element={<ProductDetailPage />} />
         <Route path={PATH.MY_PAGE} element={<MyPage />}>
           <Route index element={<Navigate to={PATH.WISHLIST} replace />} />
           <Route path={PATH.WISHLIST} element={<CardItemList />} />

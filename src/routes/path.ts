@@ -8,6 +8,7 @@ export const PATH = {
   CHECKOUT: '/checkout',
 
   PRODUCT_LIST: '/products',
+  PRODUCT_DETAIL: '/products/:id',
 
   MY_PAGE: '/mypage',
   WISHLIST: 'wish',

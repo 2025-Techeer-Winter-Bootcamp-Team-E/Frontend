@@ -5,7 +5,7 @@ import MainPage from '@/pages/MainPage';
 import MyPage from '@/pages/MyPage';
 import SignupPage from '@/pages/SignupPage';
 import { PATH } from '@/routes/path';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import CardItemList from '@/components/myPage/CardItemList';
 import MyTimerGrid from '@/components/myPage/timer/MyTimerGrid';
 
@@ -17,6 +17,7 @@ const RootRoute = () => {
         <Route path={PATH.LOGIN} element={<LoginPage />} />
         <Route path={PATH.SIGNUP} element={<SignupPage />} />
         <Route path={PATH.MY_PAGE} element={<MyPage />}>
+          <Route index element={<Navigate to={PATH.WISHLIST} replace />} />
           <Route path={PATH.WISHLIST} element={<CardItemList />} />
           <Route path={PATH.RECENT} element={<CardItemList />} />
           <Route path={PATH.TIMER} element={<MyTimerGrid />} />

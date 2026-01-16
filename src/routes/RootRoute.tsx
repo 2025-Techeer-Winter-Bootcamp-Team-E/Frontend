@@ -9,6 +9,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import CardItemList from '@/components/myPage/CardItemList';
 import MyTimerGrid from '@/components/myPage/timer/MyTimerGrid';
 import WithdrawalPage from '@/components/myPage/users/WithdrawalPage';
+import PasswordChangePage from '@/components/myPage/users/PasswordChangePage';
 
 const RootRoute = () => {
   return (
@@ -23,6 +24,7 @@ const RootRoute = () => {
           <Route path={PATH.RECENT} element={<CardItemList />} />
           <Route path={PATH.TIMER} element={<MyTimerGrid />} />
           <Route path={PATH.MYREVIEW} element={<MyReviewList />} />
+          <Route path={PATH.INFO} element={<PasswordChangePage />} />
           <Route path={PATH.WITHDRAW} element={<WithdrawalPage />} />
         </Route>
       </Route>

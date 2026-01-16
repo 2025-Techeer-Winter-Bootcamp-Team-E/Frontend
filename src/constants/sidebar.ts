@@ -9,7 +9,7 @@ export const SIDEBAR = {
   ],
   'MY 정보': [
     { path: PATH.MYREVIEW, label: '내 리뷰' },
-    { path: PATH.INFO, label: '내 정보 수정' },
+    { path: PATH.INFO, label: '비밀번호 수정' },
     { path: PATH.WITHDRAW, label: '회원 탈퇴' },
   ],
 };

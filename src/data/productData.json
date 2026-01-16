@@ -1,0 +1,87 @@
+{
+  "product": {
+    "id": 1,
+    "brand": "GIGABYTE",
+    "name": "지포스 RTX 4070 SUPER EAGLE OC D6X 12GB",
+    "price": 899000,
+    "originalPrice": 999000,
+    "discount": 10,
+    "images": [
+      null,
+      null,
+      null,
+      null
+    ],
+    "quickSpecs": [
+      { "label": "칩셋/공정", "value": "RTX 4070\nSUPER / 4nm" },
+      { "label": "쿠다 프로세서", "value": "7168개" },
+      { "label": "메모리 사양", "value": "GDDR6X / 12GB" },
+      { "label": "권장 파워", "value": "750W 이상" }
+    ],
+    "priceTrend": [920000, 910000, 905000, 900000, 895000, 890000, 899000],
+    "shipping": 0,
+    "deliveryDate": "내일(목) 도착 예정",
+    "priceComparisons": [
+      {
+        "site": "Coupang",
+        "price": 895200,
+        "originalPrice": 920000,
+        "shipping": "무료배송",
+        "deliveryInfo": "로켓배송",
+        "deliveryDate": "내일(수) 도착 보장",
+        "link": "#",
+        "isLowest": true
+      },
+      {
+        "site": "11번가",
+        "price": 902450,
+        "originalPrice": null,
+        "shipping": "무료배송",
+        "deliveryInfo": null,
+        "deliveryDate": null,
+        "link": "#",
+        "isLowest": false
+      },
+      {
+        "site": "Naver Shop",
+        "price": 905000,
+        "originalPrice": null,
+        "shipping": "2,500원",
+        "deliveryInfo": null,
+        "deliveryDate": null,
+        "link": "#",
+        "isLowest": false
+      }
+    ],
+    "detailedSpecs": [
+      { "label": "칩셋 제조사", "value": "NVIDIA" },
+      { "label": "베이스클럭", "value": "1980MHz" },
+      { "label": "부스트클럭", "value": "2535MHz" },
+      { "label": "인터페이스", "value": "PCI-Express 4.0 x16" },
+      { "label": "메모리 종류", "value": "GDDR6X(DDR6X)" },
+      { "label": "가로 길이", "value": "261mm" }
+    ],
+    "reviews": [
+      {
+        "id": 1,
+        "author": "최**",
+        "rating": 5,
+        "date": "2024.02.15",
+        "purchaseOption": "구매 옵션: 블랙(EAGLE)",
+        "content": "4070Ti하고 한참 고민하다가 전성비랑 가격 보고 4070 SUPER로 왔는데 정말 만족스럽네요. QHD 환경에서 웬만한 게임들은 다 풀옵 가능합니다. 기가바이트 이글 모델이 가성비가 제일 좋은 것 같아요. 소음도 거의 안 들립니다.",
+        "images": [],
+        "helpful": 24,
+        "comments": 3
+      }
+    ],
+    "averageRating": 4.8,
+    "totalReviews": 1245,
+    "photoReviews": 124,
+    "seller": {
+      "name": "ComPare 공식스토어",
+      "rating": 4.8,
+      "reviewCount": 15234,
+      "responseRate": 98
+    }
+  }
+}

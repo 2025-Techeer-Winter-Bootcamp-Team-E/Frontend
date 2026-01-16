@@ -7,6 +7,8 @@ export const PATH = {
   CART: '/cart',
   CHECKOUT: '/checkout',
 
+  PRODUCT_LIST: '/products',
+
   MY_PAGE: '/mypage',
   WISHLIST: 'wish',
   RECENT: 'recents',

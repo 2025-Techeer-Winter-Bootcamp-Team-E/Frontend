@@ -5,6 +5,7 @@ export const PATH = {
   SIGNUP: '/signup',
 
   CART: '/cart',
+  CHECKOUT: '/checkout',
 
   MY_PAGE: '/mypage',
   WISHLIST: 'wish',

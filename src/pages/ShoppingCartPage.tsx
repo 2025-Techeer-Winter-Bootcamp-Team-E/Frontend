@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Plus, Minus } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import cartData from '@/data/cart.json';
+import { PATH } from '@/routes/path';
 
 // 이미지 URL (Figma에서 가져온 이미지)
 const imgCheck = 'https://www.figma.com/api/mcp/asset/c33b0c9b-46e1-48dc-b76c-d07e7f398c32';
@@ -199,6 +201,8 @@ const PriceSummaryRow = ({
 // 가격 요약 카드 컴포넌트
 const PriceSummaryCard = ({
   summary,
+  selectedItemsCount,
+  onCheckout,
 }: {
   summary: {
     subtotal: number;
@@ -207,6 +211,8 @@ const PriceSummaryCard = ({
     total: number;
     availableTokens: number;
   };
+  selectedItemsCount: number;
+  onCheckout: () => void;
 }) => {
   return (
     <div className="sticky top-0 flex flex-col gap-4">
@@ -243,7 +249,15 @@ const PriceSummaryCard = ({
           </div>
 
           {/* 결제 버튼 */}
-          <button className="w-full rounded-xl bg-[#0D9DDA] py-4 text-lg font-black text-white shadow-lg transition-colors hover:bg-[#0b8bc4]">
+          <button
+            onClick={onCheckout}
+            disabled={selectedItemsCount === 0}
+            className={`w-full rounded-xl py-4 text-lg font-black text-white shadow-lg transition-colors ${
+              selectedItemsCount === 0
+                ? 'cursor-not-allowed bg-gray-300'
+                : 'bg-[#0D9DDA] hover:bg-[#0b8bc4]'
+            }`}
+          >
             {summary.total.toLocaleString()} TK 결제하기
           </button>
         </div>
@@ -263,6 +277,7 @@ const PriceSummaryCard = ({
 
 // 메인 장바구니 컴포넌트
 const ShoppingCartPage = () => {
+  const navigate = useNavigate();
   const [cartItems, setCartItems] = useState<CartItem[]>(cartData as CartItem[]);
 
   const [selectedItems, setSelectedItems] = useState<number[]>(cartData.map((item) => item.id));
@@ -387,7 +402,19 @@ const ShoppingCartPage = () => {
 
         {/* 가격 요약 */}
         <div className="w-[384px] flex-shrink-0">
-          <PriceSummaryCard summary={summary} />
+          <PriceSummaryCard
+            summary={summary}
+            selectedItemsCount={selectedItems.length}
+            onCheckout={() => {
+              if (selectedItems.length === 0) {
+                alert('결제할 상품을 선택해주세요.');
+                return;
+              }
+              navigate(PATH.CHECKOUT, {
+                state: { selectedItems },
+              });
+            }}
+          />
         </div>
       </div>
     </div>

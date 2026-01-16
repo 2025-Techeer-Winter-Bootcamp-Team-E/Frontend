@@ -10,6 +10,7 @@ export const PATH = {
   PRODUCT_LIST: '/products',
   PRODUCT_DETAIL: '/products/:id',
   LLM_SEARCH_RESULT: '/llm-search-result',
+  SHOPPING_RESEARCH: '/shopping-research',
 
   MY_PAGE: '/mypage',
   WISHLIST: 'wish',

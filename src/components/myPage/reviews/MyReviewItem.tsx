@@ -10,9 +10,10 @@ interface ReviewItemProps {
     content: string;
     imageUrl?: string;
   };
+  onEdit?: (review: ReviewItemProps['review']) => void;
 }
 
-const MyReviewItem = ({ review }: ReviewItemProps) => {
+const MyReviewItem = ({ review, onEdit }: ReviewItemProps) => {
   const [expanded, setExpanded] = useState(false);
 
   return (
@@ -53,7 +54,9 @@ const MyReviewItem = ({ review }: ReviewItemProps) => {
 
             {/* 수정 / 삭제 */}
             <div className="flex gap-2 text-xs text-gray-400">
-              <button className="hover:text-gray-700">수정</button>
+              <button onClick={() => onEdit?.(review)} className="hover:text-gray-700">
+                수정
+              </button>
               <button className="hover:text-red-500">삭제</button>
             </div>
           </div>

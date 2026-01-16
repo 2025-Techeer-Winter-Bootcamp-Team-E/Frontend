@@ -10,9 +10,24 @@ const Header: React.FC = () => {
   const [selectedSearchOption, setSelectedSearchOption] = useState<
     '통합 검색' | 'LLM 검색' | '쇼핑 리서치'
   >('통합 검색');
+  const [searchQuery, setSearchQuery] = useState('');
   const location = useLocation();
   const navigate = useNavigate();
   const isMainPage = location.pathname === PATH.ROOT;
+
+  const handleSearch = () => {
+    // 검색 로직 구현
+    if (searchQuery.trim()) {
+      // TODO: 검색 타입에 따라 다른 페이지로 이동
+      console.log('Search:', searchQuery, selectedSearchOption);
+    }
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
+  };
 
   return (
     <header className="border-b border-gray-200 bg-white">
@@ -47,14 +62,26 @@ const Header: React.FC = () => {
 
                   {/* Center - input */}
                   <div className="flex flex-1 items-center gap-2 px-4">
-                    <Search className="h-4 w-4 shrink-0 text-gray-400" />
                     <input
                       type="text"
                       placeholder="상품, 카테고리, 브랜드 등을 검색해 보세요"
                       autoComplete="off"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      onKeyPress={handleKeyPress}
                       className="flex-1 bg-transparent py-2 text-sm text-gray-900 outline-none placeholder:text-gray-400"
                     />
                   </div>
+
+                  {/* Right - search button */}
+                  <button
+                    type="button"
+                    onClick={handleSearch}
+                    className="px-4 py-2 text-gray-600 transition-colors hover:text-gray-900"
+                    aria-label="검색"
+                  >
+                    <Search className="h-4 w-4" />
+                  </button>
                 </div>
 
                 {isSearchDropdownOpen && (
@@ -83,17 +110,25 @@ const Header: React.FC = () => {
           )}
 
           <div className="flex items-center space-x-2 md:space-x-4">
-            <button className="rounded-full p-2 hover:bg-gray-100">
+            <button
+              className="rounded-full p-2 hover:bg-gray-100"
+              onClick={() => navigate(`${PATH.MY_PAGE}/${PATH.RECENT}`)}
+              aria-label="최근 본 상품"
+            >
               <ClockArrowDown className="h-5 w-5 text-gray-600" />
             </button>
-            <button 
+            <button
               className="rounded-full p-2 hover:bg-gray-100"
               onClick={() => navigate(PATH.CART)}
               aria-label="장바구니"
             >
               <ShoppingCart className="h-5 w-5 text-gray-600" />
             </button>
-            <button className="rounded-full p-2 hover:bg-gray-100">
+            <button
+              className="rounded-full p-2 hover:bg-gray-100"
+              onClick={() => navigate(PATH.MY_PAGE)}
+              aria-label="마이페이지"
+            >
               <User className="h-5 w-5 text-gray-600" />
             </button>
             {/* Mobile menu toggle */}
@@ -134,9 +169,22 @@ const Header: React.FC = () => {
                     type="text"
                     placeholder="검색어를 입력해 주세요"
                     autoComplete="off"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    onKeyPress={handleKeyPress}
                     className="flex-1 bg-transparent py-2 text-sm text-gray-900 outline-none placeholder:text-gray-400"
                   />
                 </div>
+
+                {/* Right - search button */}
+                <button
+                  type="button"
+                  onClick={handleSearch}
+                  className="px-4 py-2 text-gray-600 transition-colors hover:text-gray-900"
+                  aria-label="검색"
+                >
+                  <Search className="h-4 w-4" />
+                </button>
               </div>
 
               {isSearchDropdownOpen && (

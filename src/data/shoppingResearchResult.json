@@ -1,0 +1,89 @@
+{
+  "status": {
+    "text": "게이밍을 위한 150만원대 가성비 PC 구성",
+    "mode": "AI RESEARCH COMPLETE"
+  },
+  "analysis": {
+    "title": "AI 입력 분석 요약",
+    "content": "사용자님은 QHD 해상도 환경에서의 쾌적한 게이밍과 약 150만원의 예산을 가장 중요하게 고려하고 계십니다. 최근 출시된 고사양 게임들을 안정적으로 구동하기 위해 CPU\n성능보다는 GPU(그래픽카드)에 예산의 비중을 높였으며, 향후 업그레이드 가능성을 고려하여 DDR5 플랫폼을 기반으로 분석했습니다."
+  },
+  "featuredProduct": {
+    "badge": "BEST CHOICE",
+    "category": "Graphics Card",
+    "name": "NVIDIA GeForce RTX 4070 SUPER",
+    "price": "₩890,000",
+    "originalPrice": "₩950,000",
+    "image": "https://www.figma.com/api/mcp/asset/81bc34f4-dfb3-4f27-bdb3-76ede7a23f98",
+    "reasons": {
+      "title": "상품 추천 이유",
+      "items": [
+        "QHD 게이밍 환경에서 전 세대 플래그십급 성능을 제공하며 전력 효율이 매우 뛰어납니다.",
+        "DLSS 3.5 지원으로 고사양 게임에서도 프레임 생성 기술을 통해 비약적인 성능 향상이 가능합니다.",
+        "현재 시장 공급이 안정적이며 가성비 라인업 중 가장 긴 수명이 기대되는 제품입니다."
+      ]
+    }
+  },
+  "comparison": {
+    "title": "비교표",
+    "products": [
+      {
+        "id": 1,
+        "name": "RTX 4070 SUPER",
+        "image": "https://www.figma.com/api/mcp/asset/b55f9d5a-b306-4e11-b26f-5e740627b451",
+        "price": "₩890,000",
+        "rating": 4.5,
+        "power": "220W",
+        "memory": "12GB GDDR6X"
+      },
+      {
+        "id": 2,
+        "name": "RTX 4060 Ti",
+        "image": "https://www.figma.com/api/mcp/asset/77baead8-b083-4f6f-b272-4218c57bb999",
+        "price": "₩580,000",
+        "rating": 4,
+        "power": "160W",
+        "memory": "8GB GDDR6"
+      },
+      {
+        "id": 3,
+        "name": "Radeon RX 7800 XT",
+        "image": "https://www.figma.com/api/mcp/asset/eec0dd6a-7057-40e6-b92a-7b0fc415d0fc",
+        "price": "₩740,000",
+        "rating": 4,
+        "power": "263W",
+        "memory": "16GB GDDR6"
+      },
+      {
+        "id": 4,
+        "name": "RTX 4080 SUPER",
+        "image": "https://www.figma.com/api/mcp/asset/eeb8ff51-7ca7-4142-a1ea-2d6f9fec96b9",
+        "price": "₩1,450,000",
+        "rating": 5,
+        "power": "320W",
+        "memory": "16GB GDDR6X"
+      }
+    ]
+  },
+  "situations": [
+    {
+      "icon": "Target",
+      "title": "극강의 가성비 게이밍",
+      "description": "FHD 환경에서 충분한 성능을 원한다면",
+      "highlight": "RTX 4060 Ti 추천",
+      "iconColor": "#0d9dda",
+      "highlightColor": "#0d9dda"
+    },
+    {
+      "icon": "Gift",
+      "title": "작업 및 딥러닝 입문",
+      "description": "VRAM 용량이 중요한 작업을 병행한다면",
+      "highlight": "RTX 4060 Ti 16GB 추천",
+      "iconColor": "#a855f7",
+      "highlightColor": "#a855f7"
+    }
+  ],
+  "cta": {
+    "buttonText": "다시 추천 받기",
+    "inputPrompt": "\"게이밍을 위한 가성비 PC 부품 조합 추천해줘. 예산은 150만원대 내외로, 주 용도는 최신 고사양 게임\nQHD 환경 플레이야. CPU는 가급적 최신 세대로 구성하고 싶어.\""
+  }
+}

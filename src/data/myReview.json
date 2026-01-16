@@ -1,0 +1,142 @@
+[
+  {
+    "id": "review-1",
+    "productName": "인텔 코어 i7-14700K (랩터레이크 S 리프레시) (정품)",
+    "rating": 4.0,
+    "createdAt": "2023.12.15",
+    "content": "성능이 확실히 체감됩니다. 발열은 있지만 고성능 공랭이나 수랭 사용하면 충분히 커버 가능합니다.발열은 있지만 고성능 공랭이나 수랭 사용하면 충분히 커버 가능합니다.발열은 있지만 고성능 공랭이나 수랭 사용하면 충분히 커버 가능합니다.발열은 있지만 고성능 공랭이나 수랭 사용하면 충분히 커버 가능합니다.발열은 있지만 고성능 공랭이나 수랭 사용하면 충분히 커버 가능합니다.발열은 있지만 고성능 공랭이나 수랭 사용하면 충분히 커버 가능합니다.발열은 있지만 고성능 공랭이나 수랭 사용하면 충분히 커버 가능합니다."
+  },
+  {
+    "id": "review-2",
+    "productName": "AMD 라이젠 7 7800X3D (정품)",
+    "rating": 5.0,
+    "createdAt": "2023.12.10",
+    "content": "게임용 CPU로는 최고입니다. 프레임 안정성이 정말 좋네요."
+  },
+  {
+    "id": "review-3",
+    "productName": "삼성 DDR5 32GB (16GBx2) 5600MHz",
+    "rating": 4.5,
+    "createdAt": "2023.11.28",
+    "content": "램 오버도 잘 되고 안정적입니다. 가격만 조금 더 내려가면 좋겠어요."
+  },
+  {
+    "id": "review-4",
+    "productName": "ASUS ROG STRIX Z790-F GAMING WIFI",
+    "rating": 4.5,
+    "createdAt": "2023.11.20",
+    "content": "BIOS 구성도 깔끔하고 전원부도 튼튼해서 만족합니다."
+  },
+  {
+    "id": "review-5",
+    "productName": "RTX 4070 Ti SUPER",
+    "rating": 4.0,
+    "createdAt": "2023.11.15",
+    "content": "QHD 해상도에서 게임하기에 충분한 성능입니다."
+  },
+  {
+    "id": "review-6",
+    "productName": "삼성 980 PRO NVMe 1TB",
+    "rating": 5.0,
+    "createdAt": "2023.11.02",
+    "content": "부팅 속도 체감이 확실합니다. 안정성도 좋아요."
+  },
+  {
+    "id": "review-7",
+    "productName": "LG 울트라기어 27GP850",
+    "rating": 4.5,
+    "createdAt": "2023.10.30",
+    "content": "IPS 패널에 응답속도도 빨라서 게임, 작업 다 만족합니다."
+  },
+  {
+    "id": "review-8",
+    "productName": "로지텍 G PRO X SUPERLIGHT",
+    "rating": 5.0,
+    "createdAt": "2023.10.25",
+    "content": "무게가 정말 가볍고 손에 착 감깁니다."
+  },
+  {
+    "id": "review-9",
+    "productName": "커세어 RM850x 파워서플라이",
+    "rating": 4.5,
+    "createdAt": "2023.10.20",
+    "content": "소음 거의 없고 안정적입니다."
+  },
+  {
+    "id": "review-10",
+    "productName": "NZXT H7 Flow 케이스",
+    "rating": 4.0,
+    "createdAt": "2023.10.12",
+    "content": "조립 편의성 좋고 내부 공간 넉넉합니다."
+  },
+  {
+    "id": "review-11",
+    "productName": "Apple Magic Keyboard",
+    "rating": 4.0,
+    "createdAt": "2023.10.05",
+    "content": "타건감은 호불호 있지만 휴대성은 최고입니다."
+  },
+  {
+    "id": "review-12",
+    "productName": "Sony WH-1000XM5",
+    "rating": 5.0,
+    "createdAt": "2023.09.30",
+    "content": "노이즈 캔슬링 성능이 압도적입니다."
+  },
+  {
+    "id": "review-13",
+    "productName": "Keychron Q1 Pro",
+    "rating": 4.5,
+    "createdAt": "2023.09.22",
+    "content": "키감 좋고 커스터마이징 자유도가 높아요."
+  },
+  {
+    "id": "review-14",
+    "productName": "Dell U2723QE",
+    "rating": 4.5,
+    "createdAt": "2023.09.15",
+    "content": "업무용 모니터로는 거의 완성형입니다."
+  },
+  {
+    "id": "review-15",
+    "productName": "삼성 갤럭시 탭 S9",
+    "rating": 4.0,
+    "createdAt": "2023.09.10",
+    "content": "필기와 영상 시청 모두 만족스럽습니다."
+  },
+  {
+    "id": "review-16",
+    "productName": "애플 맥북 프로 M2",
+    "rating": 5.0,
+    "createdAt": "2023.09.01",
+    "content": "발열 적고 배터리 효율이 정말 좋습니다."
+  },
+  {
+    "id": "review-17",
+    "productName": "샤오미 미 로봇청소기",
+    "rating": 4.0,
+    "createdAt": "2023.08.25",
+    "content": "가성비 좋고 기본 기능 충실합니다."
+  },
+  {
+    "id": "review-18",
+    "productName": "브리츠 블루투스 스피커",
+    "rating": 3.5,
+    "createdAt": "2023.08.20",
+    "content": "가격 대비 음질 괜찮습니다."
+  },
+  {
+    "id": "review-19",
+    "productName": "삼성 T7 외장 SSD 2TB",
+    "rating": 5.0,
+    "createdAt": "2023.08.10",
+    "content": "속도 빠르고 휴대성 최고입니다."
+  },
+  {
+    "id": "review-20",
+    "productName": "아이패드 프로 11 M2",
+    "rating": 4.5,
+    "createdAt": "2023.08.01",
+    "content": "작업용으로 쓰기 충분한 성능입니다."
+  }
+]

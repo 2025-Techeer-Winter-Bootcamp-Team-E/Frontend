@@ -50,7 +50,7 @@ const ShoppingResearchPage: React.FC = () => {
     console.log('Answers:', answers);
     console.log('Custom Inputs:', customInputs);
     // TODO: API 연동 후 결과 페이지로 이동
-    navigate(PATH.LLM_SEARCH_RESULT);
+    navigate(PATH.SHOPPING_RESEARCH_RESULT);
   };
 
   const handleCustomInput = (value: string) => {

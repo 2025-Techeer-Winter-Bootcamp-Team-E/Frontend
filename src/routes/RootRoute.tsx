@@ -10,6 +10,7 @@ import ProductListPage from '@/pages/ProductListPage';
 import ProductDetailPage from '@/pages/ProductDetailPage';
 import LLMSearchResultPage from '@/pages/LLMSearchResultPage';
 import ShoppingResearchPage from '@/pages/ShoppingResearchPage';
+import ShoppingResearchResultPage from '@/pages/ShoppingResearchResultPage';
 import { PATH } from '@/routes/path';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import CardItemList from '@/components/myPage/CardItemList';
@@ -31,6 +32,7 @@ const RootRoute = () => {
         <Route path={PATH.PRODUCT_DETAIL} element={<ProductDetailPage />} />
         <Route path={PATH.LLM_SEARCH_RESULT} element={<LLMSearchResultPage />} />
         <Route path={PATH.SHOPPING_RESEARCH} element={<ShoppingResearchPage />} />
+        <Route path={PATH.SHOPPING_RESEARCH_RESULT} element={<ShoppingResearchResultPage />} />
         <Route path={PATH.MY_PAGE} element={<MyPage />}>
           <Route index element={<Navigate to={PATH.WISHLIST} replace />} />
           <Route path={PATH.WISHLIST} element={<CardItemList />} />

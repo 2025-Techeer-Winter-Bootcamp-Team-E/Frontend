@@ -3,7 +3,7 @@
  * POST /orders/tokens/recharge
  */
 export type TokenRechargeReqDto = {
-  recharge_amount: number;
+  recharge_token: number;
 };
 
 /**
@@ -15,17 +15,11 @@ export type TokenRechargeResDto = {
 };
 
 /**
- * 보유 토큰 조회 요청
- * GET /orders/tokens
- */
-export type TokenBalanceReqDto = null;
-
-/**
  * 보유 토큰 조회 응답 데이터
  * GET /orders/tokens
  */
 export type TokenBalanceResDto = {
-  available_tokens: number;
+  current_tokens: number;
 };
 
 /**
@@ -39,30 +33,75 @@ export type TokenSingleItemReqDto = {
 };
 
 /**
- * 토큰으로 상품 단일 결제 응담 데이터
+ * 토큰으로 상품 단일 결제 응답 데이터
  * POST /orders/checkout
  */
 export type TokenSingleItemResDto = {
   order_id: string;
-  remaining_tokens: number;
+  product_name: string;
+  total_price: number;
+  current_tokens: number;
+  order_status: string;
+  ordered_at: string;
 };
 
 type CartItemsEntity = {
-  cart_itemIds: number;
-  quantity: number[];
+  cart_item_id: number;
+  quantity: number;
 };
 
 /**
  * 장바구니 상품 결제 요청 데이터
- * POST /orders/cart-checkout
+ * POST /orders/cart/checkout
  */
 export type CartItemsReqDto = {
   items: CartItemsEntity[];
-  total_payment_tokens: number;
+  total_price: number;
 };
 
 /**
- * 토큰으로 상품 단일 결제 응답 데이터
- * POST /orders/cart-checkout
+ * 장바구니 상품 결제 응답 데이터
+ * POST /orders/cart/checkout
  */
-export type CartItemsResDto = null;
+export type CartItemsResDto = {
+  order_id: string;
+  order_items: CartItemsEntity[];
+  total_price: number;
+  current_tokens: number;
+  order_status: string;
+};
+
+/**
+ * 장바구니 상품 추가 요청 데이터
+ * POST /orders/cart
+ */
+export type CartItemPostReqDto = {
+  product_id: number;
+  quantity: number;
+};
+
+/**
+ * 장바구니 상품 추가 응답 데이터
+ * POST /orders/cart
+ */
+export type CartItemPostResDto = {
+  cart_item_id: number;
+  product_id: number;
+  quantity: number;
+  added_at: string;
+};
+
+/**
+ * 장바구니 모든 상품 조회 응답 데이터
+ * POST /orders/cart
+ */
+type CartItemEntity = {
+  cart_item_id: number;
+  product_id: number;
+  product_name: string;
+  product_resentative_image_url: string;
+  quantity: number;
+  price: number;
+  total_price: number;
+};
+export type CartAllItemsResDto = CartItemEntity[];

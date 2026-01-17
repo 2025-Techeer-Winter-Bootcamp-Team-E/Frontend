@@ -4,7 +4,9 @@ export const API = {
   ORDERS_TOKEN_RECHARGE: `/orders/tokens/recharge`,
   ORDERS_TOKENS: `/orders/tokens`,
   ORDERS_CHECKOUT: `/orders/checkout`,
-  ORDERS_CART_CHECKOUT: `/orders/cart-checkout`,
+  ORDERS_CART_CHECKOUT: `/orders/cart/checkout`,
+  ORDERS_CART: `/orders/cart`,
+  ORDERS_CART_ITEM_ID: (cart_item_id: number) => `/orders/cart/${cart_item_id}`,
 
   PRICE_PREDICTIONS: `/price-prediction`,
   PRICE_PREDICTIONS_STATUS: (predictionId: number) => `/price-predictions/${predictionId}/status`,

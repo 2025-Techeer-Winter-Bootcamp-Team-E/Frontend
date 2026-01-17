@@ -47,12 +47,17 @@ export type TokenSingleItemResDto = {
   remaining_tokens: number;
 };
 
+type CartItemsEntity = {
+  cart_itemIds: number;
+  quantity: number[];
+};
+
 /**
  * 장바구니 상품 결제 요청 데이터
  * POST /orders/cart-checkout
  */
 export type CartItemsReqDto = {
-  cart_itemIds: number[];
+  items: CartItemsEntity[];
   total_payment_tokens: number;
 };
 

@@ -11,6 +11,12 @@ export const API = {
   TIMERS: `/timers`,
   TIMERS_ID: (timer_id: number) => `/timers/${timer_id}`,
 
+  PRODUCTS_CODE: (product_code: number) => `/products/${product_code}`,
+  PRODUCTS_CODE_PRICE_TRENDS: (product_code: number) => `/products/${product_code}/price-trend`,
+  PRODUCTS_CODE_PRICES: (product_code: number) => `/products/${product_code}/prices`,
+  PRODUCTS_CODE_REVIEWS: (product_code: number) => `/products/${product_code}/reviews`,
+  PRODUCTS_ID_REVIEW_SUMMARY: (product_code: number) => `/products/${product_code}/reviews/summary`,
+
   SEARCH_AUTOCOMPLETE: `/search/autocomplete`,
   SEARCH_TERMS: `/search/terms`,
   SEARCH_LLM_RECOMMENDATION: `/search/llm-recommendation`,

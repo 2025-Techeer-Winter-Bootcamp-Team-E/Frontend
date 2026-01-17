@@ -15,9 +15,9 @@ export const API = {
   PRODUCTS_ID: (productId: number) => `/products/${productId}`,
   PRODUCTS_ID_PRICES: (productId: number) => `/products/${productId}/prices`,
   PRODUCTS_ID_PRICES_TRENDS: (productId: number) => `/products/${productId}/price-trends}`,
-  PRODUCTS_ID_REIVEWS_SUMMARY: (productId: number) => `/products/${productId}/reviews/summary`,
-  PRODUCTS_ID_REIVEWS: (productId: number) => `/products/${productId}/reviews`,
-  PRODUCTS_REIVEW_ID: (reviewId: number) => `/products/reviews/${reviewId}`,
+  PRODUCTS_ID_REVIEWS_SUMMARY: (productId: number) => `/products/${productId}/reviews/summary`,
+  PRODUCTS_ID_REVIEWS: (productId: number) => `/products/${productId}/reviews`,
+  PRODUCTS_REVIEW_ID: (reviewId: number) => `/products/reviews/${reviewId}`,
   PRODUCTS_ID_REVIEW_AI_SUMMARY: (productId: number) => `/products/${productId}/reviews/ai-summary`,
 
   SEARCH_AUTOCOMPLETE: `/search/autocomplete`,

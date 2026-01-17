@@ -8,19 +8,8 @@ export const API = {
   ORDERS_CART: `/orders/cart`,
   ORDERS_CART_ITEM_ID: (cart_item_id: number) => `/orders/cart/${cart_item_id}`,
 
-  PRICE_PREDICTIONS: `/price-prediction`,
-  PRICE_PREDICTIONS_STATUS: (predictionId: number) => `/price-predictions/${predictionId}/status`,
-  PRICE_PREDICTIONS_ANALYSIS: (predictionId: number) =>
-    `/price-predictions/${predictionId}/analysis`,
-  PRICE_PREDICTIONS_ID: (predictionId: number) => `/price-predictions/${predictionId}`,
-
-  PRODUCTS_ID: (productId: number) => `/products/${productId}`,
-  PRODUCTS_ID_PRICES: (productId: number) => `/products/${productId}/prices`,
-  PRODUCTS_ID_PRICES_TRENDS: (productId: number) => `/products/${productId}/price-trends}`,
-  PRODUCTS_ID_REVIEWS_SUMMARY: (productId: number) => `/products/${productId}/reviews/summary`,
-  PRODUCTS_ID_REVIEWS: (productId: number) => `/products/${productId}/reviews`,
-  PRODUCTS_REVIEW_ID: (reviewId: number) => `/products/reviews/${reviewId}`,
-  PRODUCTS_ID_REVIEW_AI_SUMMARY: (productId: number) => `/products/${productId}/reviews/ai-summary`,
+  TIMERS: `/timers`,
+  TIMERS_ID: (timer_id: number) => `/timers/${timer_id}`,
 
   SEARCH_AUTOCOMPLETE: `/search/autocomplete`,
   SEARCH_TERMS: `/search/terms`,

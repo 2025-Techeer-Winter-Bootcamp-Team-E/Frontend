@@ -14,11 +14,6 @@ export const PATH = {
   SHOPPING_RESEARCH_RESULT: '/shopping-research-result',
 
   MY_PAGE: '/mypage',
-  WISHLIST: 'wish',
-  RECENT: 'recents',
   TIMER: 'timer',
   TOKEN: 'token',
-  MYREVIEW: 'reviews',
-  INFO: 'info',
-  WITHDRAW: 'withdraw',
 };

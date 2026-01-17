@@ -60,7 +60,7 @@ export type SearchShoppingResearchReqDto = {
   surveyContents: QuestionEntity[];
 };
 
-type ProductSpecs = Record<string, string>;
+export type ProductSpecs = Record<string, string>;
 
 type OptimalProductInfo = {
   match_rank: number;

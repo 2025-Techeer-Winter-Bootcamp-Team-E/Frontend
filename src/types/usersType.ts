@@ -34,9 +34,21 @@ export type UsersLoginReqDto = {
  * POST /users/login
  */
 export type UsersLoginResDto = {
+  user_id: number;
   access_token: string;
   refresh_token: string;
   token_type: string;
+};
+
+/**
+ * 프로필 조회 응답
+ * GET /users
+ */
+export type UsersProfile = {
+  name: string;
+  email: string;
+  nickname: string;
+  phone: string;
 };
 
 /**

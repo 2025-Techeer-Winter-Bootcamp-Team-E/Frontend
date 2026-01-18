@@ -23,12 +23,12 @@ export const API = {
   SEARCH_LLM_RECOMMENDATION: `/search/llm-recommendation`,
   SEARCH_SHOPPING_RESEARCH: `/search/shopping-research`,
 
+  USERS: `/users`,
   USERS_SIGNUP: `/users/signup`,
   USERS_LOGIN: `/users/login`,
   USERS_SOCIAL_LOGIN: `/users/social-login`,
   USERS_PASSWORD: `/users/password`,
   USERS_ME: `/users/me`,
-
 
   CATEGORY_MAIN: `/categories/main`,
 };

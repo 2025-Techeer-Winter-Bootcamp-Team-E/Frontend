@@ -24,7 +24,7 @@ export const postTokenRecharge = async (body: TokenRechargeReqDto) => {
 
 // 결제 토큰 조회 GET
 export const getTokenBalance = async () => {
-  return await getAPIResponseData<null, TokenBalanceResDto>({
+  return await getAPIResponseData<TokenBalanceResDto>({
     method: 'GET',
     url: API.ORDERS_TOKENS,
   });

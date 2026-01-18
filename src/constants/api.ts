@@ -18,19 +18,17 @@ export const API = {
   PRODUCTS_ID_REVIEW_SUMMARY: (product_code: number) => `/products/${product_code}/reviews/summary`,
 
   SEARCH_AUTOCOMPLETE: `/search/autocomplete`,
-  SEARCH_TERMS: `/search/terms`,
+  SEARCH_POPULAR: `/search/popular`,
+  SEARCH_RECENT: `/search/recent`,
   SEARCH_LLM_RECOMMENDATION: `/search/llm-recommendation`,
   SEARCH_SHOPPING_RESEARCH: `/search/shopping-research`,
 
-  USERS_SIGNUP: `/users/singup`,
+  USERS_SIGNUP: `/users/signup`,
   USERS_LOGIN: `/users/login`,
   USERS_SOCIAL_LOGIN: `/users/social-login`,
   USERS_PASSWORD: `/users/password`,
   USERS_ME: `/users/me`,
-  USERS_RECENT_PRODUCTS: `/users/recent-products`,
-  USERS_WISHLIST: `users/wishlist`,
-  USERS_TIMERS: `/users/timers`,
-  USERS_CART: `/users/cart`,
+
 
   CATEGORY_MAIN: `/categories/main`,
 };

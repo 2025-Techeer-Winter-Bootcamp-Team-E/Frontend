@@ -1,17 +1,13 @@
 import getAPIResponseData from '@/api/getAPIResponseData';
 import { API } from '@/constants/api';
 import type {
-  UsersCartResDto,
   UsersDeleteMeReqDto,
   UsersLoginReqDto,
   UsersLoginResDto,
   UsersPasswordReqDto,
-  UsersRecentProductsResDto,
   UsersSignUpReqDto,
   UsersSignUpResDto,
   UsersSocialLoginReqDto,
-  UsersTimerResDto,
-  UsersWishProductsResDto,
 } from '@/types/usersType';
 
 // 회원가입 POST
@@ -56,39 +52,5 @@ export const deleteUsersMe = async (body: UsersDeleteMeReqDto) => {
     method: 'DELETE',
     url: API.USERS_ME,
     data: body,
-  });
-};
-
-// 최근 본 상품 조회 GET
-export const getUsersRecentProducts = async (limit: number = 10) => {
-  return await getAPIResponseData<UsersRecentProductsResDto, null>({
-    method: 'GET',
-    url: API.USERS_RECENT_PRODUCTS,
-    params: { limit },
-  });
-};
-
-// 위시 상품 조회 GET
-export const getUsersWishProducts = async () => {
-  return await getAPIResponseData<UsersWishProductsResDto, null>({
-    method: 'GET',
-    url: API.USERS_WISHLIST,
-  });
-};
-
-// 적정 구매 타이머 보관함 조회 GET
-export const getUsersTimer = async () => {
-  return await getAPIResponseData<UsersTimerResDto, null>({
-    method: 'GET',
-    url: API.USERS_TIMERS,
-  });
-};
-
-
-// 회원 장바구니 조회 GET
-export const getUsersCart = async () => {
-  return await getAPIResponseData<UsersCartResDto, null>({
-    method: 'GET',
-    url: API.USERS_CART,
   });
 };

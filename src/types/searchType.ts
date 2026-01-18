@@ -11,6 +11,14 @@ type PopularTermsEntity = {
   term: string;
 };
 
+/**
+ * 인기 검색어 조회 응답
+ * GET /search/popular
+ */
+export type SearchPopularResDto = {
+  popular_terms: PopularTermsEntity[];
+};
+
 type RecentTermsEntity = {
   id: number;
   term: string;
@@ -18,33 +26,38 @@ type RecentTermsEntity = {
 };
 
 /**
- * 검색창 입력 기반 추천 키워드 조회 응답
- * GET /search/terms
+ * 최금 검색어 조회 응답
+ * GET /search/recent
  */
-export type SearchTermsResDto = {
-  popular_terms: PopularTermsEntity[];
+export type SearchRecentResDto = {
   recent_terms: RecentTermsEntity[];
 };
 
 /** LLM 기반 상품 제안 검색 요청
  * POST /search/llm-recommendation
  */
-
 export type SearchLlmRecommendationReqDto = {
-  prompt: string;
+  user_query: string;
 };
 
 type LLMRecommendationEntity = {
   product_id: number;
+  product_code: number;
+  product_image_url: string;
   product_name: string;
-  reason: string;
-  productDetail?: string | null;
+  recommendation_reason: string;
+  price: number;
+  specs: ProductSpecs;
+  product_detail_url: string;
 };
 
 /** LLM 기반 상품 제안 검색 응답
  * POST /search/llm-recommendation
  */
-export type SearchLlmRecommendationResDto = LLMRecommendationEntity[];
+export type SearchLlmRecommendationResDto = {
+  analysis_message: string;
+  recommended_products: LLMRecommendationEntity[];
+};
 
 type QuestionEntity = {
   question_id: number;
@@ -56,8 +69,8 @@ type QuestionEntity = {
  * POST /search/shopping-research
  */
 export type SearchShoppingResearchReqDto = {
-  searchText: string;
-  surveyContents: QuestionEntity[];
+  search_text: string;
+  survey_contents: QuestionEntity[];
 };
 
 export type ProductSpecs = Record<string, string>;
@@ -84,4 +97,7 @@ type ShoppingResearchResultEntity = {
 /** 쇼핑 리서치 검색 요청 응답
  * POST /search/shopping-research
  */
-export type SearchShoppingResearchResDto = ShoppingResearchResultEntity[];
+export type SearchShoppingResearchResDto = {
+  user_query: string;
+  product: ShoppingResearchResultEntity[];
+};

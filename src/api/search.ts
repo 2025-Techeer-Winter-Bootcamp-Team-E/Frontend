@@ -1,6 +1,6 @@
 import getAPIResponseData from '@/api/getAPIResponseData';
 import { API } from '@/constants/api';
-import type { SearchAutocompleteResDto, SearchLlmRecommendationReqDto, SearchLlmRecommendationResDto, SearchShoppingResearchReqDto, SearchShoppingResearchResDto, SearchTermsResDto } from '@/types/searchType';
+import type { SearchAutocompleteResDto, SearchLlmRecommendationReqDto, SearchLlmRecommendationResDto, SearchPopularResDto, SearchRecentResDto, SearchShoppingResearchReqDto, SearchShoppingResearchResDto, SearchTermsResDto } from '@/types/searchType';
 
 // 검색창 입력 키워드와 관련된 추천 검색어 리스트 자동완성 GET
 export const getSearchAutocomplete = async (keyword: string) => {
@@ -12,11 +12,19 @@ export const getSearchAutocomplete = async (keyword: string) => {
 };
 
 
-// 인기/최근 검색어 GET
-export const getSearchTerms = async () => {
-  return await getAPIResponseData<SearchTermsResDto, null>({
+// 인기 검색어 GET
+export const getSearchPopluar = async () => {
+  return await getAPIResponseData<SearchPopularResDto, null>({
     method: 'GET',
-    url: API.SEARCH_TERMS,
+    url: API.SEARCH_POPULAR,
+  });
+};
+
+// 최근 검색어 GET
+export const getSearchTerms = async () => {
+  return await getAPIResponseData<SearchRecentResDto, null>({
+    method: 'GET',
+    url: API.SEARCH_RECENT,
   });
 };
 

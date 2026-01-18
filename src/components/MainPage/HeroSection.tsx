@@ -1,4 +1,4 @@
-import MainSearchBar from '@/components/MainPage/MainSearchBar';
+import MainSearchBar from '@/components/mainPage/MainSearchBar';
 import React from 'react';
 
 const HeroSection: React.FC = () => {

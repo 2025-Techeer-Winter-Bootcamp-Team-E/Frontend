@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronDown, ClockArrowDown, Menu, Search, ShoppingCart, User } from 'lucide-react';
+import { ChevronDown, Menu, Search, ShoppingCart, User } from 'lucide-react';
 import { PATH } from '@/routes/path';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Category, { CATEGORY_ITEMS } from '@/components/layout/Category';
@@ -33,8 +33,8 @@ const Header: React.FC = () => {
     <header className="border-b border-gray-200 bg-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between gap-4">
-          <div className="flex items-center">
-            <span className="text-2xl font-bold text-cyan-500">COMPAGE</span>
+          <div className="flex items-center" onClick={() => navigate('/')}>
+            <span className="cursor-pointer text-2xl font-bold text-cyan-500">COMPAGE</span>
           </div>
 
           {/* Desktop search bar (메인 페이지 제외) */}
@@ -85,7 +85,7 @@ const Header: React.FC = () => {
                 </div>
 
                 {isSearchDropdownOpen && (
-                  <div className="absolute top-full left-0 z-20 mt-2 w-[160px] overflow-hidden rounded-xl border border-[#E0E0E0] bg-white shadow-lg">
+                  <div className="absolute top-full left-0 z-20 mt-2 w-40 overflow-hidden rounded-xl border border-[#E0E0E0] bg-white shadow-lg">
                     {(['통합 검색', 'LLM 검색', '쇼핑 리서치'] as const).map((option) => (
                       <button
                         key={option}
@@ -112,20 +112,13 @@ const Header: React.FC = () => {
           <div className="flex items-center space-x-2 md:space-x-4">
             <button
               className="rounded-full p-2 hover:bg-gray-100"
-              onClick={() => navigate(`${PATH.MY_PAGE}/${PATH.RECENT}`)}
-              aria-label="최근 본 상품"
-            >
-              <ClockArrowDown className="h-5 w-5 text-gray-600" />
-            </button>
-            <button
-              className="rounded-full p-2 hover:bg-gray-100"
               onClick={() => navigate(PATH.CART)}
               aria-label="장바구니"
             >
-              <ShoppingCart className="h-5 w-5 text-gray-600" />
+              <ShoppingCart className="h-5 w-5 cursor-pointer text-gray-600" />
             </button>
             <button
-              className="rounded-full p-2 hover:bg-gray-100"
+              className="cursor-pointer rounded-full p-2 hover:bg-gray-100"
               onClick={() => navigate(PATH.MY_PAGE)}
               aria-label="마이페이지"
             >
@@ -188,7 +181,7 @@ const Header: React.FC = () => {
               </div>
 
               {isSearchDropdownOpen && (
-                <div className="absolute top-full left-0 z-20 mt-2 w-[160px] overflow-hidden rounded-xl border border-[#E0E0E0] bg-white shadow-lg">
+                <div className="absolute top-full left-0 z-20 mt-2 w-40 overflow-hidden rounded-xl border border-[#E0E0E0] bg-white shadow-lg">
                   {(['통합 검색', 'LLM 검색', '쇼핑 리서치'] as const).map((option) => (
                     <button
                       key={option}

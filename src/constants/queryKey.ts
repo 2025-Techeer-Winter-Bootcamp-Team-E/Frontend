@@ -19,4 +19,15 @@ export const QUERY_KEY = {
     size,
   ],
   PRODUCT_REVIEW_AI: (product_code: number) => ['product', 'review', 'ai', product_code],
+
+  TIMER: ['timer'],
+  TIMER_ID: (timer_id: number) => ['timer', timer_id],
+  TIMER_MYPAGE: ['timer', 'mypage'],
+  TIMER_MY_LIST: (user_id: number, page: number, size: number) => [
+    'timer',
+    'mypage',
+    user_id,
+    page,
+    size,
+  ],
 };

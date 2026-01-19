@@ -6,7 +6,7 @@ const GlobalLayout = () => {
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
-      <main className="flex-1">
+      <main className="flex-1 mt-15">
         <Outlet />
       </main>
       <Footer />

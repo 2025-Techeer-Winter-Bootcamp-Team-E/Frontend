@@ -1,115 +1,39 @@
 import React, { useState } from 'react';
-import { ChevronDown, Menu, Search, ShoppingCart, User } from 'lucide-react';
+import { Menu, Search, ShoppingCart, User } from 'lucide-react';
 import { PATH } from '@/routes/path';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Category, { CATEGORY_ITEMS } from '@/components/layout/Category';
+import SearchModal from '@/components/layout/SearchModal';
 
 const Header: React.FC = () => {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
-  const [isSearchDropdownOpen, setIsSearchDropdownOpen] = useState(false);
-  const [selectedSearchOption, setSelectedSearchOption] = useState<
-    '통합 검색' | 'LLM 검색' | '쇼핑 리서치'
-  >('통합 검색');
-  const [searchQuery, setSearchQuery] = useState('');
-  const location = useLocation();
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+
   const navigate = useNavigate();
-  const isMainPage = location.pathname === PATH.ROOT;
-
-  const handleSearch = () => {
-    // 검색 로직 구현
-    if (searchQuery.trim()) {
-      // TODO: 검색 타입에 따라 다른 페이지로 이동
-      console.log('Search:', searchQuery, selectedSearchOption);
-    }
-  };
-
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      handleSearch();
-    }
-  };
 
   return (
-    <header className="border-b border-gray-200 bg-white">
+    <header className="fixed top-0 left-0 z-50 w-full border-b border-gray-200 bg-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between gap-4">
-          <div className="flex items-center" onClick={() => navigate('/')}>
-            <span className="cursor-pointer text-2xl font-bold text-cyan-500">COMPAGE</span>
+        <div className="flex h-14 items-center justify-between gap-4">
+          {/* Left - Logo */}
+          <div className="flex cursor-pointer items-center" onClick={() => navigate('/')}>
+            <span className="text-2xl font-bold text-cyan-500">COMPAGE</span>
           </div>
 
-          {/* Desktop search bar (메인 페이지 제외) */}
-          {!isMainPage && (
-            <div className="hidden flex-1 md:block">
-              {/* NOTE: dropdown이 잘리지 않게 overflow-hidden은 내부로 */}
-              <div className="relative rounded-full border border-gray-200 bg-gray-50">
-                <div className="flex items-center overflow-hidden rounded-full">
-                  {/* Left - 드롭다운 */}
-                  <div className="relative">
-                    <button
-                      type="button"
-                      onClick={() => setIsSearchDropdownOpen((prev) => !prev)}
-                      className="flex items-center gap-2 px-4 py-2 text-sm text-[#4A4A4A] transition-colors hover:text-[#1A1A1A]"
-                      aria-label="검색 타입 선택"
-                    >
-                      <span className="whitespace-nowrap">{selectedSearchOption}</span>
-                      <ChevronDown
-                        className={`h-4 w-4 transition-transform ${isSearchDropdownOpen ? 'rotate-180' : ''}`}
-                      />
-                    </button>
-                  </div>
+          {/* Center - Category Nav */}
+          <div className="hidden flex-1 justify-center md:flex">
+            <Category />
+          </div>
 
-                  <div className="h-5 w-px bg-[#E0E0E0]" aria-hidden="true" />
-
-                  {/* Center - input */}
-                  <div className="flex flex-1 items-center gap-2 px-4">
-                    <input
-                      type="text"
-                      placeholder="상품, 카테고리, 브랜드 등을 검색해 보세요"
-                      autoComplete="off"
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      onKeyPress={handleKeyPress}
-                      className="flex-1 bg-transparent py-2 text-sm text-gray-900 outline-none placeholder:text-gray-400"
-                    />
-                  </div>
-
-                  {/* Right - search button */}
-                  <button
-                    type="button"
-                    onClick={handleSearch}
-                    className="px-4 py-2 text-gray-600 transition-colors hover:text-gray-900"
-                    aria-label="검색"
-                  >
-                    <Search className="h-4 w-4" />
-                  </button>
-                </div>
-
-                {isSearchDropdownOpen && (
-                  <div className="absolute top-full left-0 z-20 mt-2 w-40 overflow-hidden rounded-xl border border-[#E0E0E0] bg-white shadow-lg">
-                    {(['통합 검색', 'LLM 검색', '쇼핑 리서치'] as const).map((option) => (
-                      <button
-                        key={option}
-                        type="button"
-                        onClick={() => {
-                          setSelectedSearchOption(option);
-                          setIsSearchDropdownOpen(false);
-                        }}
-                        className={`flex w-full items-center px-4 py-3 text-left text-sm transition-colors ${
-                          selectedSearchOption === option
-                            ? 'bg-gray-50 text-[#1A1A1A]'
-                            : 'text-[#4A4A4A] hover:bg-gray-50 hover:text-[#1A1A1A]'
-                        }`}
-                      >
-                        {option}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
-
+          {/* Right - Icons */}
           <div className="flex items-center space-x-2 md:space-x-4">
+            <button
+              className="rounded-full p-2 hover:bg-gray-100"
+              aria-label="검색"
+              onClick={() => setIsSearchOpen(true)}
+            >
+              <Search className="h-5 w-5 cursor-pointer text-gray-600" />
+            </button>
             <button
               className="rounded-full p-2 hover:bg-gray-100"
               onClick={() => navigate(PATH.CART)}
@@ -135,78 +59,6 @@ const Header: React.FC = () => {
           </div>
         </div>
 
-        {/* Mobile search bar (메인 페이지 제외) */}
-        {!isMainPage && (
-          <div className="mt-3 md:hidden">
-            <div className="relative rounded-full border border-gray-200 bg-gray-50">
-              <div className="flex items-center overflow-hidden rounded-full">
-                <div className="relative">
-                  <button
-                    type="button"
-                    onClick={() => setIsSearchDropdownOpen((prev) => !prev)}
-                    className="flex items-center gap-2 px-4 py-2 text-sm text-[#4A4A4A] transition-colors hover:text-[#1A1A1A]"
-                    aria-label="검색 타입 선택"
-                  >
-                    <span className="whitespace-nowrap">{selectedSearchOption}</span>
-                    <ChevronDown
-                      className={`h-4 w-4 transition-transform ${isSearchDropdownOpen ? 'rotate-180' : ''}`}
-                    />
-                  </button>
-                </div>
-
-                <div className="h-5 w-px bg-[#E0E0E0]" aria-hidden="true" />
-
-                <div className="flex flex-1 items-center gap-2 px-4">
-                  <Search className="h-4 w-4 shrink-0 text-gray-400" />
-                  <input
-                    type="text"
-                    placeholder="검색어를 입력해 주세요"
-                    autoComplete="off"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    onKeyPress={handleKeyPress}
-                    className="flex-1 bg-transparent py-2 text-sm text-gray-900 outline-none placeholder:text-gray-400"
-                  />
-                </div>
-
-                {/* Right - search button */}
-                <button
-                  type="button"
-                  onClick={handleSearch}
-                  className="px-4 py-2 text-gray-600 transition-colors hover:text-gray-900"
-                  aria-label="검색"
-                >
-                  <Search className="h-4 w-4" />
-                </button>
-              </div>
-
-              {isSearchDropdownOpen && (
-                <div className="absolute top-full left-0 z-20 mt-2 w-40 overflow-hidden rounded-xl border border-[#E0E0E0] bg-white shadow-lg">
-                  {(['통합 검색', 'LLM 검색', '쇼핑 리서치'] as const).map((option) => (
-                    <button
-                      key={option}
-                      type="button"
-                      onClick={() => {
-                        setSelectedSearchOption(option);
-                        setIsSearchDropdownOpen(false);
-                      }}
-                      className={`flex w-full items-center px-4 py-3 text-left text-sm transition-colors ${
-                        selectedSearchOption === option
-                          ? 'bg-gray-50 text-[#1A1A1A]'
-                          : 'text-[#4A4A4A] hover:bg-gray-50 hover:text-[#1A1A1A]'
-                      }`}
-                    >
-                      {option}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
-        )}
-
-        {/* Desktop category nav */}
-        <Category />
         {/* Mobile category nav */}
         {isMobileNavOpen && (
           <nav className="border-t border-gray-100 py-3 md:hidden">
@@ -224,6 +76,9 @@ const Header: React.FC = () => {
             </div>
           </nav>
         )}
+
+        {/* Search Modal */}
+        <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
       </div>
     </header>
   );

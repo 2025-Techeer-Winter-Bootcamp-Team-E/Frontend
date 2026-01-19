@@ -10,26 +10,17 @@ interface TokenCardProps {
   // 배지는 사용하지 않지만 props는 유지 (호환성)
 }
 
-const TokenCard = ({
-  amount,
-  price,
-  isPopular = false,
-  isRecommended = false,
-  isSelected,
-  onClick,
-}: TokenCardProps) => {
+const TokenCard = ({ amount, price, isSelected, onClick }: TokenCardProps) => {
   return (
     <button
       onClick={onClick}
       className={`relative rounded-lg border-2 p-4 transition-all hover:shadow-md ${
-        isSelected
-          ? 'border-blue-500 bg-blue-50'
-          : 'border-gray-200 bg-white hover:border-gray-300'
+        isSelected ? 'border-blue-500 bg-blue-50' : 'border-gray-200 bg-white hover:border-gray-300'
       }`}
     >
       {/* 선택 체크 아이콘 */}
       {isSelected && (
-        <div className="absolute right-3 top-3">
+        <div className="absolute top-3 right-3">
           <Check className="h-5 w-5 text-blue-500" />
         </div>
       )}

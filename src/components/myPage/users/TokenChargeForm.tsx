@@ -8,15 +8,17 @@ import ChargeButton from './ChargeButton';
 import InfoMessage from './InfoMessage';
 import kakaoImage from '@/assets/kakao.png';
 import naverImage from '@/assets/naver.png';
+import useTokenBalanceQuery from '@/hooks/queries/useTokenBalanceQuery';
 
 interface TokenChargeFormProps {
-  currentBalance: number;
   onCharge: (data: { tokenAmount: number; price: number; paymentMethod: string }) => void;
 }
 
-const TokenChargeForm = ({ currentBalance, onCharge }: TokenChargeFormProps) => {
+const TokenChargeForm = ({ onCharge }: TokenChargeFormProps) => {
   const [selectedTokenAmount, setSelectedTokenAmount] = useState<number | null>(null);
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<string | null>(null);
+
+  const { data: currentToken } = useTokenBalanceQuery();
 
   // 토큰 옵션
   const tokenOptions = [
@@ -87,7 +89,7 @@ const TokenChargeForm = ({ currentBalance, onCharge }: TokenChargeFormProps) => 
       <div className="mb-8 rounded-lg bg-gray-50 p-4">
         <div className="mb-1 text-sm text-gray-600">내 토큰 잔액</div>
         <div className="text-3xl font-bold text-gray-900">
-          {currentBalance.toLocaleString()} <span className="text-xl">TK</span>
+          {currentToken?.current_tokens} <span className="text-xl">TK</span>
         </div>
       </div>
 
@@ -133,8 +135,14 @@ const TokenChargeForm = ({ currentBalance, onCharge }: TokenChargeFormProps) => 
 
       {/* 충전 버튼 */}
       <div className="mt-6">
-        <ChargeButton onClick={handleCharge} disabled={!isFormValid} amount={selectedOption ? selectedOption.price : 0} />
-        <InfoMessage>충전 시 이용약관 및 유료서비스 이용약관에 동의하는 것으로 간주합니다.</InfoMessage>
+        <ChargeButton
+          onClick={handleCharge}
+          disabled={!isFormValid}
+          amount={selectedOption ? selectedOption.price : 0}
+        />
+        <InfoMessage>
+          충전 시 이용약관 및 유료서비스 이용약관에 동의하는 것으로 간주합니다.
+        </InfoMessage>
       </div>
     </div>
   );

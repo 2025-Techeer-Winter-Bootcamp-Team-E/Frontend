@@ -1,8 +1,8 @@
 import { User } from 'lucide-react';
-import userProfileData from '@/data/userProfile.json';
+import useUserProfile from '@/hooks/queries/useUserProfile';
 
 const UserProfile = () => {
-  const profile = userProfileData;
+  const { data } = useUserProfile();
 
   return (
     <div className="rounded-lg border border-gray-200 bg-white p-8 text-center">
@@ -11,8 +11,8 @@ const UserProfile = () => {
           <User className="h-10 w-10 text-gray-400" />
         </div>
       </div>
-      <h2 className="mb-2 text-2xl font-bold text-gray-900">{profile.name}</h2>
-      <p className="text-sm text-gray-500">{profile.username}</p>
+      <h2 className="mb-2 text-2xl font-bold text-gray-900">{data?.nickname}</h2>
+      <p className="text-sm text-gray-500">{data?.email}</p>
     </div>
   );
 };

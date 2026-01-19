@@ -19,3 +19,11 @@ export const searchPopluar = {
     ],
   },
 };
+
+export const searchAutoComplete = {
+  status: 200,
+  message: '자동완성 목록 조회 성공',
+  data: {
+    suggestions: ['노트북', '노트북 파우치', '노트북 거치대', '게이밍 노트북'],
+  },
+};

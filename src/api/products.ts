@@ -27,7 +27,7 @@ export const getProductsCodePriceTrends = async (product_code: number) => {
 /**
  * 쇼핑몰 별 상품 가격 조회 응답 GET
  */
-export const getProductsIdReviewSummary = async (product_code: number) => {
+export const getProductsIdPrices = async (product_code: number) => {
   return await getAPIResponseData<ProductCodePricesResDto, null>({
     method: 'GET',
     url: API.PRODUCTS_CODE_PRICES(product_code),
@@ -37,7 +37,11 @@ export const getProductsIdReviewSummary = async (product_code: number) => {
 /**
  * 상품 상세 페이지 전체 리뷰 목록 조회 응답 GET
  */
-export const getProductsIdAllReview = async (product_code: number, page: number, size: number) => {
+export const getProductsIdAllReview = async (
+  product_code: number,
+  page: number = 1,
+  size: number = 10,
+) => {
   return await getAPIResponseData<ProductCodeAllReviewsResDto, null>({
     method: 'GET',
     url: API.PRODUCTS_CODE_REVIEWS(product_code),

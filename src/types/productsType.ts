@@ -57,12 +57,13 @@ export type ReivewEntity = {
 
 /**
  * 상품 상세 페이지 전체 리뷰 목록 조회 응답
- * GET /products/{product_code}/reviews
+ * GET /products/{product_code}/reviews&page={page}&size={size}
  */
 export type ProductCodeAllReviewsResDto = {
   total_count: number;
   average_rating: number;
   reviews: ReivewEntity[];
+  has_next: boolean;
 };
 
 /**

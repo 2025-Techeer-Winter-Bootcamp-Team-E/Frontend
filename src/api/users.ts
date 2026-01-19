@@ -5,6 +5,7 @@ import type {
   UsersLoginReqDto,
   UsersLoginResDto,
   UsersPasswordReqDto,
+  UsersProfile,
   UsersSignUpReqDto,
   UsersSignUpResDto,
   UsersSocialLoginReqDto,
@@ -25,6 +26,14 @@ export const postUsersLogin = async (body: UsersLoginReqDto) => {
     method: 'POST',
     url: API.USERS_LOGIN,
     data: body,
+  });
+};
+
+// 프로필 조회 GET
+export const getUserProfile = async () => {
+  return await getAPIResponseData<UsersProfile>({
+    method: 'GET',
+    url: API.USERS,
   });
 };
 

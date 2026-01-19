@@ -3,6 +3,7 @@ import { API } from '@/constants/api';
 import type {
   TimerPostReqDto,
   TimerPostResDto,
+  TimersIdAllGetResDto,
   TimersIdGetResDto,
   TimersIdPatchReqDto,
 } from '@/types/timerType';
@@ -38,5 +39,16 @@ export const deletePricePredictionId = async (timer_id: number) => {
   return await getAPIResponseData<null, null>({
     method: 'DELETE',
     url: API.TIMERS_ID(timer_id),
+  });
+};
+
+/**
+ * 마이페이지 내 타이머 보관함 조회 응답 GET
+ */
+export const getTimerAllMypage = async (user_id: number, page: number = 1, size: number = 10) => {
+  return await getAPIResponseData<TimersIdAllGetResDto, null>({
+    method: 'GET',
+    url: API.TIMERS,
+    params: { user_id, page, size },
   });
 };

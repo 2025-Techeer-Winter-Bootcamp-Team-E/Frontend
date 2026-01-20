@@ -95,7 +95,7 @@ export type CartItemPostResDto = {
  * 장바구니 모든 상품 조회 응답 데이터
  * POST /orders/cart
  */
-type CartItemEntity = {
+export type CartItemEntity = {
   cart_item_id: number;
   product_code: number;
   product_name: string;

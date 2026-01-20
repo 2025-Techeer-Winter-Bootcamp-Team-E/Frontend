@@ -139,7 +139,10 @@ const CartPage = () => {
                 return;
               }
               navigate(PATH.CHECKOUT, {
-                state: { selectedItems: validSelectedItems },
+                state: {
+                  mode: 'cart', // 장바구니 모드 명시
+                  selectedItems: validSelectedItems,
+                },
               });
             }}
           />

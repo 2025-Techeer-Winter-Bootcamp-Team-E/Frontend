@@ -3,11 +3,12 @@ import { QUERY_KEY } from '@/constants/queryKey';
 import type { SearchRecentResDto } from '@/types/searchType';
 import { useQuery } from '@tanstack/react-query';
 
-const useSearchRecentQuery = () => {
+const useSearchRecentQuery = (enabled: boolean = true) => {
   return useQuery<SearchRecentResDto>({
     queryKey: QUERY_KEY.SEARCH_RECENT,
     queryFn: getSearchRecent,
-    staleTime: 1000 * 60 * 10,
+    staleTime: Infinity,
+    enabled,
   });
 };
 

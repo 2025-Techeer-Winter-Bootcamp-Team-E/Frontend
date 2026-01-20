@@ -1,57 +1,84 @@
+import type { LLMRecommendationEntity } from '@/types/searchType';
 import React from 'react';
-
-interface Product {
-  id: number;
-  category: string;
-  name: string;
-  price: string;
-  badge: string;
-  description: string;
-  image: string;
-}
+import { useNavigate } from 'react-router-dom';
 
 interface ProductCardProps {
-  product: Product;
+  product: LLMRecommendationEntity;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+  const navigate = useNavigate();
+
+  const handleCardClick = () => {
+    if (product.product_detail_url) {
+      // 외부 URL인 경우
+      window.open(product.product_detail_url, '_blank');
+    } else {
+      // 내부 상세 페이지로 이동
+      navigate(`/product/${product.product_id}`);
+    }
+  };
+
   return (
-    <div className="bg-white border border-[#f3f4f6] rounded-2xl overflow-hidden shadow-sm">
+    <div
+      onClick={handleCardClick}
+      className="cursor-pointer overflow-hidden rounded-2xl border border-[#f3f4f6] bg-white shadow-sm transition-shadow hover:shadow-md"
+    >
       <div className="flex">
         {/* 제품 이미지 */}
-        <div className="bg-[#f9fafb] border-r border-[#f3f4f6] w-[191.59px] h-[239px] flex items-center justify-center px-4 py-4 flex-shrink-0">
-          <div className="w-full h-full relative">
+        <div className="flex h-59.75 w-[191.59px] shrink-0 items-center justify-center border-r border-[#f3f4f6] bg-[#f9fafb] px-4 py-4">
+          <div className="relative h-full w-full">
             <img
-              src={product.image}
-              alt={product.name}
-              className="absolute inset-0 w-full h-[76.61%] top-[11.69%] object-contain"
+              src={product.product_image_url}
+              alt={product.product_name}
+              className="absolute inset-0 top-[11.69%] h-[76.61%] w-full object-contain"
+              onError={(e) => {
+                // 이미지 로드 실패 시 기본 이미지 표시
+                e.currentTarget.src = '/placeholder-product.png';
+              }}
             />
           </div>
         </div>
 
         {/* 제품 정보 */}
-        <div className="flex-1 h-[239px] p-8 flex flex-col justify-between">
+        <div className="flex h-59.75 flex-1 flex-col justify-between p-8">
           <div className="flex flex-col gap-1">
             <div className="flex items-start justify-between">
-              <p className="text-xs font-bold text-[#0d9dda] uppercase tracking-[0.6px] leading-[16px]">
-                {product.category}
+              <p className="text-xs leading-4 font-bold tracking-[0.6px] text-[#0d9dda] uppercase">
+                추천상품
               </p>
-              <span className="bg-[#eff6ff] text-[#0d9dda] text-[10px] font-bold px-2 py-0.5 rounded">
-                {product.badge}
+              <span className="rounded bg-[#eff6ff] px-2 py-0.5 text-[10px] font-bold text-[#0d9dda]">
+                AI 추천
               </span>
             </div>
-            <h3 className="text-lg font-bold text-[#111827] leading-[28px] whitespace-pre-wrap">
-              {product.name}
+            <h3 className="line-clamp-2 text-lg leading-7 font-bold text-[#111827]">
+              {product.product_name}
             </h3>
-            <p className="text-xl font-black text-[#0d9dda] leading-[28px] mt-1 whitespace-pre-wrap">
-              {product.price}
+            <p className="mt-1 text-xl leading-7 font-black text-[#0d9dda]">
+              {product.price.toLocaleString()}원
             </p>
+
+            {/* 스펙 정보 추가 */}
+            {product.specs && Object.keys(product.specs).length > 0 && (
+              <div className="mt-2 flex flex-wrap gap-2">
+                {Object.entries(product.specs)
+                  .slice(0, 3)
+                  .map(([key, value]) => (
+                    <span
+                      key={key}
+                      className="rounded-full bg-gray-100 px-3 py-1 text-xs text-gray-700"
+                    >
+                      {key}: {value}
+                    </span>
+                  ))}
+              </div>
+            )}
           </div>
 
-          <div className="bg-[#f9fafb] border-l-4 border-[#0d9dda] rounded-xl pl-5 pr-4 py-4">
-            <p className="text-xs font-bold text-[#6b7280] mb-1 leading-[16px]">AI 추천 이유</p>
-            <p className="text-sm font-light text-[#111827] leading-[20px]">
-              {product.description}
+          <div className="rounded-xl border-l-4 border-[#0d9dda] bg-[#f9fafb] py-4 pr-4 pl-5">
+            <p className="mb-1 text-xs leading-4 font-bold text-[#6b7280]">AI 추천 이유</p>
+            <p className="line-clamp-2 text-sm leading-5 font-light text-[#111827]">
+              {product.recommendation_reason}
             </p>
           </div>
         </div>

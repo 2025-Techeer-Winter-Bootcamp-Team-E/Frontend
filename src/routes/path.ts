@@ -9,9 +9,9 @@ export const PATH = {
 
   PRODUCT_LIST: '/products',
   PRODUCT_DETAIL: '/products/:id',
-  LLM_SEARCH_RESULT: '/llm-search-result',
-  SHOPPING_RESEARCH: '/shopping-research',
-  SHOPPING_RESEARCH_RESULT: '/shopping-research-result',
+  LLM_SEARCH_RESULT: '/search/llm/:keyword',
+  SHOPPING_RESEARCH: '/shopping-research/:keyword',
+  SHOPPING_RESEARCH_RESULT: '/shopping-research-result/:keyword',
 
   MY_PAGE: '/mypage',
   TIMER: 'timer',

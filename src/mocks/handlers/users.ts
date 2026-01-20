@@ -1,5 +1,5 @@
 import { API } from '@/constants/api';
-import { userProfile, usersLogin } from '@/mocks/data/users';
+import { userProfile, userSignIn, usersLogin } from '@/mocks/data/users';
 import { http, HttpResponse } from 'msw';
 
 export const usersHandler = [
@@ -9,5 +9,9 @@ export const usersHandler = [
 
   http.post(API.USERS_LOGIN, async () => {
     return HttpResponse.json(usersLogin);
+  }),
+
+  http.post(API.USERS_SIGNUP, async () => {
+    return HttpResponse.json(userSignIn);
   }),
 ];

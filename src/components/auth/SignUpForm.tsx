@@ -1,151 +1,40 @@
+import type { AgreementsState } from '@/components/auth/AgreementSection';
+import AgreementSection from '@/components/auth/AgreementSection';
+import FormInput from '@/components/auth/FormInput';
+import useSignUpMutation from '@/hooks/mutations/useSignUpMutation';
 import { useState } from 'react';
 
-type FormInputProps = {
-  label: string;
-  type?: string;
-  placeholder?: string;
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  error?: string;
-};
-
-const FormInput: React.FC<FormInputProps> = ({
-  label,
-  type = 'text',
-  placeholder,
-  value,
-  onChange,
-  error,
-}) => (
-  <div>
-    <label className="block text-sm font-medium text-gray-700">{label}</label>
-    <input
-      type={type}
-      placeholder={placeholder}
-      value={value}
-      onChange={onChange}
-      className="mt-1 w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-cyan-500 focus:bg-white focus:ring-2 focus:ring-cyan-100 focus:outline-none"
-    />
-    {error && <p className="mt-1 text-xs text-red-500">{error}</p>}
-  </div>
-);
-
-type EmailVerificationProps = {
+type SignupFormData = {
   email: string;
-  onEmailChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  password: string;
+  passwordConfirm: string;
+  nickname: string;
+  name: string;
+  phone: string;
 };
 
-const EmailVerification: React.FC<EmailVerificationProps> = ({ email, onEmailChange }) => (
-  <div>
-    <label className="block text-sm font-medium text-gray-700">이메일 주소</label>
-    <div className="mt-1 flex gap-2">
-      <input
-        type="email"
-        value={email}
-        onChange={onEmailChange}
-        placeholder="이메일 주소를 입력해주세요"
-        className="w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-cyan-500 focus:bg-white focus:ring-2 focus:ring-cyan-100 focus:outline-none"
-      />
-      <button
-        type="button"
-        className="shrink-0 rounded-lg border border-cyan-500 px-3 py-2 text-sm font-medium text-cyan-500 hover:bg-cyan-50"
-      >
-        인증요청
-      </button>
-    </div>
-  </div>
-);
-
-type AgreementsState = {
-  all: boolean;
-  age14: boolean;
-  service: boolean;
-  privacy: boolean;
-  marketing: boolean;
-};
-
-type AgreementSectionProps = {
-  agreements: AgreementsState;
-  onAgreementsChange: (next: AgreementsState) => void;
-};
-
-const AgreementSection: React.FC<AgreementSectionProps> = ({ agreements, onAgreementsChange }) => {
-  const toggle = (key: keyof AgreementsState) => {
-    const next = { ...agreements, [key]: !agreements[key] };
-
-    if (key !== 'all') {
-      const allRequiredOn = next.age14 && next.service && next.privacy;
-      next.all = allRequiredOn && next.marketing;
-    } else {
-      next.age14 = !agreements.all;
-      next.service = !agreements.all;
-      next.privacy = !agreements.all;
-      next.marketing = !agreements.all;
-    }
-
-    onAgreementsChange(next);
-  };
-
-  return (
-    <div className="space-y-3 rounded-lg border border-gray-200 bg-white px-4 py-3 text-sm text-gray-700">
-      <button
-        type="button"
-        onClick={() => toggle('all')}
-        className="flex w-full items-center justify-between"
-      >
-        <span className="font-medium">약관 전체 동의</span>
-        <input type="checkbox" checked={agreements.all} readOnly className="h-4 w-4" />
-      </button>
-      <div className="h-px bg-gray-200" />
-      <label className="flex items-center justify-between gap-2">
-        <span>[필수] 만 14세 이상입니다.</span>
-        <input
-          type="checkbox"
-          checked={agreements.age14}
-          onChange={() => toggle('age14')}
-          className="h-4 w-4"
-        />
-      </label>
-      <label className="flex items-center justify-between gap-2">
-        <span>[필수] 이용약관 동의</span>
-        <input
-          type="checkbox"
-          checked={agreements.service}
-          onChange={() => toggle('service')}
-          className="h-4 w-4"
-        />
-      </label>
-      <label className="flex items-center justify-between gap-2">
-        <span>[필수] 개인정보 수집 및 이용 동의</span>
-        <input
-          type="checkbox"
-          checked={agreements.privacy}
-          onChange={() => toggle('privacy')}
-          className="h-4 w-4"
-        />
-      </label>
-      <label className="flex items-center justify-between gap-2">
-        <span>[선택] 마케팅 정보 수신 동의</span>
-        <input
-          type="checkbox"
-          checked={agreements.marketing}
-          onChange={() => toggle('marketing')}
-          className="h-4 w-4"
-        />
-      </label>
-    </div>
-  );
+type FormErrors = {
+  email: string;
+  password: string;
+  passwordConfirm: string;
+  nickname: string;
+  name: string;
+  phone: string;
 };
 
 const SignupForm: React.FC = () => {
-  const [formData, setFormData] = useState({
-    username: '',
+  const signUpMutation = useSignUpMutation();
+
+  const [formData, setFormData] = useState<SignupFormData>({
     email: '',
     password: '',
     passwordConfirm: '',
+    nickname: '',
+    name: '',
+    phone: '',
   });
 
-  const [agreements, setAgreements] = useState({
+  const [agreements, setAgreements] = useState<AgreementsState>({
     all: false,
     age14: false,
     service: false,
@@ -153,36 +42,38 @@ const SignupForm: React.FC = () => {
     marketing: false,
   });
 
-  const [errors, setErrors] = useState({
-    username: '',
+  const [errors, setErrors] = useState<FormErrors>({
+    email: '',
     password: '',
     passwordConfirm: '',
+    nickname: '',
+    name: '',
+    phone: '',
   });
 
-  const handleInputChange = (field: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({
-      ...formData,
-      [field]: e.target.value,
-    });
-    // Clear error when user starts typing
-    if (errors[field as keyof typeof errors]) {
-      setErrors({
-        ...errors,
-        [field]: '',
-      });
-    }
-  };
+  const handleInputChange =
+    (field: keyof SignupFormData) => (e: React.ChangeEvent<HTMLInputElement>) => {
+      setFormData((prev) => ({ ...prev, [field]: e.target.value }));
 
-  const validateForm = () => {
-    const newErrors = {
-      username: '',
-      password: '',
-      passwordConfirm: '',
+      if (errors[field]) {
+        setErrors((prev) => ({ ...prev, [field]: '' }));
+      }
     };
 
-    if (!formData.username) {
-      newErrors.username = '아이디를 입력해주세요.';
-    }
+  const validateForm = () => {
+    const newErrors: FormErrors = {
+      email: '',
+      password: '',
+      passwordConfirm: '',
+      nickname: '',
+      name: '',
+      phone: '',
+    };
+
+    if (!formData.email) newErrors.email = '이메일을 입력해주세요.';
+    if (!formData.nickname) newErrors.nickname = '닉네임을 입력해주세요.';
+    if (!formData.name) newErrors.name = '이름을 입력해주세요.';
+    if (!formData.phone) newErrors.phone = '전화번호를 입력해주세요.';
 
     if (!formData.password) {
       newErrors.password = '비밀번호를 입력해주세요.';
@@ -195,70 +86,104 @@ const SignupForm: React.FC = () => {
     }
 
     setErrors(newErrors);
-    return !Object.values(newErrors).some((error) => error !== '');
+    return !Object.values(newErrors).some(Boolean);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!validateForm()) {
-      return;
-    }
+    if (!validateForm()) return;
 
     if (!agreements.age14 || !agreements.service || !agreements.privacy) {
       alert('필수 약관에 동의해주세요.');
       return;
     }
 
-    console.log('회원가입 데이터:', { formData, agreements });
-    // API 호출 로직
+    signUpMutation.mutate(
+      {
+        email: formData.email,
+        password: formData.password,
+        nickname: formData.nickname,
+        name: formData.name,
+        phone: formData.phone,
+      },
+      {
+        onSuccess: (res) => {
+          console.log('회원가입 성공', res);
+          alert('회원가입이 완료되었습니다!');
+          // TODO: 로그인 페이지 이동
+        },
+        onError: (error) => {
+          console.error(error);
+          alert(error.message || '회원가입에 실패했습니다.');
+        },
+      },
+    );
   };
 
   return (
     <div className="flex justify-center bg-gray-50 px-4 py-20">
-      <div className="w-full max-w-xl px-4">
-        <h1 className="mb-8 text-center text-2xl font-semibold text-gray-900">회원가입</h1>
+      <div className="w-full max-w-xl">
+        <h1 className="mb-8 text-center text-2xl font-semibold">회원가입</h1>
 
         <form onSubmit={handleSubmit} className="space-y-6">
-          {/* 아이디 */}
           <FormInput
-            label="아이디"
-            placeholder="영문,숫자 아이디, 최대 20자"
-            value={formData.username}
-            onChange={handleInputChange('username')}
-            error={errors.username}
+            label="이메일"
+            type="email"
+            placeholder="example@email.com"
+            value={formData.email}
+            onChange={handleInputChange('email')}
+            error={errors.email}
           />
 
-          {/* 비밀번호 */}
+          <FormInput
+            label="닉네임"
+            placeholder="닉네임"
+            value={formData.nickname}
+            onChange={handleInputChange('nickname')}
+            error={errors.nickname}
+          />
+
+          <FormInput
+            label="이름"
+            placeholder="이름"
+            value={formData.name}
+            onChange={handleInputChange('name')}
+            error={errors.name}
+          />
+
+          <FormInput
+            label="전화번호"
+            type="tel"
+            placeholder="010-1234-5678"
+            value={formData.phone}
+            onChange={handleInputChange('phone')}
+            error={errors.phone}
+          />
+
           <FormInput
             label="비밀번호"
             type="password"
-            placeholder="숫자, 영문, 특수문자 포함 최소 8자 이상"
+            placeholder="최소 8자 이상"
             value={formData.password}
             onChange={handleInputChange('password')}
             error={errors.password}
           />
 
-          {/* 비밀번호 확인 */}
           <FormInput
             label="비밀번호 확인"
             type="password"
-            placeholder="비밀번호 한번 더 입력"
+            placeholder="비밀번호 확인"
             value={formData.passwordConfirm}
             onChange={handleInputChange('passwordConfirm')}
             error={errors.passwordConfirm}
           />
 
-          {/* 이메일 주소 */}
-          <EmailVerification email={formData.email} onEmailChange={handleInputChange('email')} />
-
-          {/* 약관 동의 */}
           <AgreementSection agreements={agreements} onAgreementsChange={setAgreements} />
 
-          {/* 회원가입 버튼 */}
           <button
             type="submit"
-            className="w-full rounded-lg bg-cyan-500 py-4 text-lg font-semibold text-white transition-colors hover:bg-cyan-600"
+            className="w-full rounded-lg bg-cyan-500 py-4 text-lg font-semibold text-white hover:bg-cyan-600"
           >
             회원가입
           </button>

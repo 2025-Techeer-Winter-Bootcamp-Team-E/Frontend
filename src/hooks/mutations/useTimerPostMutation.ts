@@ -3,15 +3,14 @@ import { QUERY_KEY } from '@/constants/queryKey';
 import type { TimerPostReqDto } from '@/types/timerType';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-const useTimerPostMutation = () => {
+const useTimerPostMutation = (product_code: number) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (body: TimerPostReqDto) => postPricePrediction(body),
-    onSuccess: (data) => {
+    onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: QUERY_KEY.TIMER_ID(data.timer_id),
+        queryKey: QUERY_KEY.TIMER_PRODUCT_ID(product_code),
       });
-
       queryClient.invalidateQueries({
         queryKey: QUERY_KEY.TIMER_MYPAGE,
       });

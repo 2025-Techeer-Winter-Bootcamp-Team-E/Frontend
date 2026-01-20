@@ -74,3 +74,34 @@ export const myPageAllTImerPaging = {
     ],
   },
 };
+
+export const successTimerDelete = {
+  status: 200,
+  message: '성공적으로 삭제(추적 중단)되었습니다.',
+};
+
+export const successTimePatch = {
+  status: 200,
+  message: '수정이 완료되었습니다.',
+};
+
+export const suceessTimerGet = {
+  status: 200,
+  data: {
+    product_code: 78528251,
+    product_name: '삼성전자 갤럭시북4 프로',
+    target_price: 520000,
+    predicted_price: 530000,
+    confidence_score: 92.5,
+    recommendation_score: 85,
+    thumbnail_url: 'https://img.example.com/macbook-air-m3.jpg',
+    reason_message: '현재 역대 최저가에 근접한 저점 구간입니다. 구매를 강력 추천합니다.',
+    predicted_at: '2026-01-14T21:00:00',
+  },
+};
+
+export const suceessTimerPost = {
+  status: 201,
+  message: '타이머가 성공적으로 등록되었습니다.',
+  data: { timer_id: 1 },
+};

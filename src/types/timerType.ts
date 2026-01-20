@@ -5,7 +5,6 @@
 export type TimerPostReqDto = {
   product_id: number;
   target_price: number;
-  is_active: boolean;
 };
 
 /**
@@ -18,15 +17,26 @@ export type TimerPostResDto = {
 
 /**
  * 현가격의 저점/고점 판정 결과 및 정보 조회 응답
- * GET /timers/{timer_id}
+ * GET /timers
  */
 export type TimersIdGetResDto = {
+  product_code: number;
+  product_name: string;
   target_price: number;
   predicted_price: number;
   confidence_score: number;
   recommendation_score: number;
+  thumbnail_url: string;
   reason_message: string;
   predicted_at: string;
+};
+
+/**
+ * 현가격의 저점/고점 판정 결과 및 정보 조회 응답
+ * GET /timers/{timer_id}
+ */
+export type TimersIdGetReqDto = {
+  product_code: number;
 };
 
 /**
@@ -35,7 +45,6 @@ export type TimersIdGetResDto = {
  */
 export type TimersIdPatchReqDto = {
   target_price: number;
-  is_active: boolean;
 };
 
 type PageInfo = {
@@ -48,12 +57,13 @@ type PageInfo = {
 
 export type TimersEntity = {
   timer_id: number;
-  product_id: number;
+  product_code: number;
   product_name: string;
   target_price: number;
   predicted_price: number;
   confidence_score: number;
   recommendation_score: number;
+  thumbnail_url: string;
   reason_message: string;
   predicted_at: string;
 };

@@ -9,9 +9,6 @@ const useTimerPatchMutation = (timer_id: number) => {
     mutationFn: (body: TimersIdPatchReqDto) => patchPricePredictionId(timer_id, body),
     onSuccess: () => {
       void queryClient.invalidateQueries({
-        queryKey: QUERY_KEY.TIMER_ID(timer_id),
-      });
-      void queryClient.invalidateQueries({
         queryKey: QUERY_KEY.TIMER_MYPAGE,
       });
     },

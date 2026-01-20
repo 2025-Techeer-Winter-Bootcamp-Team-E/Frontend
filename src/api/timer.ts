@@ -4,6 +4,7 @@ import type {
   TimerPostReqDto,
   TimerPostResDto,
   TimersIdAllGetResDto,
+  TimersIdGetReqDto,
   TimersIdGetResDto,
   TimersIdPatchReqDto,
 } from '@/types/timerType';
@@ -17,9 +18,18 @@ export const postPricePrediction = async (body: TimerPostReqDto) => {
   });
 };
 
+// 적정구매 단일 타이머 GET
+export const getTimersByProductId = async (product_code: number) => {
+  return await getAPIResponseData<TimersIdGetResDto, null>({
+    method: 'GET',
+    url: API.TIMERS,
+    params: { product_code },
+  });
+};
+
 // 현가격의 저점/고점 판정 결과 및 정보 GET
 export const getPricePredictionIdAnalysis = async (timer_id: number) => {
-  return await getAPIResponseData<TimersIdGetResDto, null>({
+  return await getAPIResponseData<TimersIdGetResDto, TimersIdGetReqDto>({
     method: 'GET',
     url: API.TIMERS_ID(timer_id),
   });

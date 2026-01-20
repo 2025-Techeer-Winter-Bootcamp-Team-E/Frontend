@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import {
   ImageGallery,
   ProductInfo,
@@ -6,15 +6,35 @@ import {
   PriceComparisonTable,
   SpecTable,
   ReviewSection,
+  PriceTrendCard,
 } from '@/components/productDetail';
 import useProductInfoQuery from '@/hooks/queries/useProductInfoQuery';
+import useTimerGetQuery from '@/hooks/queries/useTimerGetQuery';
+import TimerRegisterButton from '@/components/productDetail/TimerRegisterButton';
+import useTimerPostMutation from '@/hooks/mutations/useTimerPostMutation';
+import TimerModal from '@/components/myPage/timer/TimerModal';
 
 const ProductDetailPage = () => {
   const { data: productInfo } = useProductInfoQuery(1);
+  const { data: timerInfo } = useTimerGetQuery(1);
+  const postTimerMutate = useTimerPostMutation(1);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const comparisonRef = useRef<HTMLDivElement>(null);
   const specsRef = useRef<HTMLDivElement>(null);
   const reviewsRef = useRef<HTMLDivElement>(null);
+
+  const handleOpenModal = () => setIsModalOpen(true);
+  const handleCloseModal = () => setIsModalOpen(false);
+
+  const handleSubmitTimer = (data: { product_id: number; target_price: number }) => {
+    postTimerMutate.mutate(data, {
+      onSuccess: () => {
+        setIsModalOpen(false); // 등록 성공 시 모달 닫기
+      },
+    });
+  };
 
   return (
     <div className="min-h-screen bg-[#F5F7F8]">
@@ -30,11 +50,17 @@ const ProductDetailPage = () => {
               <ProductInfo productInfo={productInfo} />
 
               {/* 가격 추이 카드 및 그래프 */}
-              <div className="flex gap-6">
-                {/* <PriceTrendCard 
-                /> */}
-                <PriceTrendGraph productCode={1} />
-              </div>
+              {timerInfo ? (
+                <div className="flex gap-6">
+                  <PriceTrendCard timerInfo={timerInfo}/>
+                  <PriceTrendGraph productCode={1} />
+                </div>
+              ) : (
+                <div className="flex flex-col gap-6">
+                  <PriceTrendGraph productCode={1} />
+                  <TimerRegisterButton onClick={handleOpenModal} />
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -45,17 +71,24 @@ const ProductDetailPage = () => {
             <PriceComparisonTable />
           </div>
 
-          {/* 상세정보 섹션 */}
           <div id="specs" ref={specsRef} className="scroll-mt-24">
             <SpecTable productInfo={productInfo} />
           </div>
 
-          {/* 구매후기 섹션 */}
           <div id="reviews" ref={reviewsRef} className="scroll-mt-24">
             <ReviewSection productCode={1} />
           </div>
         </div>
       </div>
+
+      {/* 타이머 등록 모달 */}
+      <TimerModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        onSubmit={handleSubmitTimer}
+        productId={1}
+        mode="create"
+      />
     </div>
   );
 };

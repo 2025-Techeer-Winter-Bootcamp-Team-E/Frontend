@@ -22,6 +22,7 @@ export const QUERY_KEY = {
 
   TIMER: ['timer'],
   TIMER_ID: (timer_id: number) => ['timer', timer_id],
+  TIMER_PRODUCT_ID: (product_code: number) => ['timer', product_code],
   TIMER_MYPAGE: ['timer', 'mypage'],
   TIMER_MY_LIST: (user_id: number, page: number, size: number) => [
     'timer',

@@ -9,6 +9,7 @@ const useLogInMutation = () => {
   return useMutation<UsersLoginResDto, Error, UsersLoginReqDto>({
     mutationFn: (body: UsersLoginReqDto) => postUsersLogin(body),
     onSuccess: (data) => {
+      localStorage.setItem('user_id', String(data.user_id));
       localStorage.setItem('access_token', data.access_token);
       localStorage.setItem('refresh_token', data.refresh_token);
 

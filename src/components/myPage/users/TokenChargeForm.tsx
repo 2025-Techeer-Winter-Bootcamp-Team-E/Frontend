@@ -9,16 +9,14 @@ import InfoMessage from './InfoMessage';
 import kakaoImage from '@/assets/kakao.png';
 import naverImage from '@/assets/naver.png';
 import useTokenBalanceQuery from '@/hooks/queries/useTokenBalanceQuery';
+import useTokenChargeMutation from '@/hooks/mutations/useTokenChargeMutation';
 
-interface TokenChargeFormProps {
-  onCharge: (data: { tokenAmount: number; price: number; paymentMethod: string }) => void;
-}
-
-const TokenChargeForm = ({ onCharge }: TokenChargeFormProps) => {
+const TokenChargeForm = () => {
   const [selectedTokenAmount, setSelectedTokenAmount] = useState<number | null>(null);
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<string | null>(null);
 
   const { data: currentToken } = useTokenBalanceQuery();
+  const { mutate: chargeToken, isPending } = useTokenChargeMutation();
 
   // 토큰 옵션
   const tokenOptions = [
@@ -49,30 +47,32 @@ const TokenChargeForm = ({ onCharge }: TokenChargeFormProps) => {
       id: 'kakao',
       label: '카카오페이',
       iconBgColor: 'bg-[#FEE500]',
-      iconColor: 'text-yellow-600',
       imageSrc: kakaoImage,
     },
     {
       id: 'naver',
       label: '네이버페이',
       iconBgColor: 'bg-[#03C75A]',
-      iconColor: 'text-green-600',
       imageSrc: naverImage,
     },
   ];
 
-  // 충전 핸들러
+  // 🔥 충전 핸들러 (mutation 연결)
   const handleCharge = () => {
-    if (selectedTokenAmount && selectedPaymentMethod) {
-      const selected = tokenOptions.find((opt) => opt.amount === selectedTokenAmount);
-      if (selected) {
-        onCharge({
-          tokenAmount: selectedTokenAmount,
-          price: selected.price,
-          paymentMethod: selectedPaymentMethod,
-        });
-      }
-    }
+    if (!selectedTokenAmount || !selectedPaymentMethod) return;
+
+    chargeToken(
+      {
+        recharge_token: selectedTokenAmount,
+      },
+      {
+        onSuccess: () => {
+          alert('토큰 충전이 완료되었습니다!');
+          setSelectedTokenAmount(null);
+          setSelectedPaymentMethod(null);
+        },
+      },
+    );
   };
 
   const selectedOption = tokenOptions.find((opt) => opt.amount === selectedTokenAmount);
@@ -80,7 +80,6 @@ const TokenChargeForm = ({ onCharge }: TokenChargeFormProps) => {
 
   return (
     <div className="max-w-4xl">
-      {/* 안내 메시지 */}
       <p className="mb-6 text-sm text-gray-600">
         AI 구매 가이드 및 상세 가격 분석을 위한 토큰을 충전하세요.
       </p>
@@ -89,7 +88,7 @@ const TokenChargeForm = ({ onCharge }: TokenChargeFormProps) => {
       <div className="mb-8 rounded-lg bg-gray-50 p-4">
         <div className="mb-1 text-sm text-gray-600">내 토큰 잔액</div>
         <div className="text-3xl font-bold text-gray-900">
-          {currentToken?.current_tokens} <span className="text-xl">TK</span>
+          {currentToken?.current_tokens ?? 0} <span className="text-xl">TK</span>
         </div>
       </div>
 
@@ -135,11 +134,7 @@ const TokenChargeForm = ({ onCharge }: TokenChargeFormProps) => {
 
       {/* 충전 버튼 */}
       <div className="mt-6">
-        <ChargeButton
-          onClick={handleCharge}
-          disabled={!isFormValid}
-          amount={selectedOption ? selectedOption.price : 0}
-        />
+        <ChargeButton onClick={handleCharge} disabled={!isFormValid || isPending} />
         <InfoMessage>
           충전 시 이용약관 및 유료서비스 이용약관에 동의하는 것으로 간주합니다.
         </InfoMessage>

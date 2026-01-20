@@ -1,5 +1,5 @@
 import { API } from '@/constants/api';
-import { searchAutoComplete, searchPopluar, searchRecent } from '@/data/search';
+import { llmSearch, searchAutoComplete, searchPopluar, searchRecent } from '@/mocks/data/search';
 import { http, HttpResponse } from 'msw';
 
 export const searchHandler = [
@@ -11,5 +11,8 @@ export const searchHandler = [
   }),
   http.get(API.SEARCH_AUTOCOMPLETE, () => {
     return HttpResponse.json(searchAutoComplete);
+  }),
+  http.post(API.SEARCH_LLM_RECOMMENDATION, async () => {
+    return HttpResponse.json(llmSearch);
   }),
 ];

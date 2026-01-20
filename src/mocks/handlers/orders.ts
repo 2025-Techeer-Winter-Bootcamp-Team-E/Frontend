@@ -1,8 +1,8 @@
 import { API } from '@/constants/api';
-import { myTokenCharge, successTokenCharge } from '@/data/token';
+import { myTokenCharge, successTokenCharge } from '@/mocks/data/orders';
 import { http, HttpResponse } from 'msw';
 
-export const tokenHandler = [
+export const ordersHandler = [
   http.get(API.ORDERS_TOKENS, () => {
     return HttpResponse.json(myTokenCharge);
   }),

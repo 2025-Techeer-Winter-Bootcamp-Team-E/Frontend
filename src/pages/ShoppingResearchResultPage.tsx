@@ -8,7 +8,7 @@ import {
   CTASection,
 } from '@/components/shoppingResearchResult';
 import { Target, Gift } from 'lucide-react';
-import shoppingResearchResultData from '@/data/shoppingResearchResult.json';
+import shoppingResearchResultData from '@/mocks/data/shoppingResearchResult.json';
 import { useNavigate } from 'react-router-dom';
 import { PATH } from '@/routes/path';
 
@@ -68,9 +68,9 @@ const ShoppingResearchResultPage: React.FC = () => {
           <div className="flex flex-col gap-6">
             <div className="flex items-center gap-2">
               <div className="scale-y-[-1]">
-                <Target className="w-6 h-7 text-[#0d9dda]" />
+                <Target className="h-7 w-6 text-[#0d9dda]" />
               </div>
-              <h2 className="text-xl font-bold text-[#111827] leading-[28px]">상황별 상품 추천</h2>
+              <h2 className="text-xl leading-[28px] font-bold text-[#111827]">상황별 상품 추천</h2>
             </div>
             <div className="flex gap-6">
               {situations.map((situation, index) => (

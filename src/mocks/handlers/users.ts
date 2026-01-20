@@ -1,5 +1,5 @@
 import { API } from '@/constants/api';
-import { userProfile, usersLogin } from '@/data/users';
+import { userProfile, usersLogin } from '@/mocks/data/users';
 import { http, HttpResponse } from 'msw';
 
 export const usersHandler = [

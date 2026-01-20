@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Plus, Minus } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import cartData from '@/data/cart.json';
+import cartData from '@/mocks/data/cart.json';
 import { PATH } from '@/routes/path';
 
 // 이미지 URL (Figma에서 가져온 이미지)

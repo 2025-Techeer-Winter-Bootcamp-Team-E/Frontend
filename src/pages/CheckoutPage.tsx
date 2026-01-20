@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { Package, CreditCard, ChevronDown, ChevronRight } from 'lucide-react';
+import { Package, ChevronDown, ChevronRight } from 'lucide-react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import cartData from '@/data/cart.json';
+import cartData from '@/mocks/data/cart.json';
 
 // 이미지 URL (Figma에서 가져온 이미지)
 const imgCpu = 'https://www.figma.com/api/mcp/asset/3d7f7b01-be4e-4564-ba20-a43138863d94';
@@ -100,7 +100,7 @@ const InputField = ({
         value={value}
         onChange={onChange}
         placeholder={placeholder}
-        className="w-full rounded-lg border border-[#E5E7EB] bg-[#F9FAFB] px-4 py-3 text-sm font-light text-[#111827] placeholder:text-[#6B7280] focus:border-[#0D9DDA] focus:outline-none focus:ring-2 focus:ring-[#0D9DDA]/20"
+        className="w-full rounded-lg border border-[#E5E7EB] bg-[#F9FAFB] px-4 py-3 text-sm font-light text-[#111827] placeholder:text-[#6B7280] focus:border-[#0D9DDA] focus:ring-2 focus:ring-[#0D9DDA]/20 focus:outline-none"
       />
     </div>
   );
@@ -149,14 +149,14 @@ const AddressSearch = ({
         onChange={(e) => onAddressChange(e.target.value)}
         placeholder="서울특별시 강남구 테헤란로 123"
         readOnly
-        className="mb-2 w-full rounded-lg border border-[#E5E7EB] bg-[#F9FAFB] px-4 py-3 text-sm font-light text-[#111827] placeholder:text-[#6B7280] focus:border-[#0D9DDA] focus:outline-none focus:ring-2 focus:ring-[#0D9DDA]/20"
+        className="mb-2 w-full rounded-lg border border-[#E5E7EB] bg-[#F9FAFB] px-4 py-3 text-sm font-light text-[#111827] placeholder:text-[#6B7280] focus:border-[#0D9DDA] focus:ring-2 focus:ring-[#0D9DDA]/20 focus:outline-none"
       />
       <input
         type="text"
         value={detailAddress}
         onChange={(e) => onDetailAddressChange(e.target.value)}
         placeholder="4층 401호"
-        className="w-full rounded-lg border border-[#E5E7EB] bg-[#F9FAFB] px-4 py-3 text-sm font-light text-[#111827] placeholder:text-[#6B7280] focus:border-[#0D9DDA] focus:outline-none focus:ring-2 focus:ring-[#0D9DDA]/20"
+        className="w-full rounded-lg border border-[#E5E7EB] bg-[#F9FAFB] px-4 py-3 text-sm font-light text-[#111827] placeholder:text-[#6B7280] focus:border-[#0D9DDA] focus:ring-2 focus:ring-[#0D9DDA]/20 focus:outline-none"
       />
     </div>
   );
@@ -193,7 +193,7 @@ const DeliveryRequestField = ({
         <select
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className="h-[42px] w-full appearance-none rounded-lg border border-[#E5E7EB] bg-[#F9FAFB] px-4 pr-10 text-sm font-light text-[#111827] focus:border-[#0D9DDA] focus:outline-none focus:ring-2 focus:ring-[#0D9DDA]/20"
+          className="h-[42px] w-full appearance-none rounded-lg border border-[#E5E7EB] bg-[#F9FAFB] px-4 pr-10 text-sm font-light text-[#111827] focus:border-[#0D9DDA] focus:ring-2 focus:ring-[#0D9DDA]/20 focus:outline-none"
         >
           {options.map((option) => (
             <option key={option.value} value={option.value}>
@@ -201,7 +201,7 @@ const DeliveryRequestField = ({
             </option>
           ))}
         </select>
-        <ChevronDown className="pointer-events-none absolute right-3 top-1/2 h-5 w-5 -translate-y-1/2 text-[#6B7280]" />
+        <ChevronDown className="pointer-events-none absolute top-1/2 right-3 h-5 w-5 -translate-y-1/2 text-[#6B7280]" />
       </div>
       {isCustom && (
         <input
@@ -209,7 +209,7 @@ const DeliveryRequestField = ({
           value={customValue}
           onChange={(e) => onCustomChange(e.target.value)}
           placeholder="배송 요청사항을 입력하세요"
-          className="mt-2 w-full rounded-lg border border-[#E5E7EB] bg-[#F9FAFB] px-4 py-3 text-sm font-light text-[#111827] placeholder:text-[#6B7280] focus:border-[#0D9DDA] focus:outline-none focus:ring-2 focus:ring-[#0D9DDA]/20"
+          className="mt-2 w-full rounded-lg border border-[#E5E7EB] bg-[#F9FAFB] px-4 py-3 text-sm font-light text-[#111827] placeholder:text-[#6B7280] focus:border-[#0D9DDA] focus:ring-2 focus:ring-[#0D9DDA]/20 focus:outline-none"
         />
       )}
     </div>
@@ -313,11 +313,11 @@ const OrderItem = ({ item }: { item: CartItem }) => {
   const shippingText = item.reward.includes('무료배송')
     ? '무료배송'
     : item.reward.includes('TK')
-    ? `배송비 ${item.reward.match(/\d+/)?.[0]} TK`
-    : item.reward;
+      ? `배송비 ${item.reward.match(/\d+/)?.[0]} TK`
+      : item.reward;
 
   return (
-    <div className="flex items-center gap-4 border-b border-[#F9FAFB] pb-6 pt-0 last:border-0">
+    <div className="flex items-center gap-4 border-b border-[#F9FAFB] pt-0 pb-6 last:border-0">
       <div className="h-16 w-16 flex-shrink-0 overflow-hidden rounded-lg border border-[#F3F4F6] bg-[#F9FAFB]">
         <img src={getImage()} alt={item.name} className="h-full w-full object-cover" />
       </div>
@@ -375,10 +375,15 @@ const PaymentMethodSection = ({
           </div>
           <div className="flex items-center gap-3 text-sm">
             <span className="font-medium text-[#6B7280]">
-              보유 잔액: <span className="font-bold text-[#111827]">{availableTokens.toLocaleString()} TK</span>
+              보유 잔액:{' '}
+              <span className="font-bold text-[#111827]">
+                {availableTokens.toLocaleString()} TK
+              </span>
             </span>
             <span className="h-3 w-px bg-[#D1D5DB]"></span>
-            <span className="text-xs font-bold text-[#0D9DDA]">결제 후 잔액: {remainingBalance.toLocaleString()} TK</span>
+            <span className="text-xs font-bold text-[#0D9DDA]">
+              결제 후 잔액: {remainingBalance.toLocaleString()} TK
+            </span>
           </div>
         </div>
         <div className="flex items-center">
@@ -394,7 +399,7 @@ const PaymentMethodSection = ({
       </div>
 
       <div className="mt-4 rounded-xl border border-dashed border-[#E5E7EB] bg-[#F9FAFB] p-5">
-        <div className="space-y-1 text-xs font-light leading-[19.5px] text-[#6B7280]">
+        <div className="space-y-1 text-xs leading-[19.5px] font-light text-[#6B7280]">
           <p>• 토큰 전용 결제 시스템은 외부 쇼핑몰 이동 없이 즉시 결제가 가능합니다.</p>
           <p>• 보유하신 토큰이 부족할 경우 충전 후 이용해 주시기 바랍니다.</p>
           <p>• 결제 완료 후 마이페이지에서 주문 및 디지털 보증서를 확인하실 수 있습니다.</p>
@@ -426,8 +431,8 @@ const PriceSummaryRow = ({
           highlight
             ? 'text-2xl font-black text-[#0D9DDA]'
             : isDiscount
-            ? 'text-[#EF4444]'
-            : 'text-[#111827]'
+              ? 'text-[#EF4444]'
+              : 'text-[#111827]'
         }`}
       >
         {isDiscount && amount > 0 ? '-' : ''}
@@ -481,14 +486,14 @@ const PaymentSummary = ({
           </div>
 
           {/* 동의 체크박스 */}
-          <label className="mb-6 flex items-start gap-2 cursor-pointer">
+          <label className="mb-6 flex cursor-pointer items-start gap-2">
             <input
               type="checkbox"
               checked={agreed}
               onChange={(e) => onAgreeChange(e.target.checked)}
               className="mt-0.5 h-4 w-4 rounded border-[#E5E7EB] text-[#0D9DDA] focus:ring-2 focus:ring-[#0D9DDA]/20"
             />
-            <span className="text-xs font-light leading-[15px] text-[#6B7280]">
+            <span className="text-xs leading-[15px] font-light text-[#6B7280]">
               주문 내역을 확인하였으며, 전용 토큰 결제 시스템 이용 약관에
               <br />
               동의합니다.
@@ -500,9 +505,7 @@ const PaymentSummary = ({
             onClick={onCheckout}
             disabled={!agreed}
             className={`w-full rounded-xl py-4 text-lg font-black text-white shadow-lg transition-colors ${
-              agreed
-                ? 'bg-[#0D9DDA] hover:bg-[#0b8bc4]'
-                : 'cursor-not-allowed bg-gray-300'
+              agreed ? 'bg-[#0D9DDA] hover:bg-[#0b8bc4]' : 'cursor-not-allowed bg-gray-300'
             }`}
           >
             {summary.total.toLocaleString()} TK 결제하기
@@ -538,7 +541,8 @@ const CheckoutPage = () => {
   });
 
   // 장바구니에서 전달된 선택된 아이템들 (없으면 전체 선택)
-  const selectedItemIds = (location.state?.selectedItems as number[]) || cartData.map((item) => item.id);
+  const selectedItemIds =
+    (location.state?.selectedItems as number[]) || cartData.map((item) => item.id);
   const orderItems = (cartData as CartItem[]).filter((item) => selectedItemIds.includes(item.id));
 
   // 가격 계산
@@ -550,9 +554,7 @@ const CheckoutPage = () => {
       }
       return sum;
     }, 0);
-    const shipping = orderItems.some((item) => item.reward.includes('TK'))
-      ? 3000
-      : 0;
+    const shipping = orderItems.some((item) => item.reward.includes('TK')) ? 3000 : 0;
     const bonus = Math.floor(subtotal * 0.01); // 1% 적립
     const total = subtotal - discount + shipping;
 

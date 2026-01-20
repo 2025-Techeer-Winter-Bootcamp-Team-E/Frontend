@@ -5,7 +5,7 @@ import {
   productPrices,
   productReviews,
   productTrend,
-} from '@/data/products';
+} from '@/mocks/data/products';
 import { http, HttpResponse } from 'msw';
 
 export const productsHandler = [

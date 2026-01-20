@@ -7,7 +7,7 @@ import {
   SkipButton,
 } from '@/components/shoppingResearch';
 import { Edit3 } from 'lucide-react';
-import shoppingResearchData from '@/data/shoppingResearch.json';
+import shoppingResearchData from '@/mocks/data/shoppingResearch.json';
 import { useNavigate } from 'react-router-dom';
 import { PATH } from '@/routes/path';
 
@@ -80,17 +80,14 @@ const ShoppingResearchPage: React.FC = () => {
         </div>
 
         {/* 메인 질문 영역 */}
-        <div className="max-w-[768px] mx-auto">
+        <div className="mx-auto max-w-[768px]">
           {/* 질문 헤더 */}
           <div className="mb-12">
-            <QuestionHeader
-              title={currentQuestion.title}
-              subtitle={currentQuestion.subtitle}
-            />
+            <QuestionHeader title={currentQuestion.title} subtitle={currentQuestion.subtitle} />
           </div>
 
           {/* 옵션 버튼 그리드 */}
-          <div className="grid grid-cols-2 gap-4 mb-6">
+          <div className="mb-6 grid grid-cols-2 gap-4">
             {currentQuestion.options.map((option) => (
               <OptionButton
                 key={option.id}
@@ -112,7 +109,7 @@ const ShoppingResearchPage: React.FC = () => {
           </div>
 
           {/* 건너뛰기 버튼 */}
-          <div className="text-center pt-4">
+          <div className="pt-4 text-center">
             <SkipButton text={currentQuestion.skipText} onClick={handleSkip} />
           </div>
         </div>

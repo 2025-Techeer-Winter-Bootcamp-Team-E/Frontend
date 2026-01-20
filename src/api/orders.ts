@@ -60,7 +60,7 @@ export const postCartItem = async (body: CartItemPostReqDto) => {
 // 장바구니 상품 삭제 DELETE
 export const delteeCartItem = async (cart_item_id: number) => {
   return await getAPIResponseData<null, null>({
-    method: 'POST',
+    method: 'DELETE',
     url: API.ORDERS_CART_ITEM_ID(cart_item_id),
   });
 };

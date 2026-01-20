@@ -30,4 +30,6 @@ export const QUERY_KEY = {
     page,
     size,
   ],
+
+  CART: ['cart'],
 };

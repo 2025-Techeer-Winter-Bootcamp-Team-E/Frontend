@@ -76,7 +76,7 @@ export type CartItemsResDto = {
  * POST /orders/cart
  */
 export type CartItemPostReqDto = {
-  product_id: number;
+  product_code: number;
   quantity: number;
 };
 
@@ -86,7 +86,7 @@ export type CartItemPostReqDto = {
  */
 export type CartItemPostResDto = {
   cart_item_id: number;
-  product_id: number;
+  product_code: number;
   quantity: number;
   added_at: string;
 };
@@ -97,7 +97,7 @@ export type CartItemPostResDto = {
  */
 type CartItemEntity = {
   cart_item_id: number;
-  product_id: number;
+  product_code: number;
   product_name: string;
   product_resentative_image_url: string;
   quantity: number;

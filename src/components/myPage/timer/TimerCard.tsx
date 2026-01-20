@@ -1,4 +1,4 @@
-import { X, ShoppingCart, Heart } from 'lucide-react';
+import { X, ShoppingCart, Pencil } from 'lucide-react';
 import ProgressBar from './ProgressBar';
 
 interface TimerCardProps {
@@ -13,7 +13,6 @@ interface TimerCardProps {
   } | null;
   progressVariant?: 'teal' | 'orange';
   progressText?: string;
-  additionalInfo?: string;
 }
 
 const TimerCard = ({
@@ -25,7 +24,6 @@ const TimerCard = ({
   progress,
   progressVariant = 'teal',
   progressText,
-  additionalInfo,
 }: TimerCardProps) => {
   return (
     <div className="flex h-full flex-col rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
@@ -48,8 +46,7 @@ const TimerCard = ({
       </div>
 
       {/* 제목 */}
-      <h3 className="mb-3 line-clamp-2 min-h-[40px] text-sm text-gray-800">{title}</h3>
-
+      <h3 className="line-clamp-2 min-h-7 text-sm text-gray-800">{title}</h3>
       {/* 가격 정보 */}
       <div className="mb-3">
         <div className="flex items-center gap-2">
@@ -74,29 +71,18 @@ const TimerCard = ({
             current={progress.current}
             total={progress.total}
             variant={progressVariant}
+            progressText={progressText}
           />
-          {progressText && (
-            <p
-              className={`mt-1 text-xs ${
-                progressVariant === 'teal' ? 'text-teal-600' : 'text-orange-600'
-              }`}
-            >
-              {progressText}
-            </p>
-          )}
         </div>
       )}
-
-      {/* 추가 정보 */}
-      {additionalInfo && <p className="mb-3 text-xs text-orange-500">{additionalInfo}</p>}
 
       {/* 하단 버튼 영역 */}
       <div className="mt-auto flex gap-2">
         <button className="rounded border border-gray-300 p-2 transition-colors hover:bg-gray-50">
-          <ShoppingCart className="h-5 w-5 text-gray-400" />
+          <Pencil className="h-5 w-5 text-gray-400" />
         </button>
         <button className="rounded border border-gray-300 p-2 transition-colors hover:bg-gray-50">
-          <Heart className="h-5 w-5 text-gray-400" />
+          <ShoppingCart className="h-5 w-5 text-gray-400" />
         </button>
         <button className="flex-1 rounded border border-gray-300 bg-white px-4 py-2 font-medium text-gray-700 transition-colors hover:bg-gray-50">
           상세 보기

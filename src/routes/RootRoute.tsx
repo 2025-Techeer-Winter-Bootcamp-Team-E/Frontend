@@ -13,8 +13,11 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import TokenChargePage from '@/components/myPage/users/TokenChargePage';
 import MyTimerGrid from '@/components/myPage/timer/MyTimerGrid';
 import { ROUTE_PATH } from '@/routes/path';
+import useScrollToTop from '@/hooks/useScrollTop';
 
 const RootRoute = () => {
+  useScrollToTop();
+
   return (
     <Routes>
       <Route element={<GlobalLayout />}>

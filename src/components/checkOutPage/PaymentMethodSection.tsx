@@ -64,7 +64,7 @@ const PaymentMethodSection = ({
 
       <div className="border-t border-[#DBEAFE] pt-4">
         <button
-          onClick={() => navigate(`${PATH.MY_PAGE}/${PATH.TOKEN}`)}
+          onClick={() => navigate(`${PATH.TOKEN}`)}
           className="flex items-center gap-1.5 rounded-lg border border-[#0D9DDA] bg-white px-4 py-2 text-sm font-bold text-[#0D9DDA] shadow-sm transition-colors hover:bg-[#0D9DDA]/5"
         >
           토큰 충전하기

@@ -1,11 +1,22 @@
 import { API } from '@/constants/api';
-import { llmSearch, searchAutoComplete, searchPopluar, searchRecent } from '@/mocks/data/search';
+import {
+  deleteRecentSearch,
+  llmSearch,
+  searchAutoComplete,
+  searchPopluar,
+  searchRecent,
+} from '@/mocks/data/search';
 import { http, HttpResponse } from 'msw';
 
 export const searchHandler = [
   http.get(API.SEARCH_RECENT, () => {
     return HttpResponse.json(searchRecent);
   }),
+  http.delete('/search/recent/:id', ({ params }) => {
+    const { id } = params;
+    return HttpResponse.json(deleteRecentSearch);
+  }),
+
   http.get(API.SEARCH_POPULAR, () => {
     return HttpResponse.json(searchPopluar);
   }),

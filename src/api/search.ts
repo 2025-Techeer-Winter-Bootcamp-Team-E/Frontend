@@ -52,3 +52,11 @@ export const postSearchShoppingResearch = async (body: SearchShoppingResearchReq
     data: body,
   });
 };
+
+// 최근검색어 삭제 DELETE
+export const deleteSearchRecent = async (id: number) => {
+  return await getAPIResponseData<null, null>({
+    method: 'DELETE',
+    url: `${API.SEARCH_RECENT}/${id}`,
+  });
+};

@@ -9,6 +9,11 @@ export const searchRecent = {
   },
 };
 
+export const deleteRecentSearch = {
+  status: 200,
+  message: '최근 검색어가 삭제 되었습니다',
+};
+
 export const searchPopluar = {
   status: 200,
   message: '검색어 목록 조회 성공',

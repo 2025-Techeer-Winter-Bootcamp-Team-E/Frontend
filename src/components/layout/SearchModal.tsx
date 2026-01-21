@@ -1,10 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
-import { Search, X, ChevronDown, Clock, TrendingUp, XCircle } from 'lucide-react';
+import { Search, X, ChevronDown, TrendingUp, XCircle } from 'lucide-react';
 import useSearchRecentQuery from '@/hooks/queries/useSearchRecentQuery';
 import useSearchPopularQuery from '@/hooks/queries/useSearchPopularQuery';
 import useAutocompleteQuery from '@/hooks/queries/useAutocompleteQuery';
 import useDebounce from '@/hooks/useDebounce';
 import { useNavigate } from 'react-router-dom';
+import useSearchRecentDeleteMutation from '@/hooks/mutations/useSearchRecentDeleteMutation';
 
 type SearchModalProps = {
   isOpen: boolean;
@@ -31,6 +32,7 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
   const { data: recentData } = useSearchRecentQuery(isOpen);
   const { data: popularData } = useSearchPopularQuery(isOpen);
   const { data: autoCompleteData } = useAutocompleteQuery(debouncedKeyword);
+  const { mutate: deleteRecent } = useSearchRecentDeleteMutation();
 
   const inputRef = useRef<HTMLInputElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -56,7 +58,7 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
   }, [isOpen]);
 
   // 최근 검색어, 인기 검색어, 자동완성 매핑
-  const recentSearches = recentData?.recent_terms.map((item) => item.term) || [];
+  const recentSearches = recentData?.recent_terms || [];
   const popularSearches = popularData?.popular_terms.map((item) => item.term) || [];
   const suggestions = autoCompleteData?.suggestions || [];
 
@@ -79,9 +81,8 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
     onClose();
   };
 
-  const handleDeleteRecent = (term: string) => {
-    console.log('삭제:', term);
-    // 여기서 실제 삭제 API 호출 가능
+  const handleDeleteRecent = (id: number) => {
+    deleteRecent(id);
   };
 
   const handleSuggestionClick = (suggestion: string) => {
@@ -188,36 +189,27 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
           )}
 
           {/* 최근 검색어 */}
-          {showRecentAndPopular && recentSearches.length > 0 && (
-            <div className="mt-6">
-              <div className="mb-4 flex items-center gap-2">
-                <Clock className="h-4 w-4 text-gray-500" />
-                <h3 className="text-sm font-semibold text-gray-700">최근 검색어</h3>
-              </div>
-              <div className="space-y-2">
-                {recentSearches.map((search, idx) => (
-                  <div
-                    key={idx}
-                    className="group flex items-center justify-between rounded-lg px-3 py-2 hover:bg-gray-50"
-                  >
-                    <button
-                      onClick={() => handleSearch(search)}
-                      className="flex-1 text-left text-sm text-gray-700"
-                    >
-                      {search}
-                    </button>
-                    <button
-                      onClick={() => handleDeleteRecent(search)}
-                      className="opacity-0 transition-opacity group-hover:opacity-100"
-                      aria-label="삭제"
-                    >
-                      <XCircle className="h-4 w-4 text-gray-400 hover:text-gray-600" />
-                    </button>
-                  </div>
-                ))}
-              </div>
+          {recentSearches.map((item) => (
+            <div
+              key={item.id}
+              className="group flex items-center justify-between rounded-lg px-3 py-2 hover:bg-gray-50"
+            >
+              <button
+                onClick={() => handleSearch(item.term)}
+                className="flex-1 text-left text-sm text-gray-700"
+              >
+                {item.term}
+              </button>
+
+              <button
+                onClick={() => handleDeleteRecent(item.id)}
+                className="opacity-0 transition-opacity group-hover:opacity-100"
+                aria-label="삭제"
+              >
+                <XCircle className="h-4 w-4 text-gray-400 hover:text-gray-600" />
+              </button>
             </div>
-          )}
+          ))}
 
           {/* 인기 검색어 */}
           {showRecentAndPopular && popularSearches.length > 0 && (

@@ -1,49 +1,122 @@
 import React from 'react';
-import { TrendingDown, BellRing } from 'lucide-react';
-import timerImage from '@/assets/timer-section.png';
+import { TrendingDown, BellRing, Clock } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const TimerSection: React.FC = () => {
   return (
-    <section className="bg-[#F9FAFB] py-20">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col items-center gap-12 md:flex-row">
-          <div className="flex-1">
-            <div className="mb-3 flex items-center gap-3">
-              <span className="h-px w-6 bg-cyan-400" />
-              <span className="text-xs font-semibold tracking-[0.2em] text-cyan-500 uppercase">
-                MARKET DYNAMICS
-              </span>
+    <section className="overflow-hidden bg-[#F5F5F7] py-32">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        {/* 상단 텍스트 (중앙 정렬) */}
+        <div className="mx-auto mb-20 max-w-3xl text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className="mb-6 inline-flex items-center justify-center gap-2 text-sm font-bold tracking-widest text-gray-400 uppercase">
+              <Clock className="h-4 w-4" />
+              <span>Market Dynamics</span>
             </div>
-
-            <h2 className="mb-4 text-4xl font-bold text-gray-900">적정구매 타이머</h2>
-            <p className="mb-8 text-lg leading-relaxed text-gray-600">
-              부품 시장의 수급 상황과 신제품 출시 주기를 AI가 24시간 실시간 모니터링합니다. 가장
-              합리적인 골든 타임에 도달했을 때 구매 타이머가 활성화됩니다.
+            <h2 className="mb-8 text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
+              타이밍이 전부입니다.
+              <br />
+              <span className="text-gray-400">AI가 그 순간을 포착합니다.</span>
+            </h2>
+            <p className="text-xl leading-relaxed font-medium text-gray-500">
+              24시간 모니터링되는 가격 변동 데이터. <br className="hidden sm:block" />
+              가장 합리적인 구매 시점, '골든 타임'을 놓치지 마세요.
             </p>
+          </motion.div>
+        </div>
 
-            <div className="flex flex-wrap gap-4">
-              <div className="flex h-30 w-40 flex-col items-center rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
-                <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-cyan-50">
-                  <TrendingDown className="h-5 w-5 text-cyan-500" />
+        {/* 그래픽 영역 (가격 그래프 시각화) */}
+        <div className="relative mx-auto max-w-5xl">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="relative overflow-hidden rounded-[48px] border border-gray-100 bg-white shadow-2xl"
+          >
+            <div className="p-8 md:p-16">
+              {/* 상단 UI 헤더 */}
+              <div className="mb-12 flex items-center justify-between">
+                <div className="flex gap-4">
+                  <div className="flex items-center gap-2 rounded-full bg-red-50 px-4 py-2 text-sm font-bold text-red-500">
+                    <TrendingDown className="h-4 w-4" />
+                    <span>가격 하락 감지</span>
+                  </div>
+                  <div className="flex items-center gap-2 rounded-full bg-gray-100 px-4 py-2 text-sm font-bold text-gray-500">
+                    <BellRing className="h-4 w-4" />
+                    <span>알림 발송됨</span>
+                  </div>
                 </div>
-                <div className="text-xs font-semibold tracking-tight text-gray-900">하락 예측</div>
+                <div className="text-right">
+                  <div className="text-sm text-gray-400">Current Status</div>
+                  <div className="text-xl font-bold text-indigo-600">Golden Time</div>
+                </div>
               </div>
 
-              <div className="flex h-30 w-40 flex-col items-center rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
-                <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-cyan-50">
-                  <BellRing className="h-5 w-5 text-cyan-500" />
+              {/* SVG 그래프 영역 */}
+              <div className="relative h-64 w-full">
+                {/* 그리드 라인 */}
+                <div className="absolute inset-0 flex flex-col justify-between text-xs text-gray-300">
+                  <div className="border-b border-gray-100 pb-2">High</div>
+                  <div className="border-b border-gray-100 pb-2">Avg</div>
+                  <div className="border-b border-gray-100 pb-2">Low</div>
                 </div>
-                <div className="text-xs font-semibold tracking-tight text-gray-900">즉시 알림</div>
+
+                {/* 그래프 선 (SVG Path) */}
+                <svg
+                  className="absolute inset-0 h-full w-full overflow-visible"
+                  preserveAspectRatio="none"
+                >
+                  <motion.path
+                    d="M0,50 C100,50 150,80 250,80 C350,80 400,40 500,40 C600,40 700,180 800,200 C900,220 1000,220 1200,220"
+                    fill="none"
+                    stroke="url(#gradient)"
+                    strokeWidth="4"
+                    strokeLinecap="round"
+                    initial={{ pathLength: 0, opacity: 0 }}
+                    whileInView={{ pathLength: 1, opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 2, ease: 'easeInOut' }}
+                  />
+                  <defs>
+                    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stopColor="#E0E7FF" />
+                      <stop offset="50%" stopColor="#818CF8" />
+                      <stop offset="100%" stopColor="#4F46E5" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+
+                {/* 포인트 점 (Low Point) */}
+                <motion.div
+                  initial={{ scale: 0 }}
+                  whileInView={{ scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 1.5, type: 'spring' }}
+                  className="absolute right-[20%] bottom-[10%] translate-x-1/2 translate-y-1/2 transform"
+                >
+                  <div className="relative flex items-center justify-center">
+                    <span className="absolute inline-flex h-8 w-8 animate-ping rounded-full bg-indigo-400 opacity-75"></span>
+                    <span className="relative inline-flex h-4 w-4 rounded-full bg-indigo-600"></span>
+
+                    {/* 툴팁 */}
+                    <div className="absolute bottom-8 left-1/2 -translate-x-1/2 rounded-lg bg-black px-3 py-1.5 text-xs font-semibold whitespace-nowrap text-white shadow-lg">
+                      구매 적기
+                      <div className="absolute -bottom-1 left-1/2 h-2 w-2 -translate-x-1/2 rotate-45 bg-black"></div>
+                    </div>
+                  </div>
+                </motion.div>
               </div>
             </div>
-          </div>
-          <div className="flex flex-1 justify-center">
-            <img
-              src={timerImage}
-              alt="Golden Time Timer Illustration"
-              className="h-auto w-full max-w-md object-contain"
-            />
-          </div>
+
+            {/* 하단 배경 장식 */}
+            <div className="pointer-events-none absolute right-0 bottom-0 left-0 h-32 bg-linear-to-t from-gray-50/50 to-transparent" />
+          </motion.div>
         </div>
       </div>
     </section>

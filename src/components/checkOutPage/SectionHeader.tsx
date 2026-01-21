@@ -12,15 +12,17 @@ const SectionHeader = ({
   onAction?: () => void;
 }) => {
   return (
-    <div className="mb-6 flex items-center justify-between">
-      <div className="flex items-center gap-2">
-        <Icon className="h-6 w-6 text-[#0D9DDA]" />
-        <h2 className="text-xl font-bold text-[#111827]">{title}</h2>
+    <div className="mb-8 flex items-center justify-between">
+      <div className="flex items-center gap-3">
+        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#f5f5f7] text-[#1d1d1f]">
+          <Icon className="h-5 w-5" />
+        </div>
+        <h2 className="text-[20px] font-bold tracking-tight text-[#1d1d1f]">{title}</h2>
       </div>
       {actionText && (
         <button
           onClick={onAction}
-          className="text-sm font-medium text-[#0D9DDA] transition-colors hover:text-[#0b8bc4]"
+          className="text-[14px] font-semibold text-[#0066cc] hover:underline"
         >
           {actionText}
         </button>

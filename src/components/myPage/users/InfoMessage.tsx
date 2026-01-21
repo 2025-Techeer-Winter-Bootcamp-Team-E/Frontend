@@ -4,7 +4,9 @@ interface InfoMessageProps {
 
 const InfoMessage = ({ children }: InfoMessageProps) => {
   return (
-    <p className="mt-3 text-center text-xs text-gray-500">{children}</p>
+    <p className="mt-4 text-center text-[0.75rem] leading-relaxed font-medium tracking-tight text-gray-400">
+      {children}
+    </p>
   );
 };
 

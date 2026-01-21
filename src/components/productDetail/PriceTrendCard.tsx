@@ -1,5 +1,4 @@
 import type { TimersIdGetResDto } from '@/types/timerType';
-import { Target, TrendingDown } from 'lucide-react';
 
 interface PriceTrendCardProps {
   timerInfo: TimersIdGetResDto;
@@ -9,76 +8,70 @@ const PriceTrendCard = ({ timerInfo }: PriceTrendCardProps) => {
   const priceDiff = timerInfo.predicted_price - timerInfo.target_price;
 
   return (
-    <div className="flex flex-1 flex-col justify-between rounded-xl border border-[#DBEAFE] bg-[rgba(239,246,255,0.5)] p-5">
+    <div className="flex flex-1 flex-col justify-between rounded-[2rem] border border-[#d2d2d7]/40 bg-[#f5f5f7]/50 p-7 backdrop-blur-sm">
       <div>
-        <div className="mb-4 flex items-center justify-between">
-          <h4 className="text-sm font-bold text-[#111827]">AI 구매 적기 알림</h4>
-          <div className="rounded-full bg-[#0D9DDA] px-3 py-1">
-            <span className="text-xs font-bold text-white">
-              추천도 {timerInfo.recommendation_score}%
+        <div className="mb-6 flex items-center justify-between">
+          <h4 className="text-[15px] font-semibold tracking-tight text-[#1d1d1f]">
+            AI 분석 리포트
+          </h4>
+          <div className="rounded-full bg-[#1d1d1f] px-3 py-1">
+            <span className="text-[11px] font-bold text-white">
+              SCORE {timerInfo.recommendation_score}
             </span>
           </div>
         </div>
-        <div className="py-3 text-center">
-          <p className="mb-3 text-sm leading-relaxed font-medium text-[#111827]">
+
+        <div className="mb-8 text-center">
+          <p className="mb-4 text-[14px] leading-relaxed font-medium text-[#424245]">
             {timerInfo.reason_message}
           </p>
-          <div className="inline-flex items-baseline gap-1">
-            <span className="text-xs text-[#6B7280]">목표가 대비</span>
-            <span className="text-xl font-bold text-[#0D9DDA]">
+          <div className="inline-flex items-baseline gap-1.5 rounded-2xl bg-white px-4 py-2 shadow-sm">
+            <span className="text-[11px] font-bold tracking-wider text-[#86868b] uppercase">
+              Gap
+            </span>
+            <span
+              className={`text-xl font-bold tracking-tight ${priceDiff > 0 ? 'text-[#1d1d1f]' : 'text-[#0066cc]'}`}
+            >
               {priceDiff > 0 ? '+' : ''}
               {priceDiff.toLocaleString()}원
             </span>
           </div>
         </div>
-        <div className="flex gap-2">
-          <div className="flex-1 rounded-lg bg-white/60 p-2.5">
-            <div className="mb-1.5 flex items-center justify-between">
-              <span className="text-[10px] text-[#6B7280]">예측 신뢰도</span>
-              <span className="text-xs font-bold text-[#111827]">
-                {timerInfo.confidence_score}%
-              </span>
+
+        <div className="grid grid-cols-2 gap-3">
+          {[
+            { label: '신뢰도', val: timerInfo.confidence_score },
+            { label: '추천도', val: timerInfo.recommendation_score },
+          ].map((item, i) => (
+            <div
+              key={i}
+              className="rounded-[1.25rem] border border-black/[0.03] bg-white p-3.5 shadow-sm"
+            >
+              <div className="mb-2 flex items-center justify-between text-[11px] font-bold">
+                <span className="text-[#86868b]">{item.label}</span>
+                <span className="text-[#1d1d1f]">{item.val}%</span>
+              </div>
+              <div className="h-1 overflow-hidden rounded-full bg-[#f5f5f7]">
+                <div
+                  className="h-full bg-[#1d1d1f] transition-all duration-1000"
+                  style={{ width: `${item.val}%` }}
+                />
+              </div>
             </div>
-            <div className="h-1.5 overflow-hidden rounded-full bg-[#E5E7EB]">
-              <div
-                className="h-full rounded-full bg-[#0D9DDA]"
-                style={{ width: `${timerInfo.confidence_score}%` }}
-              />
-            </div>
-          </div>
-          <div className="flex-1 rounded-lg bg-white/60 p-2.5">
-            <div className="mb-1.5 flex items-center justify-between">
-              <span className="text-[10px] text-[#6B7280]">구매 추천도</span>
-              <span className="text-xs font-bold text-[#111827]">
-                {timerInfo.recommendation_score}%
-              </span>
-            </div>
-            <div className="h-1.5 overflow-hidden rounded-full bg-[#E5E7EB]">
-              <div
-                className="h-full rounded-full bg-[#10B981]"
-                style={{ width: `${timerInfo.recommendation_score}%` }}
-              />
-            </div>
-          </div>
+          ))}
         </div>
       </div>
 
-      <div className="mt-4 space-y-2 border-t border-[#DBEAFE] pt-3">
-        <div className="flex items-center justify-between text-xs">
-          <div className="flex items-center gap-1.5 text-[#6B7280]">
-            <Target className="h-3.5 w-3.5" />
-            <span>목표가</span>
-          </div>
-          <span className="font-bold text-[#111827]">
+      <div className="mt-6 space-y-3 border-t border-[#d2d2d7]/50 pt-5">
+        <div className="flex items-center justify-between text-[13px]">
+          <span className="font-medium text-[#86868b]">목표 가격</span>
+          <span className="font-semibold text-[#1d1d1f]">
             {timerInfo.target_price.toLocaleString()}원
           </span>
         </div>
-        <div className="flex items-center justify-between text-xs">
-          <div className="flex items-center gap-1.5 text-[#6B7280]">
-            <TrendingDown className="h-3.5 w-3.5" />
-            <span>예측가</span>
-          </div>
-          <span className="font-bold text-[#0D9DDA]">
+        <div className="flex items-center justify-between text-[13px]">
+          <span className="font-medium font-semibold text-[#86868b]">예측 가격</span>
+          <span className="font-bold text-[#1d1d1f] underline decoration-[#d2d2d7] underline-offset-4">
             {timerInfo.predicted_price.toLocaleString()}원
           </span>
         </div>
@@ -86,5 +79,4 @@ const PriceTrendCard = ({ timerInfo }: PriceTrendCardProps) => {
     </div>
   );
 };
-
 export default PriceTrendCard;

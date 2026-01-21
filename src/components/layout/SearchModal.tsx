@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Search, X, ChevronDown, TrendingUp, XCircle } from 'lucide-react';
+import { Search, X, ChevronDown, ArrowUpRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import useSearchRecentQuery from '@/hooks/queries/useSearchRecentQuery';
 import useSearchPopularQuery from '@/hooks/queries/useSearchPopularQuery';
@@ -21,8 +21,8 @@ type SearchType = {
 
 const SEARCH_TYPES: SearchType[] = [
   { id: 'unified', label: '통합검색' },
-  { id: 'llm', label: 'LLM 검색' },
-  { id: 'shopping-research', label: '쇼핑리서치' },
+  { id: 'llm', label: 'AI 분석 검색' },
+  { id: 'shopping-research', label: '쇼핑 리서치' },
 ];
 
 const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
@@ -33,6 +33,7 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
 
   const debouncedKeyword = useDebounce(keyword, 300);
 
+  // 로직: 첫 번째 코드의 데이터 쿼리 및 뮤테이션 유지
   const { data: recentData } = useSearchRecentQuery(isOpen);
   const { data: popularData } = useSearchPopularQuery(isOpen);
   const { data: autoCompleteData } = useAutocompleteQuery(debouncedKeyword);
@@ -42,20 +43,18 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // 모달이 열릴 때 포커스 및 스크롤 방지
+  // 로직: 모달 오픈 시 포커스 및 스크롤 방지 (첫 번째 코드 방식)
   useEffect(() => {
     if (isOpen) {
-      inputRef.current?.focus();
+      const timer = setTimeout(() => inputRef.current?.focus(), 100);
       document.body.style.overflow = 'hidden';
+      return () => clearTimeout(timer);
     } else {
       document.body.style.overflow = 'unset';
     }
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
   }, [isOpen]);
 
-  // 모달이 닫힐 때 상태 초기화 (애니메이션 완료 후 초기화되도록 약간의 지연)
+  // 로직: 모달 닫힐 때 상태 초기화 지연 (애니메이션 대응)
   useEffect(() => {
     if (!isOpen) {
       const timer = setTimeout(() => {
@@ -70,6 +69,7 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
   const popularSearches = popularData?.popular_terms.map((item) => item.term) || [];
   const suggestions = autoCompleteData?.suggestions || [];
 
+  // 로직: 첫 번째 코드의 handleSearch 스위치문 유지
   const handleSearch = (query: string = keyword) => {
     if (!query.trim()) return;
 
@@ -86,11 +86,7 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
           {
             onSuccess: (data) => {
               navigate(`${PATH.SHOPPING_RESEARCH}?q=${encodeURIComponent(query)}`, {
-                state: {
-                  userQuery: query,
-                  questions: data.questions,
-                  searchId: data.search_id,
-                },
+                state: { userQuery: query, questions: data.questions, searchId: data.search_id },
               });
             },
             onError: (err) => console.error('쇼핑리서치 검색 실패:', err),
@@ -106,95 +102,76 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
 
   return (
     <div
-      className={`fixed inset-0 z-[60] transition-opacity duration-300 ${
+      className={`fixed inset-0 z-[70] transition-all duration-500 ${
         isOpen ? 'visible opacity-100' : 'invisible opacity-0'
       }`}
     >
-      {/* 1. 배경 어두워지는 영역 */}
-      <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={onClose} />
+      {/* 배경 디자인: 애플 스타일 2진 블러 */}
+      <div className="absolute inset-0 bg-[#f5f5f7]/80 backdrop-blur-2xl" onClick={onClose} />
 
-      {/* 2. 상단에서 내려오는 검색창 영역 */}
+      {/* 컨텐츠 디자인: 스포트라이트 스타일 */}
       <div
-        className={`relative transform bg-white shadow-xl transition-transform duration-300 ease-out ${
-          isOpen ? 'translate-y-0' : '-translate-y-full'
+        className={`relative mx-auto max-w-3xl pt-[10vh] transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+          isOpen ? 'translate-y-0 opacity-100' : '-translate-y-8 opacity-0'
         }`}
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="mx-auto max-w-4xl px-4 py-8">
-          <div className="flex items-center gap-3">
-            {/* 검색 타입 드롭다운 */}
-            <div className="relative" ref={dropdownRef}>
-              <button
-                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                className="flex items-center gap-2 rounded-lg bg-gray-100 px-4 py-2.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-200"
-              >
-                {selectedType.label}
-                <ChevronDown
-                  className={`h-4 w-4 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`}
-                />
-              </button>
-              {isDropdownOpen && (
-                <div className="absolute top-full left-0 z-50 mt-2 w-40 rounded-xl bg-white py-2 shadow-lg ring-1 ring-black/5">
-                  {SEARCH_TYPES.map((type) => (
-                    <button
-                      key={type.id}
-                      onClick={() => {
-                        setSelectedType(type);
-                        setIsDropdownOpen(false);
-                      }}
-                      className={`w-full px-4 py-2.5 text-left text-sm transition-colors ${
-                        selectedType.id === type.id
-                          ? 'bg-gray-100 font-medium text-gray-900'
-                          : 'text-gray-700 hover:bg-gray-50'
-                      }`}
-                    >
-                      {type.label}
-                    </button>
-                  ))}
-                </div>
-              )}
-            </div>
+        <div className="px-6">
+          <div className="flex flex-col overflow-hidden rounded-[1.5rem] bg-white/80 shadow-[0_20px_60px_rgba(0,0,0,0.1)] ring-1 ring-black/5 backdrop-blur-md">
+            {/* 상단 검색바 */}
+            <div className="flex items-center gap-4 border-b border-black/[0.05] px-6 py-5">
+              <Search className="h-5 w-5 text-[#86868b]" strokeWidth={3} />
 
-            {/* 검색 입력창 */}
-            <div className="flex flex-1 items-center gap-3">
-              <div className="relative flex-1">
-                <Search className="absolute top-1/2 left-4 h-5 w-5 -translate-y-1/2 text-gray-400" />
-                <input
-                  ref={inputRef}
-                  type="text"
-                  value={keyword}
-                  onChange={(e) => setKeyword(e.target.value)}
-                  onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-                  placeholder={`${selectedType.label}에서 검색`}
-                  className="w-full rounded-lg bg-gray-100 py-2.5 pr-4 pl-12 text-base outline-none placeholder:text-gray-500 focus:bg-gray-200"
-                />
-                {keyword && (
-                  <button
-                    onClick={() => setKeyword('')}
-                    className="absolute top-1/2 right-3 -translate-y-1/2 rounded-full p-1 text-gray-400 hover:bg-gray-200 hover:text-gray-600"
-                  >
-                    <X className="h-4 w-4" />
-                  </button>
+              <div className="relative" ref={dropdownRef}>
+                <button
+                  onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                  className="flex items-center gap-1 text-[13px] font-bold text-[#86868b] transition-colors hover:text-[#1d1d1f]"
+                >
+                  {selectedType.label}
+                  <ChevronDown
+                    className={`h-3.5 w-3.5 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`}
+                  />
+                </button>
+                {isDropdownOpen && (
+                  <div className="absolute top-full left-0 z-50 mt-3 w-40 overflow-hidden rounded-2xl bg-white/90 p-1.5 shadow-xl ring-1 ring-black/5 backdrop-blur-lg">
+                    {SEARCH_TYPES.map((type) => (
+                      <button
+                        key={type.id}
+                        onClick={() => {
+                          setSelectedType(type);
+                          setIsDropdownOpen(false);
+                        }}
+                        className={`w-full rounded-xl px-3 py-2 text-left text-[13px] font-medium transition-colors ${
+                          selectedType.id === type.id
+                            ? 'bg-[#1d1d1f] text-white'
+                            : 'text-[#1d1d1f] hover:bg-black/5'
+                        }`}
+                      >
+                        {type.label}
+                      </button>
+                    ))}
+                  </div>
                 )}
               </div>
-              <button
-                onClick={onClose}
-                className="rounded-full p-2 text-gray-600 hover:bg-gray-100"
-              >
-                <X className="h-5 w-5" />
-              </button>
-            </div>
-          </div>
 
-          {/* 검색 결과 및 추천 영역 (최대 높이 제한 및 스크롤) */}
-          <div className="mt-6 max-h-[60vh] overflow-y-auto">
-            {showAutocomplete && (
-              <div>
-                <div className="mb-4 flex items-center gap-2">
-                  <Search className="h-4 w-4 text-gray-500" />
-                  <h3 className="text-sm font-semibold text-gray-700">추천 검색어</h3>
-                </div>
-                <div className="space-y-2">
+              <input
+                ref={inputRef}
+                type="text"
+                value={keyword}
+                onChange={(e) => setKeyword(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+                placeholder="검색"
+                className="flex-1 bg-transparent text-[19px] font-medium tracking-tight text-[#1d1d1f] outline-none placeholder:text-[#d2d2d7]"
+              />
+            </div>
+
+            {/* 결과 리스트 영역 */}
+            <div className="custom-scrollbar max-h-[60vh] overflow-y-auto px-4 py-6">
+              {showAutocomplete ? (
+                <div className="space-y-1">
+                  <p className="mb-3 px-3 text-[11px] font-bold tracking-wider text-[#86868b] uppercase">
+                    Suggestions
+                  </p>
                   {suggestions.map((suggestion, idx) => (
                     <button
                       key={idx}
@@ -202,71 +179,70 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
                         setKeyword(suggestion);
                         handleSearch(suggestion);
                       }}
-                      className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left hover:bg-gray-50"
+                      className="group flex w-full items-center justify-between rounded-xl px-3 py-2.5 hover:bg-black/5"
                     >
-                      <Search className="h-4 w-4 text-gray-400" />
-                      <span className="text-sm text-gray-700">{suggestion}</span>
+                      <span className="text-[14px] font-medium text-[#1d1d1f]">{suggestion}</span>
+                      <ArrowUpRight className="h-4 w-4 text-[#d2d2d7] opacity-0 transition-opacity group-hover:opacity-100" />
                     </button>
                   ))}
                 </div>
-              </div>
-            )}
+              ) : (
+                <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+                  {/* 최근 검색어 섹션 */}
+                  <div>
+                    <p className="mb-4 px-3 text-[11px] font-bold tracking-wider text-[#86868b] uppercase">
+                      Recent Searches
+                    </p>
+                    <div className="space-y-1">
+                      {recentSearches.length > 0 ? (
+                        recentSearches.map((item) => (
+                          <div
+                            key={item.id}
+                            className="group flex items-center justify-between rounded-xl px-3 py-2 hover:bg-black/5"
+                          >
+                            <button
+                              onClick={() => handleSearch(item.term)}
+                              className="flex-1 text-left text-[14px] font-medium text-[#1d1d1f]"
+                            >
+                              {item.term}
+                            </button>
+                            <button
+                              onClick={() => deleteRecent(item.id)}
+                              className="opacity-0 transition-opacity group-hover:opacity-100"
+                            >
+                              <X className="h-3.5 w-3.5 text-[#86868b]" />
+                            </button>
+                          </div>
+                        ))
+                      ) : (
+                        <p className="px-3 text-[13px] text-[#d2d2d7]">최근 검색어가 없습니다.</p>
+                      )}
+                    </div>
+                  </div>
 
-            {showRecentAndPopular && (
-              <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-                {/* 최근 검색어 */}
-                <div>
-                  <h3 className="mb-4 text-sm font-semibold text-gray-700">최근 검색어</h3>
-                  <div className="space-y-1">
-                    {recentSearches.length > 0 ? (
-                      recentSearches.map((item) => (
-                        <div
-                          key={item.id}
-                          className="group flex items-center justify-between rounded-lg px-3 py-2 hover:bg-gray-50"
+                  {/* 인기 검색어 섹션 */}
+                  <div>
+                    <p className="mb-4 px-3 text-[11px] font-bold tracking-wider text-[#86868b] uppercase">
+                      Trending Now
+                    </p>
+                    <div className="space-y-1">
+                      {popularSearches.map((search, index) => (
+                        <button
+                          key={index}
+                          onClick={() => handleSearch(search)}
+                          className="group flex w-full items-center gap-4 rounded-xl px-3 py-2 hover:bg-black/5"
                         >
-                          <button
-                            onClick={() => handleSearch(item.term)}
-                            className="flex-1 text-left text-sm text-gray-700"
-                          >
-                            {item.term}
-                          </button>
-                          <button
-                            onClick={() => deleteRecent(item.id)}
-                            className="opacity-0 transition-opacity group-hover:opacity-100"
-                          >
-                            <XCircle className="h-4 w-4 text-gray-400 hover:text-gray-600" />
-                          </button>
-                        </div>
-                      ))
-                    ) : (
-                      <p className="px-3 text-xs text-gray-400">최근 검색어가 없습니다.</p>
-                    )}
+                          <span className="w-4 text-[13px] font-bold text-[#d2d2d7]">
+                            {index + 1}
+                          </span>
+                          <span className="text-[14px] font-medium text-[#1d1d1f]">{search}</span>
+                        </button>
+                      ))}
+                    </div>
                   </div>
                 </div>
-
-                {/* 인기 검색어 */}
-                <div>
-                  <div className="mb-4 flex items-center gap-2">
-                    <TrendingUp className="h-4 w-4 text-gray-500" />
-                    <h3 className="text-sm font-semibold text-gray-700">인기 검색어</h3>
-                  </div>
-                  <div className="space-y-2">
-                    {popularSearches.map((search, index) => (
-                      <button
-                        key={index}
-                        onClick={() => handleSearch(search)}
-                        className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left hover:bg-gray-50"
-                      >
-                        <span className="flex h-5 w-5 items-center justify-center text-xs font-bold text-cyan-500">
-                          {index + 1}
-                        </span>
-                        <span className="text-sm text-gray-700">{search}</span>
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            )}
+              )}
+            </div>
           </div>
         </div>
       </div>

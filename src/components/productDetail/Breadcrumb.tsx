@@ -6,24 +6,22 @@ interface BreadcrumbProps {
 
 const Breadcrumb = ({ items }: BreadcrumbProps) => {
   return (
-    <div className="flex items-center gap-2 text-sm text-[#6B7280] mb-6">
+    <nav className="mb-8 flex items-center gap-2 text-[13px] tracking-tight text-[#86868b]">
       {items.map((item, index) => (
         <div key={index} className="flex items-center gap-2">
-          {index > 0 && (
-            <ChevronRight className="w-4 h-4 text-[#9CA3AF]" />
-          )}
+          {index > 0 && <ChevronRight className="h-3 w-3 text-[#d2d2d7]" strokeWidth={2.5} />}
           <span
-            className={
+            className={`transition-colors ${
               index === items.length - 1
-                ? 'text-[#111827] font-medium'
-                : 'text-[#6B7280] font-light'
-            }
+                ? 'font-semibold text-[#1d1d1f]'
+                : 'cursor-pointer font-medium text-[#86868b] hover:text-[#1d1d1f]'
+            }`}
           >
             {item.label}
           </span>
         </div>
       ))}
-    </div>
+    </nav>
   );
 };
 

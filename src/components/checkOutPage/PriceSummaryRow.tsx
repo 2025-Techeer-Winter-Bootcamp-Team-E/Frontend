@@ -11,21 +11,23 @@ const PriceSummaryRow = ({
   isDiscount?: boolean;
 }) => {
   return (
-    <div className="flex items-center justify-between py-2">
-      <span className={`text-sm ${highlight ? 'font-bold' : 'font-light text-[#6B7280]'}`}>
+    <div
+      className={`flex items-baseline justify-between ${highlight ? 'mt-4 border-t border-[#f5f5f7] pt-5' : 'py-2'}`}
+    >
+      <span
+        className={`text-[14px] ${highlight ? 'font-semibold text-[#1d1d1f]' : 'font-medium text-[#86868b]'}`}
+      >
         {label}
       </span>
       <span
-        className={`font-bold ${
-          highlight
-            ? 'text-2xl font-black text-[#0D9DDA]'
-            : isDiscount
-              ? 'text-[#EF4444]'
-              : 'text-[#111827]'
-        }`}
+        className={`tracking-tight ${highlight ? 'text-[24px] font-bold text-[#1d1d1f]' : isDiscount ? 'text-[#86868b]' : 'font-semibold text-[#1d1d1f]'}`}
       >
-        {isDiscount && amount > 0 ? '-' : ''}
-        {amount.toLocaleString()} TK
+        {isDiscount && amount > 0 ? '− ' : ''}
+        {amount.toLocaleString()}
+        <span className={`${highlight ? 'ml-1 text-[16px]' : 'ml-0.5 text-[12px]'} font-medium`}>
+          {' '}
+          TK
+        </span>
       </span>
     </div>
   );

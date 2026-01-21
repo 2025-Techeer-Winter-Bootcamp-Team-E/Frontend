@@ -16,38 +16,42 @@ const AddressSearch = ({
   onSearch: () => void;
 }) => {
   return (
-    <div className="mb-4">
-      <label className="mb-1.5 block text-sm font-bold text-[#111827]">주소</label>
-      <div className="mb-2 flex gap-2">
+    <div className="mb-6">
+      <label className="mb-2 ml-1 block text-[13px] font-semibold tracking-tight text-[#86868b]">
+        주소
+      </label>
+      <div className="mb-3 flex gap-2">
         <input
           type="text"
           value={postalCode}
           onChange={(e) => onPostalCodeChange(e.target.value)}
           readOnly
-          className="w-32 rounded-lg border border-[#E5E7EB] bg-[#F3F4F6] px-4 py-3 text-sm font-light text-[#6B7280] focus:outline-none"
+          className="w-28 rounded-xl bg-[#f5f5f7] px-4 py-3 text-[14px] font-semibold text-[#86868b] focus:outline-none"
         />
         <button
           onClick={onSearch}
-          className="rounded-lg border border-[#E5E7EB] bg-[#E5E7EB] px-4 py-3 text-sm font-medium text-[#111827] transition-colors hover:bg-[#D1D5DB]"
+          className="rounded-xl bg-[#1d1d1f] px-5 py-3 text-[13px] font-semibold text-white transition-all hover:bg-[#424245] active:scale-[0.98]"
         >
-          주소검색
+          주소 찾기
         </button>
       </div>
-      <input
-        type="text"
-        value={address}
-        onChange={(e) => onAddressChange(e.target.value)}
-        readOnly
-        className="mb-2 w-full rounded-lg border border-[#E5E7EB] bg-[#F9FAFB] px-4 py-3 text-sm font-light text-[#111827] placeholder:text-[#6B7280] focus:border-[#0D9DDA] focus:ring-2 focus:ring-[#0D9DDA]/20 focus:outline-none"
-      />
-      <input
-        type="text"
-        value={detailAddress}
-        onChange={(e) => onDetailAddressChange(e.target.value)}
-        className="w-full rounded-lg border border-[#E5E7EB] bg-[#F9FAFB] px-4 py-3 text-sm font-light text-[#111827] placeholder:text-[#6B7280] focus:border-[#0D9DDA] focus:ring-2 focus:ring-[#0D9DDA]/20 focus:outline-none"
-      />
+      <div className="space-y-3">
+        <input
+          type="text"
+          value={address}
+          onChange={(e) => onAddressChange(e.target.value)}
+          readOnly
+          className="w-full rounded-xl bg-[#f5f5f7] px-4 py-3 text-[15px] font-medium text-[#1d1d1f] focus:outline-none"
+        />
+        <input
+          type="text"
+          value={detailAddress}
+          onChange={(e) => onDetailAddressChange(e.target.value)}
+          placeholder="상세 주소를 입력하세요"
+          className="w-full rounded-xl border border-[#d2d2d7] bg-white px-4 py-3 text-[15px] font-medium text-[#1d1d1f] transition-all placeholder:text-[#d2d2d7] focus:border-[#1d1d1f] focus:ring-4 focus:ring-black/[0.03] focus:outline-none"
+        />
+      </div>
     </div>
   );
 };
-
 export default AddressSearch;

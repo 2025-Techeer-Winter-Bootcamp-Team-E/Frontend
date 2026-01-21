@@ -1,4 +1,5 @@
 import type { ProductsCodeResDto } from '@/types/productsType';
+import { ChevronDown } from 'lucide-react';
 
 interface SpecTableProps {
   productInfo?: ProductsCodeResDto;
@@ -6,79 +7,57 @@ interface SpecTableProps {
 
 const SpecTable = ({ productInfo }: SpecTableProps) => {
   const specs = productInfo ? Object.entries(productInfo.specs) : [];
+
   return (
-    <div className="overflow-hidden rounded-lg border border-[#E5E7EB] bg-white shadow-sm">
-      <div className="border-b border-[#E5E7EB] p-6">
-        <h3 className="text-lg font-bold text-[#111827]">상세 정보</h3>
+    <div className="rounded-[2.5rem] border border-black/[0.03] bg-white p-10 shadow-[0_4px_24px_rgba(0,0,0,0.02)] md:p-16">
+      {/* 헤더 섹션: 더 크고 여유로운 타이포그래피 */}
+      <div className="mb-12 border-b border-[#f5f5f7] pb-10">
+        <h3 className="text-[32px] font-semibold tracking-tight text-[#1d1d1f]">제품 사양</h3>
       </div>
-      <div className="grid grid-cols-2">
+
+      {/* 사양 리스트: 애플 공식 홈페이지의 기술 사양 레이아웃 */}
+      <div className="grid grid-cols-1 gap-x-12 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
         {specs.map(([label, value]) => (
-          <div key={label} className={`grid grid-cols-3 border-b border-l border-[#F3F4F6]`}>
-            <div className="col-span-1 border-r border-[#F3F4F6] px-4 py-4 text-xs font-bold tracking-[0.6px] text-[#6B7280] uppercase">
+          <div key={label} className="group flex flex-col border-b border-[#f5f5f7] pb-6">
+            <span className="mb-2 text-[11px] font-bold tracking-[0.05em] text-[#86868b] uppercase transition-colors group-hover:text-[#1d1d1f]">
               {label}
-            </div>
-            <div className="col-span-2 px-4 py-4 text-sm font-medium text-[#111827]">{value}</div>
+            </span>
+            <span className="text-[16px] leading-snug font-medium tracking-tight text-[#1d1d1f]">
+              {value}
+            </span>
           </div>
         ))}
       </div>
-      <div className="relative flex min-h-150 flex-col items-center justify-center border-t border-[#F3F4F6] bg-[#F9FAFB] p-12">
-        {productInfo?.product_image_url_list?.length ? (
-          <div className="flex w-full max-w-200 flex-col gap-6">
-            {productInfo.product_image_url_list.map((imageUrl, index) => (
-              <img
-                key={index}
-                src={imageUrl}
-                alt={`${productInfo.product_name} 상세 이미지 ${index + 1}`}
-                className="w-full rounded-lg border border-[#E5E7EB] bg-white object-contain"
-              />
-            ))}
+
+      {/* 제품 상세 홍보 이미지 영역 */}
+      <div className="relative mt-20 flex flex-col items-center overflow-hidden rounded-[2.5rem] bg-[#f5f5f7] px-8 py-20 transition-all duration-500 hover:bg-[#f2f2f4]">
+        {!productInfo?.product_image_url_list?.length ? (
+          <div className="flex flex-col items-center">
+            {/* 플레이스홀더 아이콘: 선을 더 얇게(Thin) 처리하여 세련미 강조 */}
+            <div className="mb-8 flex h-24 w-24 items-center justify-center rounded-[2rem] bg-white shadow-[0_8px_16px_rgba(0,0,0,0.04)]">
+              <svg
+                className="h-10 w-10 text-[#d2d2d7]"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={1}
+                viewBox="0 0 24 24"
+              >
+                <path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+            </div>
+            <h4 className="mb-2 text-lg font-semibold text-[#1d1d1f]">상세 정보 준비 중</h4>
+            <p className="text-sm font-medium text-[#86868b]">
+              제조사 제공 데이터를 불러오고 있습니다.
+            </p>
           </div>
         ) : (
-          <>
-            <div className="mb-4 text-center">
-              <div className="mx-auto mb-4 flex h-24 w-24 items-center justify-center rounded-lg bg-[#E5E7EB]">
-                <svg
-                  className="h-12 w-12 text-[#9CA3AF]"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={1.5}
-                    d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                  />
-                </svg>
-              </div>
-              <p className="mb-2 text-sm font-medium text-[#9CA3AF]">
-                제조사 공식 제품 상세 페이지 영역
-              </p>
-              <p className="text-xs leading-4 text-[#D1D5DB]">
-                실제 서비스에서는 여기에 제품의 고화질 홍보 이미지와
-                <br />
-                상세 특징 설명 이미지가 로드됩니다.
-              </p>
-            </div>
-          </>
-        )}
-        {productInfo?.product_image_url_list?.length && (
-          <button className="sticky bottom-12 mt-12 flex items-center gap-2 rounded-full border border-[#E5E7EB] bg-white px-12 py-4 shadow-lg transition-colors hover:bg-gray-50">
-            <span className="text-sm font-bold text-[#111827]">상세 이미지 펼쳐보기</span>
-            <svg
-              className="h-6 w-6 text-[#111827]"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M19 9l-7 7-7-7"
-              />
-            </svg>
-          </button>
+          <div className="flex flex-col items-center gap-8">
+            {/* 실제 이미지가 있을 경우 보여줄 미리보기나 레이아웃 */}
+            <button className="group flex items-center gap-3 rounded-full bg-[#1d1d1f] px-10 py-4 text-[15px] font-semibold text-white shadow-xl shadow-black/10 transition-all hover:bg-[#424245] active:scale-95">
+              상세 이미지 펼쳐보기
+              <ChevronDown className="h-4 w-4 transition-transform group-hover:translate-y-0.5" />
+            </button>
+          </div>
         )}
       </div>
     </div>

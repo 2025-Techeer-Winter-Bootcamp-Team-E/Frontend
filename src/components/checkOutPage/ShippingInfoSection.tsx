@@ -62,38 +62,44 @@ const ShippingInfoSection = ({ formData, setFormData }: ShippingInfoSectionProps
   };
 
   return (
-    <div className="mb-8 rounded-2xl border border-[#F3F4F6] bg-white p-8 shadow-sm">
+    <div className="mb-6 rounded-[2.5rem] border border-black/[0.02] bg-white p-10 shadow-[0_4px_24px_rgba(0,0,0,0.02)]">
       <SectionHeader icon={Package} title="배송지 정보" />
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 gap-6">
         <InputField
           label="수령인"
           value={formData.recipient}
           onChange={(e) => setFormData({ ...formData, recipient: e.target.value })}
+          placeholder="이름"
         />
         <InputField
           label="연락처"
           value={formData.phone}
           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+          placeholder="010-0000-0000"
         />
       </div>
 
-      <AddressSearch
-        postalCode={formData.postalCode}
-        address={formData.address}
-        detailAddress={formData.detailAddress}
-        onPostalCodeChange={(value) => setFormData({ ...formData, postalCode: value })}
-        onAddressChange={(value) => setFormData({ ...formData, address: value })}
-        onDetailAddressChange={(value) => setFormData({ ...formData, detailAddress: value })}
-        onSearch={handlePostalSearch}
-      />
+      <div className="mt-2">
+        <AddressSearch
+          postalCode={formData.postalCode}
+          address={formData.address}
+          detailAddress={formData.detailAddress}
+          onPostalCodeChange={(value) => setFormData({ ...formData, postalCode: value })}
+          onAddressChange={(value) => setFormData({ ...formData, address: value })}
+          onDetailAddressChange={(value) => setFormData({ ...formData, detailAddress: value })}
+          onSearch={handlePostalSearch}
+        />
+      </div>
 
-      <DeliveryRequestField
-        value={formData.deliveryRequest}
-        customValue={formData.deliveryRequestCustom}
-        onChange={(value) => setFormData({ ...formData, deliveryRequest: value })}
-        onCustomChange={(value) => setFormData({ ...formData, deliveryRequestCustom: value })}
-      />
+      <div className="mt-4">
+        <DeliveryRequestField
+          value={formData.deliveryRequest}
+          customValue={formData.deliveryRequestCustom}
+          onChange={(value) => setFormData({ ...formData, deliveryRequest: value })}
+          onCustomChange={(value) => setFormData({ ...formData, deliveryRequestCustom: value })}
+        />
+      </div>
     </div>
   );
 };

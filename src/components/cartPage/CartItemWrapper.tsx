@@ -24,7 +24,8 @@ const CartItemWrapper = ({ item, isSelected, onToggle, onRemoveSuccess }: Props)
   };
 
   const handleRemove = () => {
-    if (!confirm('해당 상품을 장바구니에서 삭제하시겠습니까?')) return;
+    // 브라우저 기본 confirm도 최대한 정중하고 간결한 문구로 유지
+    if (!confirm('상품을 장바구니에서 삭제하시겠습니까?')) return;
 
     deleteMutation.mutate(item.id);
     onRemoveSuccess();

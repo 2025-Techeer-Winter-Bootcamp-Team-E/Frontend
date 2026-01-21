@@ -1,65 +1,80 @@
-import React, { useState } from 'react';
-import { Menu, Search, ShoppingCart, User } from 'lucide-react';
-import { PATH } from '@/routes/path';
+import React, { useState, useEffect } from 'react';
+import { Menu, Search, ShoppingCart, User, X } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { PATH } from '@/routes/path';
 import Category, { CATEGORY_ITEMS } from '@/components/layout/Category';
 import SearchModal from '@/components/layout/SearchModal';
 
 const Header: React.FC = () => {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-
+  const [isScrolled, setIsScrolled] = useState(false);
   const navigate = useNavigate();
 
+  // 스크롤 시 헤더 그림자 효과
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 10);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <header className="fixed top-0 left-0 z-50 w-full border-b border-gray-200 bg-white">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-14 items-center justify-between gap-4">
-          <div className="flex cursor-pointer items-center" onClick={() => navigate('/')}>
-            <span className="text-2xl font-bold text-cyan-500">COMPAGE</span>
+    <header
+      className={`fixed top-0 left-0 z-50 w-full transition-all duration-300 ${
+        isScrolled ? 'bg-white/80 shadow-sm backdrop-blur-md' : 'bg-white'
+      }`}
+    >
+      <div className="mx-auto max-w-300 px-6 lg:px-12">
+        <div className="flex h-12 items-center justify-between">
+          <div
+            className="flex cursor-pointer items-center transition-opacity hover:opacity-60"
+            onClick={() => navigate('/')}
+          >
+            {/* 채도 높은 Indigo 제거 -> Jet Black */}
+            <span className="text-[19px] font-semibold tracking-tight text-[#1d1d1f]">CORE.AI</span>
           </div>
+
           <div className="hidden flex-1 justify-center md:flex">
             <Category />
           </div>
-          <div className="flex items-center space-x-2 md:space-x-4">
+
+          <div className="flex items-center gap-5">
+            {[
+              { icon: Search, onClick: () => setIsSearchOpen(true), label: '검색' },
+              { icon: ShoppingCart, onClick: () => navigate(PATH.CART), label: '장바구니' },
+              { icon: User, onClick: () => navigate(PATH.MY_PAGE), label: '마이페이지' },
+            ].map((btn, idx) => (
+              <button
+                key={idx}
+                className="opacity-80 transition-opacity hover:opacity-100"
+                onClick={btn.onClick}
+                aria-label={btn.label}
+              >
+                <btn.icon className="h-[17px] w-[17px] text-[#1d1d1f]" strokeWidth={2.2} />
+              </button>
+            ))}
             <button
-              className="rounded-full p-2 hover:bg-gray-100"
-              aria-label="검색"
-              onClick={() => setIsSearchOpen(true)}
+              className="rounded-full p-2.5 hover:bg-gray-100 md:hidden"
+              onClick={() => setIsMobileNavOpen(!isMobileNavOpen)}
             >
-              <Search className="h-5 w-5 cursor-pointer text-gray-600" />
-            </button>
-            <button
-              className="rounded-full p-2 hover:bg-gray-100"
-              onClick={() => navigate(PATH.CART)}
-              aria-label="장바구니"
-            >
-              <ShoppingCart className="h-5 w-5 cursor-pointer text-gray-600" />
-            </button>
-            <button
-              className="cursor-pointer rounded-full p-2 hover:bg-gray-100"
-              onClick={() => navigate(PATH.MY_PAGE)}
-              aria-label="마이페이지"
-            >
-              <User className="h-5 w-5 text-gray-600" />
-            </button>
-            <button
-              className="rounded-full p-2 hover:bg-gray-100 md:hidden"
-              onClick={() => setIsMobileNavOpen((prev) => !prev)}
-              aria-label="카테고리 메뉴 열기"
-            >
-              <Menu className="h-5 w-5 text-gray-600" />
+              {isMobileNavOpen ? (
+                <X className="h-5 w-5 text-gray-900" />
+              ) : (
+                <Menu className="h-5 w-5 text-gray-600" />
+              )}
             </button>
           </div>
         </div>
+
+        {/* 모바일 네비게이션 */}
         {isMobileNavOpen && (
-          <nav className="border-t border-gray-100 py-3 md:hidden">
-            <div className="flex flex-wrap justify-between gap-4 px-2">
+          <nav className="animate-in fade-in slide-in-from-top-4 border-t border-gray-50 py-6 md:hidden">
+            <div className="grid grid-cols-2 gap-y-4 px-2">
               {CATEGORY_ITEMS.map((item) => (
                 <a
                   key={item}
                   href="#"
-                  className="text-sm text-gray-700 hover:text-cyan-500"
+                  className="text-[15px] font-medium text-gray-600 active:text-indigo-600"
                   onClick={() => setIsMobileNavOpen(false)}
                 >
                   {item}
@@ -68,8 +83,8 @@ const Header: React.FC = () => {
             </div>
           </nav>
         )}
-        <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
       </div>
+      <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
     </header>
   );
 };

@@ -1,19 +1,12 @@
-import React from 'react';
-
-interface QuestionHeaderProps {
-  title: string;
-  subtitle: string;
-}
-
-const QuestionHeader: React.FC<QuestionHeaderProps> = ({ title, subtitle }) => {
+const QuestionHeader: React.FC<{ title: string; subtitle: string }> = ({ title, subtitle }) => {
   return (
-    <div className="flex flex-col gap-4 items-center">
-      <h1 className="text-[30px] font-bold text-[#111827] leading-[36px] text-center">
+    <div className="flex flex-col items-center gap-3 text-center">
+      <span className="text-xs font-bold tracking-widest text-indigo-500 uppercase">
+        {subtitle}
+      </span>
+      <h1 className="text-2xl leading-tight font-black tracking-tight text-gray-900 md:text-3xl">
         {title}
       </h1>
-      <p className="text-base font-light text-[#6b7280] leading-[24px] text-center">
-        {subtitle}
-      </p>
     </div>
   );
 };

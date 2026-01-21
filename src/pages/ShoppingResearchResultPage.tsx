@@ -49,7 +49,6 @@ const ShoppingResearchResultPage: React.FC = () => {
       return;
     }
 
-    console.log('API 호출 파라미터:', { search_id, user_query, survey_contents });
 
     mutation.mutate(
       { search_id, user_query, survey_contents },

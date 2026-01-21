@@ -12,24 +12,22 @@ interface DetailTabsProps {
 
 const DetailTabs = ({ tabs, activeTab, onTabChange }: DetailTabsProps) => {
   return (
-    <div className="sticky top-0 z-50 bg-white border-b border-[#E5E7EB] shadow-sm">
-      <div className="max-w-7xl mx-auto px-20">
-        <div className="flex">
+    <div className="sticky top-0 z-50 border-b border-[#d2d2d7]/50 bg-white/80 backdrop-blur-xl">
+      <div className="mx-auto max-w-7xl px-6 sm:px-20">
+        <div className="flex gap-8">
           {tabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => onTabChange(tab.id)}
-              className={`px-8 py-4 text-sm font-medium transition-colors relative ${
+              className={`relative py-4 text-sm tracking-tight transition-all ${
                 activeTab === tab.id
-                  ? 'text-[#0D9DDA] border-b-2 border-[#0D9DDA] font-bold'
-                  : 'text-[#6B7280] hover:text-[#111827]'
+                  ? 'font-semibold text-[#1d1d1f] after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:bg-[#1d1d1f]'
+                  : 'font-medium text-[#86868b] hover:text-[#1d1d1f]'
               }`}
             >
               {tab.label}
               {tab.count !== undefined && (
-                <span className="ml-2 text-xs text-[#6B7280] font-light">
-                  ({tab.count})
-                </span>
+                <span className="ml-1 text-[11px] font-normal opacity-60">{tab.count}</span>
               )}
             </button>
           ))}

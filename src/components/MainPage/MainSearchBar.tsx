@@ -1,8 +1,18 @@
 import { useState, useEffect } from 'react';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, Search } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
+import useShoppingResearchMutation from '@/hooks/mutations/useShoppingResearchMutation';
+import { PATH } from '@/routes/path';
 
 const OPTIONS = ['통합 검색', 'LLM 검색', '쇼핑 리서치'] as const;
 type Option = (typeof OPTIONS)[number];
+
+const OPTION_TO_TYPE = {
+  '통합 검색': 'unified',
+  'LLM 검색': 'llm',
+  '쇼핑 리서치': 'shopping-research',
+} as const;
 
 const TYPING_PHRASES = [
   '편집용 고사양 노트북 추천해줘',
@@ -11,9 +21,14 @@ const TYPING_PHRASES = [
 ];
 
 const MainSearchBar = () => {
+  const navigate = useNavigate();
+  const shoppingResearchMutation = useShoppingResearchMutation();
+
+  const [query, setQuery] = useState('');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState<Option>('쇼핑 리서치');
 
+  /** 타이핑 애니메이션 (기존 유지) */
   const [displayedText, setDisplayedText] = useState('');
   const [isTyping, setIsTyping] = useState(true);
   const [charIndex, setCharIndex] = useState(0);
@@ -24,21 +39,19 @@ const MainSearchBar = () => {
     const currentPhrase = TYPING_PHRASES[phraseIndex];
 
     if (isTyping && charIndex < currentPhrase.length) {
-      timeout = setTimeout(() => {
+      timeout = window.setTimeout(() => {
         setDisplayedText(currentPhrase.slice(0, charIndex + 1));
         setCharIndex((prev) => prev + 1);
       }, 70);
     } else if (isTyping && charIndex === currentPhrase.length) {
-      timeout = setTimeout(() => {
-        setIsTyping(false);
-      }, 2000);
+      timeout = window.setTimeout(() => setIsTyping(false), 2000);
     } else if (!isTyping && charIndex > 0) {
-      timeout = setTimeout(() => {
+      timeout = window.setTimeout(() => {
         setDisplayedText(currentPhrase.slice(0, charIndex - 1));
         setCharIndex((prev) => prev - 1);
       }, 35);
     } else if (!isTyping && charIndex === 0) {
-      timeout = setTimeout(() => {
+      timeout = window.setTimeout(() => {
         setIsTyping(true);
         setPhraseIndex((prev) => (prev + 1) % TYPING_PHRASES.length);
       }, 600);
@@ -47,52 +60,96 @@ const MainSearchBar = () => {
     return () => clearTimeout(timeout);
   }, [charIndex, isTyping, phraseIndex]);
 
+  /** 🔥 핵심: 검색 실행 */
+  const handleSearch = () => {
+    if (!query.trim()) return;
+
+    const searchType = OPTION_TO_TYPE[selectedOption];
+
+    if (searchType === 'shopping-research') {
+      shoppingResearchMutation.mutate(
+        { user_query: query },
+        {
+          onSuccess: (data) => {
+            navigate(PATH.SHOPPING_RESEARCH, {
+              state: {
+                userQuery: query,
+                questions: data.questions,
+                searchId: data.search_id,
+              },
+            });
+          },
+          onError: (err) => {
+            console.error('쇼핑 리서치 실패', err);
+          },
+        },
+      );
+      return;
+    }
+
+    if (searchType === 'llm') {
+      navigate(`${PATH.LLM_SEARCH_RESULT}?q=${encodeURIComponent(query)}`);
+      return;
+    }
+
+    if (searchType === 'unified') {
+      console.log('통합 검색:', query);
+    }
+  };
+
   return (
-    <div className="mx-auto max-w-3xl px-4">
-      <div className="relative flex flex-col gap-6 rounded-4xl border border-gray-200 bg-white px-10 py-8 shadow-[0_8px_30px_rgba(0,0,0,0.12)] transition-all duration-200 hover:shadow-[0_16px_50px_rgba(0,0,0,0.16)]">
+    <div className="mx-auto max-w-3xl">
+      <div className="relative flex flex-col gap-4 rounded-[32px] bg-white/80 p-4 shadow-xl backdrop-blur-xl">
+        {/* 옵션 선택 */}
         <div className="relative">
           <button
-            type="button"
-            onClick={() => setIsDropdownOpen((prev) => !prev)}
-            className="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium text-gray-700 transition-colors hover:bg-gray-50"
+            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+            className="flex items-center gap-2 rounded-full bg-gray-100 px-4 py-2 text-xs font-semibold"
           >
-            <span>{selectedOption}</span>
+            {selectedOption}
             <ChevronDown
-              className={`h-4 w-4 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`}
+              className={`h-3 w-3 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`}
             />
           </button>
 
-          {isDropdownOpen && (
-            <div className="absolute top-full left-0 z-20 mt-2 w-44 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-lg">
-              {OPTIONS.map((option) => (
-                <button
-                  key={option}
-                  type="button"
-                  onClick={() => {
-                    setSelectedOption(option);
-                    setIsDropdownOpen(false);
-                  }}
-                  className={`w-full px-4 py-3 text-left text-sm transition-colors ${
-                    selectedOption === option
-                      ? 'bg-gray-50 font-medium text-gray-900'
-                      : 'text-gray-700 hover:bg-gray-50'
-                  }`}
-                >
-                  {option}
-                </button>
-              ))}
-            </div>
-          )}
+          <AnimatePresence>
+            {isDropdownOpen && (
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 10 }}
+                className="absolute mt-2 w-40 rounded-xl bg-white shadow-lg"
+              >
+                {OPTIONS.map((option) => (
+                  <button
+                    key={option}
+                    onClick={() => {
+                      setSelectedOption(option);
+                      setIsDropdownOpen(false);
+                    }}
+                    className="block w-full px-4 py-3 text-left text-xs hover:bg-gray-50"
+                  >
+                    {option}
+                  </button>
+                ))}
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
+
+        {/* 입력 */}
         <textarea
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
           placeholder={`${displayedText}|`}
-          className="h-36 w-full resize-none bg-transparent py-6 text-4xl font-medium text-gray-900 outline-none placeholder:text-gray-800"
+          className="h-36 resize-none bg-transparent text-3xl outline-none"
         />
+
         <button
-          type="button"
-          className="self-end rounded-full bg-indigo-700 px-8 py-4 text-base font-medium text-white transition-all hover:bg-gray-900 active:scale-[0.97]"
+          onClick={handleSearch}
+          className="flex h-12 w-12 items-center justify-center self-end rounded-full bg-black text-white"
         >
-          검색
+          <Search />
         </button>
       </div>
     </div>

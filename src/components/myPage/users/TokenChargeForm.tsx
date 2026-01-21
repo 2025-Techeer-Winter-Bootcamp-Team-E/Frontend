@@ -76,19 +76,26 @@ const TokenChargeForm = () => {
   const isFormValid = selectedTokenAmount !== null && selectedPaymentMethod !== null;
 
   return (
-    <div className="max-w-4xl">
-      <p className="mb-6 text-sm text-gray-600">
-        AI 구매 가이드 및 상세 가격 분석을 위한 토큰을 충전하세요.
+    <div className="mt-8">
+      <p className="mb-8 text-[0.95rem] leading-relaxed text-[#86868b]">
+        AI 구매 가이드 및 상세 가격 분석을 위한 <br />
+        토큰을 간편하게 충전하세요.
       </p>
-      <div className="mb-8 rounded-lg bg-gray-50 p-4">
-        <div className="mb-1 text-sm text-gray-600">내 토큰 잔액</div>
-        <div className="text-3xl font-bold text-gray-900">
-          {currentToken?.current_tokens ?? 0} <span className="text-xl">TK</span>
+
+      {/* 내 토큰 잔액 섹션 - Glassmorphism 스타일 */}
+      <div className="mb-10 rounded-2xl border border-gray-100 bg-[#f5f5f7] p-6">
+        <div className="mb-1 text-xs font-semibold tracking-wider text-[#86868b] uppercase">
+          My Balance
+        </div>
+        <div className="text-4xl font-semibold tracking-tight text-[#1d1d1f]">
+          {currentToken?.current_tokens ?? 0}{' '}
+          <span className="text-xl font-medium text-[#86868b]">TK</span>
         </div>
       </div>
-      <div className="mb-8">
+
+      <div className="mb-10">
         <SectionHeader title="충전 금액 선택" />
-        <div className="grid grid-cols-2 gap-3 md:grid-cols-5">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5">
           {tokenOptions.map((option) => (
             <TokenCard
               key={option.amount}
@@ -102,29 +109,30 @@ const TokenChargeForm = () => {
           ))}
         </div>
       </div>
-      <div className="mb-8">
+
+      <div className="mb-10">
         <SectionHeader title="결제 수단 선택" />
         <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
           {paymentMethods.map((method) => (
             <PaymentMethodCard
               key={method.id}
-              icon={method.icon}
-              label={method.label}
-              iconBgColor={method.iconBgColor}
-              iconColor={method.iconColor}
-              imageSrc={method.imageSrc}
+              {...method}
+              // 브랜드 컬러 강제 중화 (애플 감성 유지)
+              iconBgColor={
+                method.id === 'kakao' || method.id === 'naver' ? 'bg-gray-50' : method.iconBgColor
+              }
               isSelected={selectedPaymentMethod === method.id}
               onClick={() => setSelectedPaymentMethod(method.id)}
             />
           ))}
         </div>
       </div>
+
       <TotalAmount amount={selectedOption ? selectedOption.price : 0} />
-      <div className="mt-6">
+
+      <div className="mt-8">
         <ChargeButton onClick={handleCharge} disabled={!isFormValid || isPending} />
-        <InfoMessage>
-          충전 시 이용약관 및 유료서비스 이용약관에 동의하는 것으로 간주합니다.
-        </InfoMessage>
+        <InfoMessage>충전 시 이용약관 및 유료서비스 이용약관 동의로 간주됩니다.</InfoMessage>
       </div>
     </div>
   );

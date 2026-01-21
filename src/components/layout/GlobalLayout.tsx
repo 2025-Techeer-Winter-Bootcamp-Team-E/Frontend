@@ -4,9 +4,9 @@ import { Outlet } from 'react-router-dom';
 
 const GlobalLayout = () => {
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-screen flex-col bg-[#f5f5f7]">
       <Header />
-      <main className="flex-1 mt-15">
+      <main className="mt-12 flex-1">
         <Outlet />
       </main>
       <Footer />

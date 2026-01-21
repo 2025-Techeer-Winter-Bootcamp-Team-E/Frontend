@@ -5,9 +5,11 @@ import type { BuyItemEntity } from '@/types/ordersType';
 
 const OrderItemsSection = ({ items }: { items: BuyItemEntity[] }) => {
   return (
-    <div className="mb-8 rounded-2xl border border-[#F3F4F6] bg-white p-8 shadow-sm">
-      <SectionHeader icon={Package} title={`주문 상품 (${items.length}건)`} />
-      <div className="space-y-6">
+    <div className="mb-8 overflow-hidden rounded-[2.5rem] border border-black/[0.02] bg-white p-10 shadow-[0_20px_50px_rgba(0,0,0,0.02)]">
+      <div className="mb-8">
+        <SectionHeader icon={Package} title={`주문 상품 (${items.length})`} />
+      </div>
+      <div className="space-y-2">
         {items.map((item) => (
           <OrderItem key={item.id} item={item} />
         ))}

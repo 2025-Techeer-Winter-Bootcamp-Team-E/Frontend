@@ -3,21 +3,24 @@ import { NavLink } from 'react-router-dom';
 
 const SidebarMenu = () => {
   return (
-    <div className="rounded-lg border border-gray-200 bg-white p-2">
-      <nav className="space-y-1">
+    <div className="rounded-[24px] border border-gray-100 bg-white p-3 shadow-lg shadow-gray-200/40">
+      <nav className="flex flex-col gap-2">
         {SIDEBAR.map((item) => (
           <NavLink
             key={item.path}
             to={item.path}
             className={({ isActive }) =>
-              `flex items-center rounded-md px-3 py-2 text-sm transition-all ${
+              `group flex items-center justify-between rounded-xl px-4 py-3.5 text-sm transition-all duration-300 ${
                 isActive
-                  ? 'bg-cyan-50 font-semibold text-cyan-600'
-                  : 'text-gray-700 hover:bg-gray-50'
+                  ? 'translate-x-1 bg-indigo-600 font-bold text-white shadow-lg shadow-indigo-200'
+                  : 'text-gray-500 hover:bg-indigo-50 hover:text-indigo-600'
               }`
             }
           >
-            {item.label}
+            <span>{item.label}</span>
+            <div
+              className={`h-1.5 w-1.5 scale-0 rounded-full bg-white transition-transform duration-300 group-[.active]:scale-100`}
+            />
           </NavLink>
         ))}
       </nav>

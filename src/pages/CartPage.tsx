@@ -25,48 +25,50 @@ const CartPage = () => {
   const availableTokens = tokenData?.current_tokens ?? 0;
 
   return (
-    <div className="mx-auto max-w-7xl px-8 py-12">
-      <div className="mb-8 flex items-center gap-2">
-        <h1 className="text-[30px] font-black text-[#111827]">장바구니</h1>
-        <span className="rounded-full bg-[rgba(13,157,218,0.1)] px-3 py-1 text-sm font-bold text-[#0D9DDA]">
-          {cartItems.length}
-        </span>
-      </div>
-
-      <div className="flex items-start gap-8">
-        <div className="flex-1">
-          <div className="mb-4 rounded-xl border bg-white px-4 py-4">
-            <Checkbox
-              checked={allSelected}
-              onChange={toggleAll}
-              label={`전체선택 (${selectedItems.length}/${cartItems.length})`}
-            />
-          </div>
-
-          {cartItems.map((item) => (
-            <CartItemWrapper
-              key={item.id}
-              item={item}
-              isSelected={selectedItems.includes(item.id)}
-              onToggle={() => toggleItem(item.id)}
-              onRemoveSuccess={() => removeItem(item.id)}
-            />
-          ))}
+    <div className="min-h-screen bg-[#f5f5f7]">
+      <div className="mx-auto max-w-[1200px] px-6 py-16 md:px-12">
+        {/* 헤더 섹션: 숫자 배지를 무채색 실버 톤으로 변경 */}
+        <div className="mb-12 flex items-baseline gap-4">
+          <h1 className="text-[40px] font-semibold tracking-tight text-[#1d1d1f]">장바구니</h1>
+          <span className="text-[20px] font-medium text-[#86868b]">{cartItems.length}개 상품</span>
         </div>
 
-        <div className="w-[384px]">
-          <PriceSummaryCard
-            availableTokens={availableTokens}
-            summary={summary}
-            selectedItemsCount={selectedItems.length}
-            onCheckout={() => {
-              if (selectedItems.length === 0) return alert('상품을 선택해주세요.');
+        <div className="flex flex-col items-start gap-12 lg:flex-row">
+          {/* 상품 리스트 영역 */}
+          <div className="w-full lg:flex-1">
+            <div className="mb-6 overflow-hidden rounded-[1.5rem] border border-black/[0.02] bg-white px-6 py-4 shadow-sm">
+              <Checkbox
+                checked={allSelected}
+                onChange={toggleAll}
+                label={`전체 선택 (${selectedItems.length}/${cartItems.length})`}
+              />
+            </div>
 
-              navigate(PATH.CHECKOUT, {
-                state: { mode: 'cart', selectedItems },
-              });
-            }}
-          />
+            <div className="space-y-4">
+              {cartItems.map((item) => (
+                <CartItemWrapper
+                  key={item.id}
+                  item={item}
+                  isSelected={selectedItems.includes(item.id)}
+                  onToggle={() => toggleItem(item.id)}
+                  onRemoveSuccess={() => removeItem(item.id)}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* 우측 결제 요약 카드 (상단 고정) */}
+          <div className="w-full lg:sticky lg:top-12 lg:w-[380px]">
+            <PriceSummaryCard
+              availableTokens={availableTokens}
+              summary={summary}
+              selectedItemsCount={selectedItems.length}
+              onCheckout={() => {
+                if (selectedItems.length === 0) return alert('상품을 선택해주세요.');
+                navigate(PATH.CHECKOUT, { state: { mode: 'cart', selectedItems } });
+              }}
+            />
+          </div>
         </div>
       </div>
     </div>

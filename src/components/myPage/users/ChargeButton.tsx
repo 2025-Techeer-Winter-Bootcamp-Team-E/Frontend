@@ -8,10 +8,10 @@ const ChargeButton = ({ onClick, disabled = false }: ChargeButtonProps) => {
     <button
       onClick={onClick}
       disabled={disabled}
-      className={`w-full rounded-lg py-4 font-medium text-white transition-colors ${
+      className={`w-full rounded-2xl py-4 font-semibold text-white transition-all duration-300 ${
         disabled
-          ? 'cursor-not-allowed bg-gray-300'
-          : 'bg-blue-500 hover:bg-blue-600 active:bg-blue-700'
+          ? 'cursor-not-allowed bg-gray-200 text-gray-400'
+          : 'bg-[#1d1d1f] hover:bg-[#424245] active:scale-[0.98]'
       }`}
     >
       충전하기

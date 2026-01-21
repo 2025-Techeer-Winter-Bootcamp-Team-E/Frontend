@@ -7,31 +7,33 @@ interface ProductInfoProps {
 const ProductInfo = ({ productInfo }: ProductInfoProps) => {
   return (
     <div className="flex flex-col">
-      <div className="mb-2">
-        <span className="inline-block rounded bg-[#DBEAFE] px-2 py-0.5 text-xs font-bold text-[#0D9DDA]">
+      <div className="mb-4">
+        <span className="inline-block rounded-full bg-[#f5f5f7] px-3 py-1 text-[11px] font-bold tracking-wider text-[#86868b] uppercase">
           {productInfo?.brand}
         </span>
       </div>
-      <h1 className="mb-2 text-[30px] leading-9 font-bold whitespace-pre-wrap text-[#111827]">
+
+      <h1 className="mb-8 text-[40px] leading-[1.1] font-semibold tracking-tight text-[#1d1d1f]">
         {productInfo?.product_name}
       </h1>
-      <div className="mb-6">
-        <div className="grid grid-cols-3 gap-4">
-          {productInfo &&
-            Object.entries(productInfo.specs).map(([label, value]) => (
+
+      <div className="grid grid-cols-3 gap-3">
+        {productInfo &&
+          Object.entries(productInfo.specs)
+            .slice(0, 3)
+            .map(([label, value]) => (
               <div
                 key={label}
-                className="flex flex-col items-center gap-1 rounded-lg border border-[#F3F4F6] bg-[#F9FAFB] p-4.25"
+                className="flex flex-col items-center justify-center rounded-2xl border border-[#d2d2d7]/30 bg-[#f5f5f7]/30 p-4 transition-all hover:bg-white hover:shadow-sm"
               >
-                <span className="text-center text-[11px] leading-[16.5px] font-light tracking-[-0.275px] text-[#6B7280] uppercase">
+                <span className="mb-1 text-[10px] font-bold tracking-widest text-[#86868b] uppercase">
                   {label}
                 </span>
-                <span className="text-center text-sm leading-5 font-bold whitespace-pre-wrap text-[#111827]">
+                <span className="text-center text-[13px] font-semibold tracking-tight text-[#1d1d1f]">
                   {value}
                 </span>
               </div>
             ))}
-        </div>
       </div>
     </div>
   );

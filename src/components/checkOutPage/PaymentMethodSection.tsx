@@ -13,63 +13,54 @@ const PaymentMethodSection = ({
   const navigate = useNavigate();
 
   return (
-    <div className="mb-8 rounded-2xl border-2 border-[#0D9DDA] bg-[rgba(239,246,255,0.3)] p-6">
-      <div className="mb-6 flex items-center gap-6">
-        <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-[#0D9DDA] shadow-lg">
-          <svg className="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-            />
-          </svg>
-        </div>
+    <div className="mb-8 rounded-[2.5rem] bg-[#1d1d1f] p-10 text-white shadow-2xl shadow-black/10">
+      <div className="flex items-start justify-between">
         <div className="flex-1">
-          <div className="mb-1 flex items-center gap-2">
-            <h3 className="text-lg font-black text-[#0D9DDA]">내 토큰 결제 (My Token Payment)</h3>
-            <span className="rounded-full bg-[rgba(13,157,218,0.1)] px-2.5 py-0.5 text-xs font-bold text-[#0D9DDA]">
-              추천
+          <div className="mb-2 flex items-center gap-3">
+            <h3 className="text-[17px] font-semibold tracking-tight opacity-90">
+              My Token Payment
+            </h3>
+            <span className="rounded-full bg-white/10 px-2.5 py-0.5 text-[11px] font-bold tracking-wider text-white/80 uppercase">
+              Selected
             </span>
           </div>
-          <div className="flex items-center gap-3 text-sm">
-            <span className="font-medium text-[#6B7280]">
-              보유 잔액:{' '}
-              <span className="font-bold text-[#111827]">
-                {availableTokens.toLocaleString()} TK
-              </span>
-            </span>
-            <span className="h-3 w-px bg-[#D1D5DB]"></span>
-            <span className="text-xs font-bold text-[#0D9DDA]">
-              결제 후 잔액: {remainingBalance.toLocaleString()} TK
-            </span>
-          </div>
-        </div>
-        <div className="flex items-center">
-          <svg
-            className="h-8 w-8 text-[#10B981]"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-            />
-          </svg>
-        </div>
-      </div>
 
-      <div className="border-t border-[#DBEAFE] pt-4">
-        <button
-          onClick={() => navigate(`${PATH.TOKEN}`)}
-          className="flex items-center gap-1.5 rounded-lg border border-[#0D9DDA] bg-white px-4 py-2 text-sm font-bold text-[#0D9DDA] shadow-sm transition-colors hover:bg-[#0D9DDA]/5"
-        >
-          토큰 충전하기
-          <ChevronRight className="h-4 w-4" />
-        </button>
+          <div className="mt-8 space-y-1">
+            <p className="text-[13px] font-medium text-white/50">보유 잔액</p>
+            <p className="text-[28px] font-bold tracking-tighter">
+              {availableTokens.toLocaleString()}{' '}
+              <span className="text-[16px] font-medium opacity-60">TK</span>
+            </p>
+          </div>
+
+          <div className="mt-6 flex items-center gap-4 text-[13px]">
+            <span className="font-medium text-white/40">결제 후 예정 잔액</span>
+            <span className="font-bold tracking-tight text-[#34c759]">
+              {remainingBalance.toLocaleString()} TK
+            </span>
+          </div>
+        </div>
+
+        <div className="flex flex-col items-end justify-between self-stretch">
+          <div className="rounded-full bg-[#34c759] p-1.5 shadow-[0_0_20px_rgba(52,199,89,0.3)]">
+            <svg
+              className="h-4 w-4 text-white"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={3}
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <button
+            onClick={() => navigate(`${PATH.TOKEN}`)}
+            className="group flex items-center gap-1 text-[13px] font-semibold text-white/70 transition-all hover:text-white"
+          >
+            충전하기
+            <ChevronRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+          </button>
+        </div>
       </div>
     </div>
   );

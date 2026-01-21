@@ -1,31 +1,24 @@
-import React from 'react';
 import { Lightbulb } from 'lucide-react';
 
-interface StatusBannerProps {
-  text: string;
-  mode: string;
-}
-
-const StatusBanner: React.FC<StatusBannerProps> = ({ text, mode }) => {
+const StatusBanner: React.FC<{ text: string; mode: string }> = ({ text, mode }) => {
   return (
-    <div className="bg-[#f9fafb] border border-[#e5e7eb] rounded-xl px-[17px] py-4 flex items-center justify-between w-full">
-      <div className="flex items-center gap-3">
-        <div className="scale-y-[-1]">
-          <Lightbulb className="w-6 h-7 text-[#0d9dda]" />
+    <div className="flex w-full items-center justify-between rounded-2xl border border-indigo-100 bg-white px-6 py-5 shadow-sm shadow-indigo-100/50">
+      <div className="flex items-center gap-4">
+        <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-50">
+          <Lightbulb className="h-5 w-5 text-indigo-600" />
         </div>
-        <p className="text-base font-medium text-[#374151] leading-[24px]">
-          <span className="font-medium">AI 분석 완료: </span>
-          <span className="font-bold text-[#111827]">"{text}"</span>
-        </p>
+        <div>
+          <p className="text-xs font-bold tracking-wider text-indigo-400 uppercase">{mode}</p>
+          <p className="text-lg font-medium text-gray-900">
+            AI 분석 완료: <span className="font-black">"{text}"</span>
+          </p>
+        </div>
       </div>
-      <div className="bg-white border border-[#e5e7eb] rounded-full px-[13px] py-[5px] flex items-center gap-2">
-        <div className="bg-[#22c55e] rounded-full w-2 h-2" />
-        <span className="text-[11.8px] text-[#6b7280] font-normal leading-[16px]">
-          {mode}
-        </span>
+      <div className="hidden items-center gap-2 rounded-full bg-emerald-50 px-4 py-2 sm:flex">
+        <div className="h-2 w-2 animate-pulse rounded-full bg-emerald-500" />
+        <span className="text-xs font-bold text-emerald-600 uppercase">Engine Ready</span>
       </div>
     </div>
   );
 };
-
 export default StatusBanner;

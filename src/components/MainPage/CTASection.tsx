@@ -1,17 +1,32 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 
 const CTASection: React.FC = () => {
   return (
-    <section className="bg-linear-to-b from-blue-50 to-white py-24 md:py-28">
-      <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
-        <h2 className="mb-6 text-4xl font-bold text-gray-900 md:text-5xl">
-          당신의 쇼핑 가치를
-          <br />
-          AI로 증명하세요.
-        </h2>
-        <p className="text-lg text-gray-700">
-          지금 COMPARE에 가입하고 프리미엄 AI 분석과 함께 웰컴 토큰 혜택을 즉시 확인하세요.
-        </p>
+    <section className="bg-black py-32 text-center text-white">
+      <div className="mx-auto max-w-4xl px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
+          <h2 className="mb-8 text-5xl font-semibold tracking-tight md:text-7xl">
+            가치의 증명.
+            <br />
+            <span className="bg-gradient-to-r from-gray-200 to-gray-500 bg-clip-text text-transparent">
+              지금 시작하세요.
+            </span>
+          </h2>
+          <p className="mb-12 text-xl font-medium text-gray-400">
+            COMPARE의 프리미엄 AI 분석과 함께<br /> 
+            웰컴 토큰 혜택을 즉시 확인해보세요.
+          </p>
+          
+          <button className="rounded-full bg-white px-10 py-4 text-lg font-bold text-black transition-transform hover:scale-105 active:scale-95">
+             무료로 시작하기
+          </button>
+        </motion.div>
       </div>
     </section>
   );

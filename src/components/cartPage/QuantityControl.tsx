@@ -12,25 +12,20 @@ const QuantityControl = ({
   min?: number;
 }) => {
   return (
-    <div className="flex h-9.5 items-center rounded-lg border border-[#E5E7EB]">
+    <div className="flex items-center gap-1 rounded-full bg-[#f5f5f7] p-1 shadow-inner">
       <button
         onClick={onDecrease}
         disabled={quantity <= min}
-        className="border-r border-[#E5E7EB] px-3 py-1 transition-colors hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-30"
+        className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-[#1d1d1f] shadow-sm transition-all hover:bg-gray-50 disabled:opacity-30 disabled:shadow-none"
       >
-        <Minus className="h-4 w-4 text-[#6B7280]" />
+        <Minus className="h-3.5 w-3.5" />
       </button>
-      <input
-        type="text"
-        value={quantity}
-        readOnly
-        className="w-10 border-x-0 border-[#E5E7EB] bg-transparent py-1 text-center text-sm font-bold text-[#111827]"
-      />
+      <span className="w-10 text-center text-[14px] font-bold text-[#1d1d1f]">{quantity}</span>
       <button
         onClick={onIncrease}
-        className="border-l border-[#E5E7EB] px-3 py-1 transition-colors hover:bg-gray-100"
+        className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-[#1d1d1f] shadow-sm transition-all hover:bg-gray-50"
       >
-        <Plus className="h-4 w-4 text-[#6B7280]" />
+        <Plus className="h-3.5 w-3.5" />
       </button>
     </div>
   );

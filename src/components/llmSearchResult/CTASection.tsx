@@ -1,6 +1,45 @@
 import { Sparkles } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import useShoppingResearchMutation from '@/hooks/mutations/useShoppingResearchMutation';
+import { PATH } from '@/routes/path';
 
-const CTASection = () => {
+type CTASectionProps = {
+  keyword?: string; // LLM 검색어를 받아옴
+};
+
+const CTASection = ({ keyword }: CTASectionProps) => {
+  const navigate = useNavigate();
+  const shoppingResearchMutation = useShoppingResearchMutation();
+
+  const handleShoppingResearch = () => {
+    // keyword가 없으면 그냥 쇼핑리서치 페이지로 이동
+    if (!keyword) {
+      navigate(PATH.SHOPPING_RESEARCH);
+      return;
+    }
+
+    // keyword가 있으면 질문 생성 API 호출 후 이동
+    shoppingResearchMutation.mutate(
+      { user_query: keyword },
+      {
+        onSuccess: (data) => {
+          navigate(`${PATH.SHOPPING_RESEARCH}?q=${encodeURIComponent(keyword)}`, {
+            state: {
+              userQuery: keyword,
+              questions: data.questions,
+              searchId: data.search_id,
+            },
+          });
+        },
+        onError: (err) => {
+          console.error('쇼핑리서치 검색 실패:', err);
+          // 에러 발생 시 기본 쇼핑리서치 페이지로 이동
+          navigate(PATH.SHOPPING_RESEARCH);
+        },
+      },
+    );
+  };
+
   return (
     <div
       className="relative overflow-hidden rounded-3xl border border-[#dbeafe] p-14.25 text-center shadow-[0px_25px_50px_-12px_rgba(59,130,246,0.1)]"
@@ -29,8 +68,14 @@ const CTASection = () => {
             <span className="font-light text-[#6b7280]">을 찾아보세요.</span>
           </p>
         </div>
-        <button className="mb-12 flex items-center gap-4 rounded-full bg-[#0d9dda] px-12 py-5 font-bold text-white shadow-[0px_0px_15px_0px_rgba(13,157,218,0.4)] transition-colors hover:bg-[#0b8bc4]">
-          <span className="text-xl leading-7">쇼핑 리서치 하러가기</span>
+        <button
+          onClick={handleShoppingResearch}
+          disabled={shoppingResearchMutation.isPending}
+          className="mb-12 flex items-center gap-4 rounded-full bg-[#0d9dda] px-12 py-5 font-bold text-white shadow-[0px_0px_15px_0px_rgba(13,157,218,0.4)] transition-colors hover:bg-[#0b8bc4] disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          <span className="text-xl leading-7">
+            {shoppingResearchMutation.isPending ? '준비 중...' : '쇼핑 리서치 하러가기'}
+          </span>
           <div className="scale-y-[-1] pl-4">
             <Sparkles className="h-7 w-[24.02px]" />
           </div>

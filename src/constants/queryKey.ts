@@ -8,6 +8,27 @@ export const QUERY_KEY = {
   SEARCH_POPULAR: ['search', 'popular'],
   SEARCH_RECENT: ['search', 'recent'],
 
+  PRODUCT_LIST: (params: {
+    page: number;
+    page_size: number;
+    main_cat?: string;
+    sub_cat?: string;
+    brand?: string;
+    min_price?: number;
+    max_price?: number;
+    sort?: string;
+  }) => [
+    'product',
+    'list',
+    params.page,
+    params.page_size,
+    params.main_cat ?? '',
+    params.sub_cat ?? '',
+    params.brand ?? '',
+    params.min_price ?? 0,
+    params.max_price ?? 0,
+    params.sort ?? 'default',
+  ],
   PRODUCT_INFO: (product_code: number) => ['product', 'info', product_code],
   PRODUCT_TREND: (product_code: number) => ['product', 'trend', product_code],
   PRODUCT_PRICES: (product_code: number) => ['product', 'prices', product_code],

@@ -5,6 +5,8 @@ import {
   searchAutoComplete,
   searchPopluar,
   searchRecent,
+  ShoppingResearchQuestion,
+  ShoppingResearchResule,
 } from '@/mocks/data/search';
 import { http, HttpResponse } from 'msw';
 
@@ -25,5 +27,11 @@ export const searchHandler = [
   }),
   http.post(API.SEARCH_LLM_RECOMMENDATION, async () => {
     return HttpResponse.json(llmSearch);
+  }),
+  http.post(API.SEARCH_QUESTION, async () => {
+    return HttpResponse.json(ShoppingResearchQuestion);
+  }),
+  http.post(API.SEARCH_SHOPPING_RESEARCH, async () => {
+    return HttpResponse.json(ShoppingResearchResule);
   }),
 ];

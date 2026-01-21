@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Edit3 } from 'lucide-react';
 
 interface CustomInputProps {
@@ -8,56 +8,19 @@ interface CustomInputProps {
 }
 
 const CustomInput: React.FC<CustomInputProps> = ({ placeholder, value, onChange }) => {
-  const [isEditing, setIsEditing] = useState(false);
-  const [inputValue, setInputValue] = useState(value);
-
-  const handleClick = () => {
-    setIsEditing(true);
-  };
-
-  const handleBlur = () => {
-    setIsEditing(false);
-    onChange(inputValue);
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      handleBlur();
-    }
-  };
-
-  if (isEditing) {
-    return (
-      <div className="w-full bg-[#f9fafb] border border-dashed border-[#0d9dda] rounded-full px-[25px] py-[17px] flex items-center gap-2">
-        <div className="scale-y-[-1]">
-          <Edit3 className="w-5 h-6 text-[#6b7280]" />
-        </div>
-        <input
-          type="text"
-          value={inputValue}
-          onChange={(e) => setInputValue(e.target.value)}
-          onBlur={handleBlur}
-          onKeyDown={handleKeyDown}
-          placeholder={placeholder}
-          className="flex-1 bg-transparent outline-none text-base font-medium text-[#111827] leading-[24px] placeholder:text-[#6b7280]"
-          autoFocus
-        />
-      </div>
-    );
-  }
-
   return (
-    <button
-      className="w-full bg-[#f9fafb] border border-dashed border-[#d1d5db] rounded-full px-[25px] py-[17px] flex items-center justify-center gap-2 hover:border-[#0d9dda] transition-colors"
-      onClick={handleClick}
-    >
+    <div className="flex w-full items-center gap-3 rounded-2xl border-2 border-[#e5e7eb] bg-white px-6 py-4 transition-all focus-within:border-[#0d9dda] focus-within:shadow-[0px_0px_0px_3px_rgba(13,157,218,0.1)]">
       <div className="scale-y-[-1]">
-        <Edit3 className="w-5 h-6 text-[#6b7280]" />
+        <Edit3 className="h-6 w-5 text-[#0d9dda]" />
       </div>
-      <span className="text-base font-medium text-[#6b7280] leading-[24px]">
-        {value || placeholder}
-      </span>
-    </button>
+      <input
+        type="text"
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder={placeholder}
+        className="flex-1 bg-transparent text-base leading-6 font-medium text-[#111827] outline-none placeholder:text-[#9ca3af]"
+      />
+    </div>
   );
 };
 

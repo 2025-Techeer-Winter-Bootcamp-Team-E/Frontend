@@ -8,6 +8,8 @@ import type {
   SearchRecentResDto,
   SearchShoppingResearchReqDto,
   SearchShoppingResearchResDto,
+  SearchShoppingResearchResultReqDto,
+  SearchShoppingResearchResultResDto,
 } from '@/types/searchType';
 
 // 검색창 입력 키워드와 관련된 추천 검색어 리스트 자동완성 GET
@@ -44,9 +46,25 @@ export const postSearchLLMRecommendation = async (body: SearchLlmRecommendationR
   });
 };
 
+// 사용자 입력 쇼핑 리서치 질문 POST
+export const postSearchShoppingResearch = async (
+  body: SearchShoppingResearchReqDto
+): Promise<SearchShoppingResearchResDto> => {
+  return getAPIResponseData<SearchShoppingResearchResDto, SearchShoppingResearchReqDto>({
+    method: 'POST',
+    url: API.SEARCH_QUESTION,
+    data: body,
+  });
+};
+
 // 사용자 입력 쇼핑 리서치 결과 POST
-export const postSearchShoppingResearch = async (body: SearchShoppingResearchReqDto) => {
-  return await getAPIResponseData<SearchShoppingResearchResDto, SearchShoppingResearchReqDto>({
+export const postSearchShoppingResearchResult = async (
+  body: SearchShoppingResearchResultReqDto,
+) => {
+  return await getAPIResponseData<
+    SearchShoppingResearchResultResDto,
+    SearchShoppingResearchResultReqDto
+  >({
     method: 'POST',
     url: API.SEARCH_SHOPPING_RESEARCH,
     data: body,

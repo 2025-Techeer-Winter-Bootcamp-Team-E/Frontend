@@ -22,31 +22,29 @@ const ComparisonTable: React.FC<ComparisonTableProps> = ({ title, products }) =>
     <div className="flex flex-col gap-6">
       <div className="flex items-center gap-2">
         <div className="scale-y-[-1]">
-          <RefreshCw className="w-6 h-7 text-[#0d9dda]" />
+          <RefreshCw className="h-7 w-6 text-[#0d9dda]" />
         </div>
-        <h2 className="text-xl font-bold text-[#111827] leading-[28px]">{title}</h2>
+        <h2 className="text-xl leading-[28px] font-bold text-[#111827]">{title}</h2>
       </div>
-      <div className="bg-white border border-[#f3f4f6] rounded-2xl overflow-hidden shadow-sm">
+      <div className="overflow-hidden rounded-2xl border border-[#f3f4f6] bg-white shadow-sm">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="bg-[#f9fafb] border-b border-[#f3f4f6]">
-                <th className="text-left py-[68px] px-6 text-sm font-bold text-[#6b7280] uppercase text-center w-[160px]">
+              <tr className="border-b border-[#f3f4f6] bg-[#f9fafb]">
+                <th className="w-40 px-6 py-[68px] text-center text-left text-sm font-bold text-[#6b7280] uppercase">
                   속성
                 </th>
                 {products.map((product) => (
-                  <th key={product.id} className="text-center py-4 px-6 min-w-[263.5px]">
+                  <th key={product.id} className="min-w-[263.5px] px-6 py-4 text-center">
                     <div className="flex flex-col items-center gap-2">
-                      <div className="w-24 h-24 bg-gray-100 rounded-lg flex items-center justify-center mb-2">
+                      <div className="mb-2 flex h-24 w-24 items-center justify-center rounded-lg bg-gray-100">
                         <img
                           src={product.image}
                           alt={product.name}
-                          className="w-full h-full object-contain"
+                          className="h-full w-full object-contain"
                         />
                       </div>
-                      <p className="text-sm font-bold text-[#111827] uppercase">
-                        {product.name}
-                      </p>
+                      <p className="text-sm font-bold text-[#111827] uppercase">{product.name}</p>
                     </div>
                   </th>
                 ))}
@@ -54,7 +52,7 @@ const ComparisonTable: React.FC<ComparisonTableProps> = ({ title, products }) =>
             </thead>
             <tbody>
               <tr className="border-b border-[#f3f4f6]">
-                <td className="bg-[rgba(249,250,251,0.5)] px-6 py-4 text-sm font-bold text-[#111827] text-center">
+                <td className="bg-[rgba(249,250,251,0.5)] px-6 py-4 text-center text-sm font-bold text-[#111827]">
                   가격
                 </td>
                 {products.map((product) => (
@@ -70,7 +68,7 @@ const ComparisonTable: React.FC<ComparisonTableProps> = ({ title, products }) =>
                 ))}
               </tr>
               <tr className="border-b border-[#f3f4f6]">
-                <td className="bg-[rgba(249,250,251,0.5)] px-6 py-[18.5px] text-sm font-bold text-[#111827] text-center">
+                <td className="bg-[rgba(249,250,251,0.5)] px-6 py-[18.5px] text-center text-sm font-bold text-[#111827]">
                   성능 지수
                 </td>
                 {products.map((product) => (
@@ -82,21 +80,27 @@ const ComparisonTable: React.FC<ComparisonTableProps> = ({ title, products }) =>
                 ))}
               </tr>
               <tr className="border-b border-[#f3f4f6]">
-                <td className="bg-[rgba(249,250,251,0.5)] px-6 py-4 text-sm font-bold text-[#111827] text-center">
+                <td className="bg-[rgba(249,250,251,0.5)] px-6 py-4 text-center text-sm font-bold text-[#111827]">
                   소비 전력
                 </td>
                 {products.map((product) => (
-                  <td key={product.id} className="px-6 py-4 text-sm font-light text-[#111827] text-center">
+                  <td
+                    key={product.id}
+                    className="px-6 py-4 text-center text-sm font-light text-[#111827]"
+                  >
                     {product.power}
                   </td>
                 ))}
               </tr>
               <tr>
-                <td className="bg-[rgba(249,250,251,0.5)] px-6 py-4 text-sm font-bold text-[#111827] text-center">
+                <td className="bg-[rgba(249,250,251,0.5)] px-6 py-4 text-center text-sm font-bold text-[#111827]">
                   메모리 용량
                 </td>
                 {products.map((product) => (
-                  <td key={product.id} className="px-6 py-4 text-sm font-light text-[#111827] text-center">
+                  <td
+                    key={product.id}
+                    className="px-6 py-4 text-center text-sm font-light text-[#111827]"
+                  >
                     {product.memory}
                   </td>
                 ))}

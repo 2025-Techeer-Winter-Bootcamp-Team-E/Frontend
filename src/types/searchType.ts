@@ -59,45 +59,63 @@ export type SearchLlmRecommendationResDto = {
   recommended_products: LLMRecommendationEntity[];
 };
 
-type QuestionEntity = {
+/** 쇼핑 리서치 검색 요청
+ * POST /search/qeustion
+ */
+export type SearchShoppingResearchReqDto = {
+  user_query: string;
+};
+
+export type ProductSpecs = Record<string, string>;
+
+export type QuestionEntity = {
+  question_id: number;
+  question: string;
+};
+
+/** 쇼핑 리서치 검색 요청 응답 (질문 생성)
+ * POST /search/question
+ */
+export type SearchShoppingResearchResDto = {
+  search_id: string;
+  questions: QuestionEntity[];
+};
+
+export type QuestionAnswerEntity = {
   question_id: number;
   question: string;
   answer: string;
 };
 
-/** 쇼핑 리서치 검색 요청
+/** 쇼핑 리서치 요청 결과
  * POST /search/shopping-research
  */
-export type SearchShoppingResearchReqDto = {
-  search_text: string;
-  survey_contents: QuestionEntity[];
+export type SearchShoppingResearchResultReqDto = {
+  search_id: string;
+  user_query: string;
+  survey_contents: QuestionAnswerEntity[];
 };
 
-export type ProductSpecs = Record<string, string>;
-
-type OptimalProductInfo = {
-  match_rank: number;
-  is_lowest_price: boolean;
-};
-
-type ShoppingResearchResultEntity = {
+export type ShoppingResultEntity = {
   similarity_score: number;
   product_image_url: string;
   product_name: string;
-  product_code: string;
+  product_code: number;
   recommendation_reason: string;
   price: number;
   performance_score: number;
   product_specs: ProductSpecs;
   ai_review_summary: string;
   product_detail_url: string;
-  optimal_product_info: OptimalProductInfo;
+  optimal_product_info: {
+    match_rank: number;
+    is_lowest_price: boolean;
+  }[];
 };
-
-/** 쇼핑 리서치 검색 요청 응답
+/** 쇼핑 리서치 요청 응답
  * POST /search/shopping-research
  */
-export type SearchShoppingResearchResDto = {
+export type SearchShoppingResearchResultResDto = {
   user_query: string;
-  product: ShoppingResearchResultEntity[];
+  product: ShoppingResultEntity[];
 };

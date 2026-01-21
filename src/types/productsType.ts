@@ -5,7 +5,6 @@ import type { ProductSpecs } from '@/types/searchType';
  * GET /products/{product_code}
  */
 export type ProductsCodeResDto = {
-  product_id: number;
   product_name: string;
   product_code: number;
   brand: string;
@@ -27,7 +26,7 @@ export type ProductsCodeHistoryEntity = {
  * GET /products/{product_code}/price-trend
  */
 export type ProductCodePriceTrendsResDto = {
-  product_id: number;
+  product_code: number;
   product_name: string;
   period_unit: string;
   selected_period: number;
@@ -55,12 +54,19 @@ export type ReivewEntity = {
   created_at: string;
 };
 
+type ReviewPaging = {
+  current_page: number;
+  size: number;
+  total_elements: number;
+  total_pages: number;
+};
+
 /**
  * 상품 상세 페이지 전체 리뷰 목록 조회 응답
  * GET /products/{product_code}/reviews&page={page}&size={size}
  */
 export type ProductCodeAllReviewsResDto = {
-  total_count: number;
+  pagination: ReviewPaging;
   average_rating: number;
   reviews: ReivewEntity[];
   has_next: boolean;
@@ -80,4 +86,42 @@ export type ProductCodeReviewAiSummaryResDto = {
   recommendation_score: number;
   score_reason: string;
   last_updated: string;
+};
+
+/**
+ * 카테고리별 상품 목록 조회 응답
+ * GET /products?
+ */
+export type ProductsListResDto = {
+  pagination: {
+    current_page: number;
+    size: number;
+    count: number;
+    total_pages: number;
+  };
+  products: {
+    product_code: number;
+    product_name: string;
+    brand: string;
+    specs: ProductSpecs;
+    base_price: number;
+    category: string;
+    thumbnail_url: string;
+    mall_price: {
+      mall_name: string;
+      price: number;
+      url: string;
+    }[];
+  }[];
+};
+
+export type ProductsListParams = {
+  main_cat?: string;
+  sub_cat?: string;
+  brand?: string;
+  min_price?: number;
+  max_price?: number;
+  sort?: 'price_low' | 'price_high' | 'popular';
+  page?: number;
+  page_size?: number;
 };

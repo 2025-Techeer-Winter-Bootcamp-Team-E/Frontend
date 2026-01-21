@@ -1,31 +1,30 @@
 import { useEffect, useMemo } from 'react';
-import { useParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { AIAnalysisSection, BestRecommendations, CTASection } from '@/components/llmSearchResult';
 import useLlmRecoMutation from '@/hooks/mutations/useLlmRecoMutation';
-import { useDecodedParam } from '@/hooks/useDecodeParam';
 
 const LLMSearchResultPage = () => {
-  const { keyword } = useParams<{ keyword?: string }>();
-  const decodedKeyword = useDecodedParam(keyword);
+  const [searchParams] = useSearchParams();
+  const keyword = searchParams.get('q') || '';
 
   const { mutate, data } = useLlmRecoMutation();
 
   useEffect(() => {
-    if (!decodedKeyword) return;
+    if (!keyword) return;
     mutate({
-      user_query: decodedKeyword,
+      user_query: keyword,
     });
-  }, [decodedKeyword, mutate]);
+  }, [keyword, mutate]);
 
   const transformedData = useMemo(() => {
     return {
       aiAnalysis: {
         description: data?.analysis_message ?? '',
-        keyword: decodedKeyword,
+        keyword: keyword,
       },
       recommendations: data?.recommended_products ?? [],
     };
-  }, [data, decodedKeyword]);
+  }, [data, keyword]);
 
   return (
     <div
@@ -41,7 +40,7 @@ const LLMSearchResultPage = () => {
           <BestRecommendations recommendations={transformedData.recommendations} />
         </div>
         <div className="my-12">
-          <CTASection  />
+          <CTASection keyword={keyword} /> {/* ✅ keyword prop 전달 */}
         </div>
       </div>
     </div>

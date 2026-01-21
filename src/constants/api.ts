@@ -11,6 +11,7 @@ export const API = {
   TIMERS: `/timers`,
   TIMERS_ID: (timer_id: number) => `/timers/${timer_id}`,
 
+  PRODUCTS: `/products`,
   PRODUCTS_CODE: (product_code: number) => `/products/${product_code}`,
   PRODUCTS_CODE_PRICE_TRENDS: (product_code: number) => `/products/${product_code}/price-trend`,
   PRODUCTS_CODE_PRICES: (product_code: number) => `/products/${product_code}/prices`,
@@ -21,6 +22,7 @@ export const API = {
   SEARCH_POPULAR: `/search/popular`,
   SEARCH_RECENT: `/search/recent`,
   SEARCH_LLM_RECOMMENDATION: `/search/llm-recommendation`,
+  SEARCH_QUESTION: `/search/questions`,
   SEARCH_SHOPPING_RESEARCH: `/search/shopping-research`,
 
   USERS: `/users`,

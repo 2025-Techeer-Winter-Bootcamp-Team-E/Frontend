@@ -6,6 +6,8 @@ import type {
   ProductCodePriceTrendsResDto,
   ProductCodeReviewAiSummaryResDto,
   ProductsCodeResDto,
+  ProductsListParams,
+  ProductsListResDto,
 } from '@/types/productsType';
 
 // 상품 상세 정보 조회 GET
@@ -56,5 +58,16 @@ export const getProductsIdReviewAISummary = async (product_code: number) => {
   return await getAPIResponseData<ProductCodeReviewAiSummaryResDto, null>({
     method: 'GET',
     url: API.PRODUCTS_ID_REVIEW_SUMMARY(product_code),
+  });
+};
+
+/**
+ * 상품 목록 리스트 조회 GET
+ */
+export const getProductsList = async (params: ProductsListParams) => {
+  return await getAPIResponseData<ProductsListResDto, ProductsListParams>({
+    method: 'GET',
+    url: API.PRODUCTS,
+    params,
   });
 };

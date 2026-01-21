@@ -3,7 +3,7 @@ import React from 'react';
 
 const HeroSection: React.FC = () => {
   return (
-    <section className="bg-gradient-to-b from-gray-50 to-white py-20">
+    <section className="bg-linear-to-b from-gray-50 to-white py-20">
       <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
         <h1 className="mb-6 text-5xl font-bold md:text-6xl">
           가장 똑똑한 <span className="text-cyan-500">PC 쇼핑</span>

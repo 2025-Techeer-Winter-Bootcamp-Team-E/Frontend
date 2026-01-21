@@ -7,7 +7,6 @@ const AISearchSection: React.FC = () => {
     <section className="bg-white py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center gap-12 md:flex-row">
-          {/* Left - Image */}
           <div className="flex flex-1 justify-center">
             <img
               src={aiSearchImage}
@@ -15,8 +14,6 @@ const AISearchSection: React.FC = () => {
               className="h-auto w-full max-w-md object-contain"
             />
           </div>
-
-          {/* Right - Content */}
           <div className="flex-1">
             <div className="mb-2 inline-block text-xs font-semibold tracking-wide text-cyan-600 uppercase">
               INTELLIGENCE ANALYSIS

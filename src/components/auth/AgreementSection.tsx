@@ -39,9 +39,7 @@ const AgreementSection: React.FC<AgreementSectionProps> = ({ agreements, onAgree
         <span className="font-medium">약관 전체 동의</span>
         <input type="checkbox" checked={agreements.all} readOnly className="h-4 w-4" />
       </button>
-
       <div className="h-px bg-gray-200" />
-
       <label className="flex items-center justify-between">
         <span>[필수] 만 14세 이상입니다.</span>
         <input
@@ -51,7 +49,6 @@ const AgreementSection: React.FC<AgreementSectionProps> = ({ agreements, onAgree
           className="h-4 w-4"
         />
       </label>
-
       <label className="flex items-center justify-between">
         <span>[필수] 이용약관 동의</span>
         <input
@@ -61,7 +58,6 @@ const AgreementSection: React.FC<AgreementSectionProps> = ({ agreements, onAgree
           className="h-4 w-4"
         />
       </label>
-
       <label className="flex items-center justify-between">
         <span>[필수] 개인정보 수집 및 이용 동의</span>
         <input
@@ -71,7 +67,6 @@ const AgreementSection: React.FC<AgreementSectionProps> = ({ agreements, onAgree
           className="h-4 w-4"
         />
       </label>
-
       <label className="flex items-center justify-between">
         <span>[선택] 마케팅 정보 수신 동의</span>
         <input

@@ -43,7 +43,6 @@ const LoginForm = () => {
               className="mt-1 w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-cyan-500 focus:bg-white focus:ring-2 focus:ring-cyan-100 focus:outline-none"
             />
           </div>
-
           <div>
             <label htmlFor="password" className="block text-sm font-medium text-gray-700">
               비밀번호
@@ -58,7 +57,6 @@ const LoginForm = () => {
               className="mt-1 w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-cyan-500 focus:bg-white focus:ring-2 focus:ring-cyan-100 focus:outline-none"
             />
           </div>
-
           <button
             type="submit"
             disabled={isPending}

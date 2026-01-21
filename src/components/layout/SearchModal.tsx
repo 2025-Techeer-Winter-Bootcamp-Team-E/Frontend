@@ -25,10 +25,8 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
   const [selectedType, setSelectedType] = useState(SEARCH_TYPES[0]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  // 디바운스된 키워드 (300ms 지연)
   const debouncedKeyword = useDebounce(keyword, 300);
 
-  // 모달이 열릴 때만 쿼리 실행
   const { data: recentData } = useSearchRecentQuery(isOpen);
   const { data: popularData } = useSearchPopularQuery(isOpen);
   const { data: autoCompleteData } = useAutocompleteQuery(debouncedKeyword);
@@ -37,17 +35,14 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // 모달이 열릴 때 포커스
   useEffect(() => {
     if (isOpen) {
       inputRef.current?.focus();
     }
   }, [isOpen]);
 
-  // 모달이 닫힐 때 상태 초기화 (cleanup)
   useEffect(() => {
     if (!isOpen) {
-      // 약간의 지연을 두고 초기화 (애니메이션 후)
       const timer = setTimeout(() => {
         setKeyword('');
         setIsDropdownOpen(false);
@@ -57,7 +52,6 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
     }
   }, [isOpen]);
 
-  // 최근 검색어, 인기 검색어, 자동완성 매핑
   const recentSearches = recentData?.recent_terms || [];
   const popularSearches = popularData?.popular_terms.map((item) => item.term) || [];
   const suggestions = autoCompleteData?.suggestions || [];
@@ -67,7 +61,6 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
 
     switch (selectedType.id) {
       case 'llm':
-        // LLM 검색 페이지로 이동 (키워드를 URL에 포함)
         navigate(`/search/llm/${encodeURIComponent(query)}`);
         break;
       case 'unified':
@@ -90,18 +83,15 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
     handleSearch(suggestion);
   };
 
-  // 키워드 입력 중이면 자동완성, 없으면 최근/인기 검색어 표시
   const showAutocomplete = keyword.trim().length > 0 && suggestions.length > 0;
   const showRecentAndPopular = keyword.trim().length === 0;
 
-  // 모달이 닫혀있으면 렌더링하지 않음
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm" onClick={onClose}>
       <div className="bg-white py-8" onClick={(e) => e.stopPropagation()}>
         <div className="mx-auto max-w-4xl px-4 py-4">
-          {/* 검색 input + 타입 드롭다운 */}
           <div className="flex items-center gap-3">
             <div className="relative" ref={dropdownRef}>
               <button
@@ -147,7 +137,6 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
                   placeholder={`${selectedType.label}에서 검색`}
                   className="w-full rounded-lg bg-gray-100 py-2.5 pr-4 pl-12 text-base outline-none placeholder:text-gray-500 focus:bg-gray-200"
                 />
-                {/* 입력 중 X 버튼 */}
                 {keyword && (
                   <button
                     onClick={() => setKeyword('')}
@@ -166,7 +155,6 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
             </div>
           </div>
 
-          {/* 자동완성 결과 */}
           {showAutocomplete && (
             <div className="mt-6">
               <div className="mb-4 flex items-center gap-2">
@@ -188,7 +176,6 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
             </div>
           )}
 
-          {/* 최근 검색어 */}
           {recentSearches.map((item) => (
             <div
               key={item.id}
@@ -211,7 +198,6 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose }) => {
             </div>
           ))}
 
-          {/* 인기 검색어 */}
           {showRecentAndPopular && popularSearches.length > 0 && (
             <div className="mt-6">
               <div className="mb-4 flex items-center gap-2">

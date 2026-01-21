@@ -1,10 +1,9 @@
 interface ChargeButtonProps {
   onClick: () => void;
   disabled?: boolean;
-  amount: number;
 }
 
-const ChargeButton = ({ onClick, disabled = false, amount }: ChargeButtonProps) => {
+const ChargeButton = ({ onClick, disabled = false }: ChargeButtonProps) => {
   return (
     <button
       onClick={onClick}

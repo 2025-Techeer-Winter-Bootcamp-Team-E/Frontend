@@ -2,7 +2,9 @@ import type { AgreementsState } from '@/components/auth/AgreementSection';
 import AgreementSection from '@/components/auth/AgreementSection';
 import FormInput from '@/components/auth/FormInput';
 import useSignUpMutation from '@/hooks/mutations/useSignUpMutation';
+import { PATH } from '@/routes/path';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 type SignupFormData = {
   email: string;
@@ -23,6 +25,7 @@ type FormErrors = {
 };
 
 const SignupForm: React.FC = () => {
+  const navigate = useNavigate();
   const signUpMutation = useSignUpMutation();
 
   const [formData, setFormData] = useState<SignupFormData>({
@@ -108,10 +111,8 @@ const SignupForm: React.FC = () => {
         phone: formData.phone,
       },
       {
-        onSuccess: (res) => {
-          console.log('회원가입 성공', res);
-          alert('회원가입이 완료되었습니다!');
-          // TODO: 로그인 페이지 이동
+        onSuccess: () => {
+          navigate(PATH.LOGIN);
         },
         onError: (error) => {
           console.error(error);

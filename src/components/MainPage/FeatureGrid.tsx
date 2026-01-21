@@ -33,7 +33,6 @@ const FeatureGrid: React.FC = () => {
   return (
     <section className="bg-white py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Header */}
         <div className="mb-16 text-center">
           <div className="mb-3 flex items-center justify-center gap-3">
             <span className="h-px w-6 bg-cyan-400" />
@@ -48,11 +47,8 @@ const FeatureGrid: React.FC = () => {
             정산까지 모든 과정을 하나의 통합 플랫폼에서 안전하게 관리할 수 있습니다.
           </p>
         </div>
-
-        {/* Cards + dashed connector */}
         <div className="relative">
           <div className="pointer-events-none absolute top-16 right-0 left-0 hidden h-px border-t border-dashed border-cyan-200 md:block" />
-
           <div className="relative z-10 grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4">
             {features.map((feature, index) => (
               <FeatureCard

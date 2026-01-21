@@ -27,7 +27,7 @@ export type TokenBalanceResDto = {
  * POST /orders/checkout
  */
 export type TokenSingleItemReqDto = {
-  product_id: number;
+  product_code: number;
   quantity: number;
   total_price: number;
 };
@@ -105,3 +105,12 @@ export type CartItemEntity = {
   total_price: number;
 };
 export type CartAllItemsResDto = CartItemEntity[];
+
+export type BuyItemEntity = {
+  id: number;
+  product_code: number;
+  name: string;
+  image: string;
+  quantity: number;
+  price: number;
+};

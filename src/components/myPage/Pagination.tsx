@@ -38,7 +38,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }: PaginationProps) 
           key={index}
           onClick={() => typeof page === 'number' && onPageChange(page)}
           disabled={page === '...'}
-          className={`h-9 min-w-[36px] rounded-lg text-sm font-medium transition-all ${
+          className={`h-9 min-w-9 rounded-lg text-sm font-medium transition-all ${
             currentPage === page
               ? 'bg-cyan-500 text-white shadow-sm'
               : page === '...'

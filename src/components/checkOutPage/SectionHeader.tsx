@@ -1,6 +1,5 @@
 import type { LucideIcon } from 'lucide-react';
 
-// 섹션 헤더 컴포넌트
 const SectionHeader = ({
   icon: Icon,
   title,

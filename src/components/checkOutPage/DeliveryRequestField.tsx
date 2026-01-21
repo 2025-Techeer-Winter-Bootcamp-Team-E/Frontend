@@ -1,6 +1,5 @@
 import { ChevronDown } from 'lucide-react';
 
-// 배송 요청사항 컴포넌트
 const DeliveryRequestField = ({
   value,
   customValue,

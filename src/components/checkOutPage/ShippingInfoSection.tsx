@@ -4,7 +4,6 @@ import DeliveryRequestField from '@/components/checkOutPage/DeliveryRequestField
 import InputField from '@/components/checkOutPage/InputField';
 import SectionHeader from '@/components/checkOutPage/SectionHeader';
 
-// 다음 주소 API 타입 선언
 declare global {
   interface Window {
     daum: {
@@ -37,7 +36,6 @@ type ShippingInfoSectionProps = {
 const ShippingInfoSection = ({ formData, setFormData }: ShippingInfoSectionProps) => {
   const handlePostalSearch = () => {
     if (!window.daum) {
-      // 다음 주소 API 스크립트 로드
       const script = document.createElement('script');
       script.src = '//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
       script.onload = () => {

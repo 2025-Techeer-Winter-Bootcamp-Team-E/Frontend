@@ -1,4 +1,3 @@
-// 입력 필드 컴포넌트
 const InputField = ({
   label,
   value,

@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import productsData from '@/data/productsData.json';
 import Tabs from '@/components/productList/Tabs';
 import CheckboxFilter from '@/components/productList/CheckboxFilter';
 import PriceRangeFilter from '@/components/productList/PriceRangeFilter';

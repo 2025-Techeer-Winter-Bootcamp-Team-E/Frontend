@@ -3,12 +3,18 @@ import { QUERY_KEY } from '@/constants/queryKey';
 import type { TimersIdPatchReqDto } from '@/types/timerType';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-const useTimerPatchMutation = (timer_id: number) => {
+type PatchVariables = {
+  timer_id: number;
+  body: TimersIdPatchReqDto;
+};
+
+const useTimerPatchMutation = () => {
   const queryClient = useQueryClient();
+
   return useMutation({
-    mutationFn: (body: TimersIdPatchReqDto) => patchPricePredictionId(timer_id, body),
+    mutationFn: ({ timer_id, body }: PatchVariables) => patchPricePredictionId(timer_id, body),
     onSuccess: () => {
-      void queryClient.invalidateQueries({
+      queryClient.invalidateQueries({
         queryKey: QUERY_KEY.TIMER_MYPAGE,
       });
     },

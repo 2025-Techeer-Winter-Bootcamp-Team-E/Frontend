@@ -18,7 +18,6 @@ const TokenChargeForm = () => {
   const { data: currentToken } = useTokenBalanceQuery();
   const { mutate: chargeToken, isPending } = useTokenChargeMutation();
 
-  // 토큰 옵션
   const tokenOptions = [
     { amount: 100, price: 1100, isRecommended: false, isPopular: false },
     { amount: 500, price: 5500, isRecommended: false, isPopular: false },
@@ -27,7 +26,6 @@ const TokenChargeForm = () => {
     { amount: 10000, price: 110000, isRecommended: true, isPopular: false },
   ];
 
-  // 결제 수단 옵션
   const paymentMethods = [
     {
       id: 'card',
@@ -57,7 +55,6 @@ const TokenChargeForm = () => {
     },
   ];
 
-  // 🔥 충전 핸들러 (mutation 연결)
   const handleCharge = () => {
     if (!selectedTokenAmount || !selectedPaymentMethod) return;
 
@@ -83,16 +80,12 @@ const TokenChargeForm = () => {
       <p className="mb-6 text-sm text-gray-600">
         AI 구매 가이드 및 상세 가격 분석을 위한 토큰을 충전하세요.
       </p>
-
-      {/* 현재 잔액 */}
       <div className="mb-8 rounded-lg bg-gray-50 p-4">
         <div className="mb-1 text-sm text-gray-600">내 토큰 잔액</div>
         <div className="text-3xl font-bold text-gray-900">
           {currentToken?.current_tokens ?? 0} <span className="text-xl">TK</span>
         </div>
       </div>
-
-      {/* 충전 금액 선택 */}
       <div className="mb-8">
         <SectionHeader title="충전 금액 선택" />
         <div className="grid grid-cols-2 gap-3 md:grid-cols-5">
@@ -109,8 +102,6 @@ const TokenChargeForm = () => {
           ))}
         </div>
       </div>
-
-      {/* 결제 수단 선택 */}
       <div className="mb-8">
         <SectionHeader title="결제 수단 선택" />
         <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
@@ -128,11 +119,7 @@ const TokenChargeForm = () => {
           ))}
         </div>
       </div>
-
-      {/* 총 결제 금액 */}
       <TotalAmount amount={selectedOption ? selectedOption.price : 0} />
-
-      {/* 충전 버튼 */}
       <div className="mt-6">
         <ChargeButton onClick={handleCharge} disabled={!isFormValid || isPending} />
         <InfoMessage>

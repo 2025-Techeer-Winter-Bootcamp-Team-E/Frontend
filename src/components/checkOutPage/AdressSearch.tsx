@@ -1,4 +1,3 @@
-// 주소 검색 컴포넌트
 const AddressSearch = ({
   postalCode,
   address,

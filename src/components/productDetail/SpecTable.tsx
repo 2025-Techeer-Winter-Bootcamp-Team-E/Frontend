@@ -11,8 +11,6 @@ const SpecTable = ({ productInfo }: SpecTableProps) => {
       <div className="border-b border-[#E5E7EB] p-6">
         <h3 className="text-lg font-bold text-[#111827]">상세 정보</h3>
       </div>
-
-      {/* 스펙 테이블 */}
       <div className="grid grid-cols-2">
         {specs.map(([label, value]) => (
           <div key={label} className={`grid grid-cols-3 border-b border-l border-[#F3F4F6]`}>
@@ -23,11 +21,9 @@ const SpecTable = ({ productInfo }: SpecTableProps) => {
           </div>
         ))}
       </div>
-
-      {/* 제조사 공식 제품 상세 페이지 영역 */}
       <div className="relative flex min-h-150 flex-col items-center justify-center border-t border-[#F3F4F6] bg-[#F9FAFB] p-12">
         {productInfo?.product_image_url_list?.length ? (
-          <div className="flex w-full max-w-[800px] flex-col gap-6">
+          <div className="flex w-full max-w-200 flex-col gap-6">
             {productInfo.product_image_url_list.map((imageUrl, index) => (
               <img
                 key={index}
@@ -66,8 +62,6 @@ const SpecTable = ({ productInfo }: SpecTableProps) => {
             </div>
           </>
         )}
-
-        {/* 펼쳐보기 버튼 (이미지 있을 때만) */}
         {productInfo?.product_image_url_list?.length && (
           <button className="sticky bottom-12 mt-12 flex items-center gap-2 rounded-full border border-[#E5E7EB] bg-white px-12 py-4 shadow-lg transition-colors hover:bg-gray-50">
             <span className="text-sm font-bold text-[#111827]">상세 이미지 펼쳐보기</span>

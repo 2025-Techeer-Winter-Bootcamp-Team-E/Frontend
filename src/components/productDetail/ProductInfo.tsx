@@ -7,19 +7,14 @@ interface ProductInfoProps {
 const ProductInfo = ({ productInfo }: ProductInfoProps) => {
   return (
     <div className="flex flex-col">
-      {/* 브랜드 배지 */}
       <div className="mb-2">
         <span className="inline-block rounded bg-[#DBEAFE] px-2 py-0.5 text-xs font-bold text-[#0D9DDA]">
           {productInfo?.brand}
         </span>
       </div>
-
-      {/* 제품명 */}
       <h1 className="mb-2 text-[30px] leading-9 font-bold whitespace-pre-wrap text-[#111827]">
         {productInfo?.product_name}
       </h1>
-
-      {/* 주요 스펙 */}
       <div className="mb-6">
         <div className="grid grid-cols-3 gap-4">
           {productInfo &&

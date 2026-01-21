@@ -1,4 +1,3 @@
-// ReviewCard.tsx
 import { Star } from 'lucide-react';
 import type { ReivewEntity } from '@/types/productsType';
 
@@ -9,13 +8,11 @@ interface ReviewCardProps {
 const ReviewCard = ({ review }: ReviewCardProps) => {
   return (
     <div className="border-t border-[#F3F4F6] pt-8 pb-4">
-      {/* 헤더 */}
       <div className="mb-4 flex items-start justify-between">
         <div className="flex items-center gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#F3F4F6]">
             <span className="text-xs font-bold text-[#9CA3AF]">{review.author_name.charAt(0)}</span>
           </div>
-
           <div>
             <div className="mb-1 flex items-center gap-2">
               <span className="text-sm font-bold text-[#111827]">{review.author_name}</span>
@@ -34,8 +31,6 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
           </div>
         </div>
       </div>
-
-      {/* 내용 */}
       <p className="mb-4 text-sm leading-[22.75px] font-light whitespace-pre-wrap text-[#374151]">
         {review.content}
       </p>

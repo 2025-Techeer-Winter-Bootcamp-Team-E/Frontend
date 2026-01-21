@@ -15,25 +15,20 @@ const TimerCard = ({ timer }: TimerCardProps) => {
   const navigate = useNavigate();
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
-  const deleteTimerMutation = useTimerDeleteMutation(timer.timer_id);
-  const patchTimerMutation = useTimerPatchMutation(timer.timer_id);
+  const deleteTimerMutation = useTimerDeleteMutation();
+  const patchTimerMutation = useTimerPatchMutation();
 
   const handleDelete = () => {
     if (!confirm('이 타이머를 삭제하시겠습니까?')) return;
-    deleteTimerMutation.mutate();
-  };
-
-  const handleOpenEditModal = () => {
-    setIsEditModalOpen(true);
-  };
-
-  const handleCloseEditModal = () => {
-    setIsEditModalOpen(false);
+    deleteTimerMutation.mutate(timer.timer_id);
   };
 
   const handleSubmitEdit = (data: { product_id: number; target_price: number }) => {
     patchTimerMutation.mutate(
-      { target_price: data.target_price },
+      {
+        timer_id: timer.timer_id,
+        body: { target_price: data.target_price },
+      },
       {
         onSuccess: () => {
           setIsEditModalOpen(false);
@@ -46,6 +41,14 @@ const TimerCard = ({ timer }: TimerCardProps) => {
     );
   };
 
+  const handleOpenEditModal = () => {
+    setIsEditModalOpen(true);
+  };
+
+  const handleCloseEditModal = () => {
+    setIsEditModalOpen(false);
+  };
+
   const handleGoToProduct = () => {
     navigate(PATH.PRODUCT_DETAIL(timer.product_code));
   };
@@ -53,7 +56,6 @@ const TimerCard = ({ timer }: TimerCardProps) => {
   return (
     <>
       <div className="flex h-full flex-col rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
-        {/* X 버튼 */}
         <div className="mb-2 flex justify-end">
           <button
             onClick={handleDelete}
@@ -63,8 +65,6 @@ const TimerCard = ({ timer }: TimerCardProps) => {
             <X className="h-5 w-5 text-gray-400" />
           </button>
         </div>
-
-        {/* 이미지 영역 */}
         <div className="relative mb-4 flex h-48 items-center justify-center overflow-hidden rounded bg-gray-50">
           {timer.thumbnail_url ? (
             <img
@@ -78,11 +78,7 @@ const TimerCard = ({ timer }: TimerCardProps) => {
             </div>
           )}
         </div>
-
-        {/* 제목 */}
         <h3 className="line-clamp-2 min-h-7 text-sm text-gray-800">{timer.product_name}</h3>
-
-        {/* 가격 정보 */}
         <div className="mb-3">
           <div className="flex items-center gap-2">
             <span className="text-lg font-bold text-gray-900">
@@ -93,20 +89,13 @@ const TimerCard = ({ timer }: TimerCardProps) => {
             목표가: {timer.target_price.toLocaleString()}원
           </span>
         </div>
-
-        {/* AI 추천 상태 - 서버 데이터 기반 */}
         <div className="mb-2 min-h-20 rounded-lg border border-blue-100 bg-blue-50 p-3">
-          {/* 추천도 표시 */}
           <div className="mb-2 flex items-center justify-between">
             <span className="text-xs text-blue-700">구매 추천도</span>
             <span className="text-xs font-bold text-blue-900">{timer.recommendation_score}%</span>
           </div>
-
-          {/* 서버 메시지 */}
           <p className="mb-2 line-clamp-2 text-xs text-blue-800">{timer.reason_message}</p>
         </div>
-
-        {/* 하단 버튼 영역 */}
         <div className="mt-auto flex gap-2">
           <button
             onClick={handleOpenEditModal}
@@ -124,8 +113,6 @@ const TimerCard = ({ timer }: TimerCardProps) => {
           </button>
         </div>
       </div>
-
-      {/* 수정 모달 */}
       <TimerModal
         isOpen={isEditModalOpen}
         onClose={handleCloseEditModal}

@@ -1,7 +1,7 @@
 import { getProductsIdAllReview } from '@/api/products';
 import { QUERY_KEY } from '@/constants/queryKey';
 import type { ProductCodeAllReviewsResDto } from '@/types/productsType';
-import { useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
 const useProductReviewQuery = (product_code: number, page: number, size: number = 10) => {
   return useQuery<ProductCodeAllReviewsResDto>({
@@ -9,6 +9,7 @@ const useProductReviewQuery = (product_code: number, page: number, size: number 
     queryFn: () => getProductsIdAllReview(product_code, page, size),
     enabled: !!product_code,
     staleTime: 1000 * 60 * 30,
+    placeholderData: keepPreviousData,
   });
 };
 

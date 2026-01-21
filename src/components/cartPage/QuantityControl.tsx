@@ -1,6 +1,5 @@
 import { Minus, Plus } from 'lucide-react';
 
-// 수량 조절 컴포넌트
 const QuantityControl = ({
   quantity,
   onIncrease,

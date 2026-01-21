@@ -2,7 +2,6 @@ import { PATH } from '@/routes/path';
 import { ChevronRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
-// 결제 방법 섹션
 const PaymentMethodSection = ({
   availableTokens,
   totalAmount,

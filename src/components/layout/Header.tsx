@@ -15,17 +15,12 @@ const Header: React.FC = () => {
     <header className="fixed top-0 left-0 z-50 w-full border-b border-gray-200 bg-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-14 items-center justify-between gap-4">
-          {/* Left - Logo */}
           <div className="flex cursor-pointer items-center" onClick={() => navigate('/')}>
             <span className="text-2xl font-bold text-cyan-500">COMPAGE</span>
           </div>
-
-          {/* Center - Category Nav */}
           <div className="hidden flex-1 justify-center md:flex">
             <Category />
           </div>
-
-          {/* Right - Icons */}
           <div className="flex items-center space-x-2 md:space-x-4">
             <button
               className="rounded-full p-2 hover:bg-gray-100"
@@ -48,7 +43,6 @@ const Header: React.FC = () => {
             >
               <User className="h-5 w-5 text-gray-600" />
             </button>
-            {/* Mobile menu toggle */}
             <button
               className="rounded-full p-2 hover:bg-gray-100 md:hidden"
               onClick={() => setIsMobileNavOpen((prev) => !prev)}
@@ -58,8 +52,6 @@ const Header: React.FC = () => {
             </button>
           </div>
         </div>
-
-        {/* Mobile category nav */}
         {isMobileNavOpen && (
           <nav className="border-t border-gray-100 py-3 md:hidden">
             <div className="flex flex-wrap justify-between gap-4 px-2">
@@ -76,8 +68,6 @@ const Header: React.FC = () => {
             </div>
           </nav>
         )}
-
-        {/* Search Modal */}
         <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
       </div>
     </header>

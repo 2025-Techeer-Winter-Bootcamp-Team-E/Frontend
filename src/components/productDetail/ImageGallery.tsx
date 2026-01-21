@@ -35,10 +35,9 @@ const ImageGallery = ({ data }: { data?: ProductsCodeResDto }) => {
   };
 
   const handleBuyNow = () => {
-    // 단일 상품 구매 - CheckoutPage로 state 전달
     navigate(PATH.CHECKOUT, {
       state: {
-        mode: 'direct', // 직접 구매 모드
+        mode: 'direct',
         directItem: {
           product_id: data.product_code,
           name: data.product_name,
@@ -52,7 +51,6 @@ const ImageGallery = ({ data }: { data?: ProductsCodeResDto }) => {
 
   return (
     <div className="flex flex-col gap-4">
-      {/* 메인 이미지 */}
       <div className="relative">
         <div className="flex aspect-square w-full items-center justify-center overflow-hidden rounded-lg border border-[#F3F4F6] bg-[#F9FAFB]">
           <img
@@ -61,19 +59,14 @@ const ImageGallery = ({ data }: { data?: ProductsCodeResDto }) => {
             className="h-full w-full object-cover"
           />
         </div>
-
-        {/* 액션 버튼 */}
         <div className="absolute right-4 bottom-4 flex gap-2">
           <button className="flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-lg hover:bg-gray-50">
             <Share2 className="h-5 w-5 text-[#6B7280]" />
           </button>
         </div>
       </div>
-
-      {/* 수량 선택 */}
       <div className="flex items-center justify-between rounded-lg border border-[#E5E7EB] px-4 py-3">
         <span className="font-medium text-gray-700">수량</span>
-
         <div className="flex items-center gap-3">
           <button
             onClick={handleDecrease}
@@ -81,9 +74,7 @@ const ImageGallery = ({ data }: { data?: ProductsCodeResDto }) => {
           >
             <Minus className="h-4 w-4" />
           </button>
-
           <span className="min-w-6 text-center font-semibold">{quantity}</span>
-
           <button
             onClick={handleIncrease}
             className="flex h-8 w-8 items-center justify-center rounded-md border hover:bg-gray-100"
@@ -92,8 +83,6 @@ const ImageGallery = ({ data }: { data?: ProductsCodeResDto }) => {
           </button>
         </div>
       </div>
-
-      {/* 장바구니 & 구매하기 버튼 */}
       <div className="flex gap-2">
         <button
           onClick={handleAddToCart}
@@ -102,7 +91,6 @@ const ImageGallery = ({ data }: { data?: ProductsCodeResDto }) => {
           <ShoppingCart className="h-5 w-5" />
           장바구니
         </button>
-
         <button
           onClick={handleBuyNow}
           className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-[#0D9DDA] py-4 font-bold text-white shadow-lg transition-colors hover:bg-[#0B8BC7]"

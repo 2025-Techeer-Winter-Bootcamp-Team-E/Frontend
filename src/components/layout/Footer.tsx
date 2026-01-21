@@ -5,9 +5,7 @@ const Footer: React.FC = () => {
   return (
     <footer className="border-t border-gray-200 bg-white py-12">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Top columns */}
         <div className="grid grid-cols-1 gap-10 md:grid-cols-4">
-          {/* Left - Brand & Contact */}
           <div>
             <div className="mb-4 text-2xl font-bold text-cyan-500">COMPARE</div>
             <div className="mb-4 text-3xl font-bold text-gray-900">1588-0000</div>
@@ -16,10 +14,8 @@ const Footer: React.FC = () => {
               <p>주말 및 공휴일 휴무</p>
             </div>
           </div>
-
-          {/* PLATFORM */}
           <div>
-            <h3 className="mb-4 text-xs font-semibold uppercase tracking-[0.16em] text-gray-500">
+            <h3 className="mb-4 text-xs font-semibold tracking-[0.16em] text-gray-500 uppercase">
               PLATFORM
             </h3>
             <ul className="space-y-2 text-sm text-gray-700">
@@ -40,10 +36,8 @@ const Footer: React.FC = () => {
               </li>
             </ul>
           </div>
-
-          {/* SUPPORT */}
           <div>
-            <h3 className="mb-4 text-xs font-semibold uppercase tracking-[0.16em] text-gray-500">
+            <h3 className="mb-4 text-xs font-semibold tracking-[0.16em] text-gray-500 uppercase">
               SUPPORT
             </h3>
             <ul className="space-y-2 text-sm text-gray-700">
@@ -64,10 +58,8 @@ const Footer: React.FC = () => {
               </li>
             </ul>
           </div>
-
-          {/* SOCIAL */}
           <div>
-            <h3 className="mb-4 text-xs font-semibold uppercase tracking-[0.16em] text-gray-500">
+            <h3 className="mb-4 text-xs font-semibold tracking-[0.16em] text-gray-500 uppercase">
               SOCIAL
             </h3>
             <div className="flex items-center gap-3">
@@ -80,8 +72,6 @@ const Footer: React.FC = () => {
             </div>
           </div>
         </div>
-
-        {/* Bottom bar */}
         <div className="mt-10 border-t border-gray-100 pt-6 text-xs text-gray-400">
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
             <p>© 2024 COMPARE. High-End AI-Powered Parts Comparison Ecosystem.</p>

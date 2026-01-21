@@ -1,4 +1,3 @@
-// 가격 요약 행 컴포넌트
 const PriceSummaryRow = ({
   label,
   amount,

@@ -20,7 +20,6 @@ const PriceTrendGraph = ({ productCode }: { productCode: number }) => {
         최저가 추이 (최근 {data.selected_period}
         {data.period_unit})
       </h4>
-
       <div className="h-30">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={chartData}>
@@ -40,7 +39,9 @@ const PriceTrendGraph = ({ productCode }: { productCode: number }) => {
                 fontSize: 12,
               }}
               labelStyle={{ color: '#9CA3AF' }}
-              formatter={(value: number) => `${value.toLocaleString()}원`}
+              formatter={(value) =>
+                typeof value === 'number' ? `${value.toLocaleString()}원` : ''
+              }
             />
             <Line
               type="monotone"
@@ -53,8 +54,6 @@ const PriceTrendGraph = ({ productCode }: { productCode: number }) => {
           </LineChart>
         </ResponsiveContainer>
       </div>
-
-      {/* 하단 요약 */}
       <div className="mt-4 border-t border-[#F3F4F6] pt-4">
         <p className="mb-1 text-[10px] text-[#6B7280]">기간 내 최저가</p>
         <span className="text-xl font-black text-[#EF4444]">{minPrice.toLocaleString()}원</span>

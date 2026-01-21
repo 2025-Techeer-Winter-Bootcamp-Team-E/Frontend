@@ -1,14 +1,6 @@
 import Checkbox from '@/components/cartPage/Checkbox';
 import QuantityControl from '@/components/cartPage/QuantityControl';
-
-type CartItem = {
-  id: number;
-  product_id: number;
-  name: string;
-  image: string;
-  quantity: number;
-  price: number;
-};
+import type { BuyItemEntity } from '@/types/ordersType';
 
 const CartItemComponent = ({
   item,
@@ -17,7 +9,7 @@ const CartItemComponent = ({
   onQuantityChange,
   onRemove,
 }: {
-  item: CartItem;
+  item: BuyItemEntity;
   isSelected: boolean;
   onToggle: () => void;
   onQuantityChange: (newQuantity: number) => void;
@@ -59,17 +51,12 @@ const CartItemComponent = ({
               className="p-2 text-gray-400 transition-colors hover:text-gray-600"
               aria-label="상품 삭제"
             >
-              <svg 
-                className="h-6 w-6" 
-                fill="none" 
-                viewBox="0 0 24 24" 
-                stroke="currentColor"
-              >
-                <path 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round" 
-                  strokeWidth={2} 
-                  d="M6 18L18 6M6 6l12 12" 
+              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
                 />
               </svg>
             </button>

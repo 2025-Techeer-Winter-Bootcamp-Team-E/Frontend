@@ -7,7 +7,7 @@ const useAutocompleteQuery = (keyword: string) => {
   return useQuery<SearchAutocompleteResDto>({
     queryKey: QUERY_KEY.SEARCH_KEYWORD(keyword),
     queryFn: () => getSearchAutocomplete(keyword),
-    enabled: !!keyword,
+    enabled: keyword.trim().length > 0,
   });
 };
 

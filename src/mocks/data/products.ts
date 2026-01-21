@@ -52,7 +52,12 @@ export const productPrices = {
 export const productReviews = {
   status: 200,
   data: {
-    total_count: 156, // 전체 리뷰 개수
+    pagination: {
+      current_page: 1, // 현재 페이지 번호
+      size: 5, // 한 페이지당 보여줄 개수
+      total_elements: 156, // 전체 리뷰 개수 (기존 total_count)
+      total_pages: 16, // 전체 페이지 수 (total_elements / size 올림)
+    },
     average_rating: 4.8, // 상품 전체 평점
     reviews: [
       {
@@ -91,5 +96,46 @@ export const productAIReviews = {
     recommendation_score: 92,
     score_reason: '85건의 리뷰 중 90% 이상이 성능과 휴대성에 대해 만족을 표했습니다.',
     last_updated: '2026-01-17T15:30:00',
+  },
+};
+
+export const productListPaging = {
+  status: 200,
+  data: {
+    pagination: {
+      current_page: 1,
+      size: 20,
+      count: 128,
+      total_pages: 16,
+    },
+    products: [
+      {
+        product_code: 78528251,
+        product_name: 'Apple 2024 맥북 에어 13 M3',
+        brand: 'Apple',
+        specs: {
+          CPU: 'M3 8코어',
+          GPU: '10코어',
+          RAM: '16GB',
+          SSD: '512GB',
+          Display: 'Liquid Retina',
+        },
+        base_price: 1730000,
+        category: '노트북',
+        thumbnail_url: 'https://img.example.com/macbook-air-m3.jpg',
+        mall_price: [
+          {
+            mall_name: '쿠팡',
+            price: 1750000,
+            url: 'https://coupang...',
+          },
+          {
+            mall_name: '11번가',
+            price: 1780000,
+            url: 'https://11st...',
+          },
+        ],
+      },
+    ],
   },
 };

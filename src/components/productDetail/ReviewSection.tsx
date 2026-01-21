@@ -17,39 +17,40 @@ const ReviewSection = ({ productCode }: ReviewSectionProps) => {
 
   if (!reviewData) return null;
 
-  const { reviews, total_count, average_rating } = reviewData;
-
-  const totalPages = Math.ceil(total_count / 10);
+  const { reviews, pagination, average_rating } = reviewData;
+  const totalPages = pagination.total_pages;
 
   return (
-    <div className="mb-6 flex items-end justify-between">
+    <section className="space-y-10">
       <div>
-        <div className="mb-2 flex items-center gap-2">
+        <div className="mb-2 flex items-center gap-3">
           <h2 className="text-2xl font-black text-[#111827]">구매 후기</h2>
           <div className="flex items-center gap-1">
             {[...Array(5)].map((_, i) => (
               <Star
                 key={i}
-                className={`h-7 w-7 ${
+                className={`h-6 w-6 ${
                   i < Math.floor(average_rating) ? 'fill-[#FACC15] text-[#FACC15]' : 'text-gray-300'
                 }`}
               />
             ))}
           </div>
-          <span className="text-2xl font-black text-[#111827]">{average_rating.toFixed(1)}</span>
+          <span className="text-xl font-black text-[#111827]">{average_rating.toFixed(1)}</span>
         </div>
         <p className="text-sm font-light text-[#6B7280]">
-          전체 {total_count.toLocaleString()}개의 통합 리뷰
+          전체 {pagination.total_elements.toLocaleString()}개의 통합 리뷰
         </p>
       </div>
+
       {aiData && (
-        <div className="mb-6 rounded-2xl border border-[rgba(219,234,254,0.5)] bg-[rgba(239,246,255,0.5)] p-8">
+        <div className="rounded-2xl border border-[rgba(219,234,254,0.5)] bg-[rgba(239,246,255,0.5)] p-8">
           <div className="mb-6 flex items-center gap-3">
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#0D9DDA] text-sm font-black text-white">
               AI
             </div>
-            <p className="text-base leading-snug font-bold text-[#0D9DDA]">{aiData.ai_summary}</p>
+            <p className="text-base font-bold text-[#0D9DDA]">{aiData.ai_summary}</p>
           </div>
+
           <div className="grid grid-cols-2 gap-10">
             <div className="space-y-6">
               <div>
@@ -63,6 +64,7 @@ const ReviewSection = ({ productCode }: ReviewSectionProps) => {
                   ))}
                 </ul>
               </div>
+
               <div>
                 <h4 className="mb-3 text-sm font-bold text-[#1F2937]">👎 아쉬운 점이에요</h4>
                 <ul className="space-y-2 text-sm font-light text-[#4B5563]">
@@ -75,6 +77,7 @@ const ReviewSection = ({ productCode }: ReviewSectionProps) => {
                 </ul>
               </div>
             </div>
+
             <div className="flex flex-col justify-between">
               <div>
                 <h4 className="mb-4 text-sm font-bold text-[#1F2937]">AI 추천 점수</h4>
@@ -86,14 +89,13 @@ const ReviewSection = ({ productCode }: ReviewSectionProps) => {
                 </div>
                 <div className="mb-4 h-2 overflow-hidden rounded-full bg-[#E5E7EB]">
                   <div
-                    className="h-full rounded-full bg-[#0D9DDA] transition-all"
+                    className="h-full rounded-full bg-[#0D9DDA]"
                     style={{ width: `${aiData.recommendation_score}%` }}
                   />
                 </div>
-                <p className="text-sm leading-relaxed font-light text-[#4B5563]">
-                  {aiData.score_reason}
-                </p>
+                <p className="text-sm font-light text-[#4B5563]">{aiData.score_reason}</p>
               </div>
+
               <p className="mt-6 text-[11px] text-[#9CA3AF]">
                 마지막 업데이트 · {new Date(aiData.last_updated).toLocaleDateString()}
               </p>
@@ -101,13 +103,17 @@ const ReviewSection = ({ productCode }: ReviewSectionProps) => {
           </div>
         </div>
       )}
-      <div>
+
+      <div className="space-y-6">
         {reviews.map((review) => (
           <ReviewCard key={review.review_id} review={review} />
         ))}
       </div>
-      <Pagination currentPage={page} totalPages={totalPages} onPageChange={setPage} />
-    </div>
+
+      <div className="flex justify-center">
+        <Pagination currentPage={page} totalPages={totalPages} onPageChange={setPage} />
+      </div>
+    </section>
   );
 };
 

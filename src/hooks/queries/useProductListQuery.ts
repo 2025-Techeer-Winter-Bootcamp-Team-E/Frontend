@@ -1,4 +1,4 @@
-import { useQuery, keepPreviousData } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import { getProductsList } from '@/api/products';
 import { QUERY_KEY } from '@/constants/queryKey';
 import type { ProductsListParams } from '@/types/productsType';
@@ -6,6 +6,7 @@ import type { ProductsListParams } from '@/types/productsType';
 const useProductListQuery = (params: ProductsListParams) => {
   return useQuery({
     queryKey: QUERY_KEY.PRODUCT_LIST({
+      q: params.q, // ✅ 검색어 추가
       page: params.page ?? 1,
       page_size: params.page_size ?? 20,
       main_cat: params.main_cat,
@@ -16,7 +17,8 @@ const useProductListQuery = (params: ProductsListParams) => {
       sort: params.sort,
     }),
     queryFn: () => getProductsList(params),
-    initialData: keepPreviousData,
+    placeholderData: (previousData) => previousData,
   });
 };
+
 export default useProductListQuery;

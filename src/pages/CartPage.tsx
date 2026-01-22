@@ -26,17 +26,19 @@ const CartPage = () => {
 
   return (
     <div className="min-h-screen bg-[#f5f5f7]">
-      <div className="mx-auto max-w-[1200px] px-6 py-16 md:px-12">
-        {/* 헤더 섹션: 숫자 배지를 무채색 실버 톤으로 변경 */}
-        <div className="mb-12 flex items-baseline gap-4">
-          <h1 className="text-[40px] font-semibold tracking-tight text-[#1d1d1f]">장바구니</h1>
-          <span className="text-[20px] font-medium text-[#86868b]">{cartItems.length}개 상품</span>
+      <div className="mx-auto max-w-[1100px] px-6 py-20 md:px-10">
+        {/* 헤더: 자간을 좁혀 더 전문적인 인상을 줌 */}
+        <div className="mb-4 flex items-baseline gap-3">
+          <h1 className="text-[36px] font-bold tracking-tight text-[#1d1d1f]">장바구니</h1>
+          <span className="text-[19px] font-medium text-[#86868b] tabular-nums">
+            {cartItems.length}
+          </span>
         </div>
 
-        <div className="flex flex-col items-start gap-12 lg:flex-row">
-          {/* 상품 리스트 영역 */}
+        <div className="flex flex-col items-start gap-10 lg:flex-row">
           <div className="w-full lg:flex-1">
-            <div className="mb-6 overflow-hidden rounded-[1.5rem] border border-black/[0.02] bg-white px-6 py-4 shadow-sm">
+            {/* 전체 선택 바: 배경을 투명하게 하고 하단 보더만 사용 */}
+            <div className="mb-4 flex items-center px-4 py-2">
               <Checkbox
                 checked={allSelected}
                 onChange={toggleAll}
@@ -44,7 +46,8 @@ const CartPage = () => {
               />
             </div>
 
-            <div className="space-y-4">
+            {/* 상품 리스트 간격 조정 */}
+            <div className="space-y-3">
               {cartItems.map((item) => (
                 <CartItemWrapper
                   key={item.id}
@@ -57,8 +60,8 @@ const CartPage = () => {
             </div>
           </div>
 
-          {/* 우측 결제 요약 카드 (상단 고정) */}
-          <div className="w-full lg:sticky lg:top-12 lg:w-[380px]">
+          {/* 결제 요약 카드: 고정 위치 및 너비 조정 */}
+          <div className="w-full lg:sticky lg:top-10 lg:w-[360px]">
             <PriceSummaryCard
               availableTokens={availableTokens}
               summary={summary}

@@ -14,6 +14,7 @@ import TokenChargePage from '@/components/myPage/users/TokenChargePage';
 import MyTimerGrid from '@/components/myPage/timer/MyTimerGrid';
 import { ROUTE_PATH } from '@/routes/path';
 import useScrollToTop from '@/hooks/useScrollTop';
+import ProductListPage from '@/pages/ProductListPage';
 
 const RootRoute = () => {
   useScrollToTop();
@@ -27,6 +28,7 @@ const RootRoute = () => {
         <Route path={ROUTE_PATH.CART} element={<ShoppingCartPage />} />
         <Route path={ROUTE_PATH.CHECKOUT} element={<CheckoutPage />} />
 
+        <Route path={ROUTE_PATH.PRODUCT_LIST} element={<ProductListPage />} />
         <Route path={ROUTE_PATH.PRODUCT_DETAIL} element={<ProductDetailPage />} />
 
         <Route path={ROUTE_PATH.LLM_SEARCH_RESULT} element={<LLMSearchResultPage />} />

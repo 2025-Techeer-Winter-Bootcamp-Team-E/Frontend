@@ -12,7 +12,6 @@ const LoginForm = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
     login(
       { email, password },
       {
@@ -24,13 +23,17 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="flex justify-center bg-gray-50 px-4 py-20">
-      <div className="w-full max-w-md px-4">
-        <h1 className="text-center text-2xl font-semibold text-gray-900">로그인</h1>
+    // 배경: 애플 표준 오프화이트 컬러 (#F5F5F7)
+    <div className="min-vh-100 flex items-center justify-center bg-[#F5F5F7] px-4 py-32">
+      <div className="w-full max-w-[400px]">
+        {/* 헤드라인: 더 굵고 자간이 좁은 텍스트 */}
+        <h1 className="text-center text-[32px] font-semibold tracking-tight text-[#1d1d1f]">
+          로그인
+        </h1>
 
-        <form onSubmit={handleSubmit} className="mt-8 space-y-4">
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+        <form onSubmit={handleSubmit} className="mt-10 space-y-6">
+          <div className="space-y-2">
+            <label htmlFor="email" className="ml-1 block text-[13px] font-medium text-[#86868b]">
               이메일
             </label>
             <input
@@ -39,12 +42,14 @@ const LoginForm = () => {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="이메일을 입력해 주세요"
-              className="mt-1 w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-cyan-500 focus:bg-white focus:ring-2 focus:ring-cyan-100 focus:outline-none"
+              placeholder="example@apple.com"
+              // 입력창: 보더를 얇게 하고 포커스 시 그림자가 아닌 선명한 보더 강조
+              className="w-full rounded-xl border border-[#d2d2d7] bg-white px-4 py-[14px] text-[17px] text-[#1d1d1f] transition-all placeholder:text-[#d2d2d7] focus:border-[#0066cc] focus:ring-1 focus:ring-[#0066cc] focus:outline-none"
             />
           </div>
-          <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+
+          <div className="space-y-2">
+            <label htmlFor="password" className="ml-1 block text-[13px] font-medium text-[#86868b]">
               비밀번호
             </label>
             <input
@@ -53,24 +58,28 @@ const LoginForm = () => {
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="비밀번호를 입력해 주세요"
-              className="mt-1 w-full rounded-lg border border-gray-200 bg-gray-50 px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-cyan-500 focus:bg-white focus:ring-2 focus:ring-cyan-100 focus:outline-none"
+              placeholder="비밀번호"
+              className="w-full rounded-xl border border-[#d2d2d7] bg-white px-4 py-[14px] text-[17px] text-[#1d1d1f] transition-all placeholder:text-[#d2d2d7] focus:border-[#0066cc] focus:ring-1 focus:ring-[#0066cc] focus:outline-none"
             />
           </div>
+
+          {/* 버튼: 채도 높은 시안 대신 깊이감 있는 블루 또는 블랙 계열 사용 */}
           <button
             type="submit"
             disabled={isPending}
-            className="mt-2 w-full rounded-lg bg-cyan-500 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-cyan-600 focus:ring-2 focus:ring-cyan-200 focus:outline-none disabled:opacity-50"
+            className="mt-4 w-full rounded-xl bg-[#0066cc] py-[14px] text-[17px] font-semibold text-white transition-all hover:bg-[#0077ed] focus:outline-none disabled:cursor-not-allowed disabled:bg-[#d2d2d7]"
           >
-            로그인
+            {isPending ? '연결 중...' : '로그인'}
           </button>
         </form>
 
-        <div className="mt-6 text-center text-sm text-gray-500">
-          <span>아직 회원이 아니신가요? </span>
-          <Link to={PATH.SIGNUP} className="font-medium text-cyan-500 hover:underline">
-            회원가입
-          </Link>
+        <div className="mt-10 text-center">
+          <p className="text-[14px] text-[#86868b]">
+            아직 회원이 아니신가요?{' '}
+            <Link to={PATH.SIGNUP} className="ml-1 font-medium text-[#0066cc] hover:underline">
+              지금 만들기 〉
+            </Link>
+          </p>
         </div>
       </div>
     </div>

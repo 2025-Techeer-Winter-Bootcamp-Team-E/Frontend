@@ -55,69 +55,65 @@ const TimerCard = ({ timer }: TimerCardProps) => {
 
   return (
     <>
-      <div className="group relative flex h-full flex-col overflow-hidden rounded-[28px] border border-gray-100 bg-white p-6 transition-all duration-300 hover:shadow-[0_20px_50px_rgba(0,0,0,0.05)] hover:ring-1 hover:ring-gray-200">
-        {/* 상단 액션: 삭제 버튼을 더 깔끔하게 */}
+      <div className="group relative flex h-full flex-col overflow-hidden rounded-[32px] border border-black/[0.05] bg-white p-6 transition-all duration-500 hover:shadow-[0_20px_60px_rgba(0,0,0,0.06)]">
         <button
           onClick={handleDelete}
-          className="absolute top-4 right-4 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-gray-50 text-gray-400 opacity-0 transition-all group-hover:opacity-100 hover:bg-red-50 hover:text-red-500"
+          className="absolute top-5 right-5 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white/80 text-[#86868b] opacity-0 backdrop-blur-md transition-all group-hover:opacity-100 hover:bg-[#ff3b30] hover:text-white"
         >
           <X className="h-4 w-4" />
         </button>
 
-        {/* 제품 이미지: 화이트 스페이스 강조 */}
-        <div className="relative mb-6 flex h-44 items-center justify-center rounded-[20px] bg-[#fbfbfd] p-4 transition-transform duration-500 group-hover:scale-105">
+        <div className="relative mb-6 flex h-48 items-center justify-center rounded-[24px] bg-[#F5F5F7] p-6 transition-transform duration-700 group-hover:scale-[1.02]">
           {timer.thumbnail_url ? (
             <img
               src={timer.thumbnail_url}
               alt={timer.product_name}
-              className="h-full object-contain"
+              className="h-full object-contain mix-blend-multiply"
             />
           ) : (
-            <span className="text-xs font-medium text-gray-300">No Image</span>
+            <span className="text-[13px] font-medium text-[#d2d2d7]">No Image</span>
           )}
         </div>
 
-        {/* 텍스트 위계: font-black과 medium의 조화 */}
-        <div className="mb-4 space-y-1">
-          <h3 className="line-clamp-2 min-h-[40px] text-sm leading-snug font-semibold text-gray-900 group-hover:text-indigo-600">
+        <div className="mb-5 space-y-2">
+          <h3 className="line-clamp-2 min-h-[44px] text-[17px] leading-tight font-semibold tracking-tight text-[#1d1d1f]">
             {timer.product_name}
           </h3>
           <div className="flex items-baseline gap-2">
-            <span className="text-xl font-black tracking-tight text-gray-900">
+            <span className="text-[24px] font-bold tracking-tighter text-[#1d1d1f]">
               {timer.predicted_price.toLocaleString()}원
             </span>
-            <span className="text-[11px] font-bold tracking-wider text-gray-400 uppercase">
-              Target: {timer.target_price.toLocaleString()}
+            <span className="text-[12px] font-semibold tracking-tight text-[#86868b]">
+              목표 {timer.target_price.toLocaleString()}원
             </span>
           </div>
         </div>
 
-        {/* AI 분석 영역: 블루 톤의 정갈한 박스 */}
-        <div className="mb-5 rounded-[18px] bg-indigo-50/40 p-4 ring-1 ring-indigo-50">
+        {/* AI 분석: 인디고 대신 부드러운 무채색 레이어 사용 */}
+        <div className="mb-6 rounded-[20px] bg-[#F5F5F7] p-5">
           <div className="mb-2 flex items-center justify-between">
-            <span className="text-[10px] font-black tracking-widest text-indigo-500 uppercase">
+            <span className="text-[11px] font-bold tracking-widest text-[#86868b] uppercase">
               Score
             </span>
-            <span className="text-sm font-black text-indigo-700">
+            <span className="text-[15px] font-bold text-[#0066cc]">
               {timer.recommendation_score}%
             </span>
           </div>
-          <p className="line-clamp-2 text-xs leading-relaxed font-medium text-gray-600">
+          <p className="line-clamp-2 text-[13px] leading-relaxed text-[#424245]">
             {timer.reason_message}
           </p>
         </div>
 
-        {/* 하단 버튼: 애플 스타일의 라운드 & 보더 */}
-        <div className="mt-auto flex gap-2">
+        <div className="mt-auto flex gap-3">
           <button
             onClick={handleOpenEditModal}
-            className="flex h-11 w-11 items-center justify-center rounded-xl border border-gray-200 bg-white text-gray-400 transition-all hover:border-gray-900 hover:text-gray-900"
+            className="flex h-[52px] w-[52px] items-center justify-center rounded-[16px] border border-[#d2d2d7] bg-white text-[#1d1d1f] transition-all hover:bg-[#F5F5F7]"
           >
-            <Pencil className="h-4 w-4" />
+            <Pencil className="h-5 w-5" />
           </button>
           <button
             onClick={handleGoToProduct}
-            className="flex-1 rounded-xl bg-gray-900 px-4 py-2 text-sm font-bold text-white transition-all hover:bg-indigo-600 active:scale-[0.98]"
+            className="flex-1 rounded-[16px] bg-[#1d1d1f] px-4 py-3 text-[15px] font-semibold text-white transition-all hover:bg-[#424245] active:scale-[0.97]"
           >
             상세 보기
           </button>

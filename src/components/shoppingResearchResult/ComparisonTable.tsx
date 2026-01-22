@@ -6,10 +6,11 @@ interface Product {
   id: number;
   name: string;
   image: string;
-  price: string;
-  rating: number;
-  power: string;
-  memory: string;
+  price: number;
+  performance_score: number;
+  cpu: string;
+  ram: string;
+  is_lowest_price: boolean;
 }
 
 interface ComparisonTableProps {
@@ -20,88 +21,96 @@ interface ComparisonTableProps {
 const ComparisonTable: React.FC<ComparisonTableProps> = ({ title, products }) => {
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex items-center gap-2">
-        <div className="scale-y-[-1]">
-          <RefreshCw className="h-7 w-6 text-[#0d9dda]" />
-        </div>
-        <h2 className="text-xl leading-[28px] font-bold text-[#111827]">{title}</h2>
+      <div className="flex items-center gap-3 px-1">
+        <RefreshCw className="h-5 w-5 text-[#1d1d1f]" strokeWidth={2.5} />
+        <h2 className="text-[22px] font-bold tracking-tight text-[#1d1d1f]">{title}</h2>
       </div>
-      <div className="overflow-hidden rounded-2xl border border-[#f3f4f6] bg-white shadow-sm">
+
+      <div className="overflow-hidden rounded-[24px] border border-[#d2d2d7]/30 bg-white shadow-[0_2px_12px_rgba(0,0,0,0.04)]">
         <div className="overflow-x-auto">
-          <table className="w-full">
+          <table className="w-full border-collapse">
             <thead>
-              <tr className="border-b border-[#f3f4f6] bg-[#f9fafb]">
-                <th className="w-40 px-6 py-[68px] text-center text-left text-sm font-bold text-[#6b7280] uppercase">
+              <tr className="border-b border-[#f5f5f7] bg-[#f5f5f7]/50">
+                <th className="w-40 px-6 py-12 text-center text-[13px] font-bold tracking-widest text-[#86868b] uppercase">
                   속성
                 </th>
                 {products.map((product) => (
-                  <th key={product.id} className="min-w-[263.5px] px-6 py-4 text-center">
-                    <div className="flex flex-col items-center gap-2">
-                      <div className="mb-2 flex h-24 w-24 items-center justify-center rounded-lg bg-gray-100">
+                  <th key={product.id} className="min-w-[240px] px-6 py-8 text-center">
+                    <div className="flex flex-col items-center gap-4">
+                      <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-white p-2 shadow-sm ring-1 ring-black/[0.03]">
                         <img
                           src={product.image}
                           alt={product.name}
                           className="h-full w-full object-contain"
                         />
                       </div>
-                      <p className="text-sm font-bold text-[#111827] uppercase">{product.name}</p>
+                      <p className="text-[15px] font-bold tracking-tight text-[#1d1d1f]">
+                        {product.name}
+                      </p>
                     </div>
                   </th>
                 ))}
               </tr>
             </thead>
-            <tbody>
-              <tr className="border-b border-[#f3f4f6]">
-                <td className="bg-[rgba(249,250,251,0.5)] px-6 py-4 text-center text-sm font-bold text-[#111827]">
+            <tbody className="divide-y divide-[#f5f5f7]">
+              {/* 가격 행: 서버의 is_lowest_price 데이터 활용 */}
+              <tr>
+                <td className="bg-[#f5f5f7]/30 px-6 py-5 text-center text-[14px] font-semibold text-[#86868b]">
                   가격
-                </td>
-                {products.map((product) => (
-                  <td key={product.id} className="px-6 py-4 text-center">
-                    <span
-                      className={`text-sm font-bold ${
-                        product.id === 1 ? 'text-[#0d9dda]' : 'text-[#111827]'
-                      }`}
-                    >
-                      {product.price}
-                    </span>
-                  </td>
-                ))}
-              </tr>
-              <tr className="border-b border-[#f3f4f6]">
-                <td className="bg-[rgba(249,250,251,0.5)] px-6 py-[18.5px] text-center text-sm font-bold text-[#111827]">
-                  성능 지수
-                </td>
-                {products.map((product) => (
-                  <td key={product.id} className="px-6 py-[18.5px] text-center">
-                    <div className="flex justify-center">
-                      <StarRating rating={product.rating} />
-                    </div>
-                  </td>
-                ))}
-              </tr>
-              <tr className="border-b border-[#f3f4f6]">
-                <td className="bg-[rgba(249,250,251,0.5)] px-6 py-4 text-center text-sm font-bold text-[#111827]">
-                  소비 전력
                 </td>
                 {products.map((product) => (
                   <td
                     key={product.id}
-                    className="px-6 py-4 text-center text-sm font-light text-[#111827]"
+                    className="px-6 py-5 text-center text-[15px] font-bold text-[#1d1d1f]"
                   >
-                    {product.power}
+                    <span className={product.is_lowest_price ? 'text-[#0066cc]' : ''}>
+                      {product.price.toLocaleString()}원
+                    </span>
                   </td>
                 ))}
               </tr>
+
+              {/* 성능 지수 행: 서버의 performance_score 활용 (0~1 기준일 때 * 5) */}
               <tr>
-                <td className="bg-[rgba(249,250,251,0.5)] px-6 py-4 text-center text-sm font-bold text-[#111827]">
+                <td className="bg-[#f5f5f7]/30 px-6 py-5 text-center text-[14px] font-semibold text-[#86868b]">
+                  성능 지수
+                </td>
+                {products.map((product) => (
+                  <td key={product.id} className="px-6 py-5">
+                    <div className="flex scale-90 justify-center opacity-80">
+                      {/* 서버 점수가 1점 만점이면 *5, 100점 만점이면 /20 등으로 보정 */}
+                      <StarRating rating={Math.round(product.performance_score * 5)} />
+                    </div>
+                  </td>
+                ))}
+              </tr>
+
+              {/* 프로세서 행: 서버의 cpu 데이터 */}
+              <tr>
+                <td className="bg-[#f5f5f7]/30 px-6 py-5 text-center text-[14px] font-semibold text-[#86868b]">
+                  프로세서
+                </td>
+                {products.map((product) => (
+                  <td
+                    key={product.id}
+                    className="px-6 py-5 text-center text-[14px] font-medium text-[#424245]"
+                  >
+                    {product.cpu}
+                  </td>
+                ))}
+              </tr>
+
+              {/* 메모리 행: 서버의 ram 데이터 */}
+              <tr>
+                <td className="bg-[#f5f5f7]/30 px-6 py-5 text-center text-[14px] font-semibold text-[#86868b]">
                   메모리 용량
                 </td>
                 {products.map((product) => (
                   <td
                     key={product.id}
-                    className="px-6 py-4 text-center text-sm font-light text-[#111827]"
+                    className="px-6 py-5 text-center text-[14px] font-medium text-[#424245]"
                   >
-                    {product.memory}
+                    {product.ram}
                   </td>
                 ))}
               </tr>

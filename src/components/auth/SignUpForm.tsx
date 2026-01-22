@@ -123,72 +123,81 @@ const SignupForm: React.FC = () => {
   };
 
   return (
-    <div className="flex justify-center bg-gray-50 px-4 py-20">
-      <div className="w-full max-w-xl">
-        <h1 className="mb-8 text-center text-2xl font-semibold">회원가입</h1>
+    <div className="flex min-h-screen justify-center bg-[#F5F5F7] px-4 py-24">
+      <div className="w-full max-w-[440px]">
+        <h1 className="mb-10 text-center text-[32px] font-semibold tracking-tight text-[#1d1d1f]">
+          계정 만들기
+        </h1>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <FormInput
-            label="이메일"
-            type="email"
-            placeholder="example@email.com"
-            value={formData.email}
-            onChange={handleInputChange('email')}
-            error={errors.email}
-          />
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <div className="grid grid-cols-1 gap-5 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-black/[0.05]">
+            <FormInput
+              label="이메일"
+              type="email"
+              placeholder="example@apple.com"
+              value={formData.email}
+              onChange={handleInputChange('email')}
+              error={errors.email}
+            />
 
-          <FormInput
-            label="닉네임"
-            placeholder="닉네임"
-            value={formData.nickname}
-            onChange={handleInputChange('nickname')}
-            error={errors.nickname}
-          />
+            <div className="grid grid-cols-2 gap-4">
+              <FormInput
+                label="닉네임"
+                placeholder="닉네임"
+                value={formData.nickname}
+                onChange={handleInputChange('nickname')}
+                error={errors.nickname}
+              />
+              <FormInput
+                label="이름"
+                placeholder="이름"
+                value={formData.name}
+                onChange={handleInputChange('name')}
+                error={errors.name}
+              />
+            </div>
 
-          <FormInput
-            label="이름"
-            placeholder="이름"
-            value={formData.name}
-            onChange={handleInputChange('name')}
-            error={errors.name}
-          />
+            <FormInput
+              label="전화번호"
+              type="tel"
+              placeholder="010-1234-5678"
+              value={formData.phone}
+              onChange={handleInputChange('phone')}
+              error={errors.phone}
+            />
 
-          <FormInput
-            label="전화번호"
-            type="tel"
-            placeholder="010-1234-5678"
-            value={formData.phone}
-            onChange={handleInputChange('phone')}
-            error={errors.phone}
-          />
+            <FormInput
+              label="비밀번호"
+              type="password"
+              placeholder="8자 이상"
+              value={formData.password}
+              onChange={handleInputChange('password')}
+              error={errors.password}
+            />
 
-          <FormInput
-            label="비밀번호"
-            type="password"
-            placeholder="최소 8자 이상"
-            value={formData.password}
-            onChange={handleInputChange('password')}
-            error={errors.password}
-          />
-
-          <FormInput
-            label="비밀번호 확인"
-            type="password"
-            placeholder="비밀번호 확인"
-            value={formData.passwordConfirm}
-            onChange={handleInputChange('passwordConfirm')}
-            error={errors.passwordConfirm}
-          />
+            <FormInput
+              label="비밀번호 확인"
+              type="password"
+              placeholder="비밀번호 확인"
+              value={formData.passwordConfirm}
+              onChange={handleInputChange('passwordConfirm')}
+              error={errors.passwordConfirm}
+            />
+          </div>
 
           <AgreementSection agreements={agreements} onAgreementsChange={setAgreements} />
 
           <button
             type="submit"
-            className="w-full rounded-lg bg-cyan-500 py-4 text-lg font-semibold text-white hover:bg-cyan-600"
+            className="mt-4 w-full rounded-xl bg-[#0066cc] py-4 text-[17px] font-semibold text-white transition-all hover:bg-[#0077ed] focus:outline-none disabled:bg-[#d2d2d7]"
           >
-            회원가입
+            동의 및 가입하기
           </button>
         </form>
+
+        <p className="mt-8 text-center text-[13px] text-[#86868b]">
+          가입 시 서비스의 이용 약관 및 개인정보 처리방침에 동의하게 됩니다.
+        </p>
       </div>
     </div>
   );

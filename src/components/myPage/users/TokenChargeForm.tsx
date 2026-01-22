@@ -77,11 +77,6 @@ const TokenChargeForm = () => {
 
   return (
     <div className="mt-8">
-      <p className="mb-8 text-[0.95rem] leading-relaxed text-[#86868b]">
-        AI 구매 가이드 및 상세 가격 분석을 위한 <br />
-        토큰을 간편하게 충전하세요.
-      </p>
-
       {/* 내 토큰 잔액 섹션 - Glassmorphism 스타일 */}
       <div className="mb-10 rounded-2xl border border-gray-100 bg-[#f5f5f7] p-6">
         <div className="mb-1 text-xs font-semibold tracking-wider text-[#86868b] uppercase">

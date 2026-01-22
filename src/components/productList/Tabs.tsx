@@ -11,15 +11,15 @@ interface TabsProps {
 
 const Tabs = ({ tabs, activeTab, onTabChange }: TabsProps) => {
   return (
-    <div className="flex flex-wrap gap-2">
+    <div className="flex items-center gap-1 rounded-xl bg-[#f5f5f7] p-1">
       {tabs.map((tab) => (
         <button
           key={tab.id}
           onClick={() => onTabChange(tab.id)}
-          className={`rounded px-3 py-1 text-sm transition-colors ${
+          className={`rounded-[10px] px-5 py-1.5 text-[13px] transition-all duration-200 ${
             activeTab === tab.id
-              ? 'bg-[#F3F4F6] text-[#0D9DDA] font-bold'
-              : 'text-[#111827] font-light'
+              ? 'bg-white font-bold text-[#1d1d1f] shadow-[0_2px_8px_rgba(0,0,0,0.08)]'
+              : 'font-medium text-[#86868b] hover:text-[#1d1d1f]'
           }`}
         >
           {tab.label}

@@ -9,6 +9,7 @@ export const QUERY_KEY = {
   SEARCH_RECENT: ['search', 'recent'],
 
   PRODUCT_LIST: (params: {
+    q?: string;
     page: number;
     page_size: number;
     main_cat?: string;
@@ -20,6 +21,7 @@ export const QUERY_KEY = {
   }) => [
     'product',
     'list',
+    params.q ?? '',
     params.page,
     params.page_size,
     params.main_cat ?? '',

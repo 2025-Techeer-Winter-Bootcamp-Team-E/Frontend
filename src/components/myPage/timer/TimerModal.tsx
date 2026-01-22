@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { X } from 'lucide-react';
 import type { TimerPostReqDto } from '@/types/timerType';
 
 interface TimerModalProps {
@@ -52,56 +51,49 @@ const TimerModal = ({
 
   if (!isOpen) return null;
 
-  if (!isOpen) return null;
-
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      {/* 오버레이: 더 투명하고 블러 처리된 애플 감성 */}
-      <div className="absolute inset-0 bg-white/60 backdrop-blur-xl" onClick={onClose} />
+      {/* 오버레이: 더 투명하고 밝은 느낌 */}
+      <div className="absolute inset-0 bg-white/80 backdrop-blur-2xl" onClick={onClose} />
 
-      <div className="relative z-10 w-full max-w-[440px] overflow-hidden rounded-[32px] border border-gray-100 bg-white p-10 shadow-[0_40px_100px_rgba(0,0,0,0.1)]">
-        <div className="mb-8 flex items-center justify-between">
-          <h2 className="text-2xl font-black tracking-tight text-gray-900">
+      <div className="relative z-10 w-full max-w-[420px] rounded-[36px] border border-black/[0.05] bg-white p-10 shadow-[0_40px_100px_rgba(0,0,0,0.08)]">
+        <div className="mb-10 text-center">
+          <h2 className="text-[28px] font-bold tracking-tight text-[#1d1d1f]">
             {mode === 'create' ? '타이머 설정' : '가격 수정'}
           </h2>
-          <button onClick={onClose} className="rounded-full bg-gray-50 p-2 text-gray-400 hover:bg-gray-100">
-            <X className="h-5 w-5" />
-          </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-8">
-          <div className="space-y-3">
-            <label className="text-[11px] font-black uppercase tracking-[0.2em] text-gray-400">Target Price</label>
-            <div className="relative border-b-2 border-gray-900 py-2">
+        <form onSubmit={handleSubmit} className="space-y-10">
+          <div className="space-y-4 text-center">
+            <label className="text-[12px] font-bold tracking-[0.1em] text-[#86868b] uppercase">
+              Target Price
+            </label>
+            <div className="flex items-center justify-center gap-1">
               <input
                 type="text"
+                autoFocus
                 value={formatPrice(targetPrice)}
                 onChange={handlePriceChange}
                 placeholder="0"
-                className="w-full bg-transparent pr-8 text-4xl font-black outline-none placeholder:text-gray-100"
+                className="w-full bg-transparent text-center text-[48px] font-bold tracking-tighter text-[#1d1d1f] outline-none placeholder:text-[#F5F5F7]"
               />
-              <span className="absolute bottom-4 right-0 text-xl font-bold text-gray-900">원</span>
+              <span className="text-[24px] font-bold text-[#1d1d1f]">원</span>
             </div>
-            <p className="text-xs font-medium leading-relaxed text-gray-400">
-              {mode === 'create' 
-                ? '설정하신 목표가에 도달하면 푸시 알림을 보내드립니다.' 
-                : '수정된 가격으로 분석이 다시 시작됩니다.'}
-            </p>
           </div>
 
-          <div className="flex gap-3">
+          <div className="flex flex-col gap-3">
+            <button
+              type="submit"
+              className="w-full rounded-[18px] bg-[#0066cc] py-4 text-[17px] font-semibold text-white transition-all hover:bg-[#0077ed] active:scale-[0.98]"
+            >
+              {mode === 'create' ? '타이머 시작' : '저장하기'}
+            </button>
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 rounded-2xl py-4 text-sm font-bold text-gray-500 transition-colors hover:bg-gray-50"
+              className="w-full py-2 text-[15px] font-medium text-[#86868b] hover:text-[#1d1d1f]"
             >
-              닫기
-            </button>
-            <button
-              type="submit"
-              className="flex-1 rounded-2xl bg-indigo-600 py-4 text-sm font-bold text-white shadow-lg shadow-indigo-100 transition-all hover:bg-indigo-700 active:scale-95"
-            >
-              {mode === 'create' ? '시작하기' : '변경사항 저장'}
+              취소
             </button>
           </div>
         </form>
@@ -109,4 +101,4 @@ const TimerModal = ({
     </div>
   );
 };
-export default TimerModal
+export default TimerModal;

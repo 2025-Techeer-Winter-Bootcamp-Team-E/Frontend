@@ -4,23 +4,25 @@ import { Outlet } from 'react-router-dom';
 
 const MyPage = () => {
   return (
-    <div className="min-h-screen bg-[#fcfdfe]">
+    <div className="min-h-screen bg-[#F5F5F7]">
       {' '}
-      {/* 더 맑은 느낌의 배경색 */}
-      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="mb-10 px-2">
-          <h1 className="text-3xl font-black text-gray-900">마이페이지</h1>
-          <p className="mt-2 text-gray-500">나의 활동과 설정을 관리하세요.</p>
+      {/* 애플 표준 배경색 */}
+      <div className="mx-auto max-w-7xl px-6 py-16 lg:px-12">
+        <div className="mb-12 px-2">
+          <h1 className="text-[34px] font-bold tracking-tight text-[#1d1d1f]">마이페이지</h1>
+          <p className="mt-2 text-[17px] tracking-tight text-[#86868b]">
+            나의 활동과 설정을 관리하세요.
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-10 lg:grid-cols-4">
-          <div className="space-y-6 lg:col-span-1">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-4">
+          <div className="space-y-8 lg:col-span-1">
             <UserProfile />
             <SidebarMenu />
           </div>
           <div className="lg:col-span-3">
-            {/* 우측 콘텐츠 영역을 감싸는 컨테이너 디자인 (필요 시) */}
-            <div className="min-h-[600px] rounded-[32px] border border-gray-100 shadow-sm">
+            {/* 우측 콘텐츠 영역: 컨테이너에 미세한 그림자와 블러 적용 */}
+            <div className="min-h-[640px] rounded-[32px] border border-black/[0.05] bg-white shadow-[0_4px_24px_rgba(0,0,0,0.02)]">
               <Outlet />
             </div>
           </div>

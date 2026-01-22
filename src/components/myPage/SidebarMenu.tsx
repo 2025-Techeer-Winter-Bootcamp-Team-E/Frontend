@@ -3,23 +3,24 @@ import { NavLink } from 'react-router-dom';
 
 const SidebarMenu = () => {
   return (
-    <div className="rounded-[24px] border border-gray-100 bg-white p-3 shadow-lg shadow-gray-200/40">
-      <nav className="flex flex-col gap-2">
+    <div className="overflow-hidden rounded-[24px] border border-black/[0.05] bg-white/60 p-2 backdrop-blur-md">
+      <nav className="flex flex-col gap-1">
         {SIDEBAR.map((item) => (
           <NavLink
             key={item.path}
             to={item.path}
             className={({ isActive }) =>
-              `group flex items-center justify-between rounded-xl px-4 py-3.5 text-sm transition-all duration-300 ${
+              `group flex items-center justify-between rounded-[14px] px-4 py-3 text-[15px] transition-all duration-200 ${
                 isActive
-                  ? 'translate-x-1 bg-indigo-600 font-bold text-white shadow-lg shadow-indigo-200'
-                  : 'text-gray-500 hover:bg-indigo-50 hover:text-indigo-600'
+                  ? 'bg-black/[0.06] font-semibold text-[#1d1d1f]' // 채도 낮은 그레이로 활성화 표시
+                  : 'text-[#86868b] hover:bg-black/[0.03] hover:text-[#1d1d1f]'
               }`
             }
           >
             <span>{item.label}</span>
+            {/* 우측 인디케이터: 인디고 대신 시스템 블루 사용 */}
             <div
-              className={`h-1.5 w-1.5 scale-0 rounded-full bg-white transition-transform duration-300 group-[.active]:scale-100`}
+              className={`h-1 w-1 scale-0 rounded-full bg-[#0066cc] transition-transform duration-300 group-[.active]:scale-100`}
             />
           </NavLink>
         ))}

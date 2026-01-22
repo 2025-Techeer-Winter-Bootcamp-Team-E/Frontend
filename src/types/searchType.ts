@@ -96,6 +96,17 @@ export type SearchShoppingResearchResultReqDto = {
   survey_contents: QuestionAnswerEntity[];
 };
 
+export type MallType = {
+  match_rank: number;
+  is_lowest_price: boolean;
+};
+
+export type MallPrices = {
+  mall_name: string;
+  price: number;
+  url: string;
+};
+
 export type ShoppingResultEntity = {
   similarity_score: number;
   product_image_url: string;
@@ -107,10 +118,7 @@ export type ShoppingResultEntity = {
   product_specs: ProductSpecs;
   ai_review_summary: string;
   product_detail_url: string;
-  optimal_product_info: {
-    match_rank: number;
-    is_lowest_price: boolean;
-  }[];
+  optimal_product_info: MallType[];
 };
 /** 쇼핑 리서치 요청 응답
  * POST /search/shopping-research

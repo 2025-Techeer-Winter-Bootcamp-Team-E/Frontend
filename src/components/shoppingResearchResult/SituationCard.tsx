@@ -14,25 +14,24 @@ const SituationCard: React.FC<SituationCardProps> = ({
   title,
   description,
   highlight,
-  iconColor = '#0d9dda',
-  highlightColor = '#0d9dda',
+  iconColor = '#1d1d1f', // 기본 색상을 무채색으로 변경
+  highlightColor = '#0066cc', // 하이라이트는 시스템 블루 적용
 }) => {
   return (
-    <div className="bg-white border border-[#f3f4f6] rounded-2xl p-[25px] shadow-sm flex gap-4 flex-1">
-      <div className={`bg-[#f5f7f8] rounded-xl px-3 py-[10px] flex-shrink-0`}>
-        <div className="scale-y-[-1]">
-          <Icon className="w-6 h-7" style={{ color: iconColor }} />
+    <div className="flex flex-1 gap-5 rounded-[24px] border border-[#d2d2d7]/40 bg-white p-6 shadow-[0_2px_8px_rgba(0,0,0,0.02)] transition-all hover:shadow-[0_8px_24px_rgba(0,0,0,0.04)]">
+      <div className="flex-shrink-0">
+        <div className="flex h-12 w-12 items-center justify-center rounded-[14px] bg-[#f5f5f7]">
+          <Icon className="h-6 w-6" style={{ color: iconColor }} strokeWidth={1.5} />
         </div>
       </div>
-      <div className="flex flex-col justify-center gap-1 flex-1">
-        <h3 className="text-base font-bold text-[#111827] leading-[24px]">{title}</h3>
-        <p className="text-sm font-light text-[#6b7280] leading-[20px] pb-2">{description}</p>
-        <p className="text-sm font-bold leading-[20px]" style={{ color: highlightColor }}>
+      <div className="flex flex-1 flex-col justify-center">
+        <h3 className="mb-1 text-[17px] font-bold tracking-tight text-[#1d1d1f]">{title}</h3>
+        <p className="mb-2 text-[14px] leading-snug font-medium text-[#86868b]">{description}</p>
+        <p className="text-[14px] font-bold tracking-tight" style={{ color: highlightColor }}>
           {highlight}
         </p>
       </div>
     </div>
   );
 };
-
 export default SituationCard;

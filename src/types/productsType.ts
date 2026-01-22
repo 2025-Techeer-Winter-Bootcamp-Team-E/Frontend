@@ -116,6 +116,7 @@ export type ProductsListResDto = {
 };
 
 export type ProductsListParams = {
+  q?: string;
   main_cat?: string;
   sub_cat?: string;
   brand?: string;

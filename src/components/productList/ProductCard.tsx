@@ -1,163 +1,128 @@
-import { useState } from 'react';
-import { Heart, Star, Truck } from 'lucide-react';
-
-interface Product {
-  id: number;
-  name: string;
-  price: number;
-  originalPrice: number | null;
-  discount: number | null;
-  image: string | null;
-  freeShipping: boolean;
-  specs: string;
-  deliveryInfo: string[];
-  rating: number;
-  reviewCount: number;
-  salesCount: number;
-  registeredDate: string;
-  coupon: number;
-  eleventhPrice: number;
-  timonPrice: number;
-}
+import type { MallPrices, ProductSpecs } from '@/types/searchType';
+import { Star, Truck } from 'lucide-react';
 
 interface ProductCardProps {
-  product: Product;
-  onWishlist: (productId: number, isAdded: boolean) => void;
+  product: {
+    product_code: number;
+    product_name: string;
+    brand: string;
+    specs: ProductSpecs;
+    base_price: number;
+    category: string;
+    thumbnail_url: string;
+    mall_price: MallPrices[];
+  };
 }
 
-const ProductCard = ({ product, onWishlist }: ProductCardProps) => {
-  const [isWishlisted, setIsWishlisted] = useState(false);
-
-  const handleWishlistToggle = () => {
-    setIsWishlisted(!isWishlisted);
-    onWishlist(product.id, !isWishlisted);
+const ProductCard = ({ product }: ProductCardProps) => {
+  // 쇼핑몰별 가격 추출 헬퍼 함수
+  const getMallPrice = (mallName: string) => {
+    return product.mall_price.find((m) => m.mall_name === mallName)?.price || 0;
   };
 
+  // 스펙을 문자열로 변환
+  const specsText = Object.entries(product.specs)
+    .map(([key, value]) => `${key}: ${value}`)
+    .join(' · ');
+
+  // 쇼핑몰별 가격
+  const coupangPrice = getMallPrice('쿠팡') || product.base_price;
+  const eleventhPrice = getMallPrice('11번가');
+  const gmarketPrice = getMallPrice('G마켓');
+
   return (
-    <div className="flex gap-6 rounded-lg border border-[#E5E7EB] bg-white p-[25px]">
-      {/* 상품 이미지 */}
-      <div className="relative h-[171px] w-[192px] flex-shrink-0">
-        <div className="flex h-[160px] w-[160px] items-center justify-center overflow-hidden rounded-lg bg-[#F3F4F6]">
-          {product.image ? (
+    <div className="group flex gap-8 rounded-[24px] border border-black/[0.05] bg-white p-6 transition-all hover:shadow-[0_20px_40px_rgba(0,0,0,0.04)]">
+      {/* 상품 이미지 영역 */}
+      <div className="relative h-[180px] w-[180px] flex-shrink-0">
+        <div className="flex h-full w-full items-center justify-center overflow-hidden rounded-[18px] bg-[#f5f5f7]">
+          {product.thumbnail_url ? (
             <img
-              src={product.image}
-              alt={product.name}
-              className="h-full w-full object-cover"
+              src={product.thumbnail_url}
+              alt={product.product_name}
+              className="h-full w-full object-contain mix-blend-multiply transition-transform duration-500 group-hover:scale-105"
             />
           ) : (
-            <div className="text-gray-300">
-              <svg className="h-[72px] w-[60px]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="text-[#d2d2d7]">
+              <svg className="h-12 w-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  strokeWidth={1.5}
-                  d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"
+                  strokeWidth={1}
+                  d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
                 />
               </svg>
             </div>
           )}
         </div>
-        {/* 위시리스트 버튼 */}
-        <button
-          onClick={handleWishlistToggle}
-          className="absolute bottom-2 right-2 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md transition-colors hover:bg-gray-50"
-        >
-          <Heart
-            className={`h-7 w-6 ${
-              isWishlisted ? 'fill-red-500 text-red-500' : 'text-gray-400'
-            }`}
-          />
-        </button>
       </div>
 
-      {/* 상품 정보 */}
-      <div className="flex flex-1 flex-col justify-between">
-        <div className="flex flex-col gap-1 pb-3">
-          {/* 상품명과 브랜드 카탈로그 배지 */}
+      {/* 상품 정보 영역 */}
+      <div className="flex flex-1 flex-col py-1">
+        <div className="flex flex-col gap-1.5">
           <div className="flex items-start justify-between gap-4">
-            <h3 className="min-w-[280px] text-lg font-bold text-[#111827]">
-              {product.name}
+            <h3 className="text-[19px] leading-tight font-semibold tracking-tight text-[#1d1d1f]">
+              {product.product_name}
             </h3>
-            <div className="rounded bg-[#F5F7F8] px-2 py-1">
-              <span className="text-xs font-bold text-[#16A34A]">브랜드 카탈로그</span>
-            </div>
-          </div>
-
-          {/* 가격 및 배송 정보 */}
-          <div className="flex items-center gap-2">
-            <span className="text-2xl font-bold text-[#111827]">
-              {product.price.toLocaleString()}원
+            <span className="flex-shrink-0 rounded-full bg-[#f5f5f7] px-2.5 py-0.5 text-[11px] font-bold tracking-wide text-[#86868b]">
+              {product.category}
             </span>
-            {product.freeShipping && (
-              <div className="flex items-center gap-1">
-                <Truck className="h-4 w-4 text-[#6B7280]" />
-                <span className="text-xs font-light text-[#6B7280]">무료배송</span>
-              </div>
-            )}
-            <div className="rounded border border-[#D1D5DB] px-2 py-1">
-              <span className="text-xs font-light text-[#6B7280]">
-                판매몰 {product.salesCount}
-              </span>
-            </div>
           </div>
 
-          {/* 카테고리 경로 */}
-          <div className="text-xs font-light text-[#6B7280]">
-            음향가전 &gt; 헤드폰 &gt; 무선 &gt; 블루투스헤드폰/헤드셋
-          </div>
-
-          {/* 스펙 정보 */}
-          <div className="h-[39px] overflow-hidden text-xs font-light leading-[19.5px] text-[#4B5563]">
-            {product.specs}
-          </div>
-
-          {/* 평점 및 기타 정보 */}
           <div className="flex items-center gap-3">
-            <div className="flex items-center gap-1">
-              <Star className="h-5 w-4 fill-[#EAB308] text-[#EAB308]" />
-              <span className="text-xs font-bold text-[#EAB308]">
-                {product.rating} ({product.reviewCount.toLocaleString()})
-              </span>
-            </div>
-            <div className="h-3 w-px bg-[#D1D5DB]" />
-            <span className="text-xs font-light text-[#6B7280]">찜 {product.salesCount}</span>
-            <div className="h-3 w-px bg-[#D1D5DB]" />
-            <span className="text-xs font-light text-[#6B7280]">
-              등록일 {product.registeredDate}
+            <span className="text-[21px] font-bold tracking-tight text-[#1d1d1f]">
+              {product.base_price.toLocaleString()}원
             </span>
+            <div className="flex items-center gap-1 rounded-md bg-[#f5f5f7] px-1.5 py-0.5">
+              <Truck className="h-3 w-3 text-[#86868b]" />
+              <span className="text-[11px] font-medium text-[#86868b]">무료배송</span>
+            </div>
+          </div>
+
+          <div className="text-[12px] font-medium tracking-tight text-[#86868b]">
+            {product.brand} · {product.category}
+          </div>
+
+          <p className="mt-1 line-clamp-2 text-[13px] leading-relaxed text-[#515154]">
+            {specsText}
+          </p>
+
+          <div className="mt-2 flex items-center gap-3">
+            <div className="flex items-center gap-0.5">
+              <Star className="h-3.5 w-3.5 fill-[#1d1d1f] text-[#1d1d1f]" />
+              <span className="text-[13px] font-bold text-[#1d1d1f]">4.5</span>
+              <span className="text-[13px] text-[#86868b]">(0)</span>
+            </div>
+            <div className="h-2.5 w-[1px] bg-[#d2d2d7]" />
+            <span className="text-[13px] text-[#86868b]">{product.mall_price.length}개 쇼핑몰</span>
           </div>
         </div>
       </div>
 
-      {/* 가격 비교 정보 */}
-      <div className="h-[171px] w-[256px] flex-shrink-0 border-l border-[#F3F4F6] pl-6 flex flex-col justify-center">
-        <div className="flex flex-col gap-2">
-          {/* 쿠팡 */}
+      {/* 가격 비교 (우측 섹션) */}
+      <div className="flex w-[220px] flex-shrink-0 flex-col justify-center border-l border-[#f5f5f7] pl-8">
+        <div className="space-y-3">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-bold text-[#2563EB]">쿠팡</span>
-            <span className="text-sm font-bold text-[#EF4444]">
-              {product.price.toLocaleString()}원
+            <span className="text-[12px] font-bold text-[#1d1d1f]">쿠팡</span>
+            <span className="text-[15px] font-bold text-[#ff3b30]">
+              {coupangPrice.toLocaleString()}원
             </span>
           </div>
-          {/* 11번가 */}
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <span className="text-xs font-light text-[#4B5563]">11번가</span>
-              <div className="rounded bg-[#DCFCE7] px-1 py-0.5">
-                <span className="text-[10px] font-bold text-[#15803D]">N pay+</span>
-              </div>
+          {eleventhPrice > 0 && (
+            <div className="flex items-center justify-between">
+              <span className="text-[12px] font-medium text-[#515154]">11번가</span>
+              <span className="text-[14px] font-semibold text-[#1d1d1f]">
+                {eleventhPrice.toLocaleString()}원
+              </span>
             </div>
-            <span className="text-sm font-light text-[#4B5563]">
-              {product.eleventhPrice.toLocaleString()}원
-            </span>
-          </div>
-          {/* G마켓 */}
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-light text-[#4B5563]">G마켓</span>
-            <span className="text-sm font-light text-[#4B5563]">
-              {product.timonPrice.toLocaleString()}원
-            </span>
-          </div>
+          )}
+          {gmarketPrice > 0 && (
+            <div className="flex items-center justify-between opacity-60">
+              <span className="text-[12px] font-medium text-[#515154]">G마켓</span>
+              <span className="text-[14px] font-medium text-[#1d1d1f]">
+                {gmarketPrice.toLocaleString()}원
+              </span>
+            </div>
+          )}
         </div>
       </div>
     </div>

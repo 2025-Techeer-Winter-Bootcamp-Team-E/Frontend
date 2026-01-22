@@ -1,10 +1,10 @@
 const QuestionHeader: React.FC<{ title: string; subtitle: string }> = ({ title, subtitle }) => {
   return (
-    <div className="flex flex-col items-center gap-3 text-center">
-      <span className="text-xs font-bold tracking-widest text-indigo-500 uppercase">
+    <div className="flex flex-col items-center gap-2 text-center">
+      <span className="text-[12px] font-bold tracking-[0.1em] text-[#0066cc] uppercase opacity-90">
         {subtitle}
       </span>
-      <h1 className="text-2xl leading-tight font-black tracking-tight text-gray-900 md:text-3xl">
+      <h1 className="text-[28px] leading-tight font-bold tracking-tight text-[#1d1d1f] md:text-[34px]">
         {title}
       </h1>
     </div>

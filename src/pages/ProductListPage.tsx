@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import Tabs from '@/components/productList/Tabs';
-import CheckboxFilter from '@/components/productList/CheckboxFilter';
 import PriceRangeFilter from '@/components/productList/PriceRangeFilter';
 import SortOptions from '@/components/productList/SortOptions';
 import ProductCard from '@/components/productList/ProductCard';
@@ -11,6 +10,8 @@ import useProductListQuery from '@/hooks/queries/useProductListQuery';
 const ProductListPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
+  // ✅ 검색어 상태 추가
+  const [searchQuery, setSearchQuery] = useState(searchParams.get('q') || '');
   const [activeTab, setActiveTab] = useState(searchParams.get('main_cat') || '');
   const [selectedBrands, setSelectedBrands] = useState<string[]>(
     searchParams.get('brand')?.split(',').filter(Boolean) || [],
@@ -21,6 +22,7 @@ const ProductListPage = () => {
   const [currentPage, setCurrentPage] = useState(Number(searchParams.get('page')) || 1);
 
   const queryParams = {
+    q: searchQuery || undefined, // ✅ 검색어 추가
     page: currentPage,
     page_size: 20,
     main_cat: activeTab || undefined,
@@ -33,9 +35,29 @@ const ProductListPage = () => {
 
   const { data, isLoading, isError } = useProductListQuery(queryParams);
 
+  // ✅ URL 파라미터가 변경되면 상태 업데이트
+  useEffect(() => {
+    const newSearchQuery = searchParams.get('q') || '';
+    const newMainCat = searchParams.get('main_cat') || '';
+    const newBrand = searchParams.get('brand')?.split(',').filter(Boolean) || [];
+    const newMinPrice = searchParams.get('min_price') || '';
+    const newMaxPrice = searchParams.get('max_price') || '';
+    const newSort = searchParams.get('sort') || 'popular';
+    const newPage = Number(searchParams.get('page')) || 1;
 
+    setSearchQuery(newSearchQuery);
+    setActiveTab(newMainCat);
+    setSelectedBrands(newBrand);
+    setPriceMin(newMinPrice);
+    setPriceMax(newMaxPrice);
+    setCurrentSort(newSort);
+    setCurrentPage(newPage);
+  }, [searchParams]);
+
+  // ✅ 상태가 변경되면 URL 업데이트
   useEffect(() => {
     const params: Record<string, string> = {};
+    if (searchQuery) params.q = searchQuery; // ✅ 검색어 추가
     if (activeTab) params.main_cat = activeTab;
     if (selectedBrands.length > 0) params.brand = selectedBrands.join(',');
     if (priceMin) params.min_price = priceMin;
@@ -43,8 +65,17 @@ const ProductListPage = () => {
     if (currentSort) params.sort = currentSort;
     if (currentPage > 1) params.page = String(currentPage);
 
-    setSearchParams(params);
-  }, [activeTab, selectedBrands, priceMin, priceMax, currentSort, currentPage]);
+    setSearchParams(params, { replace: true });
+  }, [
+    searchQuery,
+    activeTab,
+    selectedBrands,
+    priceMin,
+    priceMax,
+    currentSort,
+    currentPage,
+    setSearchParams,
+  ]);
 
   const handleBrandToggle = (brand: string) => {
     setSelectedBrands((prev) =>
@@ -67,22 +98,20 @@ const ProductListPage = () => {
     setCurrentPage(1);
   };
 
-  const handleWishlist = (productId: number, isAdded: boolean) => {
-    console.log(`상품 ${productId} 위시리스트 ${isAdded ? '추가' : '제거'}`);
-  };
-
   const tabs = [
-    { id: 'all', label: '전체' },
-    { id: 'notebook', label: '노트북' },
-    { id: 'desktop', label: '데스크톱' },
-    { id: 'monitor', label: '모니터' },
+    { id: '', label: '전체' },
+    { id: '디스플레이', label: '디스플레이' },
+    { id: '프로세서', label: '프로세서' },
+    { id: '그래픽카드', label: '그래픽카드' },
+    { id: '메모리', label: '메모리' },
+    { id: '스토리지', label: '스토리지' },
   ];
 
   const brandOptions = [
-    { value: 'apple', label: 'Apple' },
-    { value: 'samsung', label: 'Samsung' },
-    { value: 'lg', label: 'LG' },
-    { value: 'dell', label: 'Dell' },
+    { value: 'Apple', label: 'Apple' },
+    { value: 'Samsung', label: 'Samsung' },
+    { value: 'LG', label: 'LG' },
+    { value: 'Dell', label: 'Dell' },
   ];
 
   if (isLoading) {
@@ -105,12 +134,26 @@ const ProductListPage = () => {
     );
   }
 
-  const products = data || [];
-  const pagination = data?.pagination || { current_page: 1, total_pages: 1, count: 0, size: 20 };
+  const products = data?.products || [];
+  const pagination = data?.pagination || {
+    current_page: 1,
+    total_pages: 1,
+    count: 0,
+    size: 20,
+  };
 
   return (
     <div className="min-h-screen bg-[#F9FAFB] px-20 py-10">
       <div className="mx-auto max-w-7xl">
+        {/* ✅ 검색어 표시 추가 */}
+        {searchQuery && (
+          <div className="mb-6">
+            <p className="text-lg text-[#111827]">
+              '<span className="font-bold">{searchQuery}</span>' 검색 결과
+            </p>
+          </div>
+        )}
+
         <div className="mb-10 rounded-lg border border-[#E5E7EB] bg-white p-5.25">
           <div className="mb-4 flex items-start gap-4">
             <h3 className="min-w-20 py-1 pr-6 text-sm font-bold text-[#111827]">카테고리</h3>
@@ -118,18 +161,6 @@ const ProductListPage = () => {
           </div>
 
           <div className="mb-4 h-px border-t border-[#F3F4F6]" />
-
-          <div className="mb-4">
-            <CheckboxFilter
-              label="제조사"
-              options={brandOptions}
-              selectedOptions={selectedBrands}
-              onToggle={handleBrandToggle}
-            />
-          </div>
-
-          <div className="mb-4 h-px border-t border-[#F3F4F6]" />
-
           <PriceRangeFilter
             min={priceMin}
             max={priceMax}
@@ -148,33 +179,13 @@ const ProductListPage = () => {
         </div>
 
         <div className="mb-8 flex flex-col gap-4">
-          {products.map((product) => (
-            <ProductCard
-              key={product.product_code}
-              product={{
-                id: product.product_code,
-                name: product.product_name,
-                price: product.base_price,
-                originalPrice: null,
-                discount: null,
-                image: product.thumbnail_url,
-                freeShipping: true,
-                specs: Object.entries(product.specs)
-                  .map(([key, value]) => `${key}: ${value}`)
-                  .join(', '),
-                deliveryInfo: [],
-                rating: 4.5,
-                reviewCount: 0,
-                salesCount: product.mall_price?.length || 0,
-                registeredDate: '2024-01-01',
-                coupon: 0,
-                eleventhPrice:
-                  product.mall_price?.find((m) => m.mall_name === '11번가')?.price || 0,
-                timonPrice: product.mall_price?.find((m) => m.mall_name === 'G마켓')?.price || 0,
-              }}
-              onWishlist={handleWishlist}
-            />
-          ))}
+          {products.length > 0 ? (
+            products.map((product) => <ProductCard key={product.product_code} product={product} />)
+          ) : (
+            <div className="flex h-40 items-center justify-center rounded-lg bg-white">
+              <p className="text-[#6B7280]">검색 결과가 없습니다.</p>
+            </div>
+          )}
         </div>
 
         {pagination.total_pages > 1 && (

@@ -24,28 +24,15 @@ const LLMSearchResultPage = () => {
   );
 
   return (
-    <div className="min-h-screen bg-[#F8F9FB] pt-24 pb-20">
-      <div className="mx-auto max-w-5xl px-6">
-        {/* 상단 분석 요약 */}
-        <section className="animate-in fade-in slide-in-from-bottom-4 mb-12 duration-700">
+    <div className="min-h-screen bg-[#F5F5F7] pt-32 pb-24">
+      <div className="mx-auto max-w-[980px] px-6">
+        {/* 상단 분석 요약: 그림자 대신 미세한 보더와 투명도 활용 */}
+        <section className="animate-in fade-in slide-in-from-bottom-4 mb-16 duration-1000">
           <AIAnalysisSection analysis={transformedData.aiAnalysis} />
         </section>
 
         {/* 추천 리스트 섹션 */}
-        <section className="animate-in fade-in slide-in-from-bottom-6 mb-20 delay-200 duration-1000">
-          <div className="mb-10 flex items-end justify-between px-2">
-            <div>
-              <h2 className="text-3xl font-black tracking-tight text-gray-900">
-                Best Recommendations
-              </h2>
-              <p className="mt-2 font-medium text-gray-500">
-                AI가 엄선한 가장 가치 있는 선택지입니다.
-              </p>
-            </div>
-            <span className="text-sm font-bold text-indigo-600">
-              {transformedData.recommendations.length} Products Found
-            </span>
-          </div>
+        <section className="animate-in fade-in slide-in-from-bottom-6 mb-24 delay-200 duration-1000">
           <BestRecommendations recommendations={transformedData.recommendations} />
         </section>
 

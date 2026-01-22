@@ -15,70 +15,57 @@ interface FeaturedProductCardProps {
     };
   };
 }
-
 const FeaturedProductCard: React.FC<FeaturedProductCardProps> = ({ product }) => {
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex items-center gap-2">
-        <div className="scale-y-[-1]">
-          <Target className="w-6 h-7 text-[#0d9dda]" />
-        </div>
-        <h2 className="text-xl font-bold text-[#111827] leading-[28px]">최적 상품 추천</h2>
+      <div className="flex items-center gap-2 px-1">
+        <Target className="h-5 w-5 text-[#1d1d1f]" strokeWidth={2.5} />
+        <h2 className="text-[22px] font-bold tracking-tight text-[#1d1d1f]">최적 상품 추천</h2>
       </div>
-      <div className="bg-white border-2 border-[rgba(13,157,218,0.2)] rounded-2xl p-[34px] shadow-lg relative overflow-hidden">
-        {/* BEST CHOICE 배지 */}
-        <div className="absolute right-0 top-0">
-          <div className="bg-[#0d9dda] text-white text-xs font-bold px-4 py-[6px] rounded-bl-xl shadow-md">
+      <div className="relative overflow-hidden rounded-[28px] border border-[#d2d2d7]/40 bg-white p-10 shadow-[0_20px_40px_rgba(0,0,0,0.04)]">
+        <div className="absolute top-6 right-6">
+          <div className="rounded-full bg-[#F5F5F7] px-3 py-1 text-[11px] font-bold text-[#1d1d1f] ring-1 ring-black/[0.05]">
             {product.badge}
           </div>
         </div>
 
-        <div className="flex gap-8">
-          {/* 제품 이미지 */}
-          <div className="bg-[#f9fafb] rounded-xl w-[440px] h-[256px] flex items-center justify-center flex-shrink-0">
+        <div className="flex flex-col gap-12 lg:flex-row">
+          <div className="flex h-[280px] w-full flex-shrink-0 items-center justify-center rounded-[20px] bg-[#FBFBFB] ring-1 ring-black/[0.02] lg:w-[400px]">
             <img
               src={product.image}
               alt={product.name}
-              className="w-full h-full object-contain"
+              className="h-3/4 w-3/4 object-contain mix-blend-multiply"
             />
           </div>
 
-          {/* 제품 정보 */}
-          <div className="flex-1 flex flex-col justify-between py-[30px]">
-            <div className="flex flex-col gap-[4.5px]">
-              <p className="text-xs font-bold text-[#0d9dda] uppercase tracking-[0.6px] leading-[16px]">
+          <div className="flex flex-1 flex-col justify-between py-2">
+            <div>
+              <p className="mb-2 text-[12px] font-bold tracking-[0.05em] text-[#0066cc] uppercase">
                 {product.category}
               </p>
-              <h3 className="text-[30px] font-bold text-[#111827] leading-[36px] whitespace-pre-wrap">
+              <h3 className="mb-4 text-[32px] leading-tight font-bold tracking-tight text-[#1d1d1f]">
                 {product.name}
               </h3>
-              <div className="flex items-baseline gap-2 pt-[3.5px]">
-                <span className="text-2xl font-black text-[#0d9dda] leading-[32px]">
+              <div className="flex items-baseline gap-3">
+                <span className="text-[28px] font-bold tracking-tighter text-[#1d1d1f]">
                   {product.price}
                 </span>
-                <span className="text-sm font-light text-[#6b7280] leading-[20px] line-through">
+                <span className="text-[15px] font-medium text-[#86868b] line-through opacity-60">
                   {product.originalPrice}
                 </span>
               </div>
             </div>
 
-            {/* 추천 이유 */}
-            <div className="flex flex-col gap-[14px]">
+            <div className="mt-10 flex flex-col gap-5 border-t border-[#f5f5f7] pt-8">
               <div className="flex items-center gap-2">
-                <div className="scale-y-[-1]">
-                  <Sparkles className="w-6 h-7 text-[#0d9dda]" />
-                </div>
-                <p className="text-sm font-bold text-[#111827] leading-[20px]">
-                  {product.reasons.title}
-                </p>
+                <Sparkles className="h-4 w-4 text-[#1d1d1f]" />
+                <p className="text-[15px] font-bold text-[#1d1d1f]">{product.reasons.title}</p>
               </div>
-              <div className="flex flex-col gap-2">
+              <div className="grid grid-cols-1 gap-3">
                 {product.reasons.items.map((item, index) => (
-                  <div key={index} className="flex items-start gap-2">
-                    <span className="text-xs font-light text-[#0d9dda] leading-[16px] pt-1">
-                      ●
-                    </span>
-                    <p className="text-sm font-light text-[#6b7280] leading-[20px]">{item}</p>
+                  <div key={index} className="flex items-start gap-3">
+                    <div className="mt-2 h-1 w-1 flex-shrink-0 rounded-full bg-[#d2d2d7]" />
+                    <p className="text-[14px] leading-relaxed font-medium text-[#424245]">{item}</p>
                   </div>
                 ))}
               </div>

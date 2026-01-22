@@ -66,6 +66,19 @@ const MainSearchBar = () => {
 
     const searchType = OPTION_TO_TYPE[selectedOption];
 
+    // ✅ 통합 검색: 상품 리스트 페이지로 이동
+    if (searchType === 'unified') {
+      navigate(`${PATH.PRODUCT_LIST}?q=${encodeURIComponent(query)}`);
+      return;
+    }
+
+    // LLM 검색
+    if (searchType === 'llm') {
+      navigate(`${PATH.LLM_SEARCH_RESULT}?q=${encodeURIComponent(query)}`);
+      return;
+    }
+
+    // 쇼핑 리서치
     if (searchType === 'shopping-research') {
       shoppingResearchMutation.mutate(
         { user_query: query },
@@ -84,16 +97,6 @@ const MainSearchBar = () => {
           },
         },
       );
-      return;
-    }
-
-    if (searchType === 'llm') {
-      navigate(`${PATH.LLM_SEARCH_RESULT}?q=${encodeURIComponent(query)}`);
-      return;
-    }
-
-    if (searchType === 'unified') {
-      console.log('통합 검색:', query);
     }
   };
 
@@ -141,13 +144,20 @@ const MainSearchBar = () => {
         <textarea
           value={query}
           onChange={(e) => setQuery(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+              e.preventDefault();
+              handleSearch();
+            }
+          }}
           placeholder={`${displayedText}|`}
           className="h-36 resize-none bg-transparent text-3xl outline-none"
         />
 
         <button
           onClick={handleSearch}
-          className="flex h-12 w-12 items-center justify-center self-end rounded-full bg-black text-white"
+          disabled={!query.trim()}
+          className="flex h-12 w-12 items-center justify-center self-end rounded-full bg-black text-white transition-opacity disabled:opacity-50"
         >
           <Search />
         </button>

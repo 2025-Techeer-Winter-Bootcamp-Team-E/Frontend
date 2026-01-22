@@ -37,9 +37,8 @@ const ProductDetailPage = () => {
 
   return (
     <div className="min-h-screen bg-[#f5f5f7] selection:bg-black/10">
-      <div className="mx-auto max-w-[1200px] px-6 py-12">
+      <div className="mx-auto max-w-300 px-6 py-12">
         {/* 1. Hero Section: 이미지와 제품명에만 집중 (매우 클린하게) */}
-        // ProductDetailPage.tsx의 Hero Section 부분
         <div className="mb-8 flex flex-col gap-12 lg:flex-row lg:items-start lg:justify-between">
           {/* 왼쪽: 제품 갤러리 */}
           <div className="lg:w-[55%]">

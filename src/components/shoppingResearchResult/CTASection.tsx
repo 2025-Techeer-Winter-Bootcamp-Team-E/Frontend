@@ -3,33 +3,19 @@ import { RefreshCw } from 'lucide-react';
 
 interface CTASectionProps {
   buttonText: string;
-  inputPrompt: string;
   onRetry?: () => void;
 }
 
-const CTASection: React.FC<CTASectionProps> = ({ buttonText, inputPrompt, onRetry }) => {
+const CTASection: React.FC<CTASectionProps> = ({ buttonText, onRetry }) => {
   return (
-    <div className="border-t border-[#f3f4f6] pt-[33px] flex flex-col gap-8 items-center">
+    <div className="mt-12 flex flex-col items-center gap-12 border-t border-[#f5f5f7] pt-16">
       <button
         onClick={onRetry}
-        className="bg-[#0d9dda] text-white font-bold px-10 py-[14px] rounded-full shadow-lg hover:bg-[#0b8bc4] transition-colors flex items-center gap-2"
+        className="flex items-center gap-3 rounded-full bg-[#1d1d1f] px-12 py-4 font-bold text-white shadow-md transition-all hover:bg-black active:scale-95"
       >
-        <div className="scale-y-[-1]">
-          <RefreshCw className="w-6 h-7" />
-        </div>
-        <span className="text-base leading-[24px]">{buttonText}</span>
+        <RefreshCw className="h-4 w-4" strokeWidth={3} />
+        <span className="text-[17px] tracking-tight">{buttonText}</span>
       </button>
-
-      <div className="max-w-[768px] w-full flex flex-col gap-3">
-        <p className="text-xs font-medium text-[#6b7280] uppercase tracking-[1.2px] text-center leading-[16px]">
-          Input Prompt
-        </p>
-        <div className="bg-[#f3f4f6] border border-[#e5e7eb] rounded-xl p-[17px]">
-          <p className="text-sm font-normal text-[#4b5563] leading-[20px] whitespace-pre-wrap">
-            {inputPrompt}
-          </p>
-        </div>
-      </div>
     </div>
   );
 };

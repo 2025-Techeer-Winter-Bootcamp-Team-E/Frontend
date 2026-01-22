@@ -7,12 +7,12 @@ interface SubCategory {
 }
 
 interface Props {
-  mainCategoryId: string;
+  mainCategoryName: string;
   subCategories: SubCategory[];
-  onClose: () => void; // 닫기 요청 함수 추가
+  onClose: () => void;
 }
 
-const SubCategoryDropdown = ({ mainCategoryId, subCategories, onClose }: Props) => {
+const SubCategoryDropdown = ({ mainCategoryName, subCategories, onClose }: Props) => {
   return (
     <div className="animate-in fade-in slide-in-from-top-4 absolute inset-x-0 top-[48px] z-50 w-full duration-300">
       <div className="border-b border-black/[0.05] bg-white/85 shadow-[0_40px_80px_rgba(0,0,0,0.06)] backdrop-blur-[32px]">
@@ -21,7 +21,7 @@ const SubCategoryDropdown = ({ mainCategoryId, subCategories, onClose }: Props) 
             {subCategories.map((sub) => (
               <li key={sub.id}>
                 <Link
-                  to={`${PATH.PRODUCT_LIST}?main_cat=${mainCategoryId}&sub_cat=${sub.id}`}
+                  to={`${PATH.PRODUCT_LIST}?main_cat=${mainCategoryName}&sub_cat=${sub.name}`}
                   onClick={onClose}
                   className="group block py-1"
                 >
@@ -35,7 +35,15 @@ const SubCategoryDropdown = ({ mainCategoryId, subCategories, onClose }: Props) 
         </div>
       </div>
 
-      <div className="h-screen w-full bg-black/[0.1] backdrop-blur-[2px]" onClick={onClose} />
+      <div
+        className="h-screen w-full cursor-pointer bg-black/[0.1] backdrop-blur-[2px]"
+        onClick={onClose}
+        onMouseEnter={onClose}
+        onFocus={onClose}
+        role="button"
+        tabIndex={0}
+        aria-label="드롭다운 닫기"
+      />
     </div>
   );
 };

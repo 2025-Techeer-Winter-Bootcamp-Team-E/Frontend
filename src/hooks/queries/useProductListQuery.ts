@@ -14,7 +14,7 @@ const useProductListQuery = (params: ProductsListParams) => {
       brand: params.brand,
       min_price: params.min_price,
       max_price: params.max_price,
-      sort: params.sort,
+      sort: params.sort ?? 'popular',
     }),
     queryFn: () => getProductsList(params),
     placeholderData: (previousData) => previousData,

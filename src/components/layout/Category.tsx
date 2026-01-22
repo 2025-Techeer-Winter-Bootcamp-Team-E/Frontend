@@ -14,11 +14,10 @@ const Category = () => {
           key={item.id}
           className="flex h-12 items-center"
           onMouseEnter={() => setHoveredId(item.id)}
-          // 2. 하단 SubCategoryDropdown 영역까지 마우스가 자연스럽게 이어지도록 처리
           onMouseLeave={() => setHoveredId(null)}
         >
           <Link
-            to={`${PATH.PRODUCT_LIST}?main_cat=${item.id}`}
+            to={`${PATH.PRODUCT_LIST}?main_cat=${item.name}`}
             onClick={() => setHoveredId(null)}
             className={`relative text-[12px] font-medium tracking-tight transition-all duration-300 ${
               hoveredId === item.id ? 'text-[#1d1d1f]' : 'text-[#1d1d1f]/60'
@@ -34,7 +33,7 @@ const Category = () => {
 
           {hoveredId === item.id && item.subCategories?.length > 0 && (
             <SubCategoryDropdown
-              mainCategoryId={item.id}
+              mainCategoryName={item.name}
               subCategories={item.subCategories}
               onClose={() => setHoveredId(null)} // 닫기 함수 전달
             />

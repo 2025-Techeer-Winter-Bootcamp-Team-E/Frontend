@@ -74,7 +74,7 @@ const Header: React.FC = () => {
               {CATEGORY.map((item) => (
                 <a
                   key={item.id}
-                  href="#"
+                  href={`${PATH.PRODUCT_LIST}?main_cat=${item.name}`}
                   className="text-[15px] font-medium text-gray-600 active:text-indigo-600"
                   onClick={() => setIsMobileNavOpen(false)}
                 >

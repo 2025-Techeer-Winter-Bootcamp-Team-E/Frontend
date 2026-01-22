@@ -7,7 +7,7 @@ export const myPageAllTImerPaging = {
       current_page: 0,
       page_size: 10,
       total_elements: 5,
-      total_pages: 1,
+      total_pages: 2,
       is_last: true,
     },
     timers: [

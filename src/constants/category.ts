@@ -5,21 +5,15 @@ export const CATEGORY = [
     subCategories: [
       { id: 'lg-gram', name: 'LG 그램' },
       { id: 'samsung-galaxybook', name: '삼성 갤럭시북' },
-      { id: 'gaming-laptop', name: '게이밍 노트북' },
       { id: 'macbook', name: 'Apple 맥북' },
-      { id: 'ultrabook', name: '울트라북' },
-      { id: 'normal-laptop', name: '일반 노트북' },
     ],
   },
   {
     id: 'desktop',
     name: '데스크탑',
     subCategories: [
-      { id: 'brand-pc', name: '브랜드PC' },
-      { id: 'mini-pc', name: '미니PC' },
-      { id: 'gaming-pc', name: '게이밍PC' },
-      { id: 'all-in-one', name: '올인원PC' },
-      { id: 'assembled-pc', name: '조립PC' },
+      { id: 'brand-pc', name: '브랜드 PC' },
+      { id: 'assembled-pc', name: '조립 PC' },
     ],
   },
   {
@@ -36,11 +30,7 @@ export const CATEGORY = [
   {
     id: 'monitor',
     name: '모니터',
-    subCategories: [
-      { id: '4k-monitor', name: '4K 모니터' },
-      { id: 'gaming-monitor', name: '게이밍 모니터' },
-      { id: 'normal-monitor', name: '일반 모니터' },
-    ],
+    subCategories: [],
   },
   {
     id: 'peripherals',

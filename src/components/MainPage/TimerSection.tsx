@@ -1,5 +1,5 @@
 import React from 'react';
-import { TrendingDown, BellRing, Clock } from 'lucide-react';
+import { TrendingDown } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const TimerSection: React.FC = () => {
@@ -14,17 +14,11 @@ const TimerSection: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <div className="mb-6 inline-flex items-center justify-center gap-2 text-sm font-bold tracking-widest text-gray-400 uppercase">
-              <Clock className="h-4 w-4" />
-              <span>Market Dynamics</span>
-            </div>
-            <h2 className="mb-8 text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
+            <h2 className="mb-8 flex flex-col gap-6 text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
               타이밍이 전부입니다.
-              <br />
               <span className="text-gray-400">AI가 그 순간을 포착합니다.</span>
             </h2>
             <p className="text-xl leading-relaxed font-medium text-gray-500">
-              24시간 모니터링되는 가격 변동 데이터. <br className="hidden sm:block" />
               가장 합리적인 구매 시점, '골든 타임'을 놓치지 마세요.
             </p>
           </motion.div>
@@ -46,10 +40,6 @@ const TimerSection: React.FC = () => {
                   <div className="flex items-center gap-2 rounded-full bg-red-50 px-4 py-2 text-sm font-bold text-red-500">
                     <TrendingDown className="h-4 w-4" />
                     <span>가격 하락 감지</span>
-                  </div>
-                  <div className="flex items-center gap-2 rounded-full bg-gray-100 px-4 py-2 text-sm font-bold text-gray-500">
-                    <BellRing className="h-4 w-4" />
-                    <span>알림 발송됨</span>
                   </div>
                 </div>
                 <div className="text-right">

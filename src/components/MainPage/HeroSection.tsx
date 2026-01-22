@@ -36,8 +36,8 @@ const HeroSection: React.FC = () => {
           transition={{ delay: 0.5, duration: 1 }}
         >
           <p className="mx-auto mt-10 max-w-2xl text-[19px] leading-relaxed font-medium text-[#86868b] md:text-[21px]">
-            AI가 설계하는 완전히 새로운 쇼핑 경험. <br className="hidden md:block" />
-            <span className="text-[#1d1d1f]/80">데이터에 기반한 압도적인 분석을 만나보세요.</span>
+            찾던 상품, 그 이상의 발견. <br className="hidden md:block" />
+            <span className="text-[#1d1d1f]/80">당신의 키워드에서 최적의 선택을 찾아보세요.</span>
           </p>
         </motion.div>
       </div>

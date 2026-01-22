@@ -19,13 +19,10 @@ const CTASection: React.FC = () => {
             </span>
           </h2>
           <p className="mb-12 text-xl font-medium text-gray-400">
-            COMPARE의 프리미엄 AI 분석과 함께<br /> 
+            COMPARE의 프리미엄 AI 분석과 함께
+            <br />
             웰컴 토큰 혜택을 즉시 확인해보세요.
           </p>
-          
-          <button className="rounded-full bg-white px-10 py-4 text-lg font-bold text-black transition-transform hover:scale-105 active:scale-95">
-             무료로 시작하기
-          </button>
         </motion.div>
       </div>
     </section>

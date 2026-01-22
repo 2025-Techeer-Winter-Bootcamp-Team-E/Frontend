@@ -29,7 +29,7 @@ const ProductDetailPage = () => {
   const handleOpenModal = () => setIsModalOpen(true);
   const handleCloseModal = () => setIsModalOpen(false);
 
-  const handleSubmitTimer = (data: { product_id: number; target_price: number }) => {
+  const handleSubmitTimer = (data: { product_code: number; target_price: number }) => {
     postTimerMutate.mutate(data, {
       onSuccess: () => setIsModalOpen(false),
     });

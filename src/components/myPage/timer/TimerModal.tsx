@@ -34,7 +34,7 @@ const TimerModal = ({
     }
 
     onSubmit({
-      product_id: productId,
+      product_code: productId,
       target_price: price,
     });
   };

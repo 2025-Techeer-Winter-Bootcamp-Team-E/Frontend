@@ -9,7 +9,7 @@ const useTimerPostMutation = () => {
     mutationFn: (body: TimerPostReqDto) => postPricePrediction(body),
     onSuccess: (_data, variables) => {
       queryClient.invalidateQueries({
-        queryKey: QUERY_KEY.TIMER_PRODUCT_ID(variables.product_id),
+        queryKey: QUERY_KEY.TIMER_PRODUCT_ID(variables.product_code),
       });
       queryClient.invalidateQueries({
         queryKey: QUERY_KEY.TIMER_MYPAGE,

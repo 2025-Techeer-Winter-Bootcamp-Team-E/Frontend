@@ -10,7 +10,8 @@ const LLMSearchResultPage = () => {
 
   useEffect(() => {
     if (keyword) mutate({ user_query: keyword });
-  }, [keyword, mutate]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [keyword]);
 
   const transformedData = useMemo(
     () => ({

@@ -25,7 +25,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         {/* 이미지 섹션: 배경색을 미세하게 조정 */}
         <div className="relative h-64 w-full shrink-0 bg-[#FBFBFB] p-10 md:w-80">
           <img
-            src={product.product_image_url}
+            src={product.thumbnail_url}
             alt={product.product_name}
             className="h-full w-full object-contain mix-blend-multiply transition-transform duration-700 group-hover:scale-105"
           />

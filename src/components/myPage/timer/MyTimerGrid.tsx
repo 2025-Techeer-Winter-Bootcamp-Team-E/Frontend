@@ -6,8 +6,9 @@ import { RefreshCw } from 'lucide-react';
 
 const MyTimerGrid = () => {
   const [currentPage, setCurrentPage] = useState(1);
+  const userId = Number(localStorage.getItem('user_id'));
 
-  const { data } = useTimerAllGetQuery(101, currentPage, 6);
+  const { data } = useTimerAllGetQuery(userId, currentPage, 6);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);

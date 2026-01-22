@@ -3,7 +3,7 @@
  * POST /timers
  */
 export type TimerPostReqDto = {
-  product_id: number;
+  product_code: number;
   target_price: number;
 };
 

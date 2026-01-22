@@ -34,7 +34,7 @@ const BestRecommendations: React.FC<BestRecommendationsProps> = ({ recommendatio
       <div className="flex flex-col gap-6">
         {recommendations.map((product, index) => (
           <div
-            key={product.product_id}
+            key={product.product_code}
             className="animate-in fade-in slide-in-from-bottom-8 fill-mode-both duration-1000"
             style={{ animationDelay: `${index * 150}ms` }}
           >

@@ -1,27 +1,45 @@
+import { useState } from 'react';
+import { Link } from 'react-router-dom'; // useLocation 추가
+import { CATEGORY } from '@/constants/category';
 import { PATH } from '@/routes/path';
-import { Link } from 'react-router-dom';
-
-export const CATEGORY_ITEMS = [
-  '디스플레이',
-  '프로세서',
-  '그래픽카드',
-  '메모리',
-  '스토리지',
-  '파워서플라이',
-  '케이스',
-];
+import SubCategoryDropdown from './SubCategoryDropdown';
 
 const Category = () => {
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
+
   return (
-    <nav className="hidden items-center justify-center space-x-8 md:flex">
-      {CATEGORY_ITEMS.map((item) => (
-        <Link
-          key={item}
-          to={`${PATH.PRODUCT_LIST}?main_cat=${encodeURIComponent(item)}`}
-          className="relative text-[12px] font-normal tracking-tight text-[#1d1d1f]/80 transition-all duration-300 hover:text-[#1d1d1f]"
+    <nav className="static hidden items-center justify-center space-x-12 md:flex">
+      {CATEGORY.map((item) => (
+        <div
+          key={item.id}
+          className="flex h-12 items-center"
+          onMouseEnter={() => setHoveredId(item.id)}
+          // 2. 하단 SubCategoryDropdown 영역까지 마우스가 자연스럽게 이어지도록 처리
+          onMouseLeave={() => setHoveredId(null)}
         >
-          {item}
-        </Link>
+          <Link
+            to={`${PATH.PRODUCT_LIST}?main_cat=${item.id}`}
+            onClick={() => setHoveredId(null)}
+            className={`relative text-[12px] font-medium tracking-tight transition-all duration-300 ${
+              hoveredId === item.id ? 'text-[#1d1d1f]' : 'text-[#1d1d1f]/60'
+            }`}
+          >
+            {item.name}
+            <span
+              className={`absolute -bottom-1 left-0 h-[1.5px] bg-[#1d1d1f] transition-all duration-300 ${
+                hoveredId === item.id ? 'w-full opacity-100' : 'w-0 opacity-0'
+              }`}
+            />
+          </Link>
+
+          {hoveredId === item.id && item.subCategories?.length > 0 && (
+            <SubCategoryDropdown
+              mainCategoryId={item.id}
+              subCategories={item.subCategories}
+              onClose={() => setHoveredId(null)} // 닫기 함수 전달
+            />
+          )}
+        </div>
       ))}
     </nav>
   );

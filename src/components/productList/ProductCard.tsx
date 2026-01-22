@@ -1,5 +1,7 @@
+import { PATH } from '@/routes/path';
 import type { MallPrices, ProductSpecs } from '@/types/searchType';
 import { Star, Truck } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 interface ProductCardProps {
   product: {
@@ -15,23 +17,20 @@ interface ProductCardProps {
 }
 
 const ProductCard = ({ product }: ProductCardProps) => {
-  // 쇼핑몰별 가격 추출 헬퍼 함수
-  const getMallPrice = (mallName: string) => {
-    return product.mall_price.find((m) => m.mall_name === mallName)?.price || 0;
-  };
+  const navigate = useNavigate();
+
+  const sortedMallPrices = [...product.mall_price].sort((a, b) => a.price - b.price);
 
   // 스펙을 문자열로 변환
   const specsText = Object.entries(product.specs)
     .map(([key, value]) => `${key}: ${value}`)
     .join(' · ');
 
-  // 쇼핑몰별 가격
-  const coupangPrice = getMallPrice('쿠팡') || product.base_price;
-  const eleventhPrice = getMallPrice('11번가');
-  const gmarketPrice = getMallPrice('G마켓');
-
   return (
-    <div className="group flex gap-8 rounded-[24px] border border-black/[0.05] bg-white p-6 transition-all hover:shadow-[0_20px_40px_rgba(0,0,0,0.04)]">
+    <div
+      onClick={() => navigate(`${PATH.PRODUCT_DETAIL(product.product_code)}`)}
+      className="group flex gap-8 rounded-[24px] border border-black/[0.05] bg-white p-6 transition-all hover:shadow-[0_20px_40px_rgba(0,0,0,0.04)]"
+    >
       {/* 상품 이미지 영역 */}
       <div className="relative h-[180px] w-[180px] flex-shrink-0">
         <div className="flex h-full w-full items-center justify-center overflow-hidden rounded-[18px] bg-[#f5f5f7]">
@@ -101,28 +100,34 @@ const ProductCard = ({ product }: ProductCardProps) => {
       {/* 가격 비교 (우측 섹션) */}
       <div className="flex w-[220px] flex-shrink-0 flex-col justify-center border-l border-[#f5f5f7] pl-8">
         <div className="space-y-3">
-          <div className="flex items-center justify-between">
-            <span className="text-[12px] font-bold text-[#1d1d1f]">쿠팡</span>
-            <span className="text-[15px] font-bold text-[#ff3b30]">
-              {coupangPrice.toLocaleString()}원
-            </span>
-          </div>
-          {eleventhPrice > 0 && (
-            <div className="flex items-center justify-between">
-              <span className="text-[12px] font-medium text-[#515154]">11번가</span>
-              <span className="text-[14px] font-semibold text-[#1d1d1f]">
-                {eleventhPrice.toLocaleString()}원
-              </span>
-            </div>
-          )}
-          {gmarketPrice > 0 && (
-            <div className="flex items-center justify-between opacity-60">
-              <span className="text-[12px] font-medium text-[#515154]">G마켓</span>
-              <span className="text-[14px] font-medium text-[#1d1d1f]">
-                {gmarketPrice.toLocaleString()}원
-              </span>
-            </div>
-          )}
+          {sortedMallPrices.map((mall, index) => {
+            const isBestPrice = index === 0;
+
+            return (
+              <div
+                key={mall.mall_name}
+                className={`flex items-center justify-between ${isBestPrice ? '' : 'opacity-70'}`}
+              >
+                <span
+                  className={`text-[12px] ${
+                    isBestPrice ? 'font-bold text-[#1d1d1f]' : 'font-medium text-[#515154]'
+                  }`}
+                >
+                  {mall.mall_name}
+                </span>
+
+                <span
+                  className={`${
+                    isBestPrice
+                      ? 'text-[15px] font-bold text-[#ff3b30]'
+                      : 'text-[14px] font-medium text-[#1d1d1f]'
+                  }`}
+                >
+                  {mall.price.toLocaleString()}원
+                </span>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

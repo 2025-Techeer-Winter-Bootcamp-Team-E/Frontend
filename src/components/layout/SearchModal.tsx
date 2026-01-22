@@ -73,12 +73,15 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose, initialType 
   const popularSearches = popularData?.popular_terms.map((item) => item.term) || [];
   const suggestions = autoCompleteData?.suggestions || [];
 
-  const handleSearch = (query: string = keyword) => {
+  // ✅ 검색 실행 (선택된 타입에 따라)
+  const handleSearch = (
+    query: string = keyword,
+    searchType: SearchType['id'] = selectedType.id,
+  ) => {
     if (!query.trim()) return;
 
-    switch (selectedType.id) {
+    switch (searchType) {
       case 'unified':
-        // ✅ 통합검색: 상품 리스트 페이지로 이동 (검색어를 q 파라미터로 전달)
         navigate(`${PATH.PRODUCT_LIST}?q=${encodeURIComponent(query)}`);
         break;
 
@@ -103,9 +106,13 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose, initialType 
     onClose();
   };
 
+  // ✅ 최근/인기 검색어 클릭 시 통합검색으로 이동
+  const handleQuickSearch = (query: string) => {
+    handleSearch(query, 'unified');
+  };
+
   const showAutocomplete = keyword.trim().length > 0 && suggestions.length > 0;
 
-  // --- Portal용 컨텐츠 정의 ---
   const modalContent = (
     <div
       className={`fixed inset-0 z-[9999] transition-all duration-500 ${
@@ -199,7 +206,7 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose, initialType 
                 </div>
               ) : (
                 <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-                  {/* 최근 검색어 */}
+                  {/* 최근 검색어 - ✅ 통합검색으로 이동 */}
                   <div>
                     <p className="mb-4 px-3 text-[11px] font-bold tracking-wider text-[#86868b] uppercase">
                       Recent Searches
@@ -212,13 +219,16 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose, initialType 
                             className="group flex items-center justify-between rounded-xl px-3 py-2 hover:bg-black/5"
                           >
                             <button
-                              onClick={() => handleSearch(item.term)}
+                              onClick={() => handleQuickSearch(item.term)}
                               className="flex-1 text-left text-[14px] font-medium text-[#1d1d1f]"
                             >
                               {item.term}
                             </button>
                             <button
-                              onClick={() => deleteRecent(item.id)}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                deleteRecent(item.id);
+                              }}
                               className="opacity-0 transition-opacity group-hover:opacity-100"
                             >
                               <X className="h-3.5 w-3.5 text-[#86868b]" />
@@ -231,7 +241,7 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose, initialType 
                     </div>
                   </div>
 
-                  {/* 인기 검색어 */}
+                  {/* 인기 검색어 - ✅ 통합검색으로 이동 */}
                   <div>
                     <p className="mb-4 px-3 text-[11px] font-bold tracking-wider text-[#86868b] uppercase">
                       Trending Now
@@ -240,7 +250,7 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose, initialType 
                       {popularSearches.map((search, index) => (
                         <button
                           key={index}
-                          onClick={() => handleSearch(search)}
+                          onClick={() => handleQuickSearch(search)}
                           className="group flex w-full items-center gap-4 rounded-xl px-3 py-2 hover:bg-black/5"
                         >
                           <span className="w-4 text-[13px] font-bold text-[#d2d2d7]">

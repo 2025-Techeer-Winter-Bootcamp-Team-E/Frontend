@@ -10,6 +10,7 @@ export const API = {
 
   TIMERS: `/timers`,
   TIMERS_ID: (timer_id: number) => `/timers/${timer_id}`,
+  TIMERS_PRODUCT_CODE: (product_code: number) => `/timers/${product_code}`,
 
   PRODUCTS: `/products`,
   PRODUCTS_CODE: (product_code: number) => `/products/${product_code}`,

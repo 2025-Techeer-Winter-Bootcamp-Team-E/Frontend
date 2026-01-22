@@ -22,7 +22,7 @@ export const postPricePrediction = async (body: TimerPostReqDto) => {
 export const getTimersByProductId = async (product_code: number) => {
   return await getAPIResponseData<TimersIdGetResDto, null>({
     method: 'GET',
-    url: API.TIMERS,
+    url: API.TIMERS_PRODUCT_CODE(product_code),
     params: { product_code },
   });
 };

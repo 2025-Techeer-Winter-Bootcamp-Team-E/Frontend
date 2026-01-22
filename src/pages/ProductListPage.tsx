@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import Tabs from '@/components/productList/Tabs';
 import PriceRangeFilter from '@/components/productList/PriceRangeFilter';
@@ -6,28 +6,43 @@ import SortOptions from '@/components/productList/SortOptions';
 import ProductCard from '@/components/productList/ProductCard';
 import Pagination from '@/components/productList/Pagination';
 import useProductListQuery from '@/hooks/queries/useProductListQuery';
+import { CATEGORY } from '@/constants/category';
 
 const ProductListPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  // ✅ 검색어 상태 추가
+  /** URL 기반 값 */
+  const mainCat = searchParams.get('main_cat') || '';
+  const subCat = searchParams.get('sub_cat') || '';
+
+  /** 로컬 상태 */
   const [searchQuery, setSearchQuery] = useState(searchParams.get('q') || '');
-  const [activeTab, setActiveTab] = useState(searchParams.get('main_cat') || '');
-  const [selectedBrands, setSelectedBrands] = useState<string[]>(
-    searchParams.get('brand')?.split(',').filter(Boolean) || [],
-  );
   const [priceMin, setPriceMin] = useState(searchParams.get('min_price') || '');
   const [priceMax, setPriceMax] = useState(searchParams.get('max_price') || '');
   const [currentSort, setCurrentSort] = useState(searchParams.get('sort') || 'popular');
   const [currentPage, setCurrentPage] = useState(Number(searchParams.get('page')) || 1);
 
+  /** ✅ 서브 카테고리 Tabs (전체 포함) */
+  const subCategoryTabs = useMemo(() => {
+    const category = CATEGORY.find((c) => c.id === mainCat);
+    if (!category) return [];
+
+    return [
+      { id: 'all', label: '전체' },
+      ...category.subCategories.map((sub) => ({
+        id: sub.id,
+        label: sub.name,
+      })),
+    ];
+  }, [mainCat]);
+
+  /** API Query Params */
   const queryParams = {
-    q: searchQuery || undefined, // ✅ 검색어 추가
+    q: searchQuery || undefined,
     page: currentPage,
     page_size: 20,
-    main_cat: activeTab || undefined,
-    sub_cat: searchParams.get('sub_cat') || undefined,
-    brand: selectedBrands.length > 0 ? selectedBrands.join(',') : undefined,
+    main_cat: mainCat || undefined,
+    sub_cat: subCat || undefined,
     min_price: priceMin ? Number(priceMin) : undefined,
     max_price: priceMax ? Number(priceMax) : undefined,
     sort: currentSort as 'price_low' | 'price_high' | 'popular',
@@ -35,160 +50,94 @@ const ProductListPage = () => {
 
   const { data, isLoading, isError } = useProductListQuery(queryParams);
 
-  // ✅ URL 파라미터가 변경되면 상태 업데이트
+  /** URL → 상태 동기화 */
   useEffect(() => {
-    const newSearchQuery = searchParams.get('q') || '';
-    const newMainCat = searchParams.get('main_cat') || '';
-    const newBrand = searchParams.get('brand')?.split(',').filter(Boolean) || [];
-    const newMinPrice = searchParams.get('min_price') || '';
-    const newMaxPrice = searchParams.get('max_price') || '';
-    const newSort = searchParams.get('sort') || 'popular';
-    const newPage = Number(searchParams.get('page')) || 1;
-
-    setSearchQuery(newSearchQuery);
-    setActiveTab(newMainCat);
-    setSelectedBrands(newBrand);
-    setPriceMin(newMinPrice);
-    setPriceMax(newMaxPrice);
-    setCurrentSort(newSort);
-    setCurrentPage(newPage);
+    setSearchQuery(searchParams.get('q') || '');
+    setPriceMin(searchParams.get('min_price') || '');
+    setPriceMax(searchParams.get('max_price') || '');
+    setCurrentSort(searchParams.get('sort') || 'popular');
+    setCurrentPage(Number(searchParams.get('page')) || 1);
   }, [searchParams]);
 
-  // ✅ 상태가 변경되면 URL 업데이트
-  useEffect(() => {
-    const params: Record<string, string> = {};
-    if (searchQuery) params.q = searchQuery; // ✅ 검색어 추가
-    if (activeTab) params.main_cat = activeTab;
-    if (selectedBrands.length > 0) params.brand = selectedBrands.join(',');
-    if (priceMin) params.min_price = priceMin;
-    if (priceMax) params.max_price = priceMax;
-    if (currentSort) params.sort = currentSort;
-    if (currentPage > 1) params.page = String(currentPage);
+  /** ✅ 서브 카테고리 변경 */
+  const handleSubCategoryChange = (tabId: string) => {
+    const params = Object.fromEntries(searchParams.entries());
 
-    setSearchParams(params, { replace: true });
-  }, [
-    searchQuery,
-    activeTab,
-    selectedBrands,
-    priceMin,
-    priceMax,
-    currentSort,
-    currentPage,
-    setSearchParams,
-  ]);
+    if (tabId === 'all') {
+      delete params.sub_cat; // ⭐ 핵심
+    } else {
+      params.sub_cat = tabId;
+    }
 
-  const handleBrandToggle = (brand: string) => {
-    setSelectedBrands((prev) =>
-      prev.includes(brand) ? prev.filter((b) => b !== brand) : [...prev, brand],
+    setSearchParams(
+      {
+        ...params,
+        page: '1',
+      },
+      { replace: true },
     );
-    setCurrentPage(1);
   };
 
-  const handlePriceApply = () => {
-    setCurrentPage(1);
-  };
-
-  const handleTabChange = (tabId: string) => {
-    setActiveTab(tabId);
-    setCurrentPage(1);
-  };
+  const handlePriceApply = () => setCurrentPage(1);
 
   const handleSortChange = (sort: string) => {
     setCurrentSort(sort);
     setCurrentPage(1);
   };
 
-  const tabs = [
-    { id: '', label: '전체' },
-    { id: '디스플레이', label: '디스플레이' },
-    { id: '프로세서', label: '프로세서' },
-    { id: '그래픽카드', label: '그래픽카드' },
-    { id: '메모리', label: '메모리' },
-    { id: '스토리지', label: '스토리지' },
-  ];
+  /** active 탭 결정 */
+  const activeSubTab = subCat || 'all';
 
-  const brandOptions = [
-    { value: 'Apple', label: 'Apple' },
-    { value: 'Samsung', label: 'Samsung' },
-    { value: 'LG', label: 'LG' },
-    { value: 'Dell', label: 'Dell' },
-  ];
-
-  if (isLoading) {
+  if (isLoading)
+    return <div className="flex min-h-screen items-center justify-center">로딩 중…</div>;
+  if (isError)
     return (
-      <div className="min-h-screen bg-[#F9FAFB] px-20 py-10">
-        <div className="mx-auto flex max-w-[1280px] items-center justify-center">
-          <p className="text-lg text-[#6B7280]">로딩 중...</p>
-        </div>
-      </div>
+      <div className="flex min-h-screen items-center justify-center text-red-500">에러 발생</div>
     );
-  }
-
-  if (isError) {
-    return (
-      <div className="min-h-screen bg-[#F9FAFB] px-20 py-10">
-        <div className="mx-auto flex max-w-7xl items-center justify-center">
-          <p className="text-lg text-red-500">데이터를 불러오는데 실패했습니다.</p>
-        </div>
-      </div>
-    );
-  }
 
   const products = data?.products || [];
-  const pagination = data?.pagination || {
-    current_page: 1,
-    total_pages: 1,
-    count: 0,
-    size: 20,
-  };
+  const pagination = data?.pagination;
 
   return (
     <div className="min-h-screen bg-[#F9FAFB] px-20 py-10">
       <div className="mx-auto max-w-7xl">
-        {/* ✅ 검색어 표시 추가 */}
-        {searchQuery && (
-          <div className="mb-6">
-            <p className="text-lg text-[#111827]">
-              '<span className="font-bold">{searchQuery}</span>' 검색 결과
-            </p>
+        {subCategoryTabs.length > 0 && (
+          <div className="mb-6 flex items-center gap-4">
+            <h3 className="min-w-20 text-sm font-bold">카테고리</h3>
+            <Tabs
+              tabs={subCategoryTabs}
+              activeTab={activeSubTab}
+              onTabChange={handleSubCategoryChange}
+            />
           </div>
         )}
 
-        <div className="mb-10 rounded-lg border border-[#E5E7EB] bg-white p-5.25">
-          <div className="mb-4 flex items-start gap-4">
-            <h3 className="min-w-20 py-1 pr-6 text-sm font-bold text-[#111827]">카테고리</h3>
-            <Tabs tabs={tabs} activeTab={activeTab} onTabChange={handleTabChange} />
-          </div>
+        <PriceRangeFilter
+          min={priceMin}
+          max={priceMax}
+          onMinChange={setPriceMin}
+          onMaxChange={setPriceMax}
+          onApply={handlePriceApply}
+        />
 
-          <div className="mb-4 h-px border-t border-[#F3F4F6]" />
-          <PriceRangeFilter
-            min={priceMin}
-            max={priceMax}
-            onMinChange={setPriceMin}
-            onMaxChange={setPriceMax}
-            onApply={handlePriceApply}
-          />
-        </div>
-
-        <div className="mb-4 flex items-center justify-between">
-          <p className="text-sm font-light text-[#6B7280]">
-            총 <span className="font-bold text-[#111827]">{pagination.count}</span>개의 상품이
-            있습니다.
+        <div className="my-4 flex items-center justify-between">
+          <p className="text-sm">
+            총 <b>{pagination?.count ?? 0}</b>개의 상품
           </p>
           <SortOptions currentSort={currentSort} onSortChange={handleSortChange} />
         </div>
 
-        <div className="mb-8 flex flex-col gap-4">
+        <div className="flex flex-col gap-4">
           {products.length > 0 ? (
-            products.map((product) => <ProductCard key={product.product_code} product={product} />)
+            products.map((p) => <ProductCard key={p.product_code} product={p} />)
           ) : (
             <div className="flex h-40 items-center justify-center rounded-lg bg-white">
-              <p className="text-[#6B7280]">검색 결과가 없습니다.</p>
+              검색 결과가 없습니다.
             </div>
           )}
         </div>
 
-        {pagination.total_pages > 1 && (
+        {pagination && pagination?.total_pages > 1 && (
           <Pagination
             currentPage={pagination.current_page}
             totalPages={pagination.total_pages}

@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Menu, Search, ShoppingCart, User, X } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { PATH } from '@/routes/path';
-import Category, { CATEGORY_ITEMS } from '@/components/layout/Category';
+import Category from '@/components/layout/Category';
 import SearchModal from '@/components/layout/SearchModal';
+import { CATEGORY } from '@/constants/category';
 
 const Header: React.FC = () => {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
@@ -70,14 +71,14 @@ const Header: React.FC = () => {
         {isMobileNavOpen && (
           <nav className="animate-in fade-in slide-in-from-top-4 border-t border-gray-50 py-6 md:hidden">
             <div className="grid grid-cols-2 gap-y-4 px-2">
-              {CATEGORY_ITEMS.map((item) => (
+              {CATEGORY.map((item) => (
                 <a
-                  key={item}
+                  key={item.id}
                   href="#"
                   className="text-[15px] font-medium text-gray-600 active:text-indigo-600"
                   onClick={() => setIsMobileNavOpen(false)}
                 >
-                  {item}
+                  {item.name}
                 </a>
               ))}
             </div>

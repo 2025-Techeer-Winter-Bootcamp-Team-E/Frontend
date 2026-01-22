@@ -24,27 +24,29 @@ const Pagination = ({ currentPage, totalPages, onPageChange }: PaginationProps) 
   };
 
   return (
-    <div className="mt-12 flex items-center justify-center gap-2">
+    <div className="mt-16 flex items-center justify-center gap-4">
+      {/* 이전 버튼: 테두리를 없애고 아이콘만 강조하는 고스트 스타일 */}
       <button
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
-        className="flex h-10 w-10 items-center justify-center rounded-xl border border-gray-200 bg-white text-gray-400 transition-all hover:border-indigo-500 hover:text-indigo-500 disabled:opacity-30 disabled:hover:border-gray-200"
+        className="flex h-10 w-10 items-center justify-center rounded-full text-[#1d1d1f] transition-all hover:bg-black/[0.04] active:scale-90 disabled:opacity-20 disabled:hover:bg-transparent"
       >
-        <ChevronLeft className="h-5 w-5" />
+        <ChevronLeft className="h-5 w-5 stroke-[2.5px]" />
       </button>
 
-      <div className="flex items-center gap-1.5 rounded-2xl bg-gray-100/50 p-1.5">
+      {/* 페이지 번호 컨테이너: 애플의 세그먼트 컨트롤 질감 적용 */}
+      <div className="flex items-center gap-1 rounded-full bg-black/[0.03] p-1 backdrop-blur-md">
         {getPageNumbers().map((page, index) => (
           <button
             key={index}
             onClick={() => typeof page === 'number' && onPageChange(page)}
             disabled={page === '...'}
-            className={`flex h-9 min-w-9 items-center justify-center rounded-xl text-sm transition-all duration-200 ${
+            className={`flex h-8 min-w-[32px] items-center justify-center rounded-full px-2 text-[13px] transition-all duration-300 ${
               currentPage === page
-                ? 'bg-white font-black text-indigo-600 shadow-sm ring-1 ring-gray-200'
+                ? 'bg-white font-bold text-[#1d1d1f] shadow-[0_2px_8px_rgba(0,0,0,0.12)]' // 활성화 상태: 화이트 팝업 효과
                 : page === '...'
-                  ? 'cursor-default text-gray-300'
-                  : 'font-bold text-gray-500 hover:bg-white hover:text-gray-900'
+                  ? 'cursor-default text-[#86868b]'
+                  : 'font-medium text-[#86868b] hover:text-[#1d1d1f] active:scale-95'
             }`}
           >
             {page}
@@ -52,14 +54,16 @@ const Pagination = ({ currentPage, totalPages, onPageChange }: PaginationProps) 
         ))}
       </div>
 
+      {/* 다음 버튼 */}
       <button
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
-        className="flex h-10 w-10 items-center justify-center rounded-xl border border-gray-200 bg-white text-gray-400 transition-all hover:border-indigo-500 hover:text-indigo-500 disabled:opacity-30 disabled:hover:border-gray-200"
+        className="flex h-10 w-10 items-center justify-center rounded-full text-[#1d1d1f] transition-all hover:bg-black/[0.04] active:scale-90 disabled:opacity-20 disabled:hover:bg-transparent"
       >
-        <ChevronRight className="h-5 w-5" />
+        <ChevronRight className="h-5 w-5 stroke-[2.5px]" />
       </button>
     </div>
   );
 };
+
 export default Pagination;

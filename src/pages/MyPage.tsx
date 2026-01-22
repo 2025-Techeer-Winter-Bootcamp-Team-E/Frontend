@@ -4,32 +4,32 @@ import { Outlet } from 'react-router-dom';
 
 const MyPage = () => {
   return (
-    <div className="min-h-screen bg-[#F5F5F7]">
-      {' '}
-      {/* 애플 표준 배경색 */}
-      <div className="mx-auto max-w-7xl px-6 py-16 lg:px-12">
-        <div className="mb-12 px-2">
-          <h1 className="text-[34px] font-bold tracking-tight text-[#1d1d1f]">마이페이지</h1>
-          <p className="mt-2 text-[17px] tracking-tight text-[#86868b]">
-            나의 활동과 설정을 관리하세요.
+    <div className="min-h-screen bg-[#F5F5F7] selection:bg-[#0066cc]/10">
+      <div className="mx-auto max-w-[1200px] px-8 py-20">
+        {/* 헤더 섹션: 좌측 정렬로 통일감 부여 */}
+        <header className="mb-16 max-w-[600px]">
+          <h1 className="text-[40px] font-bold tracking-tight text-[#1d1d1f]">마이페이지</h1>
+          <p className="mt-3 text-[19px] leading-relaxed tracking-tight text-[#86868b]">
+            계정 활동을 확인하고 선호하는 설정을 맞춤화하세요.
           </p>
-        </div>
+        </header>
 
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-4">
-          <div className="space-y-8 lg:col-span-1">
+        <div className="flex flex-col gap-12 lg:flex-row">
+          {/* 좌측 사이드 바: 프로필과 메뉴를 하나의 논리적 그룹으로 묶음 */}
+          <aside className="w-full space-y-6 lg:w-[280px] lg:flex-shrink-0">
             <UserProfile />
             <SidebarMenu />
-          </div>
-          <div className="lg:col-span-3">
-            {/* 우측 콘텐츠 영역: 컨테이너에 미세한 그림자와 블러 적용 */}
-            <div className="min-h-[640px] rounded-[32px] border border-black/[0.05] bg-white shadow-[0_4px_24px_rgba(0,0,0,0.02)]">
+          </aside>
+
+          {/* 우측 콘텐츠: '캔버스' 느낌의 넓은 영역 */}
+          <main className="flex-1">
+            <div className="min-h-[700px] overflow-hidden rounded-[32px] border border-black/[0.04] bg-white shadow-[0_20px_40px_rgba(0,0,0,0.02)] transition-all">
               <Outlet />
             </div>
-          </div>
+          </main>
         </div>
       </div>
     </div>
   );
 };
-
 export default MyPage;

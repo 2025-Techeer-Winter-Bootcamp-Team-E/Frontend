@@ -34,7 +34,7 @@ export const getTokenBalance = async () => {
 export const postTokenSingleItem = async (body: TokenSingleItemReqDto) => {
   return await getAPIResponseData<TokenSingleItemResDto, TokenSingleItemReqDto>({
     method: 'POST',
-    url: API.ORDERS_CART_CHECKOUT,
+    url: API.ORDERS_CHECKOUT,
     data: body,
   });
 };

@@ -64,12 +64,6 @@ const ProductDetailPage = () => {
         {/* 2. Intelligence Section: AI 분석 및 그래프 (가로형 대시보드) */}
         {/* Hero와 분리되어 정보의 북적거림을 해소함 */}
         <div className="mt-12 overflow-hidden rounded-[2.5rem] border border-black/[0.02] bg-white p-8 shadow-[0_20px_50px_rgba(0,0,0,0.04)]">
-          <div className="mb-6 px-2">
-            <h3 className="text-sm font-bold tracking-widest text-[#86868b] uppercase">
-              Market Insights
-            </h3>
-          </div>
-
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:divide-x lg:divide-[#f5f5f7]">
             {timerInfo ? (
               <>
@@ -81,7 +75,7 @@ const ProductDetailPage = () => {
                 </div>
               </>
             ) : (
-              <div className="h-[300px] lg:col-span-12">
+              <div className="lg:col-span-12">
                 <PriceTrendGraph productCode={productCode} />
               </div>
             )}

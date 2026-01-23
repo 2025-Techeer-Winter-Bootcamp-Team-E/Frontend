@@ -47,7 +47,7 @@ export const patchPricePredictionId = async (timer_id: number, body: TimersIdPat
 export const deletePricePredictionId = async (timer_id: number) => {
   return await getAPIResponseData<null, null>({
     method: 'DELETE',
-    url: API.TIMERS_ID(timer_id),
+    url: `${API.TIMERS.replace(/\/$/, '')}/detail/${timer_id}`,
   });
 };
 

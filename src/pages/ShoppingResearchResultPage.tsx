@@ -51,7 +51,6 @@ const ShoppingResearchResultPage: React.FC = () => {
     navigate(`${PATH.SHOPPING_RESEARCH}?q=${encodeURIComponent(queryFromUrl || user_query)}`);
   };
 
-  // ✅ 로딩 상태: 애플 스타일의 미니멀 로더
   if (isLoading) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-[#F5F5F7]">
@@ -65,7 +64,6 @@ const ShoppingResearchResultPage: React.FC = () => {
     );
   }
 
-  // ✅ 데이터 없음 상태
   if (!results || !results.product || results.product.length === 0) {
     return (
       <div className="flex min-h-screen flex-col items-center justify-center bg-[#F5F5F7] px-6 text-center">
@@ -85,24 +83,19 @@ const ShoppingResearchResultPage: React.FC = () => {
   const products = results.product;
   const topProduct = products[0];
 
-  // FeaturedProductCard 데이터 매핑
   const featuredProductData = {
     badge: `MATCH ${(topProduct.similarity_score * 100).toFixed(0)}%`,
     category: 'TOP SELECTION',
     name: topProduct.product_name,
     price: `${topProduct.price.toLocaleString()}원`,
-    originalPrice: `${(topProduct.price * 1.15).toLocaleString()}원`, // 예시를 위해 15% 높게 설정
+    originalPrice: `${(topProduct.price * 1.15).toLocaleString()}원`,
     image: topProduct.product_image_url,
     reasons: {
       title: 'AI 추천 분석',
-      items: [
-        topProduct.recommendation_reason, // "영상 편집 성능과 휴대성에서..."
-        topProduct.ai_review_summary, // "렌더링 속도가 압도적이라는 평..."
-      ],
+      items: [topProduct.recommendation_reason, topProduct.ai_review_summary],
     },
   };
 
-  // 2️⃣ ComparisonTable 매핑 (모든 상품 비교)
   const comparisonProducts = products.map((p: any) => ({
     id: p.product_code,
     name: p.product_name,
@@ -124,14 +117,12 @@ const ShoppingResearchResultPage: React.FC = () => {
           <ComparisonTable title="주요 추천 상품 비교" products={comparisonProducts} />
         )}
 
-        {/* ✅ onRetry 클릭 시 모달을 열도록 수정 */}
         <CTASection buttonText="다시 검색하기" onRetry={() => setIsSearchModalOpen(true)} />
       </div>
-      {/* ✅ 페이지 하단에 검색 모달 배치 */}
       <SearchModal
         isOpen={isSearchModalOpen}
         onClose={() => setIsSearchModalOpen(false)}
-        initialType="shopping-research" // 쇼핑 리서치 결과 페이지이므로 기본값 고정
+        initialType="shopping-research"
       />{' '}
     </div>
   );

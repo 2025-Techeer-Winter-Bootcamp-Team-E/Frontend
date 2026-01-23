@@ -36,7 +36,7 @@ const MyTimerGrid = () => {
           )}
         </div>
       ) : (
-        <div className="flex flex-col items-center justify-center rounded-[32px] border border-dashed border-[#d2d2d7] bg-white py-32 text-center">
+        <div className="flex flex-col items-center justify-center rounded-4xl border border-dashed border-[#d2d2d7] bg-white py-32 text-center">
           <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-[#F5F5F7]">
             <RefreshCw className="h-8 w-8 text-[#d2d2d7]" />
           </div>

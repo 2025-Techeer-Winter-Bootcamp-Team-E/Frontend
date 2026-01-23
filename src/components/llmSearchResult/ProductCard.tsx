@@ -19,10 +19,9 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
     <div
       onClick={handleCardClick}
-      className="group cursor-pointer overflow-hidden rounded-[32px] border border-[#d2d2d7]/50 bg-white transition-all duration-500 hover:border-[#d2d2d7] hover:shadow-[0_40px_80px_rgba(0,0,0,0.06)]"
+      className="group cursor-pointer overflow-hidden rounded-4xl border border-[#d2d2d7]/50 bg-white transition-all duration-500 hover:border-[#d2d2d7] hover:shadow-[0_40px_80px_rgba(0,0,0,0.06)]"
     >
       <div className="flex flex-col md:flex-row">
-        {/* 이미지 섹션: 배경색을 미세하게 조정 */}
         <div className="relative h-64 w-full shrink-0 bg-[#FBFBFB] p-10 md:w-80">
           <img
             src={product.thumbnail_url}
@@ -33,12 +32,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             BEST PICK
           </div>
         </div>
-
-        {/* 정보 섹션 */}
         <div className="flex flex-1 flex-col justify-between p-10">
           <div>
             <div className="mb-4 flex items-center justify-between">
-              <span className="text-[12px] font-bold tracking-[0.1em] text-[#86868b] uppercase">
+              <span className="text-[12px] font-bold tracking-widest text-[#86868b] uppercase">
                 Recommendation
               </span>
               <ArrowUpRight className="h-5 w-5 text-[#d2d2d7] transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[#0066cc]" />
@@ -50,8 +47,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
               {product.price.toLocaleString()}
               <span className="ml-1 text-[17px] font-medium text-[#86868b]">원</span>
             </p>
-
-            {/* 스펙 태그: 채도를 낮춘 그레이 톤 */}
             <div className="mt-6 flex flex-wrap gap-2">
               {product.specs &&
                 Object.entries(product.specs)
@@ -66,9 +61,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                   ))}
             </div>
           </div>
-
-          {/* AI 추천 이유: 배경 면적을 넓히고 텍스트 가독성 향상 */}
-          <div className="mt-10 rounded-[22px] bg-[#F5F5F7]/70 p-6 ring-1 ring-black/[0.02]">
+          <div className="mt-10 rounded-[22px] bg-[#F5F5F7]/70 p-6 ring-1 ring-black/2">
             <p className="mb-1.5 text-[11px] font-bold tracking-widest text-[#86868b] uppercase">
               AI Analysis
             </p>

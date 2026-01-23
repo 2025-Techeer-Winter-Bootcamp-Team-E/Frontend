@@ -26,7 +26,7 @@ const ComparisonTable: React.FC<ComparisonTableProps> = ({ title, products }) =>
         <h2 className="text-[22px] font-bold tracking-tight text-[#1d1d1f]">{title}</h2>
       </div>
 
-      <div className="overflow-hidden rounded-[24px] border border-[#d2d2d7]/30 bg-white shadow-[0_2px_12px_rgba(0,0,0,0.04)]">
+      <div className="overflow-hidden rounded-3xl border border-[#d2d2d7]/30 bg-white shadow-[0_2px_12px_rgba(0,0,0,0.04)]">
         <div className="overflow-x-auto">
           <table className="w-full border-collapse">
             <thead>
@@ -35,7 +35,7 @@ const ComparisonTable: React.FC<ComparisonTableProps> = ({ title, products }) =>
                   속성
                 </th>
                 {products.map((product) => (
-                  <th key={product.id} className="min-w-[240px] px-6 py-8 text-center">
+                  <th key={product.id} className="min-w-60 px-6 py-8 text-center">
                     <div className="flex flex-col items-center gap-4">
                       <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-white p-2 shadow-sm ring-1 ring-black/[0.03]">
                         <img
@@ -53,7 +53,6 @@ const ComparisonTable: React.FC<ComparisonTableProps> = ({ title, products }) =>
               </tr>
             </thead>
             <tbody className="divide-y divide-[#f5f5f7]">
-              {/* 가격 행: 서버의 is_lowest_price 데이터 활용 */}
               <tr>
                 <td className="bg-[#f5f5f7]/30 px-6 py-5 text-center text-[14px] font-semibold text-[#86868b]">
                   가격
@@ -69,8 +68,6 @@ const ComparisonTable: React.FC<ComparisonTableProps> = ({ title, products }) =>
                   </td>
                 ))}
               </tr>
-
-              {/* 성능 지수 행: 서버의 performance_score 활용 (0~1 기준일 때 * 5) */}
               <tr>
                 <td className="bg-[#f5f5f7]/30 px-6 py-5 text-center text-[14px] font-semibold text-[#86868b]">
                   성능 지수
@@ -78,14 +75,11 @@ const ComparisonTable: React.FC<ComparisonTableProps> = ({ title, products }) =>
                 {products.map((product) => (
                   <td key={product.id} className="px-6 py-5">
                     <div className="flex scale-90 justify-center opacity-80">
-                      {/* 서버 점수가 1점 만점이면 *5, 100점 만점이면 /20 등으로 보정 */}
                       <StarRating rating={Math.round(product.performance_score * 5)} />
                     </div>
                   </td>
                 ))}
               </tr>
-
-              {/* 프로세서 행: 서버의 cpu 데이터 */}
               <tr>
                 <td className="bg-[#f5f5f7]/30 px-6 py-5 text-center text-[14px] font-semibold text-[#86868b]">
                   프로세서
@@ -99,8 +93,6 @@ const ComparisonTable: React.FC<ComparisonTableProps> = ({ title, products }) =>
                   </td>
                 ))}
               </tr>
-
-              {/* 메모리 행: 서버의 ram 데이터 */}
               <tr>
                 <td className="bg-[#f5f5f7]/30 px-6 py-5 text-center text-[14px] font-semibold text-[#86868b]">
                   메모리 용량

@@ -20,7 +20,6 @@ const PaymentMethodCard = ({
   return (
     <button
       onClick={onClick}
-      // 카드: 선택 시 굵은 보더 대신 배경색과 얇은 링으로 강조
       className={`relative flex flex-col items-center gap-3 rounded-[22px] border p-5 transition-all duration-200 ${
         isSelected
           ? 'border-transparent bg-white shadow-sm ring-2 ring-[#0066cc]'

@@ -28,7 +28,6 @@ const MainSearchBar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState<Option>('쇼핑 리서치');
 
-  /** 타이핑 애니메이션 (기존 유지) */
   const [displayedText, setDisplayedText] = useState('');
   const [isTyping, setIsTyping] = useState(true);
   const [charIndex, setCharIndex] = useState(0);
@@ -60,25 +59,21 @@ const MainSearchBar = () => {
     return () => clearTimeout(timeout);
   }, [charIndex, isTyping, phraseIndex]);
 
-  /** 🔥 핵심: 검색 실행 */
   const handleSearch = () => {
     if (!query.trim()) return;
 
     const searchType = OPTION_TO_TYPE[selectedOption];
 
-    // ✅ 통합 검색: 상품 리스트 페이지로 이동
     if (searchType === 'unified') {
       navigate(`${PATH.PRODUCT_LIST}?q=${encodeURIComponent(query)}`);
       return;
     }
 
-    // LLM 검색
     if (searchType === 'llm') {
       navigate(`${PATH.LLM_SEARCH_RESULT}?q=${encodeURIComponent(query)}`);
       return;
     }
 
-    // 쇼핑 리서치
     if (searchType === 'shopping-research') {
       shoppingResearchMutation.mutate(
         { user_query: query },
@@ -102,8 +97,7 @@ const MainSearchBar = () => {
 
   return (
     <div className="mx-auto max-w-3xl">
-      <div className="relative flex flex-col gap-4 rounded-[32px] bg-white/80 p-4 shadow-xl backdrop-blur-xl">
-        {/* 옵션 선택 */}
+      <div className="relative flex flex-col gap-4 rounded-4xl bg-white/80 p-4 shadow-xl backdrop-blur-xl">
         <div className="relative">
           <button
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
@@ -139,8 +133,6 @@ const MainSearchBar = () => {
             )}
           </AnimatePresence>
         </div>
-
-        {/* 입력 */}
         <textarea
           value={query}
           onChange={(e) => setQuery(e.target.value)}

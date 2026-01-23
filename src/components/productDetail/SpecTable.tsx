@@ -9,13 +9,10 @@ const SpecTable = ({ productInfo }: SpecTableProps) => {
   const specs = productInfo ? Object.entries(productInfo.specs) : [];
 
   return (
-    <div className="rounded-[2.5rem] border border-black/[0.03] bg-white p-10 shadow-[0_4px_24px_rgba(0,0,0,0.02)] md:p-16">
-      {/* 헤더 섹션: 더 크고 여유로운 타이포그래피 */}
+    <div className="rounded-[2.5rem] border border-black/3 bg-white p-10 shadow-[0_4px_24px_rgba(0,0,0,0.02)] md:p-16">
       <div className="mb-12 border-b border-[#f5f5f7] pb-10">
         <h3 className="text-[32px] font-semibold tracking-tight text-[#1d1d1f]">제품 사양</h3>
       </div>
-
-      {/* 사양 리스트: 애플 공식 홈페이지의 기술 사양 레이아웃 */}
       <div className="grid grid-cols-1 gap-x-12 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
         {specs.map(([label, value]) => (
           <div key={label} className="group flex flex-col border-b border-[#f5f5f7] pb-6">
@@ -28,13 +25,10 @@ const SpecTable = ({ productInfo }: SpecTableProps) => {
           </div>
         ))}
       </div>
-
-      {/* 제품 상세 홍보 이미지 영역 */}
       <div className="relative mt-20 flex flex-col items-center overflow-hidden rounded-[2.5rem] bg-[#f5f5f7] px-8 py-20 transition-all duration-500 hover:bg-[#f2f2f4]">
         {!productInfo?.product_image_url_list?.length ? (
           <div className="flex flex-col items-center">
-            {/* 플레이스홀더 아이콘: 선을 더 얇게(Thin) 처리하여 세련미 강조 */}
-            <div className="mb-8 flex h-24 w-24 items-center justify-center rounded-[2rem] bg-white shadow-[0_8px_16px_rgba(0,0,0,0.04)]">
+            <div className="mb-8 flex h-24 w-24 items-center justify-center rounded-4xl bg-white shadow-[0_8px_16px_rgba(0,0,0,0.04)]">
               <svg
                 className="h-10 w-10 text-[#d2d2d7]"
                 fill="none"

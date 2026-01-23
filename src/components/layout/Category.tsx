@@ -35,7 +35,7 @@ const Category = () => {
             <SubCategoryDropdown
               mainCategoryName={item.name}
               subCategories={item.subCategories}
-              onClose={() => setHoveredId(null)} // 닫기 함수 전달
+              onClose={() => setHoveredId(null)}
             />
           )}
         </div>

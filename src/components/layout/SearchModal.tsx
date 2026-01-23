@@ -37,7 +37,6 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose, initialType 
 
   const debouncedKeyword = useDebounce(keyword, 300);
 
-  // 데이터 쿼리 및 뮤테이션
   const { data: recentData } = useSearchRecentQuery(isOpen);
   const { data: popularData } = useSearchPopularQuery(isOpen);
   const { data: autoCompleteData } = useAutocompleteQuery(debouncedKeyword);
@@ -47,7 +46,6 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose, initialType 
   const inputRef = useRef<HTMLInputElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // 모달 오픈 시 포커스 및 스크롤 방지
   useEffect(() => {
     if (isOpen) {
       const timer = setTimeout(() => inputRef.current?.focus(), 100);
@@ -58,7 +56,6 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose, initialType 
     }
   }, [isOpen]);
 
-  // 모달 닫힐 때 상태 초기화
   useEffect(() => {
     if (!isOpen) {
       const timer = setTimeout(() => {
@@ -73,7 +70,6 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose, initialType 
   const popularSearches = popularData?.popular_terms.map((item) => item.term) || [];
   const suggestions = autoCompleteData?.suggestions || [];
 
-  // ✅ 검색 실행 (선택된 타입에 따라)
   const handleSearch = (
     query: string = keyword,
     searchType: SearchType['id'] = selectedType.id,
@@ -106,7 +102,6 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose, initialType 
     onClose();
   };
 
-  // ✅ 최근/인기 검색어 클릭 시 통합검색으로 이동
   const handleQuickSearch = (query: string) => {
     handleSearch(query, 'unified');
   };
@@ -115,27 +110,21 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose, initialType 
 
   const modalContent = (
     <div
-      className={`fixed inset-0 z-[9999] transition-all duration-500 ${
+      className={`fixed inset-0 z-9999 transition-all duration-500 ${
         isOpen ? 'visible opacity-100' : 'invisible opacity-0'
       }`}
     >
-      {/* 배경: 클릭 시 닫힘 */}
       <div className="absolute inset-0 bg-[#f5f5f7]/80 backdrop-blur-2xl" onClick={onClose} />
-
-      {/* 모달 본체 */}
       <div
-        className={`relative mx-auto max-w-3xl pt-[10vh] transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] ${
+        className={`relative mx-auto max-w-3xl pt-[10vh] transition-all duration-500 ease-in-out ${
           isOpen ? 'translate-y-0 opacity-100' : '-translate-y-8 opacity-0'
         }`}
         onClick={(e) => e.stopPropagation()}
       >
         <div className="px-6">
-          <div className="flex flex-col overflow-hidden rounded-[1.5rem] bg-white/80 shadow-[0_20px_60px_rgba(0,0,0,0.1)] ring-1 ring-black/5 backdrop-blur-md">
-            {/* 상단 검색바 영역 */}
-            <div className="flex items-center gap-4 border-b border-black/[0.05] px-6 py-5">
+          <div className="flex flex-col overflow-hidden rounded-3xl bg-white/80 shadow-[0_20px_60px_rgba(0,0,0,0.1)] ring-1 ring-black/5 backdrop-blur-md">
+            <div className="flex items-center gap-4 border-b border-black/5 px-6 py-5">
               <Search className="h-5 w-5 text-[#86868b]" strokeWidth={3} />
-
-              {/* 타입 선택 드롭다운 */}
               <div className="relative" ref={dropdownRef}>
                 <button
                   onClick={() => setIsDropdownOpen(!isDropdownOpen)}
@@ -182,8 +171,6 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose, initialType 
                 <X className="h-5 w-5 text-[#86868b]" />
               </button>
             </div>
-
-            {/* 결과 리스트 영역 */}
             <div className="custom-scrollbar max-h-[60vh] overflow-y-auto px-4 py-6">
               {showAutocomplete ? (
                 <div className="space-y-1">
@@ -206,7 +193,6 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose, initialType 
                 </div>
               ) : (
                 <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-                  {/* 최근 검색어 - ✅ 통합검색으로 이동 */}
                   <div>
                     <p className="mb-4 px-3 text-[11px] font-bold tracking-wider text-[#86868b] uppercase">
                       Recent Searches
@@ -240,8 +226,6 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose, initialType 
                       )}
                     </div>
                   </div>
-
-                  {/* 인기 검색어 - ✅ 통합검색으로 이동 */}
                   <div>
                     <p className="mb-4 px-3 text-[11px] font-bold tracking-wider text-[#86868b] uppercase">
                       Trending Now
@@ -270,7 +254,6 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose, initialType 
     </div>
   );
 
-  // 돔 최상단의 modal-root로 렌더링
   const modalRoot = document.getElementById('modal-root');
   if (!modalRoot) return null;
 

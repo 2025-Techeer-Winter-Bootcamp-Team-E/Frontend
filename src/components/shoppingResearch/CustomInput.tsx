@@ -14,7 +14,6 @@ const CustomInput: React.FC<CustomInputProps> = ({ placeholder, value, onChange 
         <div className="flex shrink-0 items-center justify-center text-[#86868b] transition-colors duration-300 group-focus-within:text-[#0066cc]">
           <Edit3 className="h-5 w-5" strokeWidth={1.5} />
         </div>
-
         <input
           type="text"
           value={value}

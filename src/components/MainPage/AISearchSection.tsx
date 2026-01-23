@@ -29,13 +29,10 @@ const AISearchSection: React.FC = () => {
               </div>
             </div>
           </div>
-
-          {/* 우측 작은 카드들 */}
           <div className="grid grid-cols-1 gap-6">
             <div className="rounded-4xl border border-gray-100 bg-white p-8 shadow-sm transition-all hover:-translate-y-1 hover:shadow-md">
               <h4 className="mb-2 text-lg font-bold text-gray-900">가격 비교</h4>
               <p className="text-sm leading-relaxed text-gray-500">
-                {' '}
                 여러 쇼핑몰의 가격을 비교해
                 <br />
                 가장 합리적인 선택을 도와드려요.{' '}
@@ -49,9 +46,7 @@ const AISearchSection: React.FC = () => {
               </p>
             </div>
           </div>
-
-          {/* 하단 긴 카드 (전체 가로) */}
-          <div className="flex flex-col items-start justify-between gap-6 rounded-[32px] border border-gray-100 bg-white p-8 transition-all hover:-translate-y-1 hover:shadow-md md:col-span-3 md:flex-row md:items-center lg:p-10">
+          <div className="flex flex-col items-start justify-between gap-6 rounded-4xl border border-gray-100 bg-white p-8 transition-all hover:-translate-y-1 hover:shadow-md md:col-span-3 md:flex-row md:items-center lg:p-10">
             <div className="flex items-center gap-4">
               <div>
                 <h4 className="text-xl font-bold text-gray-900">AI 통합 리뷰</h4>

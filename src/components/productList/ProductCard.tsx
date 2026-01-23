@@ -21,7 +21,6 @@ const ProductCard = ({ product }: ProductCardProps) => {
 
   const sortedMallPrices = [...product.mall_price].sort((a, b) => a.price - b.price);
 
-  // 스펙을 문자열로 변환
   const specsText = Object.entries(product.specs)
     .map(([key, value]) => `${key}: ${value}`)
     .join(' · ');
@@ -29,10 +28,9 @@ const ProductCard = ({ product }: ProductCardProps) => {
   return (
     <div
       onClick={() => navigate(`${PATH.PRODUCT_DETAIL(product.product_code)}`)}
-      className="group flex gap-8 rounded-[24px] border border-black/[0.05] bg-white p-6 transition-all hover:shadow-[0_20px_40px_rgba(0,0,0,0.04)]"
+      className="group flex gap-8 rounded-3xl border border-black/5 bg-white p-6 transition-all hover:shadow-[0_20px_40px_rgba(0,0,0,0.04)]"
     >
-      {/* 상품 이미지 영역 */}
-      <div className="relative h-[180px] w-[180px] flex-shrink-0">
+      <div className="relative h-45 w-45 shrink-0">
         <div className="flex h-full w-full items-center justify-center overflow-hidden rounded-[18px] bg-[#f5f5f7]">
           {product.thumbnail_url ? (
             <img
@@ -54,19 +52,16 @@ const ProductCard = ({ product }: ProductCardProps) => {
           )}
         </div>
       </div>
-
-      {/* 상품 정보 영역 */}
       <div className="flex flex-1 flex-col py-1">
         <div className="flex flex-col gap-1.5">
           <div className="flex items-start justify-between gap-4">
             <h3 className="text-[19px] leading-tight font-semibold tracking-tight text-[#1d1d1f]">
               {product.product_name}
             </h3>
-            <span className="flex-shrink-0 rounded-full bg-[#f5f5f7] px-2.5 py-0.5 text-[11px] font-bold tracking-wide text-[#86868b]">
+            <span className="shrink-0 rounded-full bg-[#f5f5f7] px-2.5 py-0.5 text-[11px] font-bold tracking-wide text-[#86868b]">
               {product.category}
             </span>
           </div>
-
           <div className="flex items-center gap-3">
             <span className="text-[21px] font-bold tracking-tight text-[#1d1d1f]">
               {product.base_price.toLocaleString()}원
@@ -76,33 +71,27 @@ const ProductCard = ({ product }: ProductCardProps) => {
               <span className="text-[11px] font-medium text-[#86868b]">무료배송</span>
             </div>
           </div>
-
           <div className="text-[12px] font-medium tracking-tight text-[#86868b]">
             {product.brand} · {product.category}
           </div>
-
           <p className="mt-1 line-clamp-2 text-[13px] leading-relaxed text-[#515154]">
             {specsText}
           </p>
-
           <div className="mt-2 flex items-center gap-3">
             <div className="flex items-center gap-0.5">
               <Star className="h-3.5 w-3.5 fill-[#1d1d1f] text-[#1d1d1f]" />
               <span className="text-[13px] font-bold text-[#1d1d1f]">4.5</span>
               <span className="text-[13px] text-[#86868b]">(0)</span>
             </div>
-            <div className="h-2.5 w-[1px] bg-[#d2d2d7]" />
+            <div className="h-2.5 w-px bg-[#d2d2d7]" />
             <span className="text-[13px] text-[#86868b]">{product.mall_price.length}개 쇼핑몰</span>
           </div>
         </div>
       </div>
-
-      {/* 가격 비교 (우측 섹션) */}
-      <div className="flex w-[220px] flex-shrink-0 flex-col justify-center border-l border-[#f5f5f7] pl-8">
+      <div className="flex w-55 shrink-0 flex-col justify-center border-l border-[#f5f5f7] pl-8">
         <div className="space-y-3">
           {sortedMallPrices.map((mall, index) => {
             const isBestPrice = index === 0;
-
             return (
               <div
                 key={mall.mall_name}

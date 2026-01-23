@@ -14,12 +14,12 @@ const SituationCard: React.FC<SituationCardProps> = ({
   title,
   description,
   highlight,
-  iconColor = '#1d1d1f', // 기본 색상을 무채색으로 변경
-  highlightColor = '#0066cc', // 하이라이트는 시스템 블루 적용
+  iconColor = '#1d1d1f',
+  highlightColor = '#0066cc',
 }) => {
   return (
-    <div className="flex flex-1 gap-5 rounded-[24px] border border-[#d2d2d7]/40 bg-white p-6 shadow-[0_2px_8px_rgba(0,0,0,0.02)] transition-all hover:shadow-[0_8px_24px_rgba(0,0,0,0.04)]">
-      <div className="flex-shrink-0">
+    <div className="flex flex-1 gap-5 rounded-3xl border border-[#d2d2d7]/40 bg-white p-6 shadow-[0_2px_8px_rgba(0,0,0,0.02)] transition-all hover:shadow-[0_8px_24px_rgba(0,0,0,0.04)]">
+      <div className="shrink-0">
         <div className="flex h-12 w-12 items-center justify-center rounded-[14px] bg-[#f5f5f7]">
           <Icon className="h-6 w-6" style={{ color: iconColor }} strokeWidth={1.5} />
         </div>

@@ -26,8 +26,7 @@ const CartPage = () => {
 
   return (
     <div className="min-h-screen bg-[#f5f5f7]">
-      <div className="mx-auto max-w-[1100px] px-6 py-20 md:px-10">
-        {/* 헤더: 자간을 좁혀 더 전문적인 인상을 줌 */}
+      <div className="mx-auto max-w-275 px-6 py-20 md:px-10">
         <div className="mb-4 flex items-baseline gap-3">
           <h1 className="text-[36px] font-bold tracking-tight text-[#1d1d1f]">장바구니</h1>
           <span className="text-[19px] font-medium text-[#86868b] tabular-nums">
@@ -37,7 +36,6 @@ const CartPage = () => {
 
         <div className="flex flex-col items-start gap-10 lg:flex-row">
           <div className="w-full lg:flex-1">
-            {/* 전체 선택 바: 배경을 투명하게 하고 하단 보더만 사용 */}
             <div className="mb-4 flex items-center px-4 py-2">
               <Checkbox
                 checked={allSelected}
@@ -45,8 +43,6 @@ const CartPage = () => {
                 label={`전체 선택 (${selectedItems.length}/${cartItems.length})`}
               />
             </div>
-
-            {/* 상품 리스트 간격 조정 */}
             <div className="space-y-3">
               {cartItems.map((item) => (
                 <CartItemWrapper
@@ -59,9 +55,7 @@ const CartPage = () => {
               ))}
             </div>
           </div>
-
-          {/* 결제 요약 카드: 고정 위치 및 너비 조정 */}
-          <div className="w-full lg:sticky lg:top-10 lg:w-[360px]">
+          <div className="w-full lg:sticky lg:top-10 lg:w-90">
             <PriceSummaryCard
               availableTokens={availableTokens}
               summary={summary}

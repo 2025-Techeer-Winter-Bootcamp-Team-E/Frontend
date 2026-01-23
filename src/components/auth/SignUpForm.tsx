@@ -124,13 +124,13 @@ const SignupForm: React.FC = () => {
 
   return (
     <div className="flex min-h-screen justify-center bg-[#F5F5F7] px-4 py-24">
-      <div className="w-full max-w-[440px]">
+      <div className="w-full max-w-110">
         <h1 className="mb-10 text-center text-[32px] font-semibold tracking-tight text-[#1d1d1f]">
           계정 만들기
         </h1>
 
         <form onSubmit={handleSubmit} className="space-y-5">
-          <div className="grid grid-cols-1 gap-5 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-black/[0.05]">
+          <div className="grid grid-cols-1 gap-5 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-black/5">
             <FormInput
               label="이메일"
               type="email"

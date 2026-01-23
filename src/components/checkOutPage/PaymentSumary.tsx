@@ -20,7 +20,7 @@ const PaymentSummary = ({
 }) => {
   return (
     <div className="sticky top-12 flex flex-col gap-4">
-      <div className="overflow-hidden rounded-[2rem] border border-black/[0.02] bg-white p-8 shadow-[0_20px_40px_rgba(0,0,0,0.04)]">
+      <div className="overflow-hidden rounded-4xl border border-black/2 bg-white p-8 shadow-[0_20px_40px_rgba(0,0,0,0.04)]">
         <h3 className="mb-6 text-[17px] font-bold tracking-tight text-[#1d1d1f]">최종 결제 금액</h3>
 
         <div className="space-y-1">

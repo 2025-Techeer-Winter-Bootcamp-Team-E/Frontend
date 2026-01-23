@@ -14,7 +14,6 @@ const BestRecommendations: React.FC<BestRecommendationsProps> = ({ recommendatio
 
   return (
     <div className="flex flex-col gap-12">
-      {/* 섹션 헤더: 서체 두께와 자간으로만 강조 */}
       <div className="flex flex-col gap-4 px-2">
         <div className="flex items-center gap-3">
           <div className="flex h-9 w-9 items-center justify-center rounded-full bg-white ring-1 ring-black/[0.05]">
@@ -29,8 +28,6 @@ const BestRecommendations: React.FC<BestRecommendationsProps> = ({ recommendatio
           가장 합리적인 선택지를 제안합니다.
         </p>
       </div>
-
-      {/* 제품 리스트: 간격을 조정하여 가독성 최적화 */}
       <div className="flex flex-col gap-6">
         {recommendations.map((product, index) => (
           <div
@@ -42,10 +39,8 @@ const BestRecommendations: React.FC<BestRecommendationsProps> = ({ recommendatio
           </div>
         ))}
       </div>
-
-      {/* 리스트 하단: 애플 스타일의 미니멀한 구분선 */}
       <div className="mt-8 flex justify-center">
-        <div className="h-[1px] w-16 bg-[#d2d2d7]" />
+        <div className="h-px w-16 bg-[#d2d2d7]" />
       </div>
     </div>
   );

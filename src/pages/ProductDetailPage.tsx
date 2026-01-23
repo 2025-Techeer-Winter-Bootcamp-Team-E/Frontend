@@ -38,18 +38,12 @@ const ProductDetailPage = () => {
   return (
     <div className="min-h-screen bg-[#f5f5f7] selection:bg-black/10">
       <div className="mx-auto max-w-300 px-6 py-12">
-        {/* 1. Hero Section: 이미지와 제품명에만 집중 (매우 클린하게) */}
         <div className="mb-8 flex flex-col gap-12 lg:flex-row lg:items-start lg:justify-between">
-          {/* 왼쪽: 제품 갤러리 */}
           <div className="lg:w-[55%]">
             <ImageGallery data={productInfo} />
           </div>
-
-          {/* 오른쪽: 제품명 + 요약스펙 + 수량/구매/장바구니 (이제 ProductInfo가 담당) */}
           <div className="lg:sticky lg:top-12 lg:w-[40%]">
             <ProductInfo productInfo={productInfo} />
-
-            {/* 타이머 버튼은 이제 분석 영역 상단에 작게 배치하거나 별도 호출 */}
             {!timerInfo && (
               <button
                 onClick={handleOpenModal}
@@ -61,9 +55,7 @@ const ProductDetailPage = () => {
             )}
           </div>
         </div>
-        {/* 2. Intelligence Section: AI 분석 및 그래프 (가로형 대시보드) */}
-        {/* Hero와 분리되어 정보의 북적거림을 해소함 */}
-        <div className="mt-12 overflow-hidden rounded-[2.5rem] border border-black/[0.02] bg-white p-8 shadow-[0_20px_50px_rgba(0,0,0,0.04)]">
+        <div className="mt-12 overflow-hidden rounded-[2.5rem] border border-black/2 bg-white p-8 shadow-[0_20px_50px_rgba(0,0,0,0.04)]">
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:divide-x lg:divide-[#f5f5f7]">
             {timerInfo ? (
               <>

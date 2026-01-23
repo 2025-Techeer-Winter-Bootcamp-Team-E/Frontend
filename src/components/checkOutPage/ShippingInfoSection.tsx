@@ -62,7 +62,7 @@ const ShippingInfoSection = ({ formData, setFormData }: ShippingInfoSectionProps
   };
 
   return (
-    <div className="mb-6 rounded-[2.5rem] border border-black/[0.02] bg-white p-10 shadow-[0_4px_24px_rgba(0,0,0,0.02)]">
+    <div className="mb-6 rounded-[2.5rem] border border-black/2 bg-white p-10 shadow-[0_4px_24px_rgba(0,0,0,0.02)]">
       <SectionHeader icon={Package} title="배송지 정보" />
 
       <div className="grid grid-cols-2 gap-6">

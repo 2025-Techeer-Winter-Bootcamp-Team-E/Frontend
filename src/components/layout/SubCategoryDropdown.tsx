@@ -14,9 +14,9 @@ interface Props {
 
 const SubCategoryDropdown = ({ mainCategoryName, subCategories, onClose }: Props) => {
   return (
-    <div className="animate-in fade-in slide-in-from-top-4 absolute inset-x-0 top-[48px] z-50 w-full duration-300">
-      <div className="border-b border-black/[0.05] bg-white/85 shadow-[0_40px_80px_rgba(0,0,0,0.06)] backdrop-blur-[32px]">
-        <div className="mx-auto max-w-[980px] px-12 py-12">
+    <div className="animate-in fade-in slide-in-from-top-4 absolute inset-x-0 top-12 z-50 w-full duration-300">
+      <div className="border-b border-black/5 bg-white/85 shadow-[0_40px_80px_rgba(0,0,0,0.06)] backdrop-blur-[32px]">
+        <div className="mx-auto max-w-245 px-12 py-12">
           <ul className="grid grid-cols-4 gap-x-16 gap-y-4">
             {subCategories.map((sub) => (
               <li key={sub.id}>
@@ -36,7 +36,7 @@ const SubCategoryDropdown = ({ mainCategoryName, subCategories, onClose }: Props
       </div>
 
       <div
-        className="h-screen w-full cursor-pointer bg-black/[0.1] backdrop-blur-[2px]"
+        className="h-screen w-full cursor-pointer bg-black/10 backdrop-blur-[2px]"
         onClick={onClose}
         onMouseEnter={onClose}
         onFocus={onClose}

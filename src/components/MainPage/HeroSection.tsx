@@ -11,25 +11,21 @@ const HeroSection: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
-          {/* 타이포그래피: Jet Black 컬러와 더 좁은 자간 적용 */}
           <h1 className="mb-6 text-[48px] leading-[1.05] font-semibold tracking-tighter text-[#1d1d1f] md:text-[80px]">
             Pro Intelligence.
             <br />
-            {/* 채도 높은 그라디언트 제거 -> 텍스트 자체의 무게감 강조 */}
             <span className="text-[#1d1d1f]">For Your Shopping.</span>
           </h1>
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, scale: 0.98 }} // 스케일 변화를 미세하게 조정하여 차분하게
+          initial={{ opacity: 0, scale: 0.98 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.3, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          className="mx-auto max-w-2xl" // 검색바 너비 제한으로 정갈하게 배치
+          className="mx-auto max-w-2xl"
         >
           <MainSearchBar />
         </motion.div>
-
-        {/* 설명 문구: 텍스트 크기를 약간 줄이고 줄간격과 가독성 최적화 */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}

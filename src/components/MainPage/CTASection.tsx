@@ -14,7 +14,7 @@ const CTASection: React.FC = () => {
           <h2 className="mb-8 text-5xl font-semibold tracking-tight md:text-7xl">
             가치의 증명.
             <br />
-            <span className="bg-gradient-to-r from-gray-200 to-gray-500 bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-gray-200 to-gray-500 bg-clip-text text-transparent">
               지금 시작하세요.
             </span>
           </h2>

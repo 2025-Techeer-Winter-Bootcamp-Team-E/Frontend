@@ -104,22 +104,16 @@ const CheckoutPage = () => {
   ]);
 
   return (
-    // 배경색을 조금 더 차분한 오프화이트로 변경
     <div className="min-h-screen bg-[#f5f5f7]">
-      <div className="mx-auto max-w-[1200px] px-6 py-16 md:px-12">
-        {/* 헤더: 자간을 좁히고 굵기를 조절하여 애플 특유의 느낌 강조 */}
+      <div className="mx-auto max-w-300 px-6 py-16 md:px-12">
         <h1 className="mb-12 text-[38px] font-semibold tracking-tight text-[#1d1d1f]">주문 확인</h1>
-
         <div className="flex flex-col gap-12 lg:flex-row lg:items-start">
-          {/* 왼쪽 정보 입력 영역 */}
           <div className="flex-1 space-y-6">
             <ShippingInfoSection formData={formData} setFormData={setFormData} />
             <OrderItemsSection items={orderItems} />
             <PaymentMethodSection availableTokens={availableTokens} totalAmount={summary.total} />
           </div>
-
-          {/* 오른쪽 고정 요약 카드 영역: 너비를 애플 레이아웃 표준에 맞게 조정 */}
-          <div className="w-full shrink-0 lg:sticky lg:top-12 lg:w-[380px]">
+          <div className="w-full shrink-0 lg:sticky lg:top-12 lg:w-95">
             <PaymentSummary
               summary={summary}
               agreed={agreed}

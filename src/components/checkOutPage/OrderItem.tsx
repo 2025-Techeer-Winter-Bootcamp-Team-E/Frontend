@@ -3,11 +3,11 @@ import type { BuyItemEntity } from '@/types/ordersType';
 const OrderItem = ({ item }: { item: BuyItemEntity }) => {
   return (
     <div className="flex items-center gap-5 border-b border-[#f5f5f7] py-6 last:border-0">
-      <div className="h-20 w-20 shrink-0 overflow-hidden rounded-[1.25rem] border border-black/[0.02] bg-[#f5f5f7]">
+      <div className="h-20 w-20 shrink-0 overflow-hidden rounded-[1.25rem] border border-black/2 bg-[#f5f5f7]">
         <img
           src={item.image || '/placeholder.png'}
           alt={item.name}
-          className="h-full w-full object-contain p-2" // 애플 특유의 여백 있는 상품 이미지
+          className="h-full w-full object-contain p-2"
         />
       </div>
       <div className="min-w-0 flex-1">

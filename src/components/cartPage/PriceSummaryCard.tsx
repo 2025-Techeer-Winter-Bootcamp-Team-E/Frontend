@@ -17,7 +17,7 @@ const PriceSummaryCard = ({
 }) => {
   return (
     <div className="sticky top-12 flex flex-col gap-6">
-      <div className="overflow-hidden rounded-[2.5rem] border border-black/[0.02] bg-white shadow-[0_20px_40px_rgba(0,0,0,0.04)]">
+      <div className="overflow-hidden rounded-[2.5rem] border border-black/2 bg-white shadow-[0_20px_40px_rgba(0,0,0,0.04)]">
         <div className="px-8 py-8">
           <h3 className="mb-8 text-[19px] font-semibold tracking-tight text-[#1d1d1f]">
             결제 내역
@@ -25,7 +25,6 @@ const PriceSummaryCard = ({
 
           <div className="space-y-4">
             <PriceSummaryRow label="총 상품금액" amount={summary.subtotal} />
-            <PriceSummaryRow label="배송비" amount={0} /> {/* 애플은 보통 배송비를 깔끔하게 노출 */}
             <PriceSummaryRow label="할인 금액" amount={summary.discount} isDiscount />
           </div>
 

@@ -10,7 +10,7 @@ import LLMSearchResultPage from '@/pages/LLMSearchResultPage';
 import ShoppingResearchPage from '@/pages/ShoppingResearchPage';
 import ShoppingResearchResultPage from '@/pages/ShoppingResearchResultPage';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import TokenChargePage from '@/components/myPage/users/TokenChargePage';
+import TokenChargePage from '@/components/myPage/token/TokenChargePage';
 import MyTimerGrid from '@/components/myPage/timer/MyTimerGrid';
 import { ROUTE_PATH } from '@/routes/path';
 import useScrollToTop from '@/hooks/useScrollTop';

@@ -55,7 +55,7 @@ const TimerCard = ({ timer }: TimerCardProps) => {
 
   return (
     <>
-      <div className="group relative flex h-full flex-col overflow-hidden rounded-[32px] border border-black/[0.05] bg-white p-6 transition-all duration-500 hover:shadow-[0_20px_60px_rgba(0,0,0,0.06)]">
+      <div className="group relative flex h-full flex-col overflow-hidden rounded-4xl border border-black/5 bg-white p-6 transition-all duration-500 hover:shadow-[0_20px_60px_rgba(0,0,0,0.06)]">
         <button
           onClick={handleDelete}
           className="absolute top-5 right-5 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white/80 text-[#86868b] opacity-0 backdrop-blur-md transition-all group-hover:opacity-100 hover:bg-[#ff3b30] hover:text-white"
@@ -63,7 +63,7 @@ const TimerCard = ({ timer }: TimerCardProps) => {
           <X className="h-4 w-4" />
         </button>
 
-        <div className="relative mb-6 flex h-48 items-center justify-center rounded-[24px] bg-[#F5F5F7] p-6 transition-transform duration-700 group-hover:scale-[1.02]">
+        <div className="relative mb-6 flex h-48 items-center justify-center rounded-3xl bg-[#F5F5F7] p-6 transition-transform duration-700 group-hover:scale-[1.02]">
           {timer.thumbnail_url ? (
             <img
               src={timer.thumbnail_url}
@@ -76,7 +76,7 @@ const TimerCard = ({ timer }: TimerCardProps) => {
         </div>
 
         <div className="mb-5 space-y-2">
-          <h3 className="line-clamp-2 min-h-[44px] text-[17px] leading-tight font-semibold tracking-tight text-[#1d1d1f]">
+          <h3 className="line-clamp-2 min-h-11 text-[17px] leading-tight font-semibold tracking-tight text-[#1d1d1f]">
             {timer.product_name}
           </h3>
           <div className="flex items-baseline gap-2">
@@ -88,8 +88,6 @@ const TimerCard = ({ timer }: TimerCardProps) => {
             </span>
           </div>
         </div>
-
-        {/* AI 분석: 인디고 대신 부드러운 무채색 레이어 사용 */}
         <div className="mb-6 rounded-[20px] bg-[#F5F5F7] p-5">
           <div className="mb-2 flex items-center justify-between">
             <span className="text-[11px] font-bold tracking-widest text-[#86868b] uppercase">
@@ -107,13 +105,13 @@ const TimerCard = ({ timer }: TimerCardProps) => {
         <div className="mt-auto flex gap-3">
           <button
             onClick={handleOpenEditModal}
-            className="flex h-[52px] w-[52px] items-center justify-center rounded-[16px] border border-[#d2d2d7] bg-white text-[#1d1d1f] transition-all hover:bg-[#F5F5F7]"
+            className="flex h-13 w-13 items-center justify-center rounded-2xl border border-[#d2d2d7] bg-white text-[#1d1d1f] transition-all hover:bg-[#F5F5F7]"
           >
             <Pencil className="h-5 w-5" />
           </button>
           <button
             onClick={handleGoToProduct}
-            className="flex-1 rounded-[16px] bg-[#1d1d1f] px-4 py-3 text-[15px] font-semibold text-white transition-all hover:bg-[#424245] active:scale-[0.97]"
+            className="flex-1 rounded-2xl bg-[#1d1d1f] px-4 py-3 text-[15px] font-semibold text-white transition-all hover:bg-[#424245] active:scale-[0.97]"
           >
             상세 보기
           </button>

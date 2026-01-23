@@ -24,13 +24,13 @@ const FeaturedProductCard: React.FC<FeaturedProductCardProps> = ({ product }) =>
       </div>
       <div className="relative overflow-hidden rounded-[28px] border border-[#d2d2d7]/40 bg-white p-10 shadow-[0_20px_40px_rgba(0,0,0,0.04)]">
         <div className="absolute top-6 right-6">
-          <div className="rounded-full bg-[#F5F5F7] px-3 py-1 text-[11px] font-bold text-[#1d1d1f] ring-1 ring-black/[0.05]">
+          <div className="rounded-full bg-[#F5F5F7] px-3 py-1 text-[11px] font-bold text-[#1d1d1f] ring-1 ring-black/5">
             {product.badge}
           </div>
         </div>
 
         <div className="flex flex-col gap-12 lg:flex-row">
-          <div className="flex h-[280px] w-full flex-shrink-0 items-center justify-center rounded-[20px] bg-[#FBFBFB] ring-1 ring-black/[0.02] lg:w-[400px]">
+          <div className="flex h-70 w-full shrink-0 items-center justify-center rounded-[20px] bg-[#FBFBFB] ring-1 ring-black/2 lg:w-100">
             <img
               src={product.image}
               alt={product.name}
@@ -64,7 +64,7 @@ const FeaturedProductCard: React.FC<FeaturedProductCardProps> = ({ product }) =>
               <div className="grid grid-cols-1 gap-3">
                 {product.reasons.items.map((item, index) => (
                   <div key={index} className="flex items-start gap-3">
-                    <div className="mt-2 h-1 w-1 flex-shrink-0 rounded-full bg-[#d2d2d7]" />
+                    <div className="mt-2 h-1 w-1 shrink-0 rounded-full bg-[#d2d2d7]" />
                     <p className="text-[14px] leading-relaxed font-medium text-[#424245]">{item}</p>
                   </div>
                 ))}

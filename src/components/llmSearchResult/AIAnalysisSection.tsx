@@ -10,7 +10,7 @@ interface AIAnalysisProps {
 
 const AIAnalysisSection: React.FC<AIAnalysisProps> = ({ analysis }) => {
   return (
-    <div className="group rounded-[32px] border border-[#d2d2d7]/30 bg-white p-10 transition-all hover:shadow-[0_20px_50px_rgba(0,0,0,0.04)]">
+    <div className="group rounded-4xl border border-[#d2d2d7]/30 bg-white p-10 transition-all hover:shadow-[0_20px_50px_rgba(0,0,0,0.04)]">
       <div className="mb-8 flex items-center gap-3">
         <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#F5F5F7]">
           <Sparkles className="h-5 w-5 text-[#1d1d1f]" />
@@ -23,7 +23,7 @@ const AIAnalysisSection: React.FC<AIAnalysisProps> = ({ analysis }) => {
           <span className="font-medium text-[#86868b]">검색어 : </span>
           <span className="font-bold text-[#1d1d1f]">“{analysis.keyword}”</span>
         </p>
-        <div className="h-[1px] w-full bg-[#F5F5F7]" />
+        <div className="h-px w-full bg-[#F5F5F7]" />
         <p className="text-[17px] leading-[1.6] font-medium whitespace-pre-wrap text-[#424245]">
           {analysis.description}
         </p>

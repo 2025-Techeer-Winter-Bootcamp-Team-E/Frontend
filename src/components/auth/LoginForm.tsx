@@ -23,14 +23,11 @@ const LoginForm = () => {
   };
 
   return (
-    // 배경: 애플 표준 오프화이트 컬러 (#F5F5F7)
     <div className="min-vh-100 flex items-center justify-center bg-[#F5F5F7] px-4 py-32">
-      <div className="w-full max-w-[400px]">
-        {/* 헤드라인: 더 굵고 자간이 좁은 텍스트 */}
+      <div className="w-full max-w-100">
         <h1 className="text-center text-[32px] font-semibold tracking-tight text-[#1d1d1f]">
           로그인
         </h1>
-
         <form onSubmit={handleSubmit} className="mt-10 space-y-6">
           <div className="space-y-2">
             <label htmlFor="email" className="ml-1 block text-[13px] font-medium text-[#86868b]">
@@ -42,9 +39,7 @@ const LoginForm = () => {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="example@apple.com"
-              // 입력창: 보더를 얇게 하고 포커스 시 그림자가 아닌 선명한 보더 강조
-              className="w-full rounded-xl border border-[#d2d2d7] bg-white px-4 py-[14px] text-[17px] text-[#1d1d1f] transition-all placeholder:text-[#d2d2d7] focus:border-[#0066cc] focus:ring-1 focus:ring-[#0066cc] focus:outline-none"
+              className="w-full rounded-xl border border-[#d2d2d7] bg-white px-4 py-3.5 text-[17px] text-[#1d1d1f] transition-all placeholder:text-[#d2d2d7] focus:border-[#0066cc] focus:ring-1 focus:ring-[#0066cc] focus:outline-none"
             />
           </div>
 
@@ -59,15 +54,13 @@ const LoginForm = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="비밀번호"
-              className="w-full rounded-xl border border-[#d2d2d7] bg-white px-4 py-[14px] text-[17px] text-[#1d1d1f] transition-all placeholder:text-[#d2d2d7] focus:border-[#0066cc] focus:ring-1 focus:ring-[#0066cc] focus:outline-none"
+              className="w-full rounded-xl border border-[#d2d2d7] bg-white px-4 py-3.5 text-[17px] text-[#1d1d1f] transition-all placeholder:text-[#d2d2d7] focus:border-[#0066cc] focus:ring-1 focus:ring-[#0066cc] focus:outline-none"
             />
           </div>
-
-          {/* 버튼: 채도 높은 시안 대신 깊이감 있는 블루 또는 블랙 계열 사용 */}
           <button
             type="submit"
             disabled={isPending}
-            className="mt-4 w-full rounded-xl bg-[#0066cc] py-[14px] text-[17px] font-semibold text-white transition-all hover:bg-[#0077ed] focus:outline-none disabled:cursor-not-allowed disabled:bg-[#d2d2d7]"
+            className="mt-4 w-full rounded-xl bg-[#0066cc] py-3.5 text-[17px] font-semibold text-white transition-all hover:bg-[#0077ed] focus:outline-none disabled:cursor-not-allowed disabled:bg-[#d2d2d7]"
           >
             {isPending ? '연결 중...' : '로그인'}
           </button>

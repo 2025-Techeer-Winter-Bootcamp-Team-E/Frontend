@@ -24,13 +24,15 @@ const DeliveryRequestField = ({
   const isCustom = value === 'custom';
 
   return (
-<div className="mb-6">
-      <label className="mb-2 block text-[13px] font-semibold tracking-tight text-[#86868b] ml-1">배송 요청사항</label>
+    <div className="mb-6">
+      <label className="mb-2 ml-1 block text-[13px] font-semibold tracking-tight text-[#86868b]">
+        배송 요청사항
+      </label>
       <div className="relative">
         <select
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className="h-12 w-full appearance-none rounded-xl border border-[#d2d2d7] bg-white px-4 pr-10 text-[15px] font-medium text-[#1d1d1f] transition-all focus:border-[#1d1d1f] focus:ring-4 focus:ring-black/[0.03] focus:outline-none"
+          className="h-12 w-full appearance-none rounded-xl border border-[#d2d2d7] bg-white px-4 pr-10 text-[15px] font-medium text-[#1d1d1f] transition-all focus:border-[#1d1d1f] focus:ring-4 focus:ring-black/3 focus:outline-none"
         >
           {options.map((option) => (
             <option key={option.value} value={option.value}>

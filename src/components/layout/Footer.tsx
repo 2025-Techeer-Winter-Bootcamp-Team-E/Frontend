@@ -6,7 +6,6 @@ const Footer: React.FC = () => {
     <footer className="border-t border-gray-100 bg-white pt-20 pb-12">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-5">
-          {/* Brand & Contact Info */}
           <div className="lg:col-span-2">
             <div className="mb-6 flex flex-col gap-1">
               <span className="text-xl font-bold tracking-tight text-gray-900">COMPARE</span>
@@ -59,8 +58,6 @@ const Footer: React.FC = () => {
             </div>
           </div>
         </div>
-
-        {/* Bottom Bar */}
         <div className="mt-16 border-t border-gray-100 pt-8 sm:mt-20 lg:mt-24">
           <div className="flex flex-col items-start justify-between gap-4 text-xs text-gray-500 md:flex-row md:items-center">
             <p>© 2024 COMPARE Inc. All rights reserved.</p>

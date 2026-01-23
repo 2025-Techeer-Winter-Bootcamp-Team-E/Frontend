@@ -17,7 +17,6 @@ const ReviewSection = ({ productCode }: ReviewSectionProps) => {
   if (!reviewData) return null;
 
   const { reviews, pagination, average_rating } = reviewData;
-  const totalPages = pagination.total_pages;
 
   return (
     <section className="space-y-16">

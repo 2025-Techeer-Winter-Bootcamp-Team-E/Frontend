@@ -10,11 +10,9 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
     <div className="border-b border-[#f5f5f7] py-10 last:border-none">
       <div className="mb-6 flex items-center justify-between">
         <div className="flex items-center gap-4">
-          {/* 미니멀 아바타 */}
           <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#1d1d1f] text-white">
             <span className="text-xs font-bold">{review.author_name.charAt(0)}</span>
           </div>
-
           <div>
             <div className="mb-0.5 flex items-center gap-3">
               <span className="text-[15px] font-semibold text-[#1d1d1f]">{review.author_name}</span>

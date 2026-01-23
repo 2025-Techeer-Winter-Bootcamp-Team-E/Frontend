@@ -44,7 +44,7 @@ const AgreementSection: React.FC<AgreementSectionProps> = ({ agreements, onAgree
           className="h-5 w-5 accent-[#0066cc]"
         />
       </button>
-      <div className="h-[1px] bg-[#d2d2d7] opacity-50" />
+      <div className="h-px bg-[#d2d2d7] opacity-50" />
 
       {['age14', 'service', 'privacy', 'marketing'].map((key) => {
         const labels: Record<string, string> = {

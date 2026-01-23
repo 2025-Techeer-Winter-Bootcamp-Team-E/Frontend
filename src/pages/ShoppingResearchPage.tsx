@@ -62,7 +62,6 @@ const ShoppingResearchPage: React.FC = () => {
     });
   };
 
-  // 로딩 화면: 애플 스타일의 클린 로더
   if (questions.length === 0) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-[#F5F5F7]">
@@ -79,11 +78,9 @@ const ShoppingResearchPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-[#F5F5F7] pt-28 pb-24">
       <div className="mx-auto max-w-3xl px-6">
-        {/* 상단 컨텍스트: 블러 효과가 적용된 투명 배경 */}
         <QuestionContext context={userQuery} mode="AI 분석 엔진 가동 중" />
 
-        <div className="mt-10 overflow-hidden rounded-[32px] border border-black/[0.03] bg-white p-10 shadow-[0_20px_50px_rgba(0,0,0,0.02)] md:p-16">
-          {/* 뒤로가기 & 진행도 (Paging Dots 스타일) */}
+        <div className="mt-10 overflow-hidden rounded-4xl border border-black/3 bg-white p-10 shadow-[0_20px_50px_rgba(0,0,0,0.02)] md:p-16">
           <div className="mb-14 flex items-center justify-between">
             <button
               onClick={handleBack}
@@ -108,7 +105,6 @@ const ShoppingResearchPage: React.FC = () => {
             </div>
           </div>
 
-          {/* 메인 질문 영역 */}
           <div className="animate-in fade-in slide-in-from-bottom-2 duration-700">
             <QuestionHeader
               title={currentQuestion.question}
@@ -122,7 +118,6 @@ const ShoppingResearchPage: React.FC = () => {
                 onChange={handleAnswerChange}
               />
 
-              {/* 퀵 셀렉트: 애플 스타일의 태그 버튼 */}
               {currentQuestion.options && currentQuestion.options.length > 0 && (
                 <div className="flex flex-col items-center gap-5">
                   <p className="text-[11px] font-bold tracking-[0.12em] text-[#d2d2d7] uppercase">
@@ -147,7 +142,6 @@ const ShoppingResearchPage: React.FC = () => {
               )}
             </div>
 
-            {/* 메인 액션 버튼: 애플 스타일의 둥근 모서리와 다크 톤 */}
             <div className="mt-16 flex flex-col items-center gap-6">
               <button
                 onClick={handleNext}

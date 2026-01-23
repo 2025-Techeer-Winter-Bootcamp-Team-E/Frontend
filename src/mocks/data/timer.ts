@@ -16,7 +16,7 @@ export const myPageAllTImerPaging = {
         product_code: 501221,
         product_name: 'Apple 2024 맥북 프로 14',
         target_price: 520000,
-        predicted_price: 530000, // 상승
+        predicted_price: 530000,
         confidence_score: 92.5,
         recommendation_score: 85,
         thumbnail_url: 'https://img.example.com/macbook-air-m3.jpg',
@@ -28,7 +28,7 @@ export const myPageAllTImerPaging = {
         product_code: 123452,
         product_name: '삼성전자 갤럭시북4 프로',
         target_price: 1800000,
-        predicted_price: 1850000, // 상승
+        predicted_price: 1850000,
         confidence_score: 88.0,
         recommendation_score: 70,
         thumbnail_url: 'https://img.example.com/macbook-air-m3.jpg',
@@ -40,7 +40,7 @@ export const myPageAllTImerPaging = {
         product_code: 789123,
         product_name: 'LG 울트라기어 노트북',
         target_price: 1500000,
-        predicted_price: 1600000, // 상승
+        predicted_price: 1600000,
         confidence_score: 75.0,
         recommendation_score: 60,
         thumbnail_url: 'https://img.example.com/lg-ultragear.jpg',
@@ -52,7 +52,7 @@ export const myPageAllTImerPaging = {
         product_code: 456789,
         product_name: '델 XPS 13',
         target_price: 1300000,
-        predicted_price: 1280000, // 하락
+        predicted_price: 1280000,
         confidence_score: 80.0,
         recommendation_score: 75,
         thumbnail_url: 'https://img.example.com/dell-xps13.jpg',
@@ -64,7 +64,7 @@ export const myPageAllTImerPaging = {
         product_code: 321654,
         product_name: 'HP 스펙터 x360',
         target_price: 1400000,
-        predicted_price: 1450000, // 상승
+        predicted_price: 1450000,
         confidence_score: 85.0,
         recommendation_score: 80,
         thumbnail_url: 'https://img.example.com/hp-specter.jpg',

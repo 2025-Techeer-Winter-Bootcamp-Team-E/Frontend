@@ -53,10 +53,8 @@ const TimerModal = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      {/* 오버레이: 더 투명하고 밝은 느낌 */}
       <div className="absolute inset-0 bg-white/80 backdrop-blur-2xl" onClick={onClose} />
-
-      <div className="relative z-10 w-full max-w-[420px] rounded-[36px] border border-black/[0.05] bg-white p-10 shadow-[0_40px_100px_rgba(0,0,0,0.08)]">
+      <div className="relative z-10 w-full max-w-105 rounded-[36px] border border-black/5 bg-white p-10 shadow-[0_40px_100px_rgba(0,0,0,0.08)]">
         <div className="mb-10 text-center">
           <h2 className="text-[28px] font-bold tracking-tight text-[#1d1d1f]">
             {mode === 'create' ? '타이머 설정' : '가격 수정'}
@@ -65,7 +63,7 @@ const TimerModal = ({
 
         <form onSubmit={handleSubmit} className="space-y-10">
           <div className="space-y-4 text-center">
-            <label className="text-[12px] font-bold tracking-[0.1em] text-[#86868b] uppercase">
+            <label className="text-[12px] font-bold tracking-widest text-[#86868b] uppercase">
               Target Price
             </label>
             <div className="flex items-center justify-center gap-1">
@@ -80,7 +78,6 @@ const TimerModal = ({
               <span className="text-[24px] font-bold text-[#1d1d1f]">원</span>
             </div>
           </div>
-
           <div className="flex flex-col gap-3">
             <button
               type="submit"

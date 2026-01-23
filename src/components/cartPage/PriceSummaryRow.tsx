@@ -9,7 +9,6 @@ const PriceSummaryRow = ({
   isDiscount?: boolean;
   isTotal?: boolean;
 }) => {
-  // 고채도 색상(#EF4444, #0D9DDA) 제거 후 무채색 톤으로 변경
   const amountColor = isDiscount ? 'text-[#86868b]' : 'text-[#1d1d1f]';
   const labelColor = isTotal ? 'text-[#1d1d1f]' : 'text-[#86868b]';
 

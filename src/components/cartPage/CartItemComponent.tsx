@@ -16,13 +16,13 @@ const CartItemComponent = ({
   onRemove: () => void;
 }) => {
   return (
-    <div className="mb-4 rounded-[24px] border border-[#d2d2d7]/50 bg-white p-6 transition-colors hover:bg-[#fafafa]">
+    <div className="mb-4 rounded-3xl border border-[#d2d2d7]/50 bg-white p-6 transition-colors hover:bg-[#fafafa]">
       <div className="flex gap-5">
         <div className="shrink-0 self-center">
           <Checkbox checked={isSelected} onChange={onToggle} />
         </div>
 
-        <div className="h-24 w-24 shrink-0 overflow-hidden rounded-[18px] bg-[#f5f5f7] ring-1 ring-black/[0.03]">
+        <div className="h-24 w-24 shrink-0 overflow-hidden rounded-[18px] bg-[#f5f5f7] ring-1 ring-black/3">
           <img
             src={item.image || '/placeholder.png'}
             alt={item.name}

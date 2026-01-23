@@ -8,7 +8,7 @@ const PriceTrendCard = ({ timerInfo }: PriceTrendCardProps) => {
   const priceDiff = timerInfo.predicted_price - timerInfo.target_price;
 
   return (
-    <div className="flex flex-1 flex-col justify-between rounded-[2rem] border border-[#d2d2d7]/40 bg-[#f5f5f7]/50 p-7 backdrop-blur-sm">
+    <div className="flex flex-1 flex-col justify-between rounded-4xl border border-[#d2d2d7]/40 bg-[#f5f5f7]/50 p-7 backdrop-blur-sm">
       <div>
         <div className="mb-6 flex items-center justify-between">
           <h4 className="text-[15px] font-semibold tracking-tight text-[#1d1d1f]">
@@ -45,7 +45,7 @@ const PriceTrendCard = ({ timerInfo }: PriceTrendCardProps) => {
           ].map((item, i) => (
             <div
               key={i}
-              className="rounded-[1.25rem] border border-black/[0.03] bg-white p-3.5 shadow-sm"
+              className="rounded-[1.25rem] border border-black/3 bg-white p-3.5 shadow-sm"
             >
               <div className="mb-2 flex items-center justify-between text-[11px] font-bold">
                 <span className="text-[#86868b]">{item.label}</span>
@@ -70,7 +70,7 @@ const PriceTrendCard = ({ timerInfo }: PriceTrendCardProps) => {
           </span>
         </div>
         <div className="flex items-center justify-between text-[13px]">
-          <span className="font-medium font-semibold text-[#86868b]">예측 가격</span>
+          <span className="font-semibold text-[#86868b]">예측 가격</span>
           <span className="font-bold text-[#1d1d1f] underline decoration-[#d2d2d7] underline-offset-4">
             {timerInfo.predicted_price.toLocaleString()}원
           </span>

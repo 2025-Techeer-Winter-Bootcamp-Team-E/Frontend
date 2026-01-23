@@ -53,12 +53,12 @@ export const productReviews = {
   status: 200,
   data: {
     pagination: {
-      current_page: 1, // 현재 페이지 번호
-      size: 5, // 한 페이지당 보여줄 개수
-      total_elements: 156, // 전체 리뷰 개수 (기존 total_count)
-      total_pages: 16, // 전체 페이지 수 (total_elements / size 올림)
+      current_page: 1,
+      size: 5,
+      total_elements: 156,
+      total_pages: 16,
     },
-    average_rating: 4.8, // 상품 전체 평점
+    average_rating: 4.8,
     reviews: [
       {
         review_id: 501,
@@ -79,7 +79,7 @@ export const productReviews = {
         created_at: '2026-01-08T09:15:00',
       },
     ],
-    has_next: true, // 다음 페이지 존재 여부
+    has_next: true,
   },
 };
 

@@ -52,7 +52,7 @@ const ImageGallery = ({ data }: { data?: ProductsCodeResDto }) => {
   return (
     <div className="flex flex-col gap-6">
       <div className="group relative">
-        <div className="flex aspect-square w-full items-center justify-center overflow-hidden rounded-[2rem] bg-[#f5f5f7]">
+        <div className="flex aspect-square w-full items-center justify-center overflow-hidden rounded-4xl bg-[#f5f5f7]">
           <img
             src={data.thumbnail_url}
             alt={data.product_name}
@@ -63,8 +63,6 @@ const ImageGallery = ({ data }: { data?: ProductsCodeResDto }) => {
           <Share2 className="h-4 w-4 text-[#1d1d1f]" />
         </button>
       </div>
-
-      {/* 수량 조절 - 더 슬림하고 정교한 디자인 */}
       <div className="flex items-center justify-between rounded-2xl bg-[#f5f5f7] px-5 py-4">
         <span className="text-sm font-semibold tracking-tight text-[#1d1d1f]">수량</span>
         <div className="flex items-center gap-4 rounded-xl border border-black/5 bg-white p-1 shadow-sm">
@@ -85,8 +83,6 @@ const ImageGallery = ({ data }: { data?: ProductsCodeResDto }) => {
           </button>
         </div>
       </div>
-
-      {/* 구매 버튼 그룹 - High Contrast & No Saturation */}
       <div className="flex flex-col gap-3 sm:flex-row">
         <button
           onClick={handleAddToCart}

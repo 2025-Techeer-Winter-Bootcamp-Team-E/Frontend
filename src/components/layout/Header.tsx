@@ -12,7 +12,6 @@ const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const navigate = useNavigate();
 
-  // 스크롤 시 헤더 그림자 효과
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 10);
     window.addEventListener('scroll', handleScroll);
@@ -31,7 +30,6 @@ const Header: React.FC = () => {
             className="flex cursor-pointer items-center transition-opacity hover:opacity-60"
             onClick={() => navigate('/')}
           >
-            {/* 채도 높은 Indigo 제거 -> Jet Black */}
             <span className="text-[19px] font-semibold tracking-tight text-[#1d1d1f]">CORE.AI</span>
           </div>
 
@@ -51,7 +49,7 @@ const Header: React.FC = () => {
                 onClick={btn.onClick}
                 aria-label={btn.label}
               >
-                <btn.icon className="h-[17px] w-[17px] text-[#1d1d1f]" strokeWidth={2.2} />
+                <btn.icon className="h-4.25 w-4.25 text-[#1d1d1f]" strokeWidth={2.2} />
               </button>
             ))}
             <button
@@ -66,8 +64,6 @@ const Header: React.FC = () => {
             </button>
           </div>
         </div>
-
-        {/* 모바일 네비게이션 */}
         {isMobileNavOpen && (
           <nav className="animate-in fade-in slide-in-from-top-4 border-t border-gray-50 py-6 md:hidden">
             <div className="grid grid-cols-2 gap-y-4 px-2">

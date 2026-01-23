@@ -56,19 +56,17 @@ const FeatureGrid: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1, duration: 0.5 }}
-              className="group relative flex flex-col justify-between overflow-hidden rounded-[32px] bg-[#F5F5F7] p-8 transition-all duration-300 hover:bg-[#E8E8ED]"
+              className="group relative flex flex-col justify-between overflow-hidden rounded-4xl bg-[#F5F5F7] p-8 transition-all duration-300 hover:bg-[#E8E8ED]"
             >
               <div>
                 <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-2xl bg-white shadow-sm ring-1 ring-black/5">
                   <feature.icon className="h-6 w-6 text-gray-900" />
                 </div>
-                <div className="mb-2 text-xs font-bold uppercase tracking-wider text-gray-400">
+                <div className="mb-2 text-xs font-bold tracking-wider text-gray-400 uppercase">
                   {feature.step}
                 </div>
                 <h3 className="mb-2 text-xl font-bold text-gray-900">{feature.title}</h3>
-                <p className="text-sm font-medium leading-relaxed text-gray-500">
-                  {feature.desc}
-                </p>
+                <p className="text-sm leading-relaxed font-medium text-gray-500">{feature.desc}</p>
               </div>
             </motion.div>
           ))}

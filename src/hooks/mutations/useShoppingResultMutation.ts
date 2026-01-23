@@ -7,9 +7,9 @@ import type {
 
 const useShoppingResultMutation = () => {
   return useMutation<
-    SearchShoppingResearchResultResDto, // 성공 시 반환 타입
-    unknown, // 에러 타입
-    SearchShoppingResearchResultReqDto // 요청 바디 타입
+    SearchShoppingResearchResultResDto,
+    unknown,
+    SearchShoppingResearchResultReqDto
   >({
     mutationFn: (body: SearchShoppingResearchResultReqDto) =>
       postSearchShoppingResearchResult(body),

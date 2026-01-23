@@ -55,7 +55,6 @@ export const llmSearch = {
         },
         product_detail_url: 'https://myshop.com/products/501',
       },
-      // ... 상위 5개 상품 리스트
     ],
   },
 };
@@ -64,7 +63,7 @@ export const ShoppingResearchQuestion = {
   status: 200,
   message: '질문 생성 성공',
   data: {
-    search_id: 'sr-1234-5678', // 2단계 요청 시 추적을 위한 ID
+    search_id: 'sr-1234-5678',
     questions: [
       { question_id: 1, question: '주요 사용 목적은 무엇인가요?' },
       { question_id: 2, question: '생각하시는 예산 범위는?' },
@@ -122,6 +121,5 @@ export const ShoppingResearchResule = {
         },
       },
     ],
-    // ... 상위 5개 상품까지 반복
   },
 };

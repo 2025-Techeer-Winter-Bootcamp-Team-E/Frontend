@@ -15,7 +15,7 @@ const PriceTrendGraph = ({ productCode }: { productCode: number }) => {
   const minPrice = Math.min(...prices);
 
   return (
-    <div className="flex-1 rounded-[2rem] border border-[#d2d2d7]/40 bg-white p-7">
+    <div className="flex-1 rounded-4xl border border-[#d2d2d7]/40 bg-white p-7">
       <h4 className="mb-8 text-[15px] font-semibold tracking-tight text-[#1d1d1f]">
         최저가 추이{' '}
         <span className="font-normal text-[#86868b]">

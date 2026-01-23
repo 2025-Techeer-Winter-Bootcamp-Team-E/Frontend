@@ -8,7 +8,7 @@ const StatusBanner: React.FC<{ text: string; mode: string }> = ({ text, mode }) 
           <Lightbulb className="h-5 w-5 text-[#1d1d1f]" strokeWidth={1.8} />
         </div>
         <div>
-          <p className="mb-0.5 text-[11px] font-bold tracking-[0.1em] text-[#86868b] uppercase">
+          <p className="mb-0.5 text-[11px] font-bold tracking-widest text-[#86868b] uppercase">
             {mode}
           </p>
           <p className="text-[17px] font-medium tracking-tight text-[#1d1d1f]">
@@ -17,8 +17,8 @@ const StatusBanner: React.FC<{ text: string; mode: string }> = ({ text, mode }) 
           </p>
         </div>
       </div>
-      <div className="hidden items-center gap-2.5 rounded-full bg-[#f5f5f7] px-4 py-1.5 ring-1 ring-black/[0.03] sm:flex">
-        <div className="h-1.5 w-1.5 rounded-full bg-[#34c759]" /> {/* 애플 시스템 그린 */}
+      <div className="hidden items-center gap-2.5 rounded-full bg-[#f5f5f7] px-4 py-1.5 ring-1 ring-black/3 sm:flex">
+        <div className="h-1.5 w-1.5 rounded-full bg-[#34c759]" />
         <span className="text-[11px] font-bold tracking-wider text-[#1d1d1f] uppercase">
           Engine Ready
         </span>

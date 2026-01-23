@@ -77,7 +77,6 @@ const TokenChargeForm = () => {
 
   return (
     <div className="mt-8">
-      {/* 내 토큰 잔액 섹션 - Glassmorphism 스타일 */}
       <div className="mb-10 rounded-2xl border border-gray-100 bg-[#f5f5f7] p-6">
         <div className="mb-1 text-xs font-semibold tracking-wider text-[#86868b] uppercase">
           My Balance
@@ -112,7 +111,6 @@ const TokenChargeForm = () => {
             <PaymentMethodCard
               key={method.id}
               {...method}
-              // 브랜드 컬러 강제 중화 (애플 감성 유지)
               iconBgColor={
                 method.id === 'kakao' || method.id === 'naver' ? 'bg-gray-50' : method.iconBgColor
               }
@@ -122,9 +120,7 @@ const TokenChargeForm = () => {
           ))}
         </div>
       </div>
-
       <TotalAmount amount={selectedOption ? selectedOption.price : 0} />
-
       <div className="mt-8">
         <ChargeButton onClick={handleCharge} disabled={!isFormValid || isPending} />
         <InfoMessage>충전 시 이용약관 및 유료서비스 이용약관 동의로 간주됩니다.</InfoMessage>

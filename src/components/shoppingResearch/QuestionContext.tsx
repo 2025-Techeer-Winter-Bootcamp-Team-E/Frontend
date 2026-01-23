@@ -3,7 +3,7 @@ import { MessageSquare } from 'lucide-react';
 
 const QuestionContext: React.FC<{ context: string; mode: string }> = ({ context, mode }) => {
   return (
-    <div className="flex w-full items-center justify-between rounded-[14px] border border-black/[0.03] bg-[#f5f5f7]/60 px-5 py-3.5 backdrop-blur-md">
+    <div className="flex w-full items-center justify-between rounded-[14px] border border-black/3 bg-[#f5f5f7]/60 px-5 py-3.5 backdrop-blur-md">
       <div className="flex items-center gap-3">
         <div className="flex h-7 w-7 items-center justify-center rounded-full bg-white shadow-sm">
           <MessageSquare className="h-3.5 w-3.5 text-[#1d1d1f]" />

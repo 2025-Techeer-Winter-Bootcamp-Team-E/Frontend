@@ -6,7 +6,6 @@ const TimerSection: React.FC = () => {
   return (
     <section className="overflow-hidden bg-[#F5F5F7] py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        {/* 상단 텍스트 (중앙 정렬) */}
         <div className="mx-auto mb-20 max-w-3xl text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -23,8 +22,6 @@ const TimerSection: React.FC = () => {
             </p>
           </motion.div>
         </div>
-
-        {/* 그래픽 영역 (가격 그래프 시각화) */}
         <div className="relative mx-auto max-w-5xl">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
@@ -34,7 +31,6 @@ const TimerSection: React.FC = () => {
             className="relative overflow-hidden rounded-[48px] border border-gray-100 bg-white shadow-2xl"
           >
             <div className="p-8 md:p-16">
-              {/* 상단 UI 헤더 */}
               <div className="mb-12 flex items-center justify-between">
                 <div className="flex gap-4">
                   <div className="flex items-center gap-2 rounded-full bg-red-50 px-4 py-2 text-sm font-bold text-red-500">
@@ -47,17 +43,12 @@ const TimerSection: React.FC = () => {
                   <div className="text-xl font-bold text-indigo-600">Golden Time</div>
                 </div>
               </div>
-
-              {/* SVG 그래프 영역 */}
               <div className="relative h-64 w-full">
-                {/* 그리드 라인 */}
                 <div className="absolute inset-0 flex flex-col justify-between text-xs text-gray-300">
                   <div className="border-b border-gray-100 pb-2">High</div>
                   <div className="border-b border-gray-100 pb-2">Avg</div>
                   <div className="border-b border-gray-100 pb-2">Low</div>
                 </div>
-
-                {/* 그래프 선 (SVG Path) */}
                 <svg
                   className="absolute inset-0 h-full w-full overflow-visible"
                   preserveAspectRatio="none"
@@ -81,8 +72,6 @@ const TimerSection: React.FC = () => {
                     </linearGradient>
                   </defs>
                 </svg>
-
-                {/* 포인트 점 (Low Point) */}
                 <motion.div
                   initial={{ scale: 0 }}
                   whileInView={{ scale: 1 }}
@@ -93,8 +82,6 @@ const TimerSection: React.FC = () => {
                   <div className="relative flex items-center justify-center">
                     <span className="absolute inline-flex h-8 w-8 animate-ping rounded-full bg-indigo-400 opacity-75"></span>
                     <span className="relative inline-flex h-4 w-4 rounded-full bg-indigo-600"></span>
-
-                    {/* 툴팁 */}
                     <div className="absolute bottom-8 left-1/2 -translate-x-1/2 rounded-lg bg-black px-3 py-1.5 text-xs font-semibold whitespace-nowrap text-white shadow-lg">
                       구매 적기
                       <div className="absolute -bottom-1 left-1/2 h-2 w-2 -translate-x-1/2 rotate-45 bg-black"></div>
@@ -103,8 +90,6 @@ const TimerSection: React.FC = () => {
                 </motion.div>
               </div>
             </div>
-
-            {/* 하단 배경 장식 */}
             <div className="pointer-events-none absolute right-0 bottom-0 left-0 h-32 bg-linear-to-t from-gray-50/50 to-transparent" />
           </motion.div>
         </div>

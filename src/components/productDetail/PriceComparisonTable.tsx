@@ -2,13 +2,13 @@ import useProductPricesQuery from '@/hooks/queries/useProductPricesQuery';
 import { useParams } from 'react-router-dom';
 
 const PriceComparisonTable = () => {
-   const { id } = useParams<{ id: string }>();
+  const { id } = useParams<{ id: string }>();
 
   const { data } = useProductPricesQuery(Number(id));
   const comparisons = data ?? [];
 
   return (
-    <div className="overflow-hidden rounded-[2rem] border border-[#d2d2d7]/30 bg-white shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
+    <div className="overflow-hidden rounded-4xl border border-[#d2d2d7]/30 bg-white shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
       <div className="flex items-center justify-between p-8 pb-4">
         <h3 className="text-xl font-semibold tracking-tight text-[#1d1d1f]">가격비교</h3>
         <span className="text-sm font-medium text-[#86868b]">판매처 {comparisons.length}곳</span>

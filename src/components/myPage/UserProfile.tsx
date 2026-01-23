@@ -5,8 +5,7 @@ const UserProfile = () => {
   const { data } = useUserProfile();
 
   return (
-    <div className="relative overflow-hidden rounded-[2.5rem] border border-black/[0.05] bg-white p-8 shadow-[0_10px_40px_rgba(0,0,0,0.03)]">
-      {/* 배경 장식: 더욱 은은하게 */}
+    <div className="relative overflow-hidden rounded-[2.5rem] border border-black/5 bg-white p-8 shadow-[0_10px_40px_rgba(0,0,0,0.03)]">
       <div className="absolute -top-10 -right-10 h-32 w-32 rounded-full bg-[#F5F5F7] blur-3xl" />
       <div className="text-center">
         <h2 className="text-[22px] font-bold tracking-tight text-[#1d1d1f]">

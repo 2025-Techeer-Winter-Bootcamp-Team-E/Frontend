@@ -33,7 +33,7 @@ export const timerHandler = [
   }),
 
   // 타이머 삭제 (동적 ID 처리)
-  http.delete(`${API.TIMERS.replace(/\/$/, '')}/detail/:id`, ({ params }) => {
+  http.delete(`${API.TIMERS}/:id`, ({ params }) => {
     console.log('✅ 타이머 삭제:', params.id);
     return HttpResponse.json(successTimerDelete);
   }),

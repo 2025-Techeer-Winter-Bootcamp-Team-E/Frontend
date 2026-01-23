@@ -14,6 +14,8 @@ import useTimerGetQuery from '@/hooks/queries/useTimerGetQuery';
 import useTimerPostMutation from '@/hooks/mutations/useTimerPostMutation';
 import TimerModal from '@/components/myPage/timer/TimerModal';
 import { Plus } from 'lucide-react';
+import useProductTrendQuery from '@/hooks/queries/useProductTrendQuery';
+import useProductPricesQuery from '@/hooks/queries/useProductPricesQuery';
 
 const ProductDetailPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -23,11 +25,16 @@ const ProductDetailPage = () => {
   const { data: timerInfo } = useTimerGetQuery(productCode);
   const postTimerMutate = useTimerPostMutation();
 
+  const { data: productTrend } = useProductTrendQuery(productCode);
+
+  const { data: comparisons } = useProductPricesQuery(productCode);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const comparisonRef = useRef<HTMLDivElement>(null);
 
-  const handleOpenModal = () => setIsModalOpen(true);
-  const handleCloseModal = () => setIsModalOpen(false);
+  const handleOpenModal = () => {
+    return setIsModalOpen(!isModalOpen);
+  };
 
   const handleSubmitTimer = (data: { product_code: number; target_price: number }) => {
     postTimerMutate.mutate(data, {
@@ -63,17 +70,16 @@ const ProductDetailPage = () => {
                   <PriceTrendCard timerInfo={timerInfo} />
                 </div>
                 <div className="lg:col-span-7 lg:pl-8">
-                  <PriceTrendGraph productCode={productCode} />
+                  {productTrend && <PriceTrendGraph productTrend={productTrend} />}{' '}
                 </div>
               </>
             ) : (
               <div className="lg:col-span-12">
-                <PriceTrendGraph productCode={productCode} />
+                {productTrend && <PriceTrendGraph productTrend={productTrend} />}{' '}
               </div>
             )}
           </div>
         </div>
-        {/* 3. Detailed Information Section */}
         <div className="mt-24 space-y-32">
           <section id="comparison" ref={comparisonRef} className="scroll-mt-32">
             <div className="mb-8 px-2">
@@ -81,22 +87,21 @@ const ProductDetailPage = () => {
                 판매처별 최저가
               </h3>
             </div>
-            <PriceComparisonTable />
+            <section id="comparison">
+              {comparisons && <PriceComparisonTable comparisons={comparisons} />}
+            </section>
           </section>
-
           <section id="specs" className="scroll-mt-32">
-            <SpecTable productInfo={productInfo} />
+            {productInfo && <SpecTable productInfo={productInfo} />}
           </section>
-
           <section id="reviews" className="scroll-mt-32 pb-32">
-            <ReviewSection productCode={productCode} />
+            <ReviewSection key={productCode} productCode={productCode} />
           </section>
         </div>
       </div>
-
       <TimerModal
         isOpen={isModalOpen}
-        onClose={handleCloseModal}
+        onClose={handleOpenModal}
         onSubmit={handleSubmitTimer}
         productId={productCode}
         mode="create"

@@ -1,7 +1,7 @@
-import type { ProductsCodeResDto } from '@/types/productsType';
+import type { ProductDetailResDto } from '@/types/productsType';
 
 interface ProductInfoProps {
-  productInfo?: ProductsCodeResDto;
+  productInfo?: ProductDetailResDto;
 }
 
 const ProductInfo = ({ productInfo }: ProductInfoProps) => {
@@ -12,28 +12,27 @@ const ProductInfo = ({ productInfo }: ProductInfoProps) => {
           {productInfo?.brand}
         </span>
       </div>
-
       <h1 className="mb-8 text-[40px] leading-[1.1] font-semibold tracking-tight text-[#1d1d1f]">
         {productInfo?.product_name}
       </h1>
-
+      <h1 className="mb-8 text-[40px] leading-[1.1] font-semibold tracking-tight text-[#1d1d1f]">
+        가격 : {productInfo?.price} 원
+      </h1>
       <div className="grid grid-cols-3 gap-3">
         {productInfo &&
-          Object.entries(productInfo.specs)
-            .slice(0, 3)
-            .map(([label, value]) => (
-              <div
-                key={label}
-                className="flex flex-col items-center justify-center rounded-2xl border border-[#d2d2d7]/30 bg-[#f5f5f7]/30 p-4 transition-all hover:bg-white hover:shadow-sm"
-              >
-                <span className="mb-1 text-[10px] font-bold tracking-widest text-[#86868b] uppercase">
-                  {label}
-                </span>
-                <span className="text-center text-[13px] font-semibold tracking-tight text-[#1d1d1f]">
-                  {value}
-                </span>
-              </div>
-            ))}
+          Object.entries(productInfo.specs).map(([label, value]) => (
+            <div
+              key={label}
+              className="flex flex-col items-center justify-center rounded-2xl border border-[#d2d2d7]/30 bg-[#f5f5f7]/30 p-4 transition-all hover:bg-white hover:shadow-sm"
+            >
+              <span className="mb-1 text-[10px] font-bold tracking-widest text-[#86868b] uppercase">
+                {label}
+              </span>
+              <span className="text-center text-[13px] font-semibold tracking-tight text-[#1d1d1f]">
+                {value}
+              </span>
+            </div>
+          ))}
       </div>
     </div>
   );

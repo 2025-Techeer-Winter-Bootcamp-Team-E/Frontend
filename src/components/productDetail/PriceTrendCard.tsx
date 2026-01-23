@@ -1,7 +1,7 @@
-import type { TimersIdGetResDto } from '@/types/timerType';
+import type { TimerGetByProductCodeResDto } from '@/types/timerType';
 
 interface PriceTrendCardProps {
-  timerInfo: TimersIdGetResDto;
+  timerInfo: TimerGetByProductCodeResDto;
 }
 
 const PriceTrendCard = ({ timerInfo }: PriceTrendCardProps) => {

@@ -3,6 +3,7 @@ import { useState } from 'react';
 import ReviewCard from './ReviewCard';
 import useProductReviewQuery from '@/hooks/queries/useProductReviewQuery';
 import useProductAIReviewQuery from '@/hooks/queries/useProductAIReviewQuery';
+import Pagination from '@/components/layout/Pagination';
 
 interface ReviewSectionProps {
   productCode: number;
@@ -18,22 +19,36 @@ const ReviewSection = ({ productCode }: ReviewSectionProps) => {
 
   const { reviews, pagination, average_rating } = reviewData;
 
+  const handlePageChange = (newPage: number) => {
+    if (newPage < 1 || newPage > pagination.total_pages) return;
+
+    setPage(newPage);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <section className="space-y-16">
       <div className="flex flex-col gap-2">
         <h2 className="text-3xl font-semibold tracking-tight text-[#1d1d1f]">구매 후기</h2>
+
         <div className="mt-2 flex items-center gap-4">
           <div className="flex items-center gap-0.5">
             {[...Array(5)].map((_, i) => (
               <Star
                 key={i}
-                className={`h-5 w-5 ${i < Math.floor(average_rating) ? 'fill-[#1d1d1f] text-[#1d1d1f]' : 'text-[#d2d2d7]'}`}
+                className={`h-5 w-5 ${
+                  i < Math.floor(average_rating)
+                    ? 'fill-[#1d1d1f] text-[#1d1d1f]'
+                    : 'text-[#d2d2d7]'
+                }`}
               />
             ))}
           </div>
+
           <span className="text-2xl font-bold tracking-tighter text-[#1d1d1f]">
             {average_rating.toFixed(1)}
           </span>
+
           <span className="border-l border-[#d2d2d7] pl-4 text-sm font-medium text-[#86868b]">
             전체 {pagination.total_elements.toLocaleString()}개의 통합 리뷰
           </span>
@@ -60,11 +75,13 @@ const ReviewSection = ({ productCode }: ReviewSectionProps) => {
                 <ul className="space-y-3 text-[14px] font-medium text-[#424245]">
                   {aiData.pros.map((item, idx) => (
                     <li key={idx} className="flex gap-3 leading-relaxed">
-                      <span className="text-[#1d1d1f]">/</span> {item}
+                      <span className="text-[#1d1d1f]">/</span>
+                      {item}
                     </li>
                   ))}
                 </ul>
               </div>
+
               <div>
                 <h4 className="mb-4 text-xs font-bold tracking-widest text-[#86868b] uppercase">
                   Cons
@@ -72,7 +89,8 @@ const ReviewSection = ({ productCode }: ReviewSectionProps) => {
                 <ul className="space-y-3 text-[14px] font-medium text-[#86868b]">
                   {aiData.cons.map((item, idx) => (
                     <li key={idx} className="flex gap-3 leading-relaxed">
-                      <span className="opacity-40">•</span> {item}
+                      <span className="opacity-40">•</span>
+                      {item}
                     </li>
                   ))}
                 </ul>
@@ -83,18 +101,21 @@ const ReviewSection = ({ productCode }: ReviewSectionProps) => {
               <h4 className="mb-2 text-xs font-bold tracking-widest text-[#86868b] uppercase">
                 Recommendation
               </h4>
+
               <div className="mb-4 flex items-baseline gap-2">
                 <span className="text-5xl font-bold tracking-tighter text-[#1d1d1f]">
                   {aiData.recommendation_score}
                 </span>
                 <span className="text-lg font-semibold text-[#86868b]">/ 100</span>
               </div>
+
               <div className="mb-6 h-1 w-full overflow-hidden rounded-full bg-black/5">
                 <div
                   className="h-full bg-[#1d1d1f]"
                   style={{ width: `${aiData.recommendation_score}%` }}
                 />
               </div>
+
               <p className="text-[13px] leading-relaxed font-medium text-[#424245] italic">
                 "{aiData.score_reason}"
               </p>
@@ -108,6 +129,12 @@ const ReviewSection = ({ productCode }: ReviewSectionProps) => {
           <ReviewCard key={review.review_id} review={review} />
         ))}
       </div>
+
+      <Pagination
+        currentPage={page}
+        totalPages={pagination.total_pages}
+        onPageChange={handlePageChange}
+      />
     </section>
   );
 };

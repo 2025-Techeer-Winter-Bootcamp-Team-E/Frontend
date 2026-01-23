@@ -1,18 +1,24 @@
-import type { ProductsCodeResDto } from '@/types/productsType';
+import { useState } from 'react';
+import type { ProductDetailResDto } from '@/types/productsType';
 import { ChevronDown } from 'lucide-react';
 
 interface SpecTableProps {
-  productInfo?: ProductsCodeResDto;
+  productInfo?: ProductDetailResDto;
 }
 
 const SpecTable = ({ productInfo }: SpecTableProps) => {
-  const specs = productInfo ? Object.entries(productInfo.specs) : [];
+  const [open, setOpen] = useState(false);
+
+  if (!productInfo) return null;
+
+  const specs = Object.entries(productInfo.specs ?? []);
 
   return (
     <div className="rounded-[2.5rem] border border-black/3 bg-white p-10 shadow-[0_4px_24px_rgba(0,0,0,0.02)] md:p-16">
       <div className="mb-12 border-b border-[#f5f5f7] pb-10">
         <h3 className="text-[32px] font-semibold tracking-tight text-[#1d1d1f]">제품 사양</h3>
       </div>
+
       <div className="grid grid-cols-1 gap-x-12 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
         {specs.map(([label, value]) => (
           <div key={label} className="group flex flex-col border-b border-[#f5f5f7] pb-6">
@@ -25,8 +31,9 @@ const SpecTable = ({ productInfo }: SpecTableProps) => {
           </div>
         ))}
       </div>
-      <div className="relative mt-20 flex flex-col items-center overflow-hidden rounded-[2.5rem] bg-[#f5f5f7] px-8 py-20 transition-all duration-500 hover:bg-[#f2f2f4]">
-        {!productInfo?.product_image_url_list?.length ? (
+
+      <div className="relative mt-20 overflow-hidden rounded-[2.5rem] bg-[#f5f5f7] px-8 py-20 transition-all duration-500 hover:bg-[#f2f2f4]">
+        {!productInfo.product_image_url_list?.length ? (
           <div className="flex flex-col items-center">
             <div className="mb-8 flex h-24 w-24 items-center justify-center rounded-4xl bg-white shadow-[0_8px_16px_rgba(0,0,0,0.04)]">
               <svg
@@ -45,13 +52,34 @@ const SpecTable = ({ productInfo }: SpecTableProps) => {
             </p>
           </div>
         ) : (
-          <div className="flex flex-col items-center gap-8">
-            {/* 실제 이미지가 있을 경우 보여줄 미리보기나 레이아웃 */}
-            <button className="group flex items-center gap-3 rounded-full bg-[#1d1d1f] px-10 py-4 text-[15px] font-semibold text-white shadow-xl shadow-black/10 transition-all hover:bg-[#424245] active:scale-95">
-              상세 이미지 펼쳐보기
-              <ChevronDown className="h-4 w-4 transition-transform group-hover:translate-y-0.5" />
-            </button>
-          </div>
+          <>
+            <div
+              className={`flex w-full flex-col gap-12 overflow-hidden transition-all duration-500 ${
+                open ? 'max-h-1250 opacity-100' : 'max-h-0 opacity-0'
+              }`}
+            >
+              {productInfo.product_image_url_list.map((url, index) => (
+                <img
+                  key={index}
+                  src={url}
+                  alt={`product-detail-${index}`}
+                  className="w-full rounded-3xl border border-black/5 object-cover"
+                  loading="lazy"
+                />
+              ))}
+            </div>
+            <div className={`flex flex-col items-center ${open ? 'mt-16' : ''}`}>
+              <button
+                onClick={() => setOpen((prev) => !prev)}
+                className="group flex items-center gap-3 rounded-full bg-[#1d1d1f] px-10 py-4 text-[15px] font-semibold text-white shadow-xl shadow-black/10 transition-all hover:bg-[#424245] active:scale-95"
+              >
+                상세 이미지 {open ? '접기' : '펼쳐보기'}
+                <ChevronDown
+                  className={`h-4 w-4 transition-transform ${open ? 'rotate-180' : ''}`}
+                />
+              </button>
+            </div>
+          </>
         )}
       </div>
     </div>

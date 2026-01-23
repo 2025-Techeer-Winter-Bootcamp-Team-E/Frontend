@@ -1,11 +1,11 @@
 import { Share2, ShoppingCart, Minus, Plus, CreditCard } from 'lucide-react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import type { ProductsCodeResDto } from '@/types/productsType';
+import type { ProductDetailResDto } from '@/types/productsType';
 import useCartItemPostMutation from '@/hooks/mutations/useCartItemPostMutation';
 import { PATH } from '@/routes/path';
 
-const ImageGallery = ({ data }: { data?: ProductsCodeResDto }) => {
+const ImageGallery = ({ data }: { data?: ProductDetailResDto }) => {
   const navigate = useNavigate();
   const [quantity, setQuantity] = useState(1);
   const { mutate: addCartItem } = useCartItemPostMutation();
@@ -29,6 +29,7 @@ const ImageGallery = ({ data }: { data?: ProductsCodeResDto }) => {
       {
         onSuccess: () => {
           alert('장바구니에 추가되었습니다.');
+          setQuantity(1);
         },
       },
     );
@@ -43,7 +44,7 @@ const ImageGallery = ({ data }: { data?: ProductsCodeResDto }) => {
           name: data.product_name,
           image: data.thumbnail_url,
           quantity: quantity,
-          price: data.base_price,
+          price: data.price,
         },
       },
     });
@@ -58,6 +59,7 @@ const ImageGallery = ({ data }: { data?: ProductsCodeResDto }) => {
             alt={data.product_name}
             className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
+          
         </div>
         <button className="absolute right-5 bottom-5 flex h-10 w-10 items-center justify-center rounded-full bg-white/80 shadow-sm backdrop-blur-md transition-all hover:bg-white">
           <Share2 className="h-4 w-4 text-[#1d1d1f]" />

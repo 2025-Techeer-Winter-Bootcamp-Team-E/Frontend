@@ -1,12 +1,12 @@
-import useProductPricesQuery from '@/hooks/queries/useProductPricesQuery';
-import { useParams } from 'react-router-dom';
+interface PriceComparisonTableProps {
+  comparisons: {
+    mall_name: string;
+    price: number;
+    url: string;
+  }[];
+}
 
-const PriceComparisonTable = () => {
-  const { id } = useParams<{ id: string }>();
-
-  const { data } = useProductPricesQuery(Number(id));
-  const comparisons = data ?? [];
-
+const PriceComparisonTable = ({ comparisons }: PriceComparisonTableProps) => {
   return (
     <div className="overflow-hidden rounded-4xl border border-[#d2d2d7]/30 bg-white shadow-[0_8px_30px_rgb(0,0,0,0.04)]">
       <div className="flex items-center justify-between p-8 pb-4">

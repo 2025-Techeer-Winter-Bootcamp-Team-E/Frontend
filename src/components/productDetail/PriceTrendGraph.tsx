@@ -1,12 +1,12 @@
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
-import useProductTrendQuery from '@/hooks/queries/useProductTrendQuery';
+import type { ProductPriceTrendsResDto } from '@/types/productsType';
 
-const PriceTrendGraph = ({ productCode }: { productCode: number }) => {
-  const { data } = useProductTrendQuery(productCode);
+interface PriceTrendGraphProps {
+  productTrend: ProductPriceTrendsResDto;
+}
 
-  if (!data) return null;
-
-  const chartData = data.price_history.map((item) => ({
+const PriceTrendGraph = ({ productTrend }: PriceTrendGraphProps) => {
+  const chartData = productTrend.price_history.map((item) => ({
     date: item.date.slice(5),
     price: item.price,
   }));
@@ -19,8 +19,8 @@ const PriceTrendGraph = ({ productCode }: { productCode: number }) => {
       <h4 className="mb-8 text-[15px] font-semibold tracking-tight text-[#1d1d1f]">
         최저가 추이{' '}
         <span className="font-normal text-[#86868b]">
-          ({data.selected_period}
-          {data.period_unit})
+          ({productTrend.selected_period}
+          {productTrend.period_unit})
         </span>
       </h4>
 

@@ -1,22 +1,21 @@
 import { useState } from 'react';
-import TimerCard from './TimerCard';
-import Pagination from '../Pagination';
+import TimerCard from '../components/myPage/timer/TimerCard';
+import Pagination from '../components/layout/Pagination';
 import useTimerAllGetQuery from '@/hooks/queries/useTimerAllGetQuery';
 import { RefreshCw } from 'lucide-react';
 
-const MyTimerGrid = () => {
+const MyTimerGridPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const userId = Number(localStorage.getItem('user_id'));
 
   const { data } = useTimerAllGetQuery(userId, currentPage, 6);
+  const timers = data?.timers || [];
+  const pageInfo = data?.page_info;
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
-
-  const timers = data?.timers || [];
-  const pageInfo = data?.page_info;
 
   return (
     <div className="space-y-12">
@@ -50,4 +49,4 @@ const MyTimerGrid = () => {
   );
 };
 
-export default MyTimerGrid;
+export default MyTimerGridPage;

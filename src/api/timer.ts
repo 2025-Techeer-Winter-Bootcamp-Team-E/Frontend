@@ -45,10 +45,10 @@ export const patchTimer = (timerId: number, body: TimerUpdateReqDto) =>
  * 적정 구매 타이머 삭제
  * DELETE /timers/{timer_id}
  */
-export const deleteTimer = (timerId: number) =>
+export const deleteTimer = (timer_id: number) =>
   getAPIResponseData<null>({
     method: 'DELETE',
-    url: API.TIMERS_ID(timerId),
+    url: API.TIMERS_ID(timer_id),
   });
 
 /**

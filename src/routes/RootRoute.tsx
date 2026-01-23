@@ -10,11 +10,11 @@ import LLMSearchResultPage from '@/pages/LLMSearchResultPage';
 import ShoppingResearchPage from '@/pages/ShoppingResearchPage';
 import ShoppingResearchResultPage from '@/pages/ShoppingResearchResultPage';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import TokenChargePage from '@/components/myPage/token/TokenChargePage';
-import MyTimerGrid from '@/components/myPage/timer/MyTimerGrid';
+import TokenChargePage from '@/pages/TokenChargePage';
 import { ROUTE_PATH } from '@/routes/path';
 import useScrollToTop from '@/hooks/useScrollTop';
 import ProductListPage from '@/pages/ProductListPage';
+import MyTimerGridPage from '@/pages/MyTimerGridPage';
 
 const RootRoute = () => {
   useScrollToTop();
@@ -40,7 +40,7 @@ const RootRoute = () => {
 
         <Route path={ROUTE_PATH.MY_PAGE} element={<MyPage />}>
           <Route index element={<Navigate to={ROUTE_PATH.TIMER} replace />} />
-          <Route path={ROUTE_PATH.TIMER} element={<MyTimerGrid />} />
+          <Route path={ROUTE_PATH.TIMER} element={<MyTimerGridPage />} />
           <Route path={ROUTE_PATH.TOKEN} element={<TokenChargePage />} />
         </Route>
       </Route>

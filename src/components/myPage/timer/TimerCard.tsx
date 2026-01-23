@@ -1,14 +1,14 @@
 import { X, Pencil } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import type { TimersEntity } from '@/types/timerType';
 import useTimerDeleteMutation from '@/hooks/mutations/useTimerDeleteMutation';
 import useTimerPatchMutation from '@/hooks/mutations/useTimerPatchMutation';
 import TimerModal from './TimerModal';
 import { PATH } from '@/routes/path';
+import type { TimerEntity } from '@/types/timerType';
 
 interface TimerCardProps {
-  timer: TimersEntity;
+  timer: TimerEntity;
 }
 
 const TimerCard = ({ timer }: TimerCardProps) => {
@@ -23,7 +23,7 @@ const TimerCard = ({ timer }: TimerCardProps) => {
     deleteTimerMutation.mutate(timer.timer_id);
   };
 
-  const handleSubmitEdit = (data: { product_id: number; target_price: number }) => {
+  const handleSubmitEdit = (data: { target_price: number }) => {
     patchTimerMutation.mutate(
       {
         timer_id: timer.timer_id,
@@ -32,10 +32,9 @@ const TimerCard = ({ timer }: TimerCardProps) => {
       {
         onSuccess: () => {
           setIsEditModalOpen(false);
-          alert('목표가격이 수정되었습니다.');
         },
         onError: () => {
-          alert('목표가격 수정에 실패했습니다.');
+          alert('타이머 설정에 실패앴습니다.');
         },
       },
     );

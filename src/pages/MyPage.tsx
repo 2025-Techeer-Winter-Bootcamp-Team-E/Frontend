@@ -12,7 +12,6 @@ const MyPage = () => {
             계정 활동을 확인하고 선호하는 설정을 맞춤화하세요.
           </p>
         </header>
-
         <div className="flex flex-col gap-12 lg:flex-row">
           <aside className="w-full space-y-6 lg:w-70 lg:shrink-0">
             <UserProfile />

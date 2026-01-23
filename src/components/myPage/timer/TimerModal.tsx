@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { createPortal } from 'react-dom';
 import type { TimerPostReqDto } from '@/types/timerType';
 
 interface TimerModalProps {
@@ -23,6 +24,11 @@ const TimerModal = ({
   const [targetPrice, setTargetPrice] = useState<string>(
     initialData?.target_price.toString() || '',
   );
+
+  if (!isOpen) return null;
+
+  const modalRoot = document.getElementById('modal-root');
+  if (!modalRoot) return null;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -49,15 +55,13 @@ const TimerModal = ({
     return parseInt(value, 10).toLocaleString('ko-KR');
   };
 
-  if (!isOpen) return null;
-
-  return (
+  return createPortal(
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <div className="absolute inset-0 bg-white/80 backdrop-blur-2xl" onClick={onClose} />
       <div className="relative z-10 w-full max-w-105 rounded-[36px] border border-black/5 bg-white p-10 shadow-[0_40px_100px_rgba(0,0,0,0.08)]">
         <div className="mb-10 text-center">
           <h2 className="text-[28px] font-bold tracking-tight text-[#1d1d1f]">
-            {mode === 'create' ? '타이머 설정' : '가격 수정'}
+            {mode === 'create' ? '등록하기' : '수정하기'}
           </h2>
         </div>
 
@@ -78,6 +82,7 @@ const TimerModal = ({
               <span className="text-[24px] font-bold text-[#1d1d1f]">원</span>
             </div>
           </div>
+
           <div className="flex flex-col gap-3">
             <button
               type="submit"
@@ -95,7 +100,9 @@ const TimerModal = ({
           </div>
         </form>
       </div>
-    </div>
+    </div>,
+    modalRoot,
   );
 };
+
 export default TimerModal;

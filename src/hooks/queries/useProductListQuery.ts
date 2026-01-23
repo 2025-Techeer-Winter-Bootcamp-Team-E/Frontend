@@ -3,8 +3,8 @@ import { getProductsList } from '@/api/products';
 import { QUERY_KEY } from '@/constants/queryKey';
 import type { ProductsListParams } from '@/types/productsType';
 
-const useProductListQuery = (params: ProductsListParams) => {
-  return useQuery({
+const useProductListQuery = (params: ProductsListParams) =>
+  useQuery({
     queryKey: QUERY_KEY.PRODUCT_LIST({
       q: params.q,
       page: params.page ?? 1,
@@ -19,6 +19,5 @@ const useProductListQuery = (params: ProductsListParams) => {
     queryFn: () => getProductsList(params),
     placeholderData: (previousData) => previousData,
   });
-};
 
 export default useProductListQuery;

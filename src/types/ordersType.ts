@@ -1,3 +1,13 @@
+export type TokenBalance = {
+  current_tokens: number;
+};
+
+export type OrderBase = {
+  order_id: string;
+  total_price: number;
+  order_status: string;
+};
+
 /**
  * 토큰 충전 요청
  * POST /orders/tokens/recharge
@@ -8,71 +18,58 @@ export type TokenRechargeReqDto = {
 
 /**
  * 토큰 충전 응답
- * POST /orders/tokens/recharge
  */
-export type TokenRechargeResDto = {
-  current_tokens: number;
-};
+export type TokenRechargeResDto = TokenBalance;
 
 /**
- * 보유 토큰 조회 응답 데이터
+ * 보유 토큰 조회 응답
  * GET /orders/tokens
  */
-export type TokenBalanceResDto = {
-  current_tokens: number;
-};
+export type TokenBalanceResDto = TokenBalance;
 
 /**
- * 토큰으로 상품 단일 결제 요청 데이터
+ * 토큰으로 상품 단일 결제 요청
  * POST /orders/checkout
  */
-export type TokenSingleItemReqDto = {
+export type SingleItemCheckoutReqDto = {
   product_code: number;
   quantity: number;
   total_price: number;
 };
 
 /**
- * 토큰으로 상품 단일 결제 응답 데이터
- * POST /orders/checkout
+ * 단일 상품 결제 응답
  */
-export type TokenSingleItemResDto = {
-  order_id: string;
-  product_name: string;
-  total_price: number;
-  current_tokens: number;
-  order_status: string;
-  ordered_at: string;
-};
+export type SingleItemCheckoutResDto = OrderBase &
+  TokenBalance & {
+    product_name: string;
+    ordered_at: string;
+  };
 
-type CartItemsEntity = {
+export type CartItemIdEntity = {
   cart_item_id: number;
   quantity: number;
 };
 
 /**
- * 장바구니 상품 결제 요청 데이터
+ * 장바구니 상품 결제 요청
  * POST /orders/cart/checkout
  */
-export type CartItemsReqDto = {
-  items: CartItemsEntity[];
+export type CartItemsCheckoutReqDto = {
+  items: CartItemIdEntity[];
   total_price: number;
 };
 
 /**
- * 장바구니 상품 결제 응답 데이터
- * POST /orders/cart/checkout
+ * 장바구니 상품 결제 응답
  */
-export type CartItemsResDto = {
-  order_id: string;
-  order_items: CartItemsEntity[];
-  total_price: number;
-  current_tokens: number;
-  order_status: string;
-};
+export type CartItemsCheckoutResDto = OrderBase &
+  TokenBalance & {
+    order_items: CartItemIdEntity[];
+  };
 
 /**
- * 장바구니 상품 추가 요청 데이터
+ * 장바구니 상품 추가 요청
  * POST /orders/cart
  */
 export type CartItemPostReqDto = {
@@ -81,8 +78,7 @@ export type CartItemPostReqDto = {
 };
 
 /**
- * 장바구니 상품 추가 응답 데이터
- * POST /orders/cart
+ * 장바구니 상품 추가 응답
  */
 export type CartItemPostResDto = {
   cart_item_id: number;
@@ -92,25 +88,20 @@ export type CartItemPostResDto = {
 };
 
 /**
- * 장바구니 모든 상품 조회 응답 데이터
- * POST /orders/cart
+ * 장바구니 상품 조회 아이템
  */
 export type CartItemEntity = {
   cart_item_id: number;
   product_code: number;
   product_name: string;
-  product_resentative_image_url: string;
+  product_representative_image_url: string;
   quantity: number;
   price: number;
   total_price: number;
 };
-export type CartAllItemsResDto = CartItemEntity[];
 
-export type BuyItemEntity = {
-  id: number;
-  product_code: number;
-  name: string;
-  image: string;
-  quantity: number;
-  price: number;
-};
+/**
+ * 장바구니 전체 조회 응답
+ * GET /orders/cart
+ */
+export type CartAllItemsResDto = CartItemEntity[];

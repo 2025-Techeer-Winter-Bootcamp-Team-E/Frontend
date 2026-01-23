@@ -1,16 +1,13 @@
-import { delteeCartItem } from '@/api/orders';
+import { deleteCartItem } from '@/api/orders';
 import { QUERY_KEY } from '@/constants/queryKey';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 const useCartItemDeleteMutation = () => {
   const queryClient = useQueryClient();
-
   return useMutation({
-    mutationFn: (cart_item_id: number) => delteeCartItem(cart_item_id),
+    mutationFn: deleteCartItem,
     onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: QUERY_KEY.CART,
-      });
+      queryClient.invalidateQueries({ queryKey: QUERY_KEY.CART });
     },
   });
 };

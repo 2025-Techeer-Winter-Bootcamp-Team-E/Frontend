@@ -5,15 +5,9 @@ import type {
   SearchShoppingResearchResultResDto,
 } from '@/types/searchType';
 
-const useShoppingResultMutation = () => {
-  return useMutation<
-    SearchShoppingResearchResultResDto,
-    unknown,
-    SearchShoppingResearchResultReqDto
-  >({
-    mutationFn: (body: SearchShoppingResearchResultReqDto) =>
-      postSearchShoppingResearchResult(body),
+const useShoppingResultMutation = () =>
+  useMutation<SearchShoppingResearchResultResDto, unknown, SearchShoppingResearchResultReqDto>({
+    mutationFn: postSearchShoppingResearchResult,
   });
-};
 
 export default useShoppingResultMutation;

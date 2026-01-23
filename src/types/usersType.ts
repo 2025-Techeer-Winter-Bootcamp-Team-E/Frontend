@@ -1,8 +1,8 @@
 /**
- * 회원가입 요청
+ * 회원가입 요청 데이터
  * POST /users/signup
  */
-export type UsersSignUpReqDto = {
+export type UserSignUpReqDto = {
   email: string;
   name: string;
   nickname: string;
@@ -11,26 +11,26 @@ export type UsersSignUpReqDto = {
 };
 
 /**
- * 회원가입 요청 응답
+ * 회원가입 응답 데이터
  * POST /users/signup
  */
-export type UsersSignUpResDto = {
-  memberId: number;
+export type UserSignUpResDto = {
+  user_id: number;
   email: string;
   created_at: string;
 };
 
 /**
- ** 로그인 요청
+ * 로그인 요청 데이터
  * POST /users/login
  */
-export type UsersLoginReqDto = {
+export type UserLoginReqDto = {
   email: string;
   password: string;
 };
 
 /**
- * 로그인 요청 응답
+ * 로그인 응답 데이터
  * POST /users/login
  */
 export type UsersLoginResDto = {
@@ -41,39 +41,12 @@ export type UsersLoginResDto = {
 };
 
 /**
- * 프로필 조회 응답
+ * 프로필 조회 응답 데이터
  * GET /users
  */
-export type UsersProfile = {
+export type UserProfileResDto = {
   name: string;
   email: string;
   nickname: string;
   phone: string;
-};
-
-/**
- * 소셜 로그인 요청
- * POST /users/social-login
- */
-export type UsersSocialLoginReqDto = {
-  provider: string;
-  social_token: string;
-};
-
-/**
- * 비밀번호 변경 요청
- * PATCH /users/password
- */
-export type UsersPasswordReqDto = {
-  current_password: string;
-  new_password: string;
-};
-
-/**
- * 회원 탈퇴요청
- * DELETE /users/me
- */
-export type UsersDeleteMeReqDto = {
-  password: string;
-  re_password: string;
 };

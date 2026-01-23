@@ -1,73 +1,73 @@
 import getAPIResponseData from '@/api/getAPIResponseData';
 import { API } from '@/constants/api';
 import type {
-  ProductCodeAllReviewsResDto,
-  ProductCodePricesResDto,
-  ProductCodePriceTrendsResDto,
-  ProductCodeReviewAiSummaryResDto,
-  ProductsCodeResDto,
+  ProductDetailResDto,
+  ProductPricesResDto,
+  ProductPriceTrendsResDto,
+  ProductReviewAiSummaryResDto,
+  ProductReviewsResDto,
   ProductsListParams,
   ProductsListResDto,
 } from '@/types/productsType';
 
-// 상품 상세 정보 조회 GET
-export const getProductsCode = async (product_code: number) => {
-  return await getAPIResponseData<ProductsCodeResDto, null>({
+/**
+ * 상품 상세 정보 조회
+ * GET /products/{product_code}
+ */
+export const getProductDetail = (productCode: number) =>
+  getAPIResponseData<ProductDetailResDto>({
     method: 'GET',
-    url: API.PRODUCTS_CODE(product_code),
+    url: API.PRODUCTS_CODE(productCode),
   });
-};
-
-// 월별 상품 최저가 조회 GET
-export const getProductsCodePriceTrends = async (product_code: number) => {
-  return await getAPIResponseData<ProductCodePriceTrendsResDto, null>({
-    method: 'GET',
-    url: API.PRODUCTS_CODE_PRICE_TRENDS(product_code),
-  });
-};
 
 /**
- * 쇼핑몰 별 상품 가격 조회 응답 GET
+ * 월별 상품 최저가 조회
+ * GET /products/{product_code}/price-trend
  */
-export const getProductsIdPrices = async (product_code: number) => {
-  return await getAPIResponseData<ProductCodePricesResDto, null>({
+export const getProductPriceTrends = (productCode: number) =>
+  getAPIResponseData<ProductPriceTrendsResDto>({
     method: 'GET',
-    url: API.PRODUCTS_CODE_PRICES(product_code),
+    url: API.PRODUCTS_CODE_PRICE_TRENDS(productCode),
   });
-};
 
 /**
- * 상품 상세 페이지 전체 리뷰 목록 조회 응답 GET
+ * 쇼핑몰 별 상품 가격 조회
+ * GET /products/{product_code}/prices
  */
-export const getProductsIdAllReview = async (
-  product_code: number,
-  page: number = 1,
-  size: number = 10,
-) => {
-  return await getAPIResponseData<ProductCodeAllReviewsResDto, null>({
+export const getProductPrices = (productCode: number) =>
+  getAPIResponseData<ProductPricesResDto>({
     method: 'GET',
-    url: API.PRODUCTS_CODE_REVIEWS(product_code),
+    url: API.PRODUCTS_CODE_PRICES(productCode),
+  });
+
+/**
+ * 상품 리뷰 목록 조회
+ * GET /products/{product_code}/reviews
+ */
+export const getProductReviews = (productCode: number, page: number = 1, size: number = 15) =>
+  getAPIResponseData<ProductReviewsResDto>({
+    method: 'GET',
+    url: API.PRODUCTS_CODE_REVIEWS(productCode),
     params: { page, size },
   });
-};
 
 /**
- * AI 통합 리뷰 조회(내용 요약, 키워드 추출, 장단점) GET
+ * AI 통합 리뷰 요약 조회
+ * GET /products/{product_code}/reviews/summary
  */
-export const getProductsIdReviewAISummary = async (product_code: number) => {
-  return await getAPIResponseData<ProductCodeReviewAiSummaryResDto, null>({
+export const getProductReviewAiSummary = (productCode: number) =>
+  getAPIResponseData<ProductReviewAiSummaryResDto>({
     method: 'GET',
-    url: API.PRODUCTS_ID_REVIEW_SUMMARY(product_code),
+    url: API.PRODUCTS_ID_REVIEW_SUMMARY(productCode),
   });
-};
 
 /**
- * 상품 목록 리스트 조회 GET
+ * 상품 목록 조회
+ * GET /products
  */
-export const getProductsList = async (params: ProductsListParams) => {
-  return await getAPIResponseData<ProductsListResDto, ProductsListParams>({
+export const getProductsList = (params: ProductsListParams) =>
+  getAPIResponseData<ProductsListResDto>({
     method: 'GET',
     url: API.PRODUCTS,
     params,
   });
-};

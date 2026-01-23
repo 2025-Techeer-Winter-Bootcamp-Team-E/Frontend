@@ -4,14 +4,12 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 const useSearchRecentDeleteMutation = () => {
   const queryClient = useQueryClient();
-
   return useMutation({
-    mutationFn: (id: number) => deleteSearchRecent(id),
+    mutationFn: deleteSearchRecent,
     onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: QUERY_KEY.SEARCH_RECENT,
-      });
+      queryClient.invalidateQueries({ queryKey: QUERY_KEY.SEARCH_RECENT });
     },
   });
 };
+
 export default useSearchRecentDeleteMutation;

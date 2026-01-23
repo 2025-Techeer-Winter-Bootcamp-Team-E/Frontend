@@ -1,12 +1,14 @@
+import type { ProductSpecs } from '@/types/productsType';
+
 /**
  * 검색창 입력 기반 추천 키워드 조회 응답
- * GET /search/autocomplete
+ * GET /search/autocomplete?keyword={keyword}
  */
 export type SearchAutocompleteResDto = {
   suggestions: string[];
 };
 
-type PopularTermsEntity = {
+export type PopularSearchTermEntity = {
   rank: number;
   term: string;
 };
@@ -16,13 +18,13 @@ type PopularTermsEntity = {
  * GET /search/popular
  */
 export type SearchPopularResDto = {
-  popular_terms: PopularTermsEntity[];
+  popular_terms: PopularSearchTermEntity[];
 };
 
-type RecentTermsEntity = {
+export type RecentSearchTermEntity = {
   id: number;
   term: string;
-  searchedAt: string;
+  searched_at: string;
 };
 
 /**
@@ -30,7 +32,7 @@ type RecentTermsEntity = {
  * GET /search/recent
  */
 export type SearchRecentResDto = {
-  recent_terms: RecentTermsEntity[];
+  recent_terms: RecentSearchTermEntity[];
 };
 
 /** LLM 기반 상품 제안 검색 요청
@@ -40,10 +42,9 @@ export type SearchLlmRecommendationReqDto = {
   user_query: string;
 };
 
-type LLMRecommendationEntity = {
-  product_id: number;
+export type LlmRecommendationEntity = {
   product_code: number;
-  product_image_url: string;
+  thumbnail_url: string;
   product_name: string;
   recommendation_reason: string;
   price: number;
@@ -56,7 +57,7 @@ type LLMRecommendationEntity = {
  */
 export type SearchLlmRecommendationResDto = {
   analysis_message: string;
-  recommended_products: LLMRecommendationEntity[];
+  recommended_products: LlmRecommendationEntity[];
 };
 
 /** 쇼핑 리서치 검색 요청
@@ -66,11 +67,10 @@ export type SearchShoppingResearchReqDto = {
   user_query: string;
 };
 
-export type ProductSpecs = Record<string, string>;
-
-export type QuestionEntity = {
+export type ResearchQuestionEntity = {
   question_id: number;
   question: string;
+  options: string[];
 };
 
 /** 쇼핑 리서치 검색 요청 응답 (질문 생성)
@@ -78,36 +78,30 @@ export type QuestionEntity = {
  */
 export type SearchShoppingResearchResDto = {
   search_id: string;
-  questions: QuestionEntity[];
+  questions: ResearchQuestionEntity[];
 };
 
-export type QuestionAnswerEntity = {
+export type ResearchQuestionAnswerEntity = {
   question_id: number;
   question: string;
   answer: string;
 };
 
-/** 쇼핑 리서치 요청 결과
+/** 쇼핑 리서치 요청 결과 요청 데이터
  * POST /search/shopping-research
  */
 export type SearchShoppingResearchResultReqDto = {
   search_id: string;
   user_query: string;
-  survey_contents: QuestionAnswerEntity[];
+  survey_contents: ResearchQuestionAnswerEntity[];
 };
 
-export type MallType = {
+export type MallInfoEntity = {
   match_rank: number;
   is_lowest_price: boolean;
 };
 
-export type MallPrices = {
-  mall_name: string;
-  price: number;
-  url: string;
-};
-
-export type ShoppingResultEntity = {
+export type ShoppingResearchResultEntity = {
   similarity_score: number;
   product_image_url: string;
   product_name: string;
@@ -118,12 +112,13 @@ export type ShoppingResultEntity = {
   product_specs: ProductSpecs;
   ai_review_summary: string;
   product_detail_url: string;
-  optimal_product_info: MallType[];
+  optimal_product_info: MallInfoEntity[];
 };
-/** 쇼핑 리서치 요청 응답
+
+/** 쇼핑 리서치 요청 응답 데이터
  * POST /search/shopping-research
  */
 export type SearchShoppingResearchResultResDto = {
   user_query: string;
-  product: ShoppingResultEntity[];
+  products: ShoppingResearchResultEntity[];
 };

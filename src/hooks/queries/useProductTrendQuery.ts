@@ -1,14 +1,13 @@
-import { getProductsCodePriceTrends } from '@/api/products';
+import { getProductPriceTrends } from '@/api/products';
 import { QUERY_KEY } from '@/constants/queryKey';
-import type { ProductCodePriceTrendsResDto } from '@/types/productsType';
+import type { ProductPriceTrendsResDto } from '@/types/productsType';
 import { useQuery } from '@tanstack/react-query';
 
-const useProductTrendQuery = (product_code: number) => {
-  return useQuery<ProductCodePriceTrendsResDto>({
+const useProductTrendQuery = (product_code: number) =>
+  useQuery<ProductPriceTrendsResDto>({
     queryKey: QUERY_KEY.PRODUCT_TREND(product_code),
-    queryFn: () => getProductsCodePriceTrends(product_code),
+    queryFn: () => getProductPriceTrends(product_code),
     enabled: !!product_code,
   });
-};
 
 export default useProductTrendQuery;

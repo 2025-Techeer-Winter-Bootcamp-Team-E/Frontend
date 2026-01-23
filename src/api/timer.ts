@@ -1,63 +1,63 @@
 import getAPIResponseData from '@/api/getAPIResponseData';
 import { API } from '@/constants/api';
+
 import type {
+  TimerGetByProductCodeResDto,
+  TimerListResDto,
   TimerPostReqDto,
   TimerPostResDto,
-  TimersIdAllGetResDto,
-  TimersIdGetReqDto,
-  TimersIdGetResDto,
-  TimersIdPatchReqDto,
+  TimerUpdateReqDto,
 } from '@/types/timerType';
 
-// 상품 상세페이지에서의 적정구매 타이머 POST
-export const postPricePrediction = async (body: TimerPostReqDto) => {
-  return await getAPIResponseData<TimerPostResDto, TimerPostReqDto>({
+/**
+ * 적정 구매 타이머 등록 (상품 상세 페이지)
+ * POST /timers
+ */
+export const postTimer = (body: TimerPostReqDto) =>
+  getAPIResponseData<TimerPostResDto, TimerPostReqDto>({
     method: 'POST',
     url: API.TIMERS,
     data: body,
   });
-};
-
-// 적정구매 단일 타이머 GET
-export const getTimersByProductId = async (product_code: number) => {
-  return await getAPIResponseData<TimersIdGetResDto, null>({
-    method: 'GET',
-    url: API.TIMERS_PRODUCT_CODE(product_code),
-  });
-};
-
-// 현가격의 저점/고점 판정 결과 및 정보 GET
-export const getPricePredictionIdAnalysis = async (timer_id: number) => {
-  return await getAPIResponseData<TimersIdGetResDto, TimersIdGetReqDto>({
-    method: 'GET',
-    url: API.TIMERS_ID(timer_id),
-  });
-};
-
-// 타이머 설정 수정 PATCH
-export const patchPricePredictionId = async (timer_id: number, body: TimersIdPatchReqDto) => {
-  return await getAPIResponseData<null, TimersIdPatchReqDto>({
-    method: 'PATCH',
-    url: API.TIMERS_ID(timer_id),
-    data: body,
-  });
-};
-
-// 타이머 삭제 DELETE
-export const deletePricePredictionId = async (timer_id: number) => {
-  return await getAPIResponseData<null, null>({
-    method: 'DELETE',
-    url: API.TIMERS_ID(timer_id),
-  });
-};
 
 /**
- * 마이페이지 내 타이머 보관함 조회 응답 GET
+ * 상품별 적정 구매 타이머 조회
+ * GET /timers/{product_code}
  */
-export const getTimerAllMypage = async (user_id: number, page: number = 1, size: number = 10) => {
-  return await getAPIResponseData<TimersIdAllGetResDto, null>({
+export const getTimerByProductCode = (productCode: number) =>
+  getAPIResponseData<TimerGetByProductCodeResDto>({
+    method: 'GET',
+    url: API.TIMERS_PRODUCT_CODE(productCode),
+  });
+
+/**
+ * 적정 구매 타이머 수정
+ * PATCH /timers/{timer_id}
+ */
+export const patchTimer = (timerId: number, body: TimerUpdateReqDto) =>
+  getAPIResponseData<null, TimerUpdateReqDto>({
+    method: 'PATCH',
+    url: API.TIMERS_ID(timerId),
+    data: body,
+  });
+
+/**
+ * 적정 구매 타이머 삭제
+ * DELETE /timers/{timer_id}
+ */
+export const deleteTimer = (timerId: number) =>
+  getAPIResponseData<null>({
+    method: 'DELETE',
+    url: API.TIMERS_ID(timerId),
+  });
+
+/**
+ * 마이페이지 타이머 보관함 조회 (페이지네이션)
+ * GET /timers?user_id={user_id}&page={page}&size={size}
+ */
+export const getTimersMypage = (userId: number, page: number = 1, size: number = 6) =>
+  getAPIResponseData<TimerListResDto>({
     method: 'GET',
     url: API.TIMERS,
-    params: { user_id, page, size },
+    params: { user_id: userId, page, size },
   });
-};

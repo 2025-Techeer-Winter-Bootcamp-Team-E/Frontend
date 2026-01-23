@@ -1,11 +1,10 @@
 import { postUsersSignUp } from '@/api/users';
-import type { UsersSignUpReqDto, UsersSignUpResDto } from '@/types/usersType';
+import type { UserSignUpReqDto, UserSignUpResDto } from '@/types/usersType';
 import { useMutation } from '@tanstack/react-query';
 
-const useSignUpMutation = () => {
-  return useMutation<UsersSignUpResDto, Error, UsersSignUpReqDto>({
+const useSignUpMutation = () =>
+  useMutation<UserSignUpResDto, Error, UserSignUpReqDto>({
     mutationFn: postUsersSignUp,
   });
-};
 
 export default useSignUpMutation;

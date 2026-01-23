@@ -61,7 +61,7 @@ export const postCartItem = async (body: CartItemPostReqDto) => {
 export const delteeCartItem = async (cart_item_id: number) => {
   return await getAPIResponseData<null, null>({
     method: 'DELETE',
-    url: API.ORDERS_CART_ITEM_ID(cart_item_id),
+    url: `${API.ORDERS_CART.replace(/\/$/, '')}/${cart_item_id}/`,
   });
 };
 

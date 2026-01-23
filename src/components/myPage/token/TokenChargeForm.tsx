@@ -6,8 +6,8 @@ import SectionHeader from './SectionHeader';
 import TotalAmount from './TotalAmount';
 import ChargeButton from './ChargeButton';
 import InfoMessage from './InfoMessage';
-import kakaoImage from '@/assets/kakao.png';
-import naverImage from '@/assets/naver.png';
+// import kakaoImage from '@/assets/kakao.png';
+// import naverImage from '@/assets/naver.png';
 import useTokenBalanceQuery from '@/hooks/queries/useTokenBalanceQuery';
 import useTokenChargeMutation from '@/hooks/mutations/useTokenChargeMutation';
 
@@ -45,13 +45,13 @@ const TokenChargeForm = () => {
       id: 'kakao',
       label: '카카오페이',
       iconBgColor: 'bg-[#FEE500]',
-      imageSrc: kakaoImage,
+      // imageSrc: kakaoImage,
     },
     {
       id: 'naver',
       label: '네이버페이',
       iconBgColor: 'bg-[#03C75A]',
-      imageSrc: naverImage,
+      // imageSrc: naverImage,
     },
   ];
 

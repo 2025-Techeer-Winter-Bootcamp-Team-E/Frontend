@@ -4,6 +4,7 @@ import type {
   CartAllItemsResDto,
   CartItemPostReqDto,
   CartItemPostResDto,
+  CartItemPatchReqDto,
   CartItemsReqDto,
   CartItemsResDto,
   TokenBalanceResDto,
@@ -53,6 +54,15 @@ export const postCartItem = async (body: CartItemPostReqDto) => {
   return await getAPIResponseData<CartItemPostResDto, CartItemPostReqDto>({
     method: 'POST',
     url: API.ORDERS_CART,
+    data: body,
+  });
+};
+
+// 장바구니 상품 수량 변경 PATCH
+export const patchCartItemQuantity = async (cart_item_id: number, body: CartItemPatchReqDto) => {
+  return await getAPIResponseData<null, CartItemPatchReqDto>({
+    method: 'PATCH',
+    url: `${API.ORDERS_CART.replace(/\/$/, '')}/${cart_item_id}/`,
     data: body,
   });
 };

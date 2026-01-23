@@ -1,6 +1,6 @@
 import { postCartItem } from '@/api/orders';
 import { QUERY_KEY } from '@/constants/queryKey';
-import type { CartItemEntity, CartItemPostReqDto } from '@/types/ordersType';
+import type { CartItemPostReqDto } from '@/types/ordersType';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 const useCartItemPostMutation = () => {
@@ -9,36 +9,14 @@ const useCartItemPostMutation = () => {
   return useMutation({
     mutationFn: (body: CartItemPostReqDto) => postCartItem(body),
 
-    onMutate: async (variables: CartItemPostReqDto) => {
-      await queryClient.cancelQueries({ queryKey: QUERY_KEY.CART });
-
-      const previousCart = queryClient.getQueryData<CartItemEntity[]>(QUERY_KEY.CART);
-
-      queryClient.setQueryData<CartItemEntity[]>(QUERY_KEY.CART, (old) => {
-        if (!old) return old;
-
-        return old.map((item) =>
-          item.product_code === variables.product_code
-            ? { ...item, quantity: variables.quantity }
-            : item,
-        );
-      });
-
-      return { previousCart };
-    },
-
-    onError: (error, _variables, context) => {
-      console.error('장바구니 수량 변경 실패:', error);
-
-      if (context?.previousCart) {
-        queryClient.setQueryData(QUERY_KEY.CART, context.previousCart);
-      }
-
-      alert('수량 변경에 실패했습니다.');
-    },
-
-    onSettled: () => {
+    onSuccess: () => {
+      // 상품 추가 성공 시, 장바구니 목록을 다시 불러와 최신 상태를 반영합니다.
       queryClient.invalidateQueries({ queryKey: QUERY_KEY.CART });
+    },
+
+    onError: (error) => {
+      console.error('장바구니 상품 추가 실패:', error);
+      alert('상품을 장바구니에 추가하는 데 실패했습니다.');
     },
   });
 };

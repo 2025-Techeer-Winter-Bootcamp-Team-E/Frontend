@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import PriceRangeFilter from '@/components/productList/PriceRangeFilter';
 import ProductCard from '@/components/productList/ProductCard';
@@ -13,8 +12,8 @@ const ProductListPage = () => {
   const minPrice = searchParams.get('min_price') || '';
   const maxPrice = searchParams.get('max_price') || '';
   const sort = searchParams.get('sort') || 'popular';
-
-  const [page, setPage] = useState(1);
+  const pageParam = searchParams.get('page');
+  const page = pageParam ? Number(pageParam) : 1;
 
   const updateURL = (newParams: Record<string, string | number | undefined>) => {
     const params = Object.fromEntries(searchParams.entries());
@@ -28,7 +27,6 @@ const ProductListPage = () => {
     });
 
     setSearchParams(params, { replace: true });
-    setPage(1);
   };
 
   const queryParams = {
@@ -41,16 +39,42 @@ const ProductListPage = () => {
     page_size: 20,
   };
 
-  const { data } = useProductListQuery(queryParams);
+  const { data, isLoading, isError, error } = useProductListQuery(queryParams);
+
+  // 개발 환경에서 데이터 로깅
+  if (import.meta.env.MODE === 'development') {
+    console.log('ProductListPage - queryParams:', queryParams);
+    console.log('ProductListPage - data:', data);
+    console.log('ProductListPage - isLoading:', isLoading);
+    console.log('ProductListPage - isError:', isError);
+    if (isError) console.error('ProductListPage - error:', error);
+  }
 
   const products = data?.products || [];
   const pagination = data?.pagination;
+
+  if (isLoading) {
+    return <div className="flex min-h-screen items-center justify-center">로딩 중…</div>;
+  }
+
+  if (isError) {
+    return (
+      <div className="flex min-h-screen items-center justify-center text-red-500">
+        데이터를 불러오지 못했습니다.
+        {import.meta.env.MODE === 'development' && error && (
+          <div className="mt-4 text-xs text-gray-500">
+            {error instanceof Error ? error.message : String(error)}
+          </div>
+        )}
+      </div>
+    );
+  }
 
   const handlePageChange = (newPage: number) => {
     if (!pagination) return;
     if (newPage < 1 || newPage > pagination.total_pages) return;
 
-    setPage(newPage);
+    updateURL({ page: newPage });
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 

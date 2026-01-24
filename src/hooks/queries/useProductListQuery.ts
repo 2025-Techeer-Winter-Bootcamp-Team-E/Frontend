@@ -7,7 +7,6 @@ const useProductListQuery = (params: ProductsListParams) => {
   return useQuery({
     queryKey: QUERY_KEY.PRODUCT_LIST({
       page: params.page ?? 1,
-      page_size: params.page_size ?? 20,
       main_cat: params.main_cat,
       sub_cat: params.sub_cat,
       brand: params.brand,

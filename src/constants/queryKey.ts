@@ -9,7 +9,6 @@ export const QUERY_KEY = {
 
   PRODUCT_LIST: (params: {
     page: number;
-    page_size: number;
     main_cat?: string;
     sub_cat?: string;
     brand?: string;
@@ -21,7 +20,6 @@ export const QUERY_KEY = {
       'product',
       'list',
       params.page,
-      params.page_size,
       params.main_cat ?? '',
       params.sub_cat ?? '',
       params.brand ?? '',

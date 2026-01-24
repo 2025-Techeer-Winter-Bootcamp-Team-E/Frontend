@@ -3,6 +3,7 @@ import PriceRangeFilter from '@/components/productList/PriceRangeFilter';
 import ProductCard from '@/components/productList/ProductCard';
 import useProductListQuery from '@/hooks/queries/useProductListQuery';
 import Pagination from '@/components/layout/Pagination';
+import { Tabs } from '@/components/productList';
 
 const ProductListPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -39,36 +40,10 @@ const ProductListPage = () => {
     page_size: 20,
   };
 
-  const { data, isLoading, isError, error } = useProductListQuery(queryParams);
-
-  // 개발 환경에서 데이터 로깅
-  if (import.meta.env.MODE === 'development') {
-    console.log('ProductListPage - queryParams:', queryParams);
-    console.log('ProductListPage - data:', data);
-    console.log('ProductListPage - isLoading:', isLoading);
-    console.log('ProductListPage - isError:', isError);
-    if (isError) console.error('ProductListPage - error:', error);
-  }
+  const { data } = useProductListQuery(queryParams);
 
   const products = data?.products || [];
   const pagination = data?.pagination;
-
-  if (isLoading) {
-    return <div className="flex min-h-screen items-center justify-center">로딩 중…</div>;
-  }
-
-  if (isError) {
-    return (
-      <div className="flex min-h-screen items-center justify-center text-red-500">
-        데이터를 불러오지 못했습니다.
-        {import.meta.env.MODE === 'development' && error && (
-          <div className="mt-4 text-xs text-gray-500">
-            {error instanceof Error ? error.message : String(error)}
-          </div>
-        )}
-      </div>
-    );
-  }
 
   const handlePageChange = (newPage: number) => {
     if (!pagination) return;
@@ -77,6 +52,16 @@ const ProductListPage = () => {
     updateURL({ page: newPage });
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  const handleSortChange = (sortValue: string) => {
+    updateURL({ sort: sortValue, page: 1 });
+  };
+
+  const sortTabs = [
+    { id: 'popular', label: '인기순' },
+    { id: 'price_low', label: '낮은 가격순' },
+    { id: 'price_high', label: '높은 가격순' },
+  ];
 
   return (
     <div className="min-h-screen bg-[#F9FAFB] px-20 py-10">
@@ -89,9 +74,12 @@ const ProductListPage = () => {
         />
 
         <div className="my-4 flex items-center justify-between border-t pt-4">
-          <p className="text-sm">
-            총 <b>{pagination?.count ?? 0}</b>개의 상품
+          <p className="text-sm text-[#86868b]">
+            총 <span className="font-semibold text-[#1d1d1f]">{pagination?.count ?? 0}</span>개의
+            상품
           </p>
+
+          <Tabs tabs={sortTabs} activeTab={sort} onTabChange={handleSortChange} />
         </div>
 
         <div className="flex flex-col gap-4">

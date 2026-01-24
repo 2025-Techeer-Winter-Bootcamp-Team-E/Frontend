@@ -21,7 +21,7 @@ const SubCategoryDropdown = ({ mainCategoryId, subCategories, onClose }: Props) 
             {subCategories.map((sub) => (
               <li key={sub.id}>
                 <Link
-                  to={`${PATH.PRODUCT_LIST}/?main_cat=${mainCategoryId}&sub_cat=${sub.id}`}
+                  to={`${PATH.PRODUCT_LIST}/?main_cat=${mainCategoryId}&sub_cat=${sub.id}&page=1`}
                   onClick={onClose}
                   className="group block py-1"
                 >

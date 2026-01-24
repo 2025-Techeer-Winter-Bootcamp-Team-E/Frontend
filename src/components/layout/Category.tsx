@@ -17,7 +17,7 @@ const Category = () => {
           onMouseLeave={() => setHoveredId(null)}
         >
           <Link
-            to={`${PATH.PRODUCT_LIST}/?main_cat=${item.id}`}
+            to={`${PATH.PRODUCT_LIST}/?main_cat=${item.id}&page=1`}
             onClick={() => setHoveredId(null)}
             className={`relative text-[12px] font-medium tracking-tight transition-all duration-300 ${
               hoveredId === item.id ? 'text-[#1d1d1f]' : 'text-[#1d1d1f]/60'

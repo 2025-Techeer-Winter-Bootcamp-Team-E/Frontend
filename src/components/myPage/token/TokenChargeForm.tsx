@@ -19,11 +19,11 @@ const TokenChargeForm = () => {
   const { mutate: chargeToken, isPending } = useTokenChargeMutation();
 
   const tokenOptions = [
-    { amount: 100, price: 1100, isRecommended: false, isPopular: false },
-    { amount: 500, price: 5500, isRecommended: false, isPopular: false },
-    { amount: 1000, price: 11000, isRecommended: false, isPopular: true },
-    { amount: 5000, price: 55000, isRecommended: false, isPopular: false },
-    { amount: 10000, price: 110000, isRecommended: true, isPopular: false },
+    { amount: 1000, price: 1000, isRecommended: false, isPopular: false },
+    { amount: 5000, price: 5000, isRecommended: false, isPopular: true },
+    { amount: 10000, price: 10000, isRecommended: true, isPopular: false },
+    { amount: 30000, price: 30000, isRecommended: false, isPopular: false },
+    { amount: 50000, price: 50000, isRecommended: false, isPopular: false },
   ];
 
   const paymentMethods = [
@@ -55,12 +55,15 @@ const TokenChargeForm = () => {
     },
   ];
 
+  const selectedOption = tokenOptions.find((opt) => opt.amount === selectedTokenAmount);
+
   const handleCharge = () => {
-    if (!selectedTokenAmount || !selectedPaymentMethod) return;
+    if (!selectedTokenAmount || !selectedPaymentMethod || !selectedOption) return;
 
     chargeToken(
       {
         recharge_token: selectedTokenAmount,
+        recharge_amount: selectedOption.price,
       },
       {
         onSuccess: () => {
@@ -72,7 +75,6 @@ const TokenChargeForm = () => {
     );
   };
 
-  const selectedOption = tokenOptions.find((opt) => opt.amount === selectedTokenAmount);
   const isFormValid = selectedTokenAmount !== null && selectedPaymentMethod !== null;
 
   return (

@@ -1,4 +1,4 @@
-const QuestionHeader: React.FC<{ title: string; subtitle: string }> = ({ title, subtitle }) => {
+const QuestionHeader = ({ title, subtitle }: { title: string; subtitle: string }) => {
   return (
     <div className="flex flex-col items-center gap-2 text-center">
       <span className="text-[12px] font-bold tracking-widest text-[#0066cc] uppercase opacity-90">

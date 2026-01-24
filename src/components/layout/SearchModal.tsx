@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { Search, X, ChevronDown, ArrowUpRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
@@ -9,37 +9,35 @@ import useDebounce from '@/hooks/useDebounce';
 import useSearchRecentDeleteMutation from '@/hooks/mutations/useSearchRecentDeleteMutation';
 import useShoppingResearchMutation from '@/hooks/mutations/useShoppingResearchMutation';
 import { PATH } from '@/routes/path';
+import { SEARCH_TYPES, type SearchModeId, type SearchType } from '@/constants/searchMode';
 
 type SearchModalProps = {
   isOpen: boolean;
   onClose: () => void;
-  initialType?: 'unified' | 'llm' | 'shopping-research';
+  initialType?: SearchModeId;
 };
 
-type SearchType = {
-  id: 'unified' | 'llm' | 'shopping-research';
-  label: string;
-};
-
-const SEARCH_TYPES: SearchType[] = [
-  { id: 'unified', label: '통합검색' },
-  { id: 'llm', label: 'AI 분석 검색' },
-  { id: 'shopping-research', label: '쇼핑 리서치' },
-];
-
-const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose, initialType }) => {
+const SearchModal = ({ isOpen, onClose, initialType = 'llm' }: SearchModalProps) => {
   const navigate = useNavigate();
   const [keyword, setKeyword] = useState('');
   const [selectedType, setSelectedType] = useState<SearchType>(
-    SEARCH_TYPES.find((t) => t.id === initialType) || SEARCH_TYPES[0],
+    SEARCH_TYPES.find((type) => type.id === initialType) || SEARCH_TYPES[0],
   );
+
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const debouncedKeyword = useDebounce(keyword, 300);
 
   const { data: recentData } = useSearchRecentQuery(isOpen);
+  const recentSearches = recentData?.recent_terms || [];
+
   const { data: popularData } = useSearchPopularQuery(isOpen);
+  const popularSearches = popularData?.popular_terms.map((item) => item.term) || [];
+
   const { data: autoCompleteData } = useAutocompleteQuery(debouncedKeyword);
+  const suggestions = autoCompleteData?.suggestions || [];
+  const showAutocomplete = keyword.trim().length > 0 && suggestions.length > 0;
+
   const { mutate: deleteRecent } = useSearchRecentDeleteMutation();
   const shoppingResearchMutation = useShoppingResearchMutation();
 
@@ -66,9 +64,12 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose, initialType 
     }
   }, [isOpen]);
 
-  const recentSearches = recentData?.recent_terms || [];
-  const popularSearches = popularData?.popular_terms.map((item) => item.term) || [];
-  const suggestions = autoCompleteData?.suggestions || [];
+  useEffect(() => {
+    if (initialType) {
+      const type = SEARCH_TYPES.find((t) => t.id === initialType);
+      if (type) setSelectedType(type);
+    }
+  }, [initialType]);
 
   const handleSearch = (
     query: string = keyword,
@@ -77,14 +78,9 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose, initialType 
     if (!query.trim()) return;
 
     switch (searchType) {
-      case 'unified':
-        navigate(`${PATH.PRODUCT_LIST}?q=${encodeURIComponent(query)}`);
-        break;
-
       case 'llm':
         navigate(`${PATH.LLM_SEARCH_RESULT}?q=${encodeURIComponent(query)}`);
         break;
-
       case 'shopping-research':
         shoppingResearchMutation.mutate(
           { user_query: query },
@@ -102,11 +98,10 @@ const SearchModal: React.FC<SearchModalProps> = ({ isOpen, onClose, initialType 
     onClose();
   };
 
-  const handleQuickSearch = (query: string) => {
-    handleSearch(query, 'unified');
+  const handleQuickSearch = (term: string) => {
+    setKeyword(term);
+    handleSearch(term);
   };
-
-  const showAutocomplete = keyword.trim().length > 0 && suggestions.length > 0;
 
   const modalContent = (
     <div

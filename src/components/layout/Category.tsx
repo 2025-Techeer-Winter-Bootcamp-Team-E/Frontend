@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom'; // useLocation 추가
+import { Link } from 'react-router-dom';
 import { CATEGORY } from '@/constants/category';
 import { PATH } from '@/routes/path';
 import SubCategoryDropdown from './SubCategoryDropdown';
 
 const Category = () => {
-  const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const [hoveredId, setHoveredId] = useState<number | null>(null);
 
   return (
     <nav className="static hidden items-center justify-center space-x-12 md:flex">
@@ -17,7 +17,7 @@ const Category = () => {
           onMouseLeave={() => setHoveredId(null)}
         >
           <Link
-            to={`${PATH.PRODUCT_LIST}?main_cat=${item.name}`}
+            to={`${PATH.PRODUCT_LIST}/?main_cat=${item.id}`}
             onClick={() => setHoveredId(null)}
             className={`relative text-[12px] font-medium tracking-tight transition-all duration-300 ${
               hoveredId === item.id ? 'text-[#1d1d1f]' : 'text-[#1d1d1f]/60'
@@ -33,7 +33,7 @@ const Category = () => {
 
           {hoveredId === item.id && item.subCategories?.length > 0 && (
             <SubCategoryDropdown
-              mainCategoryName={item.name}
+              mainCategoryId={item.id}
               subCategories={item.subCategories}
               onClose={() => setHoveredId(null)}
             />

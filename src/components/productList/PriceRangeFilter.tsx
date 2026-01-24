@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 interface PriceRangeFilterProps {
   initialMin: string;
@@ -10,10 +10,9 @@ const PriceRangeFilter = ({ initialMin, initialMax, onApply }: PriceRangeFilterP
   const [tempMin, setTempMin] = useState(initialMin);
   const [tempMax, setTempMax] = useState(initialMax);
 
-  useEffect(() => {
-    setTempMin(initialMin);
-    setTempMax(initialMax);
-  }, [initialMin, initialMax]);
+  const handleApply = () => {
+    onApply(tempMin, tempMax);
+  };
 
   return (
     <div className="flex items-center gap-4 py-2">
@@ -41,7 +40,7 @@ const PriceRangeFilter = ({ initialMin, initialMax, onApply }: PriceRangeFilterP
           <span className="ml-1 text-[13px] text-[#86868b]">원</span>
         </div>
         <button
-          onClick={() => onApply(tempMin, tempMax)}
+          onClick={handleApply}
           className="ml-2 rounded-full bg-[#1d1d1f] px-5 py-1.5 text-[12px] font-bold text-white hover:bg-[#424245]"
         >
           적용

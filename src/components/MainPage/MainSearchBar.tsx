@@ -1,18 +1,8 @@
 import { useState, useEffect } from 'react';
-import { ChevronDown, Search } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { Search } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import useShoppingResearchMutation from '@/hooks/mutations/useShoppingResearchMutation';
 import { PATH } from '@/routes/path';
-
-const OPTIONS = ['통합 검색', 'LLM 검색', '쇼핑 리서치'] as const;
-type Option = (typeof OPTIONS)[number];
-
-const OPTION_TO_TYPE = {
-  '통합 검색': 'unified',
-  'LLM 검색': 'llm',
-  '쇼핑 리서치': 'shopping-research',
-} as const;
 
 const TYPING_PHRASES = [
   '편집용 고사양 노트북 추천해줘',
@@ -25,9 +15,6 @@ const MainSearchBar = () => {
   const shoppingResearchMutation = useShoppingResearchMutation();
 
   const [query, setQuery] = useState('');
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState<Option>('쇼핑 리서치');
-
   const [displayedText, setDisplayedText] = useState('');
   const [isTyping, setIsTyping] = useState(true);
   const [charIndex, setCharIndex] = useState(0);
@@ -62,76 +49,30 @@ const MainSearchBar = () => {
   const handleSearch = () => {
     if (!query.trim()) return;
 
-    const searchType = OPTION_TO_TYPE[selectedOption];
-
-    if (searchType === 'unified') {
-      navigate(`${PATH.PRODUCT_LIST}?q=${encodeURIComponent(query)}`);
-      return;
-    }
-
-    if (searchType === 'llm') {
-      navigate(`${PATH.LLM_SEARCH_RESULT}?q=${encodeURIComponent(query)}`);
-      return;
-    }
-
-    if (searchType === 'shopping-research') {
-      shoppingResearchMutation.mutate(
-        { user_query: query },
-        {
-          onSuccess: (data) => {
-            navigate(PATH.SHOPPING_RESEARCH, {
-              state: {
-                userQuery: query,
-                questions: data.questions,
-                searchId: data.search_id,
-              },
-            });
-          },
-          onError: (err) => {
-            console.error('쇼핑 리서치 실패', err);
-          },
+    shoppingResearchMutation.mutate(
+      { user_query: query },
+      {
+        onSuccess: (data) => {
+          navigate(PATH.SHOPPING_RESEARCH, {
+            state: {
+              userQuery: query,
+              questions: data.questions,
+              searchId: data.search_id,
+            },
+          });
         },
-      );
-    }
+        onError: (err) => {
+          console.error('쇼핑 리서치 실패', err);
+        },
+      },
+    );
   };
 
   return (
     <div className="mx-auto max-w-3xl">
       <div className="relative flex flex-col gap-4 rounded-4xl bg-white/80 p-4 shadow-xl backdrop-blur-xl">
-        <div className="relative">
-          <button
-            onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-            className="flex items-center gap-2 rounded-full bg-gray-100 px-4 py-2 text-xs font-semibold"
-          >
-            {selectedOption}
-            <ChevronDown
-              className={`h-3 w-3 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`}
-            />
-          </button>
-
-          <AnimatePresence>
-            {isDropdownOpen && (
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 10 }}
-                className="absolute mt-2 w-40 rounded-xl bg-white shadow-lg"
-              >
-                {OPTIONS.map((option) => (
-                  <button
-                    key={option}
-                    onClick={() => {
-                      setSelectedOption(option);
-                      setIsDropdownOpen(false);
-                    }}
-                    className="block w-full px-4 py-3 text-left text-xs hover:bg-gray-50"
-                  >
-                    {option}
-                  </button>
-                ))}
-              </motion.div>
-            )}
-          </AnimatePresence>
+        <div className="flex w-24 items-center justify-center gap-2 rounded-full bg-gray-100 px-4 py-2 text-xs font-semibold">
+          쇼핑 리서치
         </div>
         <textarea
           value={query}
@@ -145,7 +86,6 @@ const MainSearchBar = () => {
           placeholder={`${displayedText}|`}
           className="h-36 resize-none bg-transparent text-3xl outline-none"
         />
-
         <button
           onClick={handleSearch}
           disabled={!query.trim()}

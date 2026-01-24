@@ -1,7 +1,6 @@
-import React from 'react';
 import { MessageSquare } from 'lucide-react';
 
-const QuestionContext: React.FC<{ context: string; mode: string }> = ({ context, mode }) => {
+const QuestionContext = ({ context, mode }: { context: string; mode: string }) => {
   return (
     <div className="flex w-full items-center justify-between rounded-[14px] border border-black/3 bg-[#f5f5f7]/60 px-5 py-3.5 backdrop-blur-md">
       <div className="flex items-center gap-3">

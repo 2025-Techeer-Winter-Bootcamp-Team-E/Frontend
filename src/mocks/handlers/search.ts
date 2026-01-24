@@ -22,13 +22,15 @@ export const searchHandler = [
   http.get(API.SEARCH_POPULAR, () => {
     return HttpResponse.json(searchPopluar);
   }),
-  http.get(API.SEARCH_AUTOCOMPLETE, () => {
+  http.get(/\/search\/autocomplete.*/, () => {
     return HttpResponse.json(searchAutoComplete);
   }),
+
   http.post(API.SEARCH_LLM_RECOMMENDATION, async () => {
     return HttpResponse.json(llmSearch);
   }),
-  http.post(API.SEARCH_QUESTION, async () => {
+  http.post(`*${API.SEARCH_QUESTION}`, async ({ request }) => {
+    const body = await request.json();
     return HttpResponse.json(ShoppingResearchQuestion);
   }),
   http.post(API.SEARCH_SHOPPING_RESEARCH, async () => {

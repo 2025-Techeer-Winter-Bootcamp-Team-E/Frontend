@@ -3,7 +3,7 @@ export type ProductSpecs = Record<string, string>;
 export type PageInfo = {
   current_page: number;
   size: number;
-  total_elements: number;
+  count: number;
   total_pages: number;
 };
 
@@ -94,7 +94,8 @@ export type ProductReviewAiSummaryResDto = {
 
 export type ProductListItem = ProductBase & {
   base_price: number;
-  mall_prices: MallPriceEntity[];
+  category: string;
+  mall_price: MallPriceEntity[];
 };
 
 /**
@@ -110,7 +111,6 @@ export type ProductsListResDto = {
  * 상품 목록 조회 파라미터
  */
 export type ProductsListParams = {
-  q?: string;
   main_cat?: string;
   sub_cat?: string;
   brand?: string;

@@ -2,17 +2,17 @@ import { Link } from 'react-router-dom';
 import { PATH } from '@/routes/path';
 
 interface SubCategory {
-  id: string;
+  id: number;
   name: string;
 }
 
 interface Props {
-  mainCategoryName: string;
+  mainCategoryId: number;
   subCategories: SubCategory[];
   onClose: () => void;
 }
 
-const SubCategoryDropdown = ({ mainCategoryName, subCategories, onClose }: Props) => {
+const SubCategoryDropdown = ({ mainCategoryId, subCategories, onClose }: Props) => {
   return (
     <div className="animate-in fade-in slide-in-from-top-4 absolute inset-x-0 top-12 z-50 w-full duration-300">
       <div className="border-b border-black/5 bg-white/85 shadow-[0_40px_80px_rgba(0,0,0,0.06)] backdrop-blur-[32px]">
@@ -21,7 +21,7 @@ const SubCategoryDropdown = ({ mainCategoryName, subCategories, onClose }: Props
             {subCategories.map((sub) => (
               <li key={sub.id}>
                 <Link
-                  to={`${PATH.PRODUCT_LIST}?main_cat=${mainCategoryName}&sub_cat=${sub.name}`}
+                  to={`${PATH.PRODUCT_LIST}/?main_cat=${mainCategoryId}&sub_cat=${sub.id}`}
                   onClick={onClose}
                   className="group block py-1"
                 >

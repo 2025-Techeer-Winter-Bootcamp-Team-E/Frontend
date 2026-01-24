@@ -1,5 +1,5 @@
 import { PATH } from '@/routes/path';
-import type { MallPrices, ProductSpecs } from '@/types/searchType';
+import type { MallPriceEntity, ProductSpecs } from '@/types/productsType';
 import { Star, Truck } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
@@ -12,7 +12,7 @@ interface ProductCardProps {
     base_price: number;
     category: string;
     thumbnail_url: string;
-    mall_price: MallPrices[];
+    mall_price: MallPriceEntity[];
   };
 }
 

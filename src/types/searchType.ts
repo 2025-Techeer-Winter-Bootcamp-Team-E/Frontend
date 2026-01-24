@@ -74,7 +74,7 @@ export type ResearchQuestionEntity = {
 };
 
 /** 쇼핑 리서치 검색 요청 응답 (질문 생성)
- * POST /search/question
+ * POST /search/questions
  */
 export type SearchShoppingResearchResDto = {
   search_id: string;

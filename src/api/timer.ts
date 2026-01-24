@@ -48,7 +48,7 @@ export const patchTimer = (timerId: number, body: TimerUpdateReqDto) =>
 export const deleteTimer = (timer_id: number) =>
   getAPIResponseData<null>({
     method: 'DELETE',
-    url: API.TIMERS_ID(timer_id),
+    url: `${API.TIMERS.replace(/\/$/, '')}/detail/${timer_id}`,
   });
 
 /**

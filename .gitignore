@@ -187,6 +187,9 @@ sketch
 ### Vercel ###
 .vercel
 
+### Claude ###
+.claude/*
+
 ### VisualStudioCode ###
 .vscode/*
 !.vscode/settings.json

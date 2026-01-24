@@ -1,3 +1,5 @@
+import React from 'react';
+
 type FormInputProps = {
   label: string;
   type?: string;
@@ -7,14 +9,14 @@ type FormInputProps = {
   error?: string;
 };
 
-const FormInput: React.FC<FormInputProps> = ({
+const FormInput = ({
   label,
   type = 'text',
   placeholder,
   value,
   onChange,
   error,
-}) => (
+}: FormInputProps) => (
   <div className="space-y-1.5">
     <label className="ml-1 text-[13px] font-medium text-[#86868b]">{label}</label>
     <input
@@ -31,4 +33,5 @@ const FormInput: React.FC<FormInputProps> = ({
     {error && <p className="ml-1 text-[12px] font-medium text-[#ff3b30]">{error}</p>}
   </div>
 );
+
 export default FormInput;

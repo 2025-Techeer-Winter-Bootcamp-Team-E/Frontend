@@ -1,10 +1,6 @@
-import type { AgreementsState } from '@/components/auth/AgreementSection';
-import AgreementSection from '@/components/auth/AgreementSection';
-import FormInput from '@/components/auth/FormInput';
-import useSignUpMutation from '@/hooks/mutations/useSignUpMutation';
-import { PATH } from '@/routes/path';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import FormInput from '@/components/auth/FormInput';
+import AgreementSection, { type AgreementsState } from '@/components/auth/AgreementSection';
 
 type SignupFormData = {
   email: string;
@@ -24,10 +20,18 @@ type FormErrors = {
   phone: string;
 };
 
-const SignupForm: React.FC = () => {
-  const navigate = useNavigate();
-  const signUpMutation = useSignUpMutation();
+type SignupFormProps = {
+  onSubmit: (data: {
+    email: string;
+    password: string;
+    nickname: string;
+    name: string;
+    phone: string;
+  }) => void;
+  loading?: boolean;
+};
 
+const SignupForm = ({ onSubmit, loading }: SignupFormProps) => {
   const [formData, setFormData] = useState<SignupFormData>({
     email: '',
     password: '',
@@ -57,7 +61,6 @@ const SignupForm: React.FC = () => {
   const handleInputChange =
     (field: keyof SignupFormData) => (e: React.ChangeEvent<HTMLInputElement>) => {
       setFormData((prev) => ({ ...prev, [field]: e.target.value }));
-
       if (errors[field]) {
         setErrors((prev) => ({ ...prev, [field]: '' }));
       }
@@ -102,39 +105,22 @@ const SignupForm: React.FC = () => {
       return;
     }
 
-    signUpMutation.mutate(
-      {
-        email: formData.email,
-        password: formData.password,
-        nickname: formData.nickname,
-        name: formData.name,
-        phone: formData.phone,
-      },
-      {
-        onSuccess: () => {
-          navigate(PATH.LOGIN);
-        },
-        onError: (error) => {
-          console.error(error);
-          alert(error.message || '회원가입에 실패했습니다.');
-        },
-      },
-    );
+    onSubmit({
+      email: formData.email,
+      password: formData.password,
+      nickname: formData.nickname,
+      name: formData.name,
+      phone: formData.phone,
+    });
   };
 
   return (
-    <div className="flex min-h-screen justify-center bg-[#F5F5F7] px-4 py-24">
-      <div className="w-full max-w-110">
-        <h1 className="mb-10 text-center text-[32px] font-semibold tracking-tight text-[#1d1d1f]">
-          계정 만들기
-        </h1>
 
         <form onSubmit={handleSubmit} className="space-y-5">
-          <div className="grid grid-cols-1 gap-5 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-black/5">
+          <div className="space-y-5 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-black/5">
             <FormInput
               label="이메일"
               type="email"
-              placeholder="example@apple.com"
               value={formData.email}
               onChange={handleInputChange('email')}
               error={errors.email}
@@ -143,14 +129,12 @@ const SignupForm: React.FC = () => {
             <div className="grid grid-cols-2 gap-4">
               <FormInput
                 label="닉네임"
-                placeholder="닉네임"
                 value={formData.nickname}
                 onChange={handleInputChange('nickname')}
                 error={errors.nickname}
               />
               <FormInput
                 label="이름"
-                placeholder="이름"
                 value={formData.name}
                 onChange={handleInputChange('name')}
                 error={errors.name}
@@ -159,8 +143,6 @@ const SignupForm: React.FC = () => {
 
             <FormInput
               label="전화번호"
-              type="tel"
-              placeholder="010-1234-5678"
               value={formData.phone}
               onChange={handleInputChange('phone')}
               error={errors.phone}
@@ -169,7 +151,6 @@ const SignupForm: React.FC = () => {
             <FormInput
               label="비밀번호"
               type="password"
-              placeholder="8자 이상"
               value={formData.password}
               onChange={handleInputChange('password')}
               error={errors.password}
@@ -178,7 +159,6 @@ const SignupForm: React.FC = () => {
             <FormInput
               label="비밀번호 확인"
               type="password"
-              placeholder="비밀번호 확인"
               value={formData.passwordConfirm}
               onChange={handleInputChange('passwordConfirm')}
               error={errors.passwordConfirm}
@@ -189,17 +169,13 @@ const SignupForm: React.FC = () => {
 
           <button
             type="submit"
-            className="mt-4 w-full rounded-xl bg-[#0066cc] py-4 text-[17px] font-semibold text-white transition-all hover:bg-[#0077ed] focus:outline-none disabled:bg-[#d2d2d7]"
+            disabled={loading}
+            className="w-full rounded-xl bg-[#0066cc] py-4 font-semibold text-white disabled:opacity-50"
           >
-            동의 및 가입하기
+            {loading ? '가입 중...' : '동의 및 가입하기'}
           </button>
         </form>
 
-        <p className="mt-8 text-center text-[13px] text-[#86868b]">
-          가입 시 서비스의 이용 약관 및 개인정보 처리방침에 동의하게 됩니다.
-        </p>
-      </div>
-    </div>
   );
 };
 

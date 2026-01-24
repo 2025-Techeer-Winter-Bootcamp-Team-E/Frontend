@@ -11,7 +11,7 @@ type AgreementSectionProps = {
   onAgreementsChange: (next: AgreementsState) => void;
 };
 
-const AgreementSection: React.FC<AgreementSectionProps> = ({ agreements, onAgreementsChange }) => {
+const AgreementSection = ({ agreements, onAgreementsChange }: AgreementSectionProps) => {
   const toggle = (key: keyof AgreementsState) => {
     const next = { ...agreements, [key]: !agreements[key] };
 
@@ -44,15 +44,17 @@ const AgreementSection: React.FC<AgreementSectionProps> = ({ agreements, onAgree
           className="h-5 w-5 accent-[#0066cc]"
         />
       </button>
+
       <div className="h-px bg-[#d2d2d7] opacity-50" />
 
-      {['age14', 'service', 'privacy', 'marketing'].map((key) => {
-        const labels: Record<string, string> = {
+      {(['age14', 'service', 'privacy', 'marketing'] as const).map((key) => {
+        const labels = {
           age14: '[필수] 만 14세 이상입니다.',
           service: '[필수] 이용약관 동의',
           privacy: '[필수] 개인정보 수집 및 이용 동의',
           marketing: '[선택] 마케팅 정보 수신 동의',
         };
+
         return (
           <label
             key={key}
@@ -61,8 +63,8 @@ const AgreementSection: React.FC<AgreementSectionProps> = ({ agreements, onAgree
             <span className="text-[#424245]">{labels[key]}</span>
             <input
               type="checkbox"
-              checked={agreements[key as keyof AgreementsState]}
-              onChange={() => toggle(key as keyof AgreementsState)}
+              checked={agreements[key]}
+              onChange={() => toggle(key)}
               className="h-5 w-5 accent-[#0066cc]"
             />
           </label>
@@ -71,4 +73,5 @@ const AgreementSection: React.FC<AgreementSectionProps> = ({ agreements, onAgree
     </div>
   );
 };
+
 export default AgreementSection;

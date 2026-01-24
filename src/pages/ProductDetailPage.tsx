@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import {
   ImageGallery,
   ProductInfo,
@@ -16,6 +16,8 @@ import TimerModal from '@/components/myPage/timer/TimerModal';
 import { Plus } from 'lucide-react';
 import useProductTrendQuery from '@/hooks/queries/useProductTrendQuery';
 import useProductPricesQuery from '@/hooks/queries/useProductPricesQuery';
+import useAuth from '@/hooks/useAuth';
+import { PATH } from '@/routes/path';
 
 const ProductDetailPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -32,7 +34,15 @@ const ProductDetailPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const comparisonRef = useRef<HTMLDivElement>(null);
 
+  const { isAuthenticated } = useAuth();
+
+  const navigate = useNavigate();
+
   const handleOpenModal = () => {
+    if (!isAuthenticated) {
+      navigate(PATH.LOGIN);
+      return;
+    }
     return setIsModalOpen(!isModalOpen);
   };
 

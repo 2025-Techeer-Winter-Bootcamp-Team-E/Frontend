@@ -5,18 +5,28 @@ import { PATH } from '@/routes/path';
 import Category from '@/components/layout/Category';
 import SearchModal from '@/components/layout/SearchModal';
 import { CATEGORY } from '@/constants/category';
+import useAuth from '@/hooks/useAuth';
 
 const Header: React.FC = () => {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 10);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const handleProtectedClick = (path: string) => {
+    if (!isAuthenticated) {
+      navigate(PATH.LOGIN);
+    } else {
+      navigate(path);
+    }
+  };
 
   return (
     <header
@@ -38,20 +48,30 @@ const Header: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-5">
-            {[
-              { icon: Search, onClick: () => setIsSearchOpen(true), label: '검색' },
-              { icon: ShoppingCart, onClick: () => navigate(PATH.CART), label: '장바구니' },
-              { icon: User, onClick: () => navigate(PATH.MY_PAGE), label: '마이페이지' },
-            ].map((btn, idx) => (
-              <button
-                key={idx}
-                className="opacity-80 transition-opacity hover:opacity-100"
-                onClick={btn.onClick}
-                aria-label={btn.label}
-              >
-                <btn.icon className="h-4.25 w-4.25 text-[#1d1d1f]" strokeWidth={2.2} />
-              </button>
-            ))}
+            <button
+              className="opacity-80 transition-opacity hover:opacity-100"
+              onClick={() => setIsSearchOpen(true)}
+              aria-label="검색"
+            >
+              <Search className="h-4.25 w-4.25 text-[#1d1d1f]" strokeWidth={2.2} />
+            </button>
+
+            <button
+              className="opacity-80 transition-opacity hover:opacity-100"
+              onClick={() => handleProtectedClick(PATH.CART)}
+              aria-label="장바구니"
+            >
+              <ShoppingCart className="h-4.25 w-4.25 text-[#1d1d1f]" strokeWidth={2.2} />
+            </button>
+
+            <button
+              className="opacity-80 transition-opacity hover:opacity-100"
+              onClick={() => handleProtectedClick(PATH.MY_PAGE)}
+              aria-label="마이페이지"
+            >
+              <User className="h-4.25 w-4.25 text-[#1d1d1f]" strokeWidth={2.2} />
+            </button>
+
             <button
               className="rounded-full p-2.5 hover:bg-gray-100 md:hidden"
               onClick={() => setIsMobileNavOpen(!isMobileNavOpen)}
@@ -64,6 +84,7 @@ const Header: React.FC = () => {
             </button>
           </div>
         </div>
+
         {isMobileNavOpen && (
           <nav className="animate-in fade-in slide-in-from-top-4 border-t border-gray-50 py-6 md:hidden">
             <div className="grid grid-cols-2 gap-y-4 px-2">
@@ -81,6 +102,7 @@ const Header: React.FC = () => {
           </nav>
         )}
       </div>
+
       <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
     </header>
   );

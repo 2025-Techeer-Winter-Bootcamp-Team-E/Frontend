@@ -5,11 +5,13 @@ import type { ProductDetailResDto } from '@/types/productsType';
 import useCartItemPostMutation from '@/hooks/mutations/useCartItemPostMutation';
 import { PATH } from '@/routes/path';
 import { toast } from 'react-toastify';
+import useAuth from '@/hooks/useAuth';
 
 const ImageGallery = ({ data }: { data?: ProductDetailResDto }) => {
   const navigate = useNavigate();
   const [quantity, setQuantity] = useState(1);
   const { mutate: addCartItem } = useCartItemPostMutation();
+  const { isAuthenticated } = useAuth();
 
   if (!data) return null;
 
@@ -22,6 +24,12 @@ const ImageGallery = ({ data }: { data?: ProductDetailResDto }) => {
   };
 
   const handleAddToCart = () => {
+    if (!isAuthenticated) {
+      toast.info('로그인이 필요한 서비스입니다.');
+      navigate(PATH.LOGIN);
+      return;
+    }
+
     addCartItem(
       {
         product_code: data.product_code,
@@ -37,6 +45,10 @@ const ImageGallery = ({ data }: { data?: ProductDetailResDto }) => {
   };
 
   const handleBuyNow = () => {
+    if (!isAuthenticated) {
+      navigate(PATH.LOGIN);
+      return;
+    }
     navigate(PATH.CHECKOUT, {
       state: {
         mode: 'direct',

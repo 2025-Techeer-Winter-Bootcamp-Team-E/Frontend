@@ -15,12 +15,8 @@ const ImageGallery = ({ data }: { data?: ProductDetailResDto }) => {
 
   if (!data) return null;
 
-  const handleIncrease = () => {
-    setQuantity((prev) => prev + 1);
-  };
-
-  const handleDecrease = () => {
-    setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
+  const handleQuantityChange = (delta: number) => {
+    setQuantity((prev) => Math.max(1, prev + delta));
   };
 
   const handleAddToCart = () => {
@@ -89,7 +85,7 @@ const ImageGallery = ({ data }: { data?: ProductDetailResDto }) => {
         <span className="text-sm font-semibold tracking-tight text-[#1d1d1f]">수량</span>
         <div className="flex items-center gap-4 rounded-xl border border-black/5 bg-white p-1 shadow-sm">
           <button
-            onClick={handleDecrease}
+            onClick={() => handleQuantityChange(-1)}
             className="flex h-7 w-7 items-center justify-center rounded-lg transition-colors hover:bg-[#f5f5f7]"
           >
             <Minus className="h-3 w-3" />
@@ -98,7 +94,7 @@ const ImageGallery = ({ data }: { data?: ProductDetailResDto }) => {
             {quantity}
           </span>
           <button
-            onClick={handleIncrease}
+            onClick={() => handleQuantityChange(1)}
             className="flex h-7 w-7 items-center justify-center rounded-lg transition-colors hover:bg-[#f5f5f7]"
           >
             <Plus className="h-3 w-3" />

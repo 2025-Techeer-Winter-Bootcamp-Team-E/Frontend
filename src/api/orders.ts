@@ -2,6 +2,7 @@ import getAPIResponseData from '@/api/getAPIResponseData';
 import { API } from '@/constants/api';
 import type {
   CartAllItemsResDto,
+  CartItemPatchReqDto,
   CartItemPostReqDto,
   CartItemPostResDto,
   CartItemsCheckoutReqDto,
@@ -64,6 +65,17 @@ export const postCartItem = (body: CartItemPostReqDto) =>
   getAPIResponseData<CartItemPostResDto, CartItemPostReqDto>({
     method: 'POST',
     url: API.ORDERS_CART,
+    data: body,
+  });
+
+/**
+ * 장바구니 상품 수량 변경
+ * PATCH /orders/cart/{cart_item_id}
+ */
+export const patchCartItem = (cartItemId: number, body: CartItemPatchReqDto) =>
+  getAPIResponseData<null, CartItemPatchReqDto>({
+    method: 'PATCH',
+    url: API.ORDERS_CART_ITEM_ID(cartItemId),
     data: body,
   });
 

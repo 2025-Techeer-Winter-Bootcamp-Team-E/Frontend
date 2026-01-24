@@ -100,6 +100,14 @@ export type CartItemPostResDto = {
 };
 
 /**
+ * 장바구니 상품 수량 변경 요청
+ * PATCH /orders/cart/{cart_item_id}
+ */
+export type CartItemPatchReqDto = {
+  quantity: number;
+};
+
+/**
  * 장바구니 상품 조회 아이템
  */
 export type CartItemEntity = {

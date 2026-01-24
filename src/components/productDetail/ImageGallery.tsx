@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import type { ProductDetailResDto } from '@/types/productsType';
 import useCartItemPostMutation from '@/hooks/mutations/useCartItemPostMutation';
 import { PATH } from '@/routes/path';
+import { toast } from 'react-toastify';
 
 const ImageGallery = ({ data }: { data?: ProductDetailResDto }) => {
   const navigate = useNavigate();
@@ -50,6 +51,14 @@ const ImageGallery = ({ data }: { data?: ProductDetailResDto }) => {
     });
   };
 
+  const handleShare = () => {
+    const url = window.location.href;
+    navigator.clipboard
+      .writeText(url)
+      .then(() => toast.success('URL이 복사되었습니다!'))
+      .catch(() => toast.error('URL 복사에 실패했습니다.'));
+  };
+
   return (
     <div className="flex flex-col gap-6">
       <div className="group relative">
@@ -59,10 +68,9 @@ const ImageGallery = ({ data }: { data?: ProductDetailResDto }) => {
             alt={data.product_name}
             className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
-          
         </div>
         <button className="absolute right-5 bottom-5 flex h-10 w-10 items-center justify-center rounded-full bg-white/80 shadow-sm backdrop-blur-md transition-all hover:bg-white">
-          <Share2 className="h-4 w-4 text-[#1d1d1f]" />
+          <Share2 onClick={handleShare} className="h-4 w-4 text-[#1d1d1f]" />
         </button>
       </div>
       <div className="flex items-center justify-between rounded-2xl bg-[#f5f5f7] px-5 py-4">

@@ -67,10 +67,15 @@ export type SearchShoppingResearchReqDto = {
   user_query: string;
 };
 
+export type ResearchQuestionOptionEntity = {
+  id: number;
+  label: string;
+};
+
 export type ResearchQuestionEntity = {
   question_id: number;
   question: string;
-  options: string[];
+  options: ResearchQuestionOptionEntity[];
 };
 
 /** 쇼핑 리서치 검색 요청 응답 (질문 생성)

@@ -1,5 +1,5 @@
 import { Star } from 'lucide-react';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import ReviewCard from './ReviewCard';
 import useProductReviewQuery from '@/hooks/queries/useProductReviewQuery';
 import useProductAIReviewQuery from '@/hooks/queries/useProductAIReviewQuery';
@@ -11,6 +11,7 @@ interface ReviewSectionProps {
 
 const ReviewSection = ({ productCode }: ReviewSectionProps) => {
   const [page, setPage] = useState(1);
+  const reviewContainerRef = useRef<HTMLDivElement>(null);
 
   const { data: reviewData } = useProductReviewQuery(productCode, page);
   const { data: aiData } = useProductAIReviewQuery(productCode);
@@ -23,7 +24,7 @@ const ReviewSection = ({ productCode }: ReviewSectionProps) => {
     if (newPage < 1 || newPage > pagination.total_pages) return;
 
     setPage(newPage);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    reviewContainerRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
   return (
@@ -50,7 +51,7 @@ const ReviewSection = ({ productCode }: ReviewSectionProps) => {
           </span>
 
           <span className="border-l border-[#d2d2d7] pl-4 text-sm font-medium text-[#86868b]">
-            전체 {pagination.total_elements.toLocaleString()}개의 통합 리뷰
+            전체 {pagination.count}개의 통합 리뷰
           </span>
         </div>
       </div>

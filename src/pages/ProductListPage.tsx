@@ -46,6 +46,14 @@ const ProductListPage = () => {
   const products = data?.products || [];
   const pagination = data?.pagination;
 
+  const handlePageChange = (newPage: number) => {
+    if (!pagination) return;
+    if (newPage < 1 || newPage > pagination.total_pages) return;
+
+    setPage(newPage);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <div className="min-h-screen bg-[#F9FAFB] px-20 py-10">
       <div className="mx-auto max-w-7xl">
@@ -75,7 +83,7 @@ const ProductListPage = () => {
         {pagination && (
           <Pagination
             currentPage={pagination.current_page}
-            onPageChange={(newPage) => setPage(newPage)}
+            onPageChange={handlePageChange}
             totalPages={pagination.total_pages}
           />
         )}

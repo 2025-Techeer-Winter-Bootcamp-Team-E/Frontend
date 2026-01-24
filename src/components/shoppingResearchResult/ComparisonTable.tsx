@@ -1,6 +1,8 @@
 import { RefreshCw } from 'lucide-react';
 import StarRating from './StarRating';
 import type { ShoppingResearchResultEntity } from '@/types/searchType';
+import { PATH } from '@/routes/path';
+import { Link } from 'react-router-dom';
 
 interface ComparisonTableProps {
   products: ShoppingResearchResultEntity[];
@@ -18,7 +20,6 @@ const ComparisonTable = ({ products }: ComparisonTableProps) => {
         <RefreshCw className="h-5 w-5 text-[#1d1d1f]" strokeWidth={2.5} />
         <h2 className="text-[22px] font-bold tracking-tight text-[#1d1d1f]">추천 상품</h2>
       </div>
-
       <div className="overflow-hidden rounded-3xl border border-[#d2d2d7]/30 bg-white shadow-[0_2px_12px_rgba(0,0,0,0.04)]">
         <div className="overflow-x-auto">
           <table className="w-full border-collapse">
@@ -27,10 +28,12 @@ const ComparisonTable = ({ products }: ComparisonTableProps) => {
                 <th className="w-40 px-6 py-12 text-center text-[13px] font-bold tracking-widest text-[#86868b] uppercase">
                   속성
                 </th>
-
                 {products.map((product) => (
                   <th key={product.product_code} className="min-w-60 px-6 py-8 text-center">
-                    <div className="flex flex-col items-center gap-4">
+                    <Link
+                      to={`${PATH.PRODUCT_DETAIL(product.product_code)}`}
+                      className="flex flex-col items-center gap-4 no-underline"
+                    >
                       <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-white p-2 shadow-sm ring-1 ring-black/3">
                         <img
                           src={product.product_image_url}
@@ -41,7 +44,7 @@ const ComparisonTable = ({ products }: ComparisonTableProps) => {
                       <p className="text-[15px] font-bold tracking-tight text-[#1d1d1f]">
                         {product.product_name}
                       </p>
-                    </div>
+                    </Link>
                   </th>
                 ))}
               </tr>

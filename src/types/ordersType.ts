@@ -4,6 +4,7 @@
  */
 export type TokenRechargeReqDto = {
   recharge_token: number;
+  recharge_amount: number;
 };
 
 /**
@@ -29,7 +30,18 @@ export type TokenBalanceResDto = {
 export type TokenSingleItemReqDto = {
   product_code: number;
   quantity: number;
-  total_price: number;
+};
+
+/**
+ * 결제 완료 응답에 포함되는 개별 주문 상품 상세 정보
+ */
+export type OrderItemDetail = {
+  product_code: number;
+  product_name: string;
+  quantity: number;
+  price_per_item: number;
+  total_price_for_item: number;
+  product_image_url: string;
 };
 
 /**
@@ -38,7 +50,7 @@ export type TokenSingleItemReqDto = {
  */
 export type TokenSingleItemResDto = {
   order_id: string;
-  product_name: string;
+  order_items: OrderItemDetail[];
   total_price: number;
   current_tokens: number;
   order_status: string;
@@ -56,7 +68,6 @@ type CartItemsEntity = {
  */
 export type CartItemsReqDto = {
   items: CartItemsEntity[];
-  total_price: number;
 };
 
 /**
@@ -65,10 +76,11 @@ export type CartItemsReqDto = {
  */
 export type CartItemsResDto = {
   order_id: string;
-  order_items: CartItemsEntity[];
+  order_items: OrderItemDetail[];
   total_price: number;
   current_tokens: number;
   order_status: string;
+  ordered_at: string;
 };
 
 /**

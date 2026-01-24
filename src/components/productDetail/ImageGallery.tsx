@@ -35,6 +35,30 @@ const ImageGallery = ({ data }: { data?: ProductsCodeResDto }) => {
   };
 
   const handleBuyNow = () => {
+    // --- 바로 구매 데이터 디버깅 ---
+    // 1. API에서 받은 전체 상품 데이터를 콘솔에서 확인하여 실제 가격 필드명을 찾습니다.
+    console.log('상품 상세 정보 (data):', data);
+
+    // 2. 가격 값을 안전하게 숫자로 변환하는 헬퍼 함수
+    const getNumericPrice = (priceValue: unknown): number => {
+      if (typeof priceValue === 'number') return priceValue;
+      if (typeof priceValue === 'string') {
+        const num = parseInt(priceValue.replace(/[^0-9]/g, ''), 10);
+        return isNaN(num) ? 0 : num;
+      }
+      return 0;
+    };
+
+    // 3. 장바구니 로직처럼 여러 가격 필드를 순서대로 확인하여 유효한 값을 찾습니다.
+    // (예: data.price -> data.danawa_price -> data.base_price 순으로 확인)
+    const price =
+      getNumericPrice((data as any).price) ||
+      getNumericPrice((data as any).danawa_price) ||
+      getNumericPrice(data.base_price) ||
+      0;
+
+    console.log('최종 변환된 가격 (price):', price);
+
     navigate(PATH.CHECKOUT, {
       state: {
         mode: 'direct',
@@ -43,7 +67,7 @@ const ImageGallery = ({ data }: { data?: ProductsCodeResDto }) => {
           name: data.product_name,
           image: data.thumbnail_url,
           quantity: quantity,
-          price: data.base_price,
+          price: price,
         },
       },
     });

@@ -33,10 +33,11 @@ export const getTokenBalance = async () => {
 
 // 토큰으로 상품 직접 결제 POST
 export const postTokenSingleItem = async (body: TokenSingleItemReqDto) => {
+  const { product_code, quantity } = body;
   return await getAPIResponseData<TokenSingleItemResDto, TokenSingleItemReqDto>({
     method: 'POST',
     url: API.ORDERS_CHECKOUT,
-    data: body,
+    data: { product_code, quantity },
   });
 };
 
@@ -45,7 +46,7 @@ export const postCartItemsCheckout = async (body: CartItemsReqDto) => {
   return await getAPIResponseData<CartItemsResDto, CartItemsReqDto>({
     method: 'POST',
     url: API.ORDERS_CART_CHECKOUT,
-    data: body,
+    data: { items: body.items },
   });
 };
 

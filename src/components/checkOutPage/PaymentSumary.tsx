@@ -18,6 +18,11 @@ const PaymentSummary = ({
   onCheckout: () => void;
   isLoading?: boolean;
 }) => {
+  // '보너스 혜택'은 현재 정책상 0으로 고정하고,
+  // '결제 예정 금액'이 이를 올바르게 반영하도록 직접 계산합니다.
+  const finalBonus = 0;
+  const finalTotal = summary.subtotal - summary.discount - finalBonus;
+
   return (
     <div className="sticky top-12 flex flex-col gap-4">
       <div className="overflow-hidden rounded-4xl border border-black/2 bg-white p-8 shadow-[0_20px_40px_rgba(0,0,0,0.04)]">
@@ -26,8 +31,8 @@ const PaymentSummary = ({
         <div className="space-y-1">
           <PriceSummaryRow label="상품 금액" amount={summary.subtotal} />
           <PriceSummaryRow label="할인 금액" amount={summary.discount} isDiscount />
-          <PriceSummaryRow label="보너스 혜택" amount={summary.bonus} isDiscount />
-          <PriceSummaryRow label="결제 예정 금액" amount={summary.total} highlight />
+          <PriceSummaryRow label="보너스 혜택" amount={finalBonus} isDiscount />
+          <PriceSummaryRow label="결제 예정 금액" amount={finalTotal} highlight />
         </div>
 
         <div className="mt-8">
@@ -64,7 +69,7 @@ const PaymentSummary = ({
                 : 'cursor-not-allowed bg-[#d2d2d7]'
             }`}
           >
-            {isLoading ? '처리 중...' : `${summary.total.toLocaleString()} TK 결제하기`}
+            {isLoading ? '처리 중...' : `${finalTotal.toLocaleString()} TK 결제하기`}
           </button>
         </div>
       </div>

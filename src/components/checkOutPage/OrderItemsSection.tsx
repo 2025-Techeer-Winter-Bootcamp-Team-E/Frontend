@@ -10,8 +10,8 @@ const OrderItemsSection = ({ items }: { items: BuyItemEntity[] }) => {
         <SectionHeader icon={Package} title={`주문 상품 (${items.length})`} />
       </div>
       <div className="space-y-2">
-        {items.map((item) => (
-          <OrderItem key={item.id} item={item} />
+        {items.map((item, index) => (
+          <OrderItem key={`${item.id}-${index}`} item={item} />
         ))}
       </div>
     </div>

@@ -1,10 +1,10 @@
 import CartItemComponent from '@/components/cartPage/CartItemComponent';
 import useCartItemPostMutation from '@/hooks/mutations/useCartItemPostMutation';
 import useCartItemDeleteMutation from '@/hooks/mutations/useCartItemDeleteMutation';
-import type { BuyItemEntity } from '@/types/ordersType';
+import type { CartItemEntity } from '@/types/ordersType';
 
 interface Props {
-  item: BuyItemEntity;
+  item: CartItemEntity;
   isSelected: boolean;
   onToggle: () => void;
   onRemoveSuccess: () => void;
@@ -25,8 +25,7 @@ const CartItemWrapper = ({ item, isSelected, onToggle, onRemoveSuccess }: Props)
 
   const handleRemove = () => {
     if (!confirm('상품을 장바구니에서 삭제하시겠습니까?')) return;
-
-    deleteMutation.mutate(item.id);
+    deleteMutation.mutate(item.cart_item_id);
     onRemoveSuccess();
   };
 

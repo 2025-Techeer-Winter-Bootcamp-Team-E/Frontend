@@ -1,17 +1,18 @@
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import ShippingInfoSection from '@/components/checkOutPage/ShippingInfoSection';
 import OrderItemsSection from '@/components/checkOutPage/OrderItemsSection';
 import PaymentMethodSection from '@/components/checkOutPage/PaymentMethodSection';
-import PaymentSummary from '@/components/checkOutPage/PaymentSumary';
 import useCartQuery from '@/hooks/queries/useCartQuery';
 import useTokenBalanceQuery from '@/hooks/queries/useTokenBalanceQuery';
 import useCheckoutMutation from '@/hooks/mutations/useCheckoutMutation';
 import useOrderCheckoutMutation from '@/hooks/mutations/useOrderCheckoutMutation';
 import { PATH } from '@/routes/path';
-import type { BuyItemEntity } from '@/types/ordersType';
 import { useCheckoutItems } from '@/hooks/useCheckoutItems';
 import { useOrderSummary } from '@/hooks/useOrderSummary';
+import PaymentSummary from '@/components/checkOutPage/PaymentSumary';
+import { toast } from 'react-toastify';
+import type { BuyItemEntity, CartCheckoutItem } from '@/types/ordersType';
 
 const CheckoutPage = () => {
   const { state } = useLocation();
@@ -48,24 +49,31 @@ const CheckoutPage = () => {
   const summary = useOrderSummary(orderItems);
   const availableTokens = tokenData?.current_tokens ?? 0;
 
-  const handleCheckout = useCallback(() => {
+  const handleCheckout = () => {
     if (!agreed) {
-      alert('약관에 동의해주세요.');
+      toast.error('약관에 동의해주세요.');
       return;
     }
 
     if (!formData.recipient || !formData.phone || !formData.address) {
-      alert('배송지 정보를 모두 입력해주세요.');
+      toast.error('배송지 정보를 모두 입력해주세요.');
+      return;
+    }
+
+    const currentTokens = tokenData?.current_tokens ?? 0;
+    if (summary.total > currentTokens) {
+      toast.error('토큰이 부족합니다. 충전해주세요.');
+      navigate(PATH.TOKEN);
       return;
     }
 
     const onSuccess = () => {
-      alert('결제가 완료되었습니다.');
+      toast.success('결제가 완료되었습니다.');
       navigate(PATH.ROOT);
     };
 
     const onError = (error: unknown) => {
-      alert('결제 중 오류가 발생했습니다.');
+      toast.error('결제 중 오류가 발생했습니다.');
       console.error(error);
     };
 
@@ -81,27 +89,24 @@ const CheckoutPage = () => {
       return;
     }
 
+    if (orderItems.length === 0) {
+      toast.error('주문할 상품이 없습니다.');
+      return;
+    }
+
+    const cartItems = orderItems.filter((item): item is CartCheckoutItem => 'cart_item_id' in item);
+
     checkoutMutation.mutate(
       {
-        items: orderItems.map((item) => ({
-          cart_item_id: item.id,
+        items: cartItems.map((item) => ({
+          cart_item_id: item.cart_item_id,
           quantity: item.quantity,
         })),
         total_price: summary.total,
       },
       { onSuccess, onError },
     );
-  }, [
-    agreed,
-    formData,
-    mode,
-    directItem,
-    orderItems,
-    summary.total,
-    navigate,
-    checkoutMutation,
-    orderCheckoutMutation,
-  ]);
+  };
 
   return (
     <div className="min-h-screen bg-[#f5f5f7]">
@@ -115,7 +120,7 @@ const CheckoutPage = () => {
           </div>
           <div className="w-full shrink-0 lg:sticky lg:top-12 lg:w-95">
             <PaymentSummary
-              summary={summary}
+              total={summary.total}
               agreed={agreed}
               onAgreeChange={setAgreed}
               onCheckout={handleCheckout}

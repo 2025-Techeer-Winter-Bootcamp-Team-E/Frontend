@@ -1,18 +1,11 @@
-import PriceSummaryRow from '@/components/checkOutPage/PriceSummaryRow';
-
 const PaymentSummary = ({
-  summary,
+  total,
   agreed,
   onAgreeChange,
   onCheckout,
   isLoading = false,
 }: {
-  summary: {
-    subtotal: number;
-    discount: number;
-    bonus: number;
-    total: number;
-  };
+  total: number;
   agreed: boolean;
   onAgreeChange: (value: boolean) => void;
   onCheckout: () => void;
@@ -22,14 +15,9 @@ const PaymentSummary = ({
     <div className="sticky top-12 flex flex-col gap-4">
       <div className="overflow-hidden rounded-4xl border border-black/2 bg-white p-8 shadow-[0_20px_40px_rgba(0,0,0,0.04)]">
         <h3 className="mb-6 text-[17px] font-bold tracking-tight text-[#1d1d1f]">최종 결제 금액</h3>
-
-        <div className="space-y-1">
-          <PriceSummaryRow label="상품 금액" amount={summary.subtotal} />
-          <PriceSummaryRow label="할인 금액" amount={summary.discount} isDiscount />
-          <PriceSummaryRow label="보너스 혜택" amount={summary.bonus} isDiscount />
-          <PriceSummaryRow label="결제 예정 금액" amount={summary.total} highlight />
-        </div>
-
+        <span className="text-3xl font-bold tracking-tighter text-[#1d1d1f]">
+          {total.toLocaleString()} <span className="text-lg font-medium">TK</span>
+        </span>
         <div className="mt-8">
           <label className="group mb-6 flex cursor-pointer items-start gap-3">
             <div className="relative mt-0.5">
@@ -64,7 +52,7 @@ const PaymentSummary = ({
                 : 'cursor-not-allowed bg-[#d2d2d7]'
             }`}
           >
-            {isLoading ? '처리 중...' : `${summary.total.toLocaleString()} TK 결제하기`}
+            {isLoading ? '처리 중...' : `${total.toLocaleString()} TK 결제하기`}
           </button>
         </div>
       </div>

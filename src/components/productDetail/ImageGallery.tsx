@@ -37,7 +37,7 @@ const ImageGallery = ({ data }: { data?: ProductDetailResDto }) => {
       },
       {
         onSuccess: () => {
-          alert('장바구니에 추가되었습니다.');
+          toast.success('장바구니에 추가되었습니다.');
           setQuantity(1);
         },
       },
@@ -53,7 +53,7 @@ const ImageGallery = ({ data }: { data?: ProductDetailResDto }) => {
       state: {
         mode: 'direct',
         directItem: {
-          product_id: data.product_code,
+          product_code: data.product_code,
           name: data.product_name,
           image: data.thumbnail_url,
           quantity: quantity,

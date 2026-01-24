@@ -1,3 +1,15 @@
+export type BuyItemEntity = {
+  product_code: number;
+  name: string;
+  image: string;
+  quantity: number;
+  price: number;
+};
+
+export type CartCheckoutItem = BuyItemEntity & {
+  cart_item_id: number;
+};
+
 export type TokenBalance = {
   current_tokens: number;
 };

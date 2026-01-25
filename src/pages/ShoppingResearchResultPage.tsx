@@ -54,7 +54,7 @@ const ShoppingResearchResultPage = () => {
     navigate,
   ]);
 
-  const products = data?.products || [];
+  const products = data?.product || [];
   const topProduct = products[0];
   const comparisonProducts = products.slice(1);
 

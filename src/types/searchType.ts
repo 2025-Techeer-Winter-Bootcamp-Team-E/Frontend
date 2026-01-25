@@ -117,7 +117,7 @@ export type ShoppingResearchResultEntity = {
   product_specs: ProductSpecs;
   ai_review_summary: string;
   product_detail_url: string;
-  optimal_product_info: MallInfoEntity[];
+  optimal_product_info: MallInfoEntity;
 };
 
 /** 쇼핑 리서치 요청 응답 데이터
@@ -125,5 +125,5 @@ export type ShoppingResearchResultEntity = {
  */
 export type SearchShoppingResearchResultResDto = {
   user_query: string;
-  products: ShoppingResearchResultEntity[];
+  product: ShoppingResearchResultEntity[];
 };

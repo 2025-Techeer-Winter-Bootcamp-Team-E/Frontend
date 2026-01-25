@@ -28,8 +28,8 @@ const ComparisonTable = ({ products }: ComparisonTableProps) => {
                 <th className="w-40 px-6 py-12 text-center text-[13px] font-bold tracking-widest text-[#86868b] uppercase">
                   속성
                 </th>
-                {products.map((product) => (
-                  <th key={product.product_code} className="min-w-60 px-6 py-8 text-center">
+                {products.map((product, index) => (
+                  <th key={`product-${product.product_code}-${index}`} className="min-w-60 px-6 py-8 text-center">
                     <Link
                       to={`${PATH.PRODUCT_DETAIL(product.product_code)}`}
                       className="flex flex-col items-center gap-4 no-underline"
@@ -55,9 +55,9 @@ const ComparisonTable = ({ products }: ComparisonTableProps) => {
                 <td className="bg-[#f5f5f7]/30 px-6 py-5 text-center text-[14px] font-semibold text-[#86868b]">
                   가격
                 </td>
-                {products.map((product) => (
+                {products.map((product, index) => (
                   <td
-                    key={product.product_code}
+                    key={`price-${product.product_code}-${index}`}
                     className="px-6 py-5 text-center text-[15px] font-bold text-[#1d1d1f]"
                   >
                     {product.price.toLocaleString()}원
@@ -68,8 +68,8 @@ const ComparisonTable = ({ products }: ComparisonTableProps) => {
                 <td className="bg-[#f5f5f7]/30 px-6 py-5 text-center text-[14px] font-semibold text-[#86868b]">
                   성능
                 </td>
-                {products.map((product) => (
-                  <td key={product.product_code} className="px-6 py-5">
+                {products.map((product, index) => (
+                  <td key={`performance-${product.product_code}-${index}`} className="px-6 py-5">
                     <div className="flex scale-90 justify-center opacity-80">
                       <StarRating rating={Math.round(product.performance_score * 5)} />
                     </div>
@@ -81,9 +81,9 @@ const ComparisonTable = ({ products }: ComparisonTableProps) => {
                   <td className="bg-[#f5f5f7]/30 px-6 py-5 text-center text-[14px] font-semibold text-[#86868b]">
                     {formatSpecLabel(specKey)}
                   </td>
-                  {products.map((product) => (
+                  {products.map((product, index) => (
                     <td
-                      key={product.product_code}
+                      key={`spec-${product.product_code}-${index}-${specKey}`}
                       className="px-6 py-5 text-center text-[14px] font-medium text-[#424245]"
                     >
                       {product.product_specs?.[specKey] ?? '—'}

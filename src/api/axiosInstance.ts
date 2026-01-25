@@ -51,7 +51,23 @@ axiosInstance.interceptors.response.use(
     if (statusCode === 403) {
       window.location.href = '/';
     }
-    alert(errorData);
+    
+    // 에러 메시지 추출
+    const errorMessage = 
+      typeof errorData === 'string' 
+        ? errorData 
+        : errorData?.message || errorData?.error || JSON.stringify(errorData) || '알 수 없는 오류가 발생했습니다.';
+    
+    if (import.meta.env.MODE === 'development') {
+      console.error('API Error:', {
+        status: statusCode,
+        message: errorMessage,
+        error: errorData,
+        url: error.config?.url,
+      });
+    }
+    
+    alert(errorMessage);
     return Promise.reject(error);
   },
 );

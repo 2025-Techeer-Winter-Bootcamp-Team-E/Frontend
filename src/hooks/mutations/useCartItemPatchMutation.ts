@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { patchCartItem } from '@/api/orders';
+import { QUERY_KEY } from '@/constants/queryKey';
 
 const useCartItemPatchMutation = () => {
   const queryClient = useQueryClient();
@@ -8,9 +9,7 @@ const useCartItemPatchMutation = () => {
     mutationFn: ({ cartItemId, quantity }: { cartItemId: number; quantity: number }) =>
       patchCartItem(cartItemId, { quantity }),
     onSuccess: () => {
-      // 장바구니 목록을 최신 상태로 갱신합니다.
-      // 주의: 실제 장바구니 조회 쿼리 키(예: ['cart'] 또는 ['cartItems'])와 일치해야 합니다.
-      queryClient.invalidateQueries({ queryKey: ['cart'] });
+      queryClient.invalidateQueries({ queryKey: QUERY_KEY.CART });
     },
   });
 };

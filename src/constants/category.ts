@@ -8,7 +8,7 @@ export const CATEGORY = [
       { id: 4, name: '삼성전자' },
       { id: 10, name: 'APPLE' },
       { id: 5, name: 'ASUS' },
-      { id: 5, name: 'HP' },
+      { id: 7, name: 'HP' },
       { id: 3, name: 'LG전자' },
       { id: 6, name: 'MSI' },
       { id: 56, name: '한성' },

@@ -125,5 +125,5 @@ export type ShoppingResearchResultEntity = {
  */
 export type SearchShoppingResearchResultResDto = {
   user_query: string;
-  products: ShoppingResearchResultEntity[];
+  product: ShoppingResearchResultEntity[];
 };

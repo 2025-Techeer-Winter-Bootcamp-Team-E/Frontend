@@ -22,9 +22,28 @@ const QuestionFlow = ({
   onNext,
   onBack,
 }: QuestionFlowProps) => {
+  // 안전성 검사: questions가 비어있거나 인덱스가 범위를 벗어난 경우
+  if (!questions || questions.length === 0) {
+    return (
+      <div className="mt-10 overflow-hidden rounded-4xl border border-black/3 bg-white p-10 shadow-[0_20px_50px_rgba(0,0,0,0.02)] md:p-16">
+        <div className="text-center text-gray-500">질문이 없습니다.</div>
+      </div>
+    );
+  }
+
   const currentQuestion = questions[currentQuestionIndex];
+  
+  // currentQuestion이 없는 경우 (인덱스 범위 초과)
+  if (!currentQuestion) {
+    return (
+      <div className="mt-10 overflow-hidden rounded-4xl border border-black/3 bg-white p-10 shadow-[0_20px_50px_rgba(0,0,0,0.02)] md:p-16">
+        <div className="text-center text-gray-500">질문을 찾을 수 없습니다.</div>
+      </div>
+    );
+  }
+
   const isLastQuestion = currentQuestionIndex === questions.length - 1;
-  const currentAnswer = answers[currentQuestion?.question_id] || '';
+  const currentAnswer = answers[currentQuestion.question_id] || '';
 
   return (
     <div className="mt-10 overflow-hidden rounded-4xl border border-black/3 bg-white p-10 shadow-[0_20px_50px_rgba(0,0,0,0.02)] md:p-16">

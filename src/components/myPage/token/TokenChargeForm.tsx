@@ -7,11 +7,11 @@ import kakaoImage from '@/assets/kakao.png';
 import naverImage from '@/assets/naver.png';
 
 const tokenOptions = [
-  { amount: 100, price: 1100, isRecommended: false, isPopular: false },
-  { amount: 500, price: 5500, isRecommended: false, isPopular: false },
-  { amount: 1000, price: 11000, isRecommended: false, isPopular: true },
-  { amount: 5000, price: 55000, isRecommended: false, isPopular: false },
-  { amount: 10000, price: 110000, isRecommended: true, isPopular: false },
+  { amount: 1000, price: 1000, isRecommended: false, isPopular: false },
+  { amount: 5000, price: 5000, isRecommended: false, isPopular: false },
+  { amount: 10000, price: 10000, isRecommended: false, isPopular: true },
+  { amount: 50000, price: 50000, isRecommended: false, isPopular: false },
+  { amount: 100000, price: 100000, isRecommended: true, isPopular: false },
 ];
 
 const paymentMethods = [

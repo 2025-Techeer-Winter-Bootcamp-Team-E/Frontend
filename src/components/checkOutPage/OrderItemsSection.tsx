@@ -11,7 +11,7 @@ const OrderItemsSection = ({ items }: { items: BuyItemEntity[] }) => {
       </div>
       <div className="space-y-2">
         {items.map((item) => (
-          <OrderItem key={item.product_id} item={item} />
+          <OrderItem key={item.product_code} item={item} />
         ))}
       </div>
     </div>

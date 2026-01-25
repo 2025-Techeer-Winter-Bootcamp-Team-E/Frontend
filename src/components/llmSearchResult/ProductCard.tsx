@@ -2,10 +2,10 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowUpRight } from 'lucide-react';
 import { PATH } from '@/routes/path';
-import type { LLMRecommendationEntity } from '@/types/searchType';
+import type { LlmRecommendationEntity } from '@/types/searchType';
 
 interface ProductCardProps {
-  product: LLMRecommendationEntity;
+  product: LlmRecommendationEntity;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
@@ -13,7 +13,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
   const handleCardClick = () => {
     if (product.product_detail_url) window.open(product.product_detail_url, '_blank');
-    else navigate(PATH.PRODUCT_DETAIL(product.product_id));
+    else navigate(PATH.PRODUCT_DETAIL(product.product_code));
   };
 
   return (
@@ -28,7 +28,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             alt={product.product_name}
             className="h-full w-full object-contain mix-blend-multiply transition-transform duration-700 group-hover:scale-105"
           />
-          <div className="absolute top-6 left-6 rounded-full bg-white/90 px-3 py-1 text-[11px] font-bold tracking-tight text-[#1d1d1f] shadow-sm ring-1 ring-black/[0.03] backdrop-blur-md">
+          <div className="absolute top-6 left-6 rounded-full bg-white/90 px-3 py-1 text-[11px] font-bold tracking-tight text-[#1d1d1f] shadow-sm ring-1 ring-black/3 backdrop-blur-md">
             BEST PICK
           </div>
         </div>
@@ -54,7 +54,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                   .map(([key, value]) => (
                     <span
                       key={key}
-                      className="rounded-full bg-[#F5F5F7] px-4 py-1.5 text-[13px] font-medium text-[#424245] ring-1 ring-black/[0.02]"
+                      className="rounded-full bg-[#F5F5F7] px-4 py-1.5 text-[13px] font-medium text-[#424245] ring-1 ring-black/2"
                     >
                       {value}
                     </span>

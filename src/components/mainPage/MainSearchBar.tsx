@@ -53,7 +53,7 @@ const MainSearchBar = () => {
       { user_query: query },
       {
         onSuccess: (data) => {
-          navigate(PATH.SHOPPING_RESEARCH, {
+          navigate(`${PATH.SHOPPING_RESEARCH}?q=${encodeURIComponent(query)}`, {
             state: {
               userQuery: query,
               questions: data.questions,

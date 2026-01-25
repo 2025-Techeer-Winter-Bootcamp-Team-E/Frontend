@@ -1,5 +1,7 @@
+import type { ResearchQuestionOptionEntity } from '@/types/searchType';
+
 interface QuickSelectOptionsProps {
-  options: string[];
+  options: ResearchQuestionOptionEntity[];
   selectedOption: string;
   onSelect: (option: string) => void;
 }
@@ -11,17 +13,17 @@ const QuickSelectOptions = ({ options, selectedOption, onSelect }: QuickSelectOp
         Quick Select
       </p>
       <div className="flex flex-wrap justify-center gap-2.5">
-        {options.map((option, index) => (
+        {options.map((option) => (
           <button
-            key={index}
-            onClick={() => onSelect(option)}
+            key={option.id}
+            onClick={() => onSelect(option.label)}
             className={`rounded-full px-5 py-2.5 text-[14px] font-medium transition-all duration-300 ${
-              selectedOption === option
+              selectedOption === option.label
                 ? 'bg-[#1d1d1f] text-white'
                 : 'bg-[#F5F5F7] text-[#424245] hover:bg-[#e8e8ed]'
             }`}
           >
-            {option}
+            {option.label}
           </button>
         ))}
       </div>

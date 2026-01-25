@@ -9,6 +9,8 @@ import {
 import SearchModal from '@/components/layout/SearchModal';
 import { PATH } from '@/routes/path';
 import { SEARCH_MODE } from '@/constants/searchMode';
+import Loading from '@/components/layout/Loading';
+import Error from '@/components/layout/Error';
 
 interface LocationState {
   user_query: string;
@@ -30,7 +32,7 @@ const ShoppingResearchResultPage = () => {
   const userQueryFromUrl = searchParams.get('q');
 
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
-  const { mutate, data } = useShoppingResultMutation();
+  const { mutate, data, isPending, isError } = useShoppingResultMutation();
 
   useEffect(() => {
     if (state?.search_id && state?.user_query && state?.survey_contents) {
@@ -55,6 +57,13 @@ const ShoppingResearchResultPage = () => {
   const products = data?.products || [];
   const topProduct = products[0];
   const comparisonProducts = products.slice(1);
+
+  if (isPending) {
+    return <Loading />;
+  }
+  if (isError) {
+    return <Error />;
+  }
 
   return (
     <div className="min-h-screen bg-[#F5F5F7] pt-12 pb-32">

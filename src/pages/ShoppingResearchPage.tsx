@@ -5,6 +5,8 @@ import useShoppingResearchMutation from '@/hooks/mutations/useShoppingResearchMu
 import { PATH } from '@/routes/path';
 import type { ResearchQuestionEntity } from '@/types/searchType';
 import QuestionFlow from '@/components/shoppingResearch/QuestionFlow';
+import Loading from '@/components/layout/Loading';
+import Error from '@/components/layout/Error';
 
 interface LocationState {
   userQuery?: string;
@@ -26,7 +28,7 @@ const ShoppingResearchPage = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<number, string>>({});
 
-  const { mutate } = useShoppingResearchMutation();
+  const { mutate, isPending, isError } = useShoppingResearchMutation();
 
   useEffect(() => {
     if (questions.length > 0 || !userQuery) return;
@@ -82,6 +84,13 @@ const ShoppingResearchPage = () => {
       },
     );
   };
+
+  if (isPending) {
+    return <Loading />;
+  }
+  if (isError) {
+    return <Error />;
+  }
 
   return (
     <div className="min-h-screen bg-[#F5F5F7] pt-28 pb-24">
